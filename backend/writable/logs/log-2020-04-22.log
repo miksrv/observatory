@@ -1,0 +1,20 @@
+CRITICAL - 2020-04-22 03:57:44 --> MySQL server has gone away
+#0 /home/users/m/mik/domains/api.miksoft.pro/system/Database/BaseConnection.php(377): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 /home/users/m/mik/domains/api.miksoft.pro/system/Database/BaseConnection.php(643): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/users/m/mik/domains/api.miksoft.pro/system/Database/BaseBuilder.php(1819): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 /home/users/m/mik/domains/api.miksoft.pro/app/Controllers/Get.php(24): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/users/m/mik/domains/api.miksoft.pro/system/CodeIgniter.php(910): App\Controllers\Get->general()
+#5 /home/users/m/mik/domains/api.miksoft.pro/system/CodeIgniter.php(398): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Get))
+#6 /home/users/m/mik/domains/api.miksoft.pro/system/CodeIgniter.php(306): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /home/users/m/mik/domains/api.miksoft.pro/index.php(45): CodeIgniter\CodeIgniter->run()
+#8 {main}
+CRITICAL - 2020-04-22 19:20:01 --> MySQL server has gone away
+#0 /home/users/m/mik/domains/api.miksoft.pro/system/Database/BaseConnection.php(377): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 /home/users/m/mik/domains/api.miksoft.pro/system/Database/BaseConnection.php(643): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/users/m/mik/domains/api.miksoft.pro/system/Database/BaseBuilder.php(1819): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 /home/users/m/mik/domains/api.miksoft.pro/app/Controllers/Get.php(24): CodeIgniter\Database\BaseBuilder->get()
+#4 /home/users/m/mik/domains/api.miksoft.pro/system/CodeIgniter.php(910): App\Controllers\Get->general()
+#5 /home/users/m/mik/domains/api.miksoft.pro/system/CodeIgniter.php(398): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Get))
+#6 /home/users/m/mik/domains/api.miksoft.pro/system/CodeIgniter.php(306): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 /home/users/m/mik/domains/api.miksoft.pro/index.php(45): CodeIgniter\CodeIgniter->run()
+#8 {main}

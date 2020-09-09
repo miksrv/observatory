@@ -1,0 +1,8 @@
+CRITICAL - 2020-04-30 14:37:54 --> Division by zero
+#0 /home/users/m/mik/domains/api.miksoft.pro/app/Controllers/Get.php(309): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Division by zer...', '/home/users/m/m...', 309, Array)
+#1 /home/users/m/mik/domains/api.miksoft.pro/app/Controllers/Get.php(20): App\Controllers\Get->_fetch_data()
+#2 /home/users/m/mik/domains/api.miksoft.pro/system/CodeIgniter.php(910): App\Controllers\Get->general()
+#3 /home/users/m/mik/domains/api.miksoft.pro/system/CodeIgniter.php(398): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Get))
+#4 /home/users/m/mik/domains/api.miksoft.pro/system/CodeIgniter.php(306): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#5 /home/users/m/mik/domains/api.miksoft.pro/index.php(45): CodeIgniter\CodeIgniter->run()
+#6 {main}

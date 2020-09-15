@@ -12,7 +12,7 @@ class Get extends BaseController
 
         $query = $builder->orderBy('item_date_obs', 'ASC')->get();
 
-        $_data = [];
+        $_data = $_exp = [];
 
         foreach ($query->getResult() as $row)
         {
@@ -20,18 +20,25 @@ class Get extends BaseController
 
             if ( ! isset($_data[$day])) {
                 $_data[$day] = 1;
+                $_exp[$day]  = $row->item_exptime;
 
                 continue;
             }
 
             $_data[$day] += 1;
+            $_exp[$day]  += $row->item_exptime;
         }
 
         $_tmp = [];
 
         foreach ($_data as $key => $item)
         {
-            $_tmp[] = [strtotime($key) * 1000, $item];
+            $_tmp['frame'][] = [strtotime($key) * 1000, $item];
+        }
+
+        foreach ($_exp as $key => $item)
+        {
+            $_tmp['exp'][] = [strtotime($key) * 1000, round($item / 60, 1)];
         }
 
         $this->response

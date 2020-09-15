@@ -32,15 +32,38 @@ const Charts = (props) => {
                 }
             },
             opposite: false,
+        }, {
+            title: {
+                text: 'Выдержка',
+                style: {
+                    color: Highcharts.theme.colors[0]
+                }
+            },
+            labels: {
+                format: 'мин',
+                style: {
+                    color: Highcharts.theme.colors[0]
+                }
+            },
+            opposite: true,
         }],
         series: [{
             name: 'Количество кадров',
             type: 'column',
-            data: props.data.chart,
+            data: props.data.chart.frame,
             color: Highcharts.theme.colors[3],
             tooltip: {
                 valueSuffix: ''
             }
+        }, {
+            name: 'Выдержка',
+            type: 'spline',
+            yAxis: 1,
+            color: Highcharts.theme.colors[0],
+            data: props.data.chart.exp,
+            tooltip: {
+                valueSuffix: ' мин'
+            },
         }]
     }
 

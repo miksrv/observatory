@@ -40,7 +40,7 @@ const Charts = (props) => {
                 }
             },
             labels: {
-                format: 'мин',
+                format: '{value} мин',
                 style: {
                     color: Highcharts.theme.colors[0]
                 }

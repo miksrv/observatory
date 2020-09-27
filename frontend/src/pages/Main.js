@@ -38,7 +38,7 @@ class Main extends Component {
         const { isOpen } = this.state
         const { statistic, graphic } = this.props
 
-        let camera = 'http://astro.myftp.org:8002/jpg/1/image.jpg'
+        let camera = 'https://fits.miksoft.pro/get/webcam_photo'
 
         return (
             <div>

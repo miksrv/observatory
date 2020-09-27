@@ -116,4 +116,19 @@ class Get extends BaseController
 
         exit();
     }
+
+    function webcam_photo()
+    {
+        if ( ! $photo = cache('webcam_photo'))
+        {
+            $photo = file_get_contents('http://astro.myftp.org:8002/jpg/1/image.jpg');
+
+            cache()->save('narodmon', $photo);
+        }
+
+        return $this->response
+            ->setHeader('Content-Type', 'image/pjpeg')
+            ->setBody($photo)
+            ->send();;
+    }
 }

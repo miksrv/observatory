@@ -1,10 +1,7 @@
 import React from 'react'
-import { Table, Dimmer, Loader, Container, Image, Popup } from 'semantic-ui-react'
+import { Table, Container } from 'semantic-ui-react'
 
 import 'moment/locale/ru'
-import moment from "moment";
-
-import _ from 'lodash'
 
 import getTimeFromSec from '../data/functions'
 
@@ -30,13 +27,13 @@ const Dashboard = (props) => {
                         <Table.Row key={key}>
                             <Table.Cell>{item.name}</Table.Cell>
                             <Table.Cell>{getTimeFromSec(item.total)}</Table.Cell>
-                            <Table.Cell>{item.l}</Table.Cell>
-                            <Table.Cell>{item.r}</Table.Cell>
-                            <Table.Cell>{item.g}</Table.Cell>
-                            <Table.Cell>{item.b}</Table.Cell>
-                            <Table.Cell>{item.h}</Table.Cell>
-                            <Table.Cell>{item.o}</Table.Cell>
-                            <Table.Cell>{item.s}</Table.Cell>
+                            <Table.Cell>{getTimeFromSec(item.l)}</Table.Cell>
+                            <Table.Cell>{getTimeFromSec(item.r)}</Table.Cell>
+                            <Table.Cell>{getTimeFromSec(item.g)}</Table.Cell>
+                            <Table.Cell>{getTimeFromSec(item.b)}</Table.Cell>
+                            <Table.Cell>{getTimeFromSec(item.h)}</Table.Cell>
+                            <Table.Cell>{getTimeFromSec(item.o)}</Table.Cell>
+                            <Table.Cell>{getTimeFromSec(item.s)}</Table.Cell>
                         </Table.Row>
                     ))}
                 </Table.Body>

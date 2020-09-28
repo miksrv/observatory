@@ -1,5 +1,6 @@
 import React from 'react'
 import { Table, Container } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 
 import 'moment/locale/ru'
 
@@ -25,7 +26,7 @@ const Dashboard = (props) => {
                 <Table.Body>
                     {props.data.statistic.map((item, key) => (
                         <Table.Row key={key}>
-                            <Table.Cell>{item.name}</Table.Cell>
+                            <Table.Cell><Link to={'/object/' + item.name}>{item.name}</Link></Table.Cell>
                             <Table.Cell>{getTimeFromSec(item.total)}</Table.Cell>
                             <Table.Cell>{getTimeFromSec(item.l)}</Table.Cell>
                             <Table.Cell>{getTimeFromSec(item.r)}</Table.Cell>

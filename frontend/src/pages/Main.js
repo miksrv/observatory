@@ -12,9 +12,6 @@ import getTimeFromSec from '../data/functions'
 import Lightbox from 'react-image-lightbox'
 import 'react-image-lightbox/style.css'
 
-import 'moment/locale/ru'
-import moment from "moment";
-
 import _ from 'lodash'
 
 class Main extends Component {
@@ -55,7 +52,7 @@ class Main extends Component {
                         <Container>
                             <Grid>
                                 <Grid.Column width={4} className='cameraPhoto'>
-                                    <img onClick={() => this.clickHandler()} src={camera} />
+                                    <img onClick={() => this.clickHandler()} src={camera} alt='' />
                                 </Grid.Column>
                                 <Grid.Column width={11}>
                                     <h2>Астрономическая обсерватория</h2>

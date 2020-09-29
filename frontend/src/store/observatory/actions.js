@@ -28,6 +28,27 @@ export function fetchData() {
         }
     }
 }
+
+export function fetchDataByName(name = '') {
+    return async(dispatch) => {
+        try {
+            const url = `${ASTRO_ENDPOINT}/get/object_data?name=${name}`
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json'
+                }
+            });
+
+            const payload = await response.json()
+
+            dispatch({ type: types.GET_OBJECT_DATA, payload })
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}
+
 export function fetchGraphData() {
     return async(dispatch) => {
         try {

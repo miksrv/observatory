@@ -15,7 +15,7 @@ import './static/css/main.sass'
 import Footer from './layouts/Footer'
 
 import Main from './pages/Main'
-import Object from './pages/Object'
+import ObjectItem from './pages/ObjectItem'
 import Error404 from './pages/Error404'
 
 const store = createStore(combineReducers(reducers), applyMiddleware(thunk))
@@ -25,7 +25,7 @@ ReactDOM.render(
         <BrowserRouter>
             <Switch>
                 <Route exact path="/" component={Main} />
-                <Route exact path="/object/:name" component={Object} />
+                <Route exact path="/object/:name" component={ObjectItem} />
                 <Route component={Error404} />
             </Switch>
         </BrowserRouter>

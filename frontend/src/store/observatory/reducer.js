@@ -8,6 +8,7 @@ import * as types from './actionTypes'
 
 const initialState = {
     statistic: {},
+    objectData: [],
     graphic: {},
 }
 
@@ -23,6 +24,12 @@ export default function reduce(state = initialState, action = {}) {
             return {
                 ...state,
                 graphic: action.payload
+            }
+
+        case types.GET_OBJECT_DATA:
+            return {
+                ...state,
+                objectData: action.payload
             }
 
         default:

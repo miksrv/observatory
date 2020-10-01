@@ -1,5 +1,4 @@
 import React from 'react'
-import { Container } from 'semantic-ui-react'
 
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
@@ -10,29 +9,34 @@ Highcharts.setOptions(Highcharts.theme = chart_config);
 
 const Charts = (props) => {
     let chart1_Options = {
+        chart: {
+            height: 233
+        },
         xAxis: [{
             type: 'datetime',
             dateTimeLabelFormats: {
                 month: '%e %b, %Y',
                 year: '%b'
             },
-            //tickInterval: 3600 * 1000 * 2,
+            // tickInterval: 3600 * 1000 * 2,
             gridLineWidth: 1
         }],
-        yAxis: [{
-            labels: {
-                style: {
-                    color: Highcharts.theme.colors[3]
-                }
-            },
-            title: {
-                text: 'Количество кадров',
-                style: {
-                    color: Highcharts.theme.colors[3]
-                }
-            },
-            opposite: false,
-        }, {
+        yAxis: [
+        // {
+        //     labels: {
+        //         style: {
+        //             color: Highcharts.theme.colors[3]
+        //         }
+        //     },
+        //     title: {
+        //         text: 'Количество кадров',
+        //         style: {
+        //             color: Highcharts.theme.colors[3]
+        //         }
+        //     },
+        //     opposite: false,
+        // },
+        {
             title: {
                 text: 'Выдержка',
                 style: {
@@ -45,20 +49,22 @@ const Charts = (props) => {
                     color: Highcharts.theme.colors[0]
                 }
             },
-            opposite: true,
+            // opposite: true,
         }],
-        series: [{
-            name: 'Количество кадров',
-            type: 'column',
-            data: props.data.chart.frame,
-            color: Highcharts.theme.colors[3],
-            tooltip: {
-                valueSuffix: ''
-            }
-        }, {
+        series: [
+        // {
+        //     name: 'Количество кадров',
+        //     type: 'column',
+        //     data: props.data.chart.frame,
+        //     color: Highcharts.theme.colors[3],
+        //     tooltip: {
+        //         valueSuffix: ''
+        //     }
+        // },
+        {
             name: 'Выдержка',
-            type: 'spline',
-            yAxis: 1,
+            type: 'column',
+            yAxis: 0,
             color: Highcharts.theme.colors[0],
             data: props.data.chart.exp,
             tooltip: {
@@ -68,12 +74,10 @@ const Charts = (props) => {
     }
 
     return (
-        <Container>
             <HighchartsReact
                 highcharts={Highcharts}
                 options={chart1_Options}
             />
-        </Container>
     )
 }
 

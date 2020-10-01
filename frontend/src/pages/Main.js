@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Dimmer, Loader, Grid } from 'semantic-ui-react'
+import { Container, Dimmer, Loader, Grid, Statistic, Icon } from 'semantic-ui-react'
 
 import Header from '../components/Header'
 import Dashboard from '../layouts/Dashboard'
@@ -37,6 +37,13 @@ class Main extends Component {
 
         let camera = 'https://fits.miksoft.pro/get/webcam_photo'
 
+        const stat = [
+            { key: 'frames', label: 'Кадров', value: statistic.frames },
+            { key: 'exposure', label: 'Выдержка (ч:м)', value: getTimeFromSec(statistic.exposure) },
+            { key: 'objects', label: 'Объектов', value: statistic.objects },
+            { key: 'size', label: 'Данных (Гб)', value: ((statistic.frames * 32.2) / 1024).toFixed(1) }
+        ]
+
         return (
             <div>
                 {isOpen && (
@@ -51,21 +58,87 @@ class Main extends Component {
                         <br />
                         <Container>
                             <Grid>
-                                <Grid.Column width={4} className='cameraPhoto'>
-                                    <img onClick={() => this.clickHandler()} src={camera} alt='' />
+
+                                <Grid.Column computer={4} tablet={8} mobile={16}>
+                                    <div className='informer'>
+                                        <Grid>
+                                            <Grid.Row>
+                                                <Grid.Column width={5} className='icon-container'>
+                                                    <Icon name='photo' />
+                                                </Grid.Column>
+                                                <Grid.Column width={11}>
+                                                    <div className='value'>{statistic.frames}</div>
+                                                    <div className='info'>Кадров</div>
+                                                </Grid.Column>
+                                            </Grid.Row>
+                                        </Grid>
+                                    </div>
                                 </Grid.Column>
-                                <Grid.Column width={11}>
-                                    <h2>Астрономическая обсерватория</h2>
-                                    <div>Всего кадров: <b>{statistic.frames}</b></div>
-                                    <div>Всего объектов: <b>{statistic.objects}</b></div>
-                                    <div>Общая выдержка: <b>{getTimeFromSec(statistic.exposure)}</b></div>
+
+                                <Grid.Column computer={4} tablet={8} mobile={16}>
+                                    <div className='informer'>
+                                        <Grid>
+                                            <Grid.Row>
+                                                <Grid.Column width={5} className='icon-container'>
+                                                    <Icon name='clock outline' />
+                                                </Grid.Column>
+                                                <Grid.Column width={11}>
+                                                    <div className='value'>{getTimeFromSec(statistic.exposure)}</div>
+                                                    <div className='info'>Выдержка (ч:м)</div>
+                                                </Grid.Column>
+                                            </Grid.Row>
+                                        </Grid>
+                                    </div>
+                                </Grid.Column>
+
+                                <Grid.Column computer={4} tablet={8} mobile={16}>
+                                    <div className='informer'>
+                                        <Grid>
+                                            <Grid.Row>
+                                                <Grid.Column width={5} className='icon-container'>
+                                                    <Icon name='star outline' />
+                                                </Grid.Column>
+                                                <Grid.Column width={11}>
+                                                    <div className='value'>{statistic.objects}</div>
+                                                    <div className='info'>Объектов</div>
+                                                </Grid.Column>
+                                            </Grid.Row>
+                                        </Grid>
+                                    </div>
+                                </Grid.Column>
+
+                                <Grid.Column computer={4} tablet={8} mobile={16}>
+                                    <div className='informer'>
+                                        <Grid>
+                                            <Grid.Row>
+                                                <Grid.Column width={5} className='icon-container'>
+                                                    <Icon name='disk' />
+                                                </Grid.Column>
+                                                <Grid.Column width={11}>
+                                                    <div className='value'>{((statistic.frames * 32.2) / 1024).toFixed(1)}</div>
+                                                    <div className='info'>Данных (Гб)</div>
+                                                </Grid.Column>
+                                            </Grid.Row>
+                                        </Grid>
+                                    </div>
+                                </Grid.Column>
+                            </Grid>
+
+                            <Grid>
+                                <Grid.Column computer={6} tablet={16} mobile={16}>
+                                    <div className='informer container'>
+                                        <img onClick={() => this.clickHandler()} src={camera} alt='' />
+                                    </div>
+                                </Grid.Column>
+                                <Grid.Column computer={10} tablet={16} mobile={16}>
+                                    <div className='informer container'>
+                                        <Charts
+                                            data={graphic}
+                                        />
+                                    </div>
                                 </Grid.Column>
                             </Grid>
                         </Container>
-                        <br />
-                        <Charts
-                            data={graphic}
-                        />
                         <br />
                         <Dashboard
                             data={statistic}

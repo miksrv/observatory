@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Dimmer, Loader, Grid, Statistic, Icon } from 'semantic-ui-react'
+import { Container, Dimmer, Loader, Grid, Icon } from 'semantic-ui-react'
 
 import Header from '../components/Header'
 import Dashboard from '../layouts/Dashboard'
@@ -36,14 +36,7 @@ class Main extends Component {
         const { statistic, graphic } = this.props
 
         let camera = 'https://fits.miksoft.pro/get/webcam_photo'
-
-        const stat = [
-            { key: 'frames', label: 'Кадров', value: statistic.frames },
-            { key: 'exposure', label: 'Выдержка (ч:м)', value: getTimeFromSec(statistic.exposure) },
-            { key: 'objects', label: 'Объектов', value: statistic.objects },
-            { key: 'size', label: 'Данных (Гб)', value: ((statistic.frames * 32.2) / 1024).toFixed(1) }
-        ]
-
+        
         return (
             <div>
                 {isOpen && (

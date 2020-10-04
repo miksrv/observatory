@@ -49,6 +49,34 @@ class Get extends BaseController
         exit();
     }
 
+    public function object_data()
+    {
+        $request = \Config\Services::request();
+
+        $objectName = $request->getVar('name', FILTER_SANITIZE_STRING);
+
+        $db = \Config\Database::connect();
+        $builder = $db->table('astro_fits_data')
+                      ->orderBy('item_date_obs', 'DESC');
+        $query = $builder->getWhere(['item_object' => $objectName]);
+
+        $objectData = $query->getResult();
+        $total_exp  = 0;
+
+        foreach ($objectData as $row)
+        {
+            $total_exp += $row->item_exptime;
+        }
+
+        $this->response
+            ->setJSON([
+                'result'   => count($objectData) > 0 ? true : false,
+                'data'     => $query->getResult(),
+                'exposure' => $total_exp,
+                'frames'   => count($query->getResult())
+            ])->send();
+    }
+
     public function data()
     {
         $db = \Config\Database::connect();

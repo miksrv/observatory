@@ -3,6 +3,58 @@
 class Set extends BaseController
 {
 
+    /**
+     * Device data
+     * @var
+     */
+    protected $rawData;
+
+    /**
+     * Device request source string
+     * @var
+     */
+    protected $rawInput;
+
+    public function sensor() {
+        $this->rawInput = '?';
+        $this->rawData  = [];
+
+        $source = (object) $this->request->getPost();
+        //$source = (object) $this->request->getGet();
+
+        foreach ($source as $key => $val)
+        {
+            $this->rawInput     .= $key . '=' . $val . (end($source) != $val ? '&' : NULL);
+            $this->rawData[$key] = (float) $val;
+        }
+
+        unset($this->rawData['id']);
+
+        $db = \Config\Database::connect();
+        $db->table('astro_sensor_data')->insert([
+            'item_id'        => uniqid(),
+            'item_raw_data'  => json_encode($this->rawData),
+            'item_timestamp' => date("Y-m-d H:i:s")
+        ]);
+
+        $response = ['state' => TRUE, 'data' => 'Data accepted'];
+        $this->_response($response, 200);
+    }
+
+    /**
+     * Generates an answer for the client
+     * @param $data
+     */
+    protected function _response($data, $code = 400)
+    {
+        $this->response
+            ->setStatusCode($code)
+            ->setJSON($data)
+            ->send();
+
+        exit();
+    }
+
     public function data()
     {
         $request = \Config\Services::request();

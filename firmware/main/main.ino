@@ -1,29 +1,41 @@
+//**************************************************************//
+//  Name    : OBSERVATORY CONTROLLER
+//  Author  : Mik™ <miksoft.tm@gmail.com>
+//  Version : 0.5.0 (06 Oct 2020)
+//**************************************************************//
+
 #include <SPI.h>
 #include <Ethernet.h>
+#include <TextFinder.h>
 #include <TroykaDHT.h>
 
-// DHT22 Initialization
-DHT dht(4, DHT22);
+byte MAC[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
 
-// assign a MAC address for the ethernet controller.
-// fill in your address here:
-byte mac[] = {
-  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED
-};
-// Set the static IP address to use if the DHCP fails to assign
-IPAddress ip(192, 168, 0, 177);
-IPAddress myDns(192, 168, 0, 1);
+IPAddress IP(10, 10, 1, 50);
+IPAddress Gateway(10, 10, 1, 1);
 
 // initialize the library instance:
+EthernetServer inServer(80);
 EthernetClient client;
 
-char server[] = "www.arduino.cc";  // also change the Host line in httpRequest()
-//IPAddress server(64,131,82,241);
+// DHT22 Initialization
+DHT dht(36, DHT22);
+
+char server[] = "fits.miksoft.pro";
 
 unsigned long lastConnectionTime = 0;           // last time you connected to the server, in milliseconds
-const unsigned long postingInterval = 10*1000;  // delay between updates, in milliseconds
+const unsigned long postingInterval = 30*1000;  // delay between updates, in milliseconds
 char webclient_data[120];
 char temp[6], humd[6];
+
+// Relay control
+int pinscount = 3;
+int pins[] = {2, 3, 4};
+int pins_status[] = {HIGH, HIGH, HIGH};
+
+int command = 0;
+int setpin = 0;
+int setpinstatus = 0;
 
 // If the variable is not commented out, debug mode is activated, messages are sent to the serial port
 #define DEBUG
@@ -45,7 +57,7 @@ void setup() {
 
   // start the Ethernet connection:
   Serial.println("Initialize Ethernet with DHCP:");
-  if (Ethernet.begin(mac) == 0) {
+  if (Ethernet.begin(MAC) == 0) {
     Serial.println("Failed to configure Ethernet using DHCP");
     // Check for Ethernet hardware present
     if (Ethernet.hardwareStatus() == EthernetNoHardware) {
@@ -58,143 +70,116 @@ void setup() {
       Serial.println("Ethernet cable is not connected.");
     }
     // try to congifure using IP address instead of DHCP:
-    Ethernet.begin(mac, ip, myDns);
+    Ethernet.begin(MAC, IP, Gateway);
     Serial.print("My IP address: ");
     Serial.println(Ethernet.localIP());
   } else {
-    Serial.print("  DHCP assigned IP ");
+    Serial.print("DHCP assigned IP: ");
     Serial.println(Ethernet.localIP());
   }
   // give the Ethernet shield a second to initialize:
   delay(1000);
+
+  for (int i=0; i < pinscount; i++) {
+    pinMode(pins[i], OUTPUT);
+    digitalWrite(pins[i], HIGH);
+    delay(50);
+  };
+
+  Serial.println("Controller started");
 }
 
 void loop() {
-  // if there's incoming data from the net connection.
-  // send it out the serial port.  This is for debugging
-  // purposes only:
-  if (client.available()) {
-    char c = client.read();
-    Serial.write(c);
-  }
-
   // if ten seconds have passed since your last connection,
   // then connect again and send data:
   if (millis() - lastConnectionTime > postingInterval) {
+    // note the time that the connection was made:
+    lastConnectionTime = millis();
+
     get_sensor_dht22();
-    
     webclient_send_data();
-    //httpRequest();
-  }
 
-}
-
-// this method makes a HTTP connection to the server:
-void httpRequest() {
-  // close any connection before send a new request.
-  // This will free the socket on the WiFi shield
-  client.stop();
-
-  // if there's a successful connection:
-  if (client.connect(server, 80)) {
-    Serial.println("connecting...");
-    // send the HTTP GET request:
-    client.println("GET /latest.txt HTTP/1.1");
-    client.println("Host: www.arduino.cc");
-    client.println("User-Agent: arduino-ethernet");
-    client.println("Connection: close");
-    client.println();
-
-    // note the time that the connection was made:
-    lastConnectionTime = millis();
   } else {
-    // if you couldn't make a connection:
-    Serial.println("connection failed");
-  }
-}
+    
+    EthernetClient client = inServer.available();
 
-void get_sensor_dht22() {
-  dht.read();
+    if (client)  {
+      while (client.connected()) {
+        if (client.available()) {
+          TextFinder response(client);
 
-  if (dht.getState() == DHT_OK) {
-    dtostrf(dht.getTemperatureC(), 4, 1, temp);
-    dtostrf(dht.getHumidity(), 4, 1, humd);
+          if (response.find("GET /")) {
+            if (response.find("command=")) {
+              command = response.getValue();
+            }
+          };
 
-    #ifdef DEBUG
-      Serial.print("  [Ok] DHT22 temperature: ");
-      Serial.print(temp);
-      Serial.println(" C");
-      Serial.print("  [Ok] DHT22 humidity: ");
-      Serial.print(humd);
-      Serial.println(" %");
-    #endif
-  } else {
-    #ifdef DEBUG
-      Serial.println("  [ERROR] DHT22 no data");
-    #endif
-  }
+          // Relay controll
+          if (command == 5) {
+            client.println("HTTP/1.1 200 OK");
+            client.println("Content-Type: application/json");                                
+            client.println("Connection: close");
+            client.println();
+            
+            if (response.find("pin=")) {
+              setpin = response.getValue();
+            }                
+            
+            if (response.find("set=")) {
+              setpinstatus = invertPinVal(response.getValue());
+            }
 
-  delay(2000);
-}
+            digitalWrite(pins[setpin], setpinstatus);
+            pins_status[setpin] = setpinstatus;
+            client.print("{\"status\":\"ok\"}\n");
+          };
 
+          // Get controller status
+          if (command == 10) {
+            client.println("HTTP/1.1 200 OK");
+            client.println("Content-Type: application/json");                
+            client.println("Connection: close");  
+            client.println();
+                
+            client.print("{\"ip\":\"");
+            client.print(Ethernet.localIP());
+            client.print("\",\"relay\":[");
+            
+            for (int i=0; i < pinscount; i++) {
+              client.print("{");
+              client.print(i); // pins[i]
+              client.print(":");
+              client.print(invertPinVal(pins_status[i]));
+              client.print("}");
+              if (i < pinscount-1) {
+                client.print(",");
+              };
+            };
 
-/** WebClinet send data to remote server **/
-void webclient_send_data() {
-    client.stop();
-  
-    memset(webclient_data, 0, sizeof(webclient_data));
+            client.print("], \"freeram\":\"");
+            client.print(freeRam());
+            client.print("\"}\n");
+          };
 
-    strcpy(webclient_data, "id=A7FE9540D1F5");
-
-    strcat(webclient_data, "&t="); // Room temperature
-    strcat(webclient_data, temp);
-    strcat(webclient_data, "&h=");  // Air humidity
-    strcat(webclient_data, humd);
-
-    #ifdef DEBUG
-        Serial.print("  [Content-Length: ");
-        Serial.print(len(webclient_data));
-        Serial.print("] ");
-        Serial.println(webclient_data);
-    #endif
-
-    if (client.connect(server, 80)) {
-        client.println("POST /set/data HTTP/1.1");
-        client.println("Host: api.miksoft.pro");
-        client.println("Content-Type: application/x-www-form-urlencoded");
-        client.println("Connection: close");
-        client.print("Content-Length: ");
-        client.println(len(webclient_data));
-        client.println();
-        client.println(webclient_data);
-        client.println();
-        
-        delay(2000);
-        
-        client.stop();
-
-        #ifdef DEBUG
-          Serial.println("  [Webclient] Data send success");
-          Serial.println();
-        #endif
-    } else {
-        #ifdef DEBUG
-          Serial.println("  [Webclient] Data send error");
-          Serial.println();
-        #endif
+          client.stop();   
+        }
+      }
+      delay(1);    
+      client.stop();
     }
-
-    // note the time that the connection was made:
-    lastConnectionTime = millis();
-
-    delay(2000);
+  }
 }
 
-/** The method determines the length of the string **/
-int len(char *buf) {
-  int i=0; 
-  do {
-    i++;
-  } while (buf[i]!='\0');
-  return i;
+int invertPinVal(int val) {
+  if (val == 0) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+int freeRam () {
+  extern int __heap_start, *__brkval; 
+  int v; 
+  return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval); 
 }

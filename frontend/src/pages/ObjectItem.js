@@ -46,9 +46,7 @@ class ObjectItem extends Component {
                     <div>Объект: <b>{name}</b></div>
                     <div>Всего кадров: <b>{objectData.frames}</b></div>
                     <div>Общая выдержка: <b>{getTimeFromSec(objectData.exposure)}</b></div>
-                    <div>
-                        <Link to={'/'}>Вернуться к списку всех объектов</Link>
-                    </div>
+                    <Link to={'/'}>Вернуться к списку всех объектов</Link>
                     <br />
                     <Table celled inverted selectable>
                         <Table.Header>

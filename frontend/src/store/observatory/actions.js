@@ -9,6 +9,26 @@ import * as types from './actionTypes'
 
 const ASTRO_ENDPOINT = 'https://fits.miksoft.pro'
 
+export function getAstroData() {
+    return async(dispatch) => {
+        try {
+            const url = `https://api.miksoft.pro/get/general`
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json'
+                }
+            });
+
+            const payload = await response.json()
+
+            dispatch({ type: types.GET_ASTRO_DATA, payload })
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}
+
 export function fetchData() {
     return async(dispatch) => {
         try {

@@ -7,13 +7,20 @@
 import * as types from './actionTypes'
 
 const initialState = {
+    astroData: {},
     statistic: {},
     objectData: [],
-    graphic: {},
+    graphic: {}
 }
 
 export default function reduce(state = initialState, action = {}) {
     switch (action.type) {
+        case types.GET_ASTRO_DATA:
+            return {
+                ...state,
+                astroData: action.payload
+            }
+
         case types.GET_STAT_DATA:
             return {
                 ...state,

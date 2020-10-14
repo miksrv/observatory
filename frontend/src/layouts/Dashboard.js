@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import 'moment/locale/ru'
 
-import { getTimeFromSec, functTwo } from '../data/functions'
+import { getTimeFromSec } from '../data/functions'
 
 import _ from 'lodash'
 

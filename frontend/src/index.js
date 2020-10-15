@@ -12,8 +12,6 @@ import 'moment/locale/ru'
 import 'semantic-ui-css/semantic.min.css'
 import './static/css/main.sass'
 
-import Footer from './layouts/Footer'
-
 import Main from './pages/Main'
 import ObjectItem from './pages/ObjectItem'
 import Error404 from './pages/Error404'
@@ -29,7 +27,6 @@ ReactDOM.render(
                 <Route component={Error404} />
             </Switch>
         </BrowserRouter>
-        <Footer />
     </Provider>
     , document.getElementById('root')
-);
+)

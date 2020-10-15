@@ -5,8 +5,8 @@ class Header extends Component {
 
     render() {
         return (
-            <Container className='main-content'>
-               
+            <Container>
+
             </Container>
         )
     }

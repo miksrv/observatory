@@ -9,18 +9,13 @@ const chart_config = {
         '#9A8A7D',
     ],
     chart: {
-        // backgroundColor: {
-        //   linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-        //   stops: [
-        //     [0, '#2a2a2b'],
-        //     [1, '#3e3e40']
-        //   ]
-        // },
-        backgroundColor: '#2a2a2b',
+        borderRadius: '5',
+        shadow: false,
+        backgroundColor: '#373737',
         style: {
             // fontFamily: '\'Unica One\', sans-serif'
         },
-        plotBorderColor: '#606063',
+        plotBorderColor: '#373737',
         marginTop: 30,
         height: 300,
     },
@@ -74,7 +69,8 @@ const chart_config = {
     tooltip: {
         backgroundColor: 'rgba(0, 0, 0, 0.85)',
         style: {
-            color: '#F0F0F0'
+            color: '#F0F0F0',
+            fontSize: '11px',
         },
         shared: true,
         xDateFormat: '%A, %d %B %Y, %H:%M'
@@ -123,7 +119,7 @@ const chart_config = {
         align: 'left',
         verticalAlign: 'top',
         x: 80,
-        y: 8,
+        y: 30,
         floating: true,
     },
     credits: {

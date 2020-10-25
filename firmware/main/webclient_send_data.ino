@@ -7,8 +7,14 @@ void webclient_send_data() {
 
     strcat(webclient_data, "&t="); // Room temperature
     strcat(webclient_data, temp);
-    strcat(webclient_data, "&h=");  // Air humidity
+    strcat(webclient_data, "&h="); // Air humidity
     strcat(webclient_data, humd);
+    strcat(webclient_data, "&t1=");
+    strcat(webclient_data, temp1);
+    strcat(webclient_data, "&t2=");
+    strcat(webclient_data, temp2);
+    strcat(webclient_data, "&t3=");
+    strcat(webclient_data, temp3);
 
     #ifdef DEBUG
         Serial.print("  [Content-Length: ");

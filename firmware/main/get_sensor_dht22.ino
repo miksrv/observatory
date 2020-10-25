@@ -21,5 +21,5 @@ void get_sensor_dht22() {
     #endif
   }
 
-  delay(2000);
+  delay(1000);
 }

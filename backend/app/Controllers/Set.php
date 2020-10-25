@@ -66,6 +66,8 @@ class Set extends BaseController
             return ;
         }
 
+        log_message('notice', '[' .  __METHOD__ . '] Data inserted: ' . json_encode($RAW));
+
         $FITS_header = [
             'file_id' => md5($RAW->FILE_NAME),
             'item_file_name' => $RAW->FILE_NAME,

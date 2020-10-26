@@ -1,7 +1,7 @@
 //**************************************************************//
 //  Name    : OBSERVATORY CONTROLLER
 //  Author  : Mik™ <miksoft.tm@gmail.com>
-//  Version : 0.6.0 (25 Oct 2020)
+//  Version : 0.6.1 (26 Oct 2020)
 //**************************************************************//
 
 #include <SPI.h>
@@ -48,7 +48,7 @@ char server[] = "fits.miksoft.pro";
 
 unsigned long lastConnectionTime = 0;           // last time you connected to the server, in milliseconds
 const unsigned long postingInterval = 30*1000;  // delay between updates, in milliseconds
-char webclient_data[120];
+char webclient_data[130];
 char temp[6], humd[6], temp1[6], temp2[6], temp3[6],
      VAH1_V[6], VAH1_I[6], VAH1_P[6],
      VAH2_V[6], VAH2_I[6], VAH2_P[6],
@@ -92,7 +92,7 @@ void setup() {
   // Start up the library
   sensors.begin();
 
-    // locate devices on the bus
+  // locate devices on the bus
   #ifdef DEBUG
     Serial.print("Locating DS18B20 devices...");
     Serial.print("Found ");
@@ -173,7 +173,7 @@ void loop() {
     get_sensor_ds18b20();
     get_sensor_ina219();
     webclient_send_data();
-    
+
   } else {
     
     EthernetClient client = inServer.available();

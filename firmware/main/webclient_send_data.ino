@@ -16,6 +16,27 @@ void webclient_send_data() {
     strcat(webclient_data, "&t3=");
     strcat(webclient_data, temp3);
 
+    strcat(webclient_data, "&v1=");
+    strcat(webclient_data, VAH1_V);
+    strcat(webclient_data, "&i1=");
+    strcat(webclient_data, VAH1_I);
+    strcat(webclient_data, "&p1=");
+    strcat(webclient_data, VAH1_P);
+
+    strcat(webclient_data, "&v2=");
+    strcat(webclient_data, VAH2_V);
+    strcat(webclient_data, "&i2=");
+    strcat(webclient_data, VAH2_I);
+    strcat(webclient_data, "&p2=");
+    strcat(webclient_data, VAH2_P);
+
+    strcat(webclient_data, "&v3=");
+    strcat(webclient_data, VAH3_V);
+    strcat(webclient_data, "&i3=");
+    strcat(webclient_data, VAH3_I);
+    strcat(webclient_data, "&p3=");
+    strcat(webclient_data, VAH3_P);
+
     #ifdef DEBUG
         Serial.print("  [Content-Length: ");
         Serial.print(len(webclient_data));

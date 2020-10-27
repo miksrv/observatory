@@ -44,11 +44,11 @@ OneWire oneWire(PIN_DS18B20);
 // Pass our oneWire reference to Dallas Temperature.
 DallasTemperature sensors(&oneWire);
 
-char server[] = "fits.miksoft.pro";
+char server[] = "api.miksoft.pro";
 
 unsigned long lastConnectionTime = 0;           // last time you connected to the server, in milliseconds
 const unsigned long postingInterval = 30*1000;  // delay between updates, in milliseconds
-char webclient_data[130];
+char webclient_data[140];
 char temp[6], humd[6], temp1[6], temp2[6], temp3[6],
      VAH1_V[6], VAH1_I[6], VAH1_P[6],
      VAH2_V[6], VAH2_I[6], VAH2_P[6],

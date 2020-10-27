@@ -29,10 +29,10 @@ void get_sensor_ds18b20() {
   } else {
     #ifdef DEBUG
       Serial.print("  [Ok] DS18B20 temp2: ");
-      Serial.print(f_temp1);
+      Serial.print(temp2);
       Serial.println(" C");
     #endif
-    dtostrf(f_temp1, 4, 1, temp1);
+    dtostrf(f_temp2, 4, 1, temp2);
   }
 
   // Mirror

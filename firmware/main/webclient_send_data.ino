@@ -3,7 +3,7 @@
 void webclient_send_data() {
     memset(webclient_data, 0, sizeof(webclient_data));
 
-    strcpy(webclient_data, "id=F2");
+    strcpy(webclient_data, "id=A7FE9540D1F5");
 
     strcat(webclient_data, "&t="); // Room temperature
     strcat(webclient_data, temp);
@@ -45,8 +45,8 @@ void webclient_send_data() {
     #endif
 
     if (client.connect(server, 80)) {
-        client.println("POST /set/sensor HTTP/1.1");
-        client.println("Host: fits.miksoft.pro");
+        client.println("POST /set/astro_sensor HTTP/1.1");
+        client.println("Host: api.miksoft.pro");
         client.println("Content-Type: application/x-www-form-urlencoded");
         client.println("Connection: close");
         client.print("Content-Length: ");

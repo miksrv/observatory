@@ -1,7 +1,7 @@
 //**************************************************************//
 //  Name    : OBSERVATORY CONTROLLER
 //  Author  : Mik™ <miksoft.tm@gmail.com>
-//  Version : 0.6.1 (26 Oct 2020)
+//  Version : 0.6.2 (03 Nov 2020)
 //**************************************************************//
 
 #include <SPI.h>
@@ -18,8 +18,8 @@
 
 byte MAC[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
 
-IPAddress IP(10, 10, 1, 50);
-IPAddress Gateway(10, 10, 1, 1);
+IPAddress IP(10, 10, 2, 8);
+IPAddress Gateway(10, 10, 2, 1);
 
 // initialize the library instance:
 EthernetServer inServer(80);
@@ -47,7 +47,7 @@ DallasTemperature sensors(&oneWire);
 char server[] = "api.miksoft.pro";
 
 unsigned long lastConnectionTime = 0;           // last time you connected to the server, in milliseconds
-const unsigned long postingInterval = 30*1000;  // delay between updates, in milliseconds
+const unsigned long postingInterval = 40*1000;  // delay between updates, in milliseconds
 char webclient_data[140];
 char temp[6], humd[6], temp1[6], temp2[6], temp3[6],
      VAH1_V[6], VAH1_I[6], VAH1_P[6],
@@ -72,7 +72,7 @@ DeviceAddress sensor_temp_2 = { 0x28, 0xC6, 0xB3, 0x56, 0xB5, 0x01, 0x3C, 0xB3 }
 DeviceAddress sensor_temp_3 = { 0x28, 0x4B, 0x9F, 0x56, 0xB5, 0x01, 0x3C, 0xCA };
 
 // If the variable is not commented out, debug mode is activated, messages are sent to the serial port
-#define DEBUG
+// #define DEBUG
 
 void setup() {
   // You can use Ethernet.init(pin) to configure the CS pin
@@ -223,9 +223,9 @@ void loop() {
             client.print("\",\"relay\":[");
             
             for (int i=0; i < pinscount; i++) {
-              client.print("{");
+              client.print("{\"");
               client.print(i); // pins[i]
-              client.print(":");
+              client.print("\":");
               client.print(invertPinVal(pins_status[i]));
               client.print("}");
               if (i < pinscount-1) {

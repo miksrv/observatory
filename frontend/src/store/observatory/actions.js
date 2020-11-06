@@ -8,6 +8,47 @@
 import * as types from './actionTypes'
 
 const ASTRO_ENDPOINT = 'https://fits.miksoft.pro'
+const API_ENDPOINT = 'https://api.miksoft.pro'
+
+export function getRelayData() {
+    return async(dispatch) => {
+        try {
+            const url = API_ENDPOINT + `/relay/get`
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json'
+                }
+            });
+
+            const payload = await response.json()
+
+            dispatch({ type: types.GET_RELAY_DATA, payload })
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}
+
+export function getSensorData() {
+    return async(dispatch) => {
+        try {
+            const url = API_ENDPOINT + `/astro/get/summary`
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json'
+                }
+            });
+
+            const payload = await response.json()
+
+            dispatch({ type: types.GET_SENSOR_DATA, payload })
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}
 
 export function getAstroData() {
     return async(dispatch) => {

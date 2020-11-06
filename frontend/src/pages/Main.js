@@ -10,6 +10,8 @@ import MainContainer from '../components/MainContainer'
 import Dashboard from '../layouts/Dashboard'
 
 import Statistic from '../informers/Statistic'
+import Sensors from '../informers/Sensors'
+import Relay from '../informers/Relay'
 import Camera from '../informers/Camera'
 import ExpChart from '../informers/ExpChart'
 import Sun from '../informers/Sun'
@@ -26,19 +28,29 @@ class Main extends Component {
         dispatch(observatoryActions.getAstroData())
         dispatch(observatoryActions.fetchData())
         dispatch(observatoryActions.fetchGraphData())
+        dispatch(observatoryActions.getSensorData())
+        dispatch(observatoryActions.getRelayData())
     }
 
     render() {
-        const { statistic, graphic, astroData } = this.props
+        const { statistic, graphic, astroData, sensorData, relayData } = this.props
 
         // const localizer = momentLocalizer(moment)
 
         return (
             <MainContainer>
-                { ( ! _.isEmpty(statistic) && ! _.isEmpty(graphic) && ! _.isEmpty(astroData))  ? (
+                { ( ! _.isEmpty(statistic) && ! _.isEmpty(graphic) && ! _.isEmpty(astroData) && ! _.isEmpty(sensorData))  ? (
                     <Container>
                         <Grid>
                             <Statistic data={statistic} />
+                            <Sensors data={sensorData} />
+                            { ! _.isEmpty(relayData) ? (
+                                <Relay data={relayData} />
+                            ) : (
+                                <Dimmer active>
+                                    <Loader>Загрузка</Loader>
+                                </Dimmer>
+                            )}
                             <Camera />
                             <ExpChart data={graphic} />
                             <Sun data={astroData.sun} />
@@ -75,6 +87,8 @@ class Main extends Component {
 function mapStateToProps(state) {
     return {
         astroData: state.observatory.astroData,
+        sensorData: state.observatory.sensorData,
+        relayData: state.observatory.relayData,
         statistic: state.observatory.statistic,
         graphic: state.observatory.graphic
     }

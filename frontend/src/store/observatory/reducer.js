@@ -8,6 +8,8 @@ import * as types from './actionTypes'
 
 const initialState = {
     astroData: {},
+    sensorData: {},
+    relayData: {},
     statistic: {},
     objectData: [],
     graphic: {}
@@ -15,6 +17,18 @@ const initialState = {
 
 export default function reduce(state = initialState, action = {}) {
     switch (action.type) {
+        case types.GET_RELAY_DATA:
+            return {
+                ...state,
+                relayData: action.payload
+            }
+
+        case types.GET_SENSOR_DATA:
+            return {
+                ...state,
+                sensorData: action.payload
+            }
+
         case types.GET_ASTRO_DATA:
             return {
                 ...state,

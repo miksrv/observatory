@@ -6,9 +6,9 @@ const Sensors = (props) => {
 
     const informers = [
         {name: 'Помещение', icon: 'thermometer half', value: data.sensors.t.value},
-        {name: 'Шкаф', icon: 'thermometer half', value: data.sensors.t1.value},
-        {name: 'БП', icon: 'thermometer half', value: data.sensors.t2.value},
-        {name: 'Зеркало', icon: 'thermometer half', value: data.sensors.t3.value}
+        {name: 'Главное зеркало', icon: 'thermometer half', value: data.sensors.t2.value},
+        {name: 'Блок питания', icon: 'thermometer half', value: data.sensors.t1.value},
+        {name: 'Серверный шкаф', icon: 'thermometer half', value: data.sensors.t3.value}
     ]
 
     return (

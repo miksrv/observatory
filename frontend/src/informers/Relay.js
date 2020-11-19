@@ -4,8 +4,6 @@ import { Grid } from 'semantic-ui-react'
 const Relay = (props) => {
     const { data } = props
 
-    console.log('data', data);
-
     const informers = [
         {name: 'ВВОД 12В', icon: 'lightning', value: data.data.relay[0][0]},
         {name: 'Монтировка', icon: 'lightning', value: data.data.relay[1][1]},

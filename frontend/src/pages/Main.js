@@ -21,6 +21,8 @@ import * as observatoryActions from '../store/observatory/actions'
 
 import _ from 'lodash'
 
+import sensors from '../data/sensors'
+
 class Main extends Component {
     componentDidMount() {
         const { dispatch } = this.props
@@ -43,7 +45,19 @@ class Main extends Component {
                     <Container>
                         <Grid>
                             <Statistic data={statistic} />
-                            <Sensors data={sensorData} />
+                        </Grid>
+                        <Grid>
+                            {sensors.map((item, key) => {
+                                return (
+                                    <Sensors
+                                        key={key}
+                                        widget={item}
+                                        data={sensorData[item.type][item.source]}
+                                    />
+                                )
+                            })}
+                        </Grid>
+                        <Grid>
                             { ! _.isEmpty(relayData) ? (
                                 <Relay data={relayData} />
                             ) : (

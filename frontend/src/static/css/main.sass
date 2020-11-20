@@ -1,4 +1,5 @@
 @import "colors"
+@import "tile_colors"
 
 $font-stack: sans-serif
 
@@ -33,6 +34,71 @@ body
     color: $second-color
     font-size: .8em
 
+.informer
+    background: #373737
+    border-radius: 5px
+    padding: 1em
+    box-shadow: 0 0 10px rgba(0,0,0,0.5)
+
+    .title
+        text-transform: uppercase
+        font-size: 11px
+        color: #D9D9D9
+
+    .value
+        font-size: 25px
+        font-weight: 600
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.5)
+
+        .sign
+            font-size: 13px
+            padding-left: 5px
+
+    .icon
+        position: absolute
+        right: 0
+        top: -12px
+        font-size: 4em
+
+    .trend
+        font-size: .8em
+        padding-left: 1.6em
+        color: $second-color
+
+    .trend-up, .trend-down
+        position: absolute
+        font-size: 2em
+        left: -5px
+        bottom: -3px
+
+    .trend-up
+        color: #DD523A
+
+    .trend-down
+        color: #7EC51D
+
+    .maxmin
+        font-size: .8em
+        text-align: right
+        color: $second-color
+
+    .info
+        font-size: .7em
+
+    .row > div, .grid-info .row
+        padding: 0 !important
+
+    .grid
+        margin: 0 0
+
+    .grid-info
+        margin-top: 0 !important
+
+    img
+        width: 100%
+        max-height: 228px
+        object-fit: cover
+
 .cameraPhoto
     > img
         width: 100%
@@ -62,33 +128,6 @@ body
 
 .filter-s
     background-color: #572e06
-
-
-.informer
-    background: #373737
-    border-radius: 5px
-    padding: 1em
-    box-shadow: 0 0 10px rgba(0,0,0,0.5)
-
-    .icon-container
-        color: $second-color
-        font-size: 3em
-
-        > i
-            float: left
-            margin-top: .2em
-
-    .value
-        font-size: 2.5em
-
-    .info
-        color: $second-color
-
-    img
-        width: 100%
-        margin-bottom: -.3em
-        cursor: pointer
-        height: 232px
 
 .sun
     .icon

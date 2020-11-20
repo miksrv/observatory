@@ -1,37 +1,80 @@
-import React from 'react'
-import { Grid, Icon } from 'semantic-ui-react'
+/**
+ * React weather icons: https://react-icons.netlify.com/#/icons/wi
+ */
 
-const Sensors = (props) => {
-    const { data } = props
+import React  from 'react'
 
-    const informers = [
-        {name: 'Помещение', icon: 'thermometer half', value: data.sensors.t.value},
-        {name: 'Главное зеркало', icon: 'thermometer half', value: data.sensors.t2.value},
-        {name: 'Блок питания', icon: 'thermometer half', value: data.sensors.t1.value},
-        {name: 'Серверный шкаф', icon: 'thermometer half', value: data.sensors.t3.value}
-    ]
+import { Grid } from 'semantic-ui-react'
+import { WiThermometer, WiThermometerExterior, WiHumidity, WiBarometer, WiDaySunny, WiHot, WiRaindrops, WiWindDeg, WiStrongWind } from 'react-icons/wi'
+import { IoIosArrowRoundUp, IoIosArrowRoundDown } from 'react-icons/io'
+import { BsLightning } from 'react-icons/bs'
+import { HiOutlineLightBulb } from 'react-icons/hi'
+import { RiLightbulbFlashLine } from 'react-icons/ri'
+
+const Sensor = (params) => {
+
+    const icons = {
+        temp: WiThermometer,
+        extemp: WiThermometerExterior,
+        humd: WiHumidity,
+        volt: BsLightning,
+        strength: HiOutlineLightBulb,
+        power: RiLightbulbFlashLine
+    };
+
+    const trend = {
+        up: IoIosArrowRoundUp,
+        down: IoIosArrowRoundDown
+    }
+
+    const WeatherIcon = icons[params.widget.icon]
+    const TrendIcon  = params.data.trend > 0 ? trend['up'] : trend['down']
 
     return (
-        informers.map((item, key) => {
-            return (
-                <Grid.Column computer={4} tablet={8} mobile={16} key={key}>
-                    <div className='informer'>
-                        <Grid>
-                            <Grid.Row>
-                                <Grid.Column width={5} className='icon-container'>
-                                    <Icon name={item.icon} />
-                                </Grid.Column>
-                                <Grid.Column width={11}>
-                                    <div className='value'>{item.value} °C</div>
-                                    <div className='info'>{item.name}</div>
-                                </Grid.Column>
-                            </Grid.Row>
-                        </Grid>
-                    </div>
-                </Grid.Column>
-            )
-        })
+        <Grid.Column computer={2} tablet={8} mobile={16}>
+            <div className={'informer ' + params.widget.color}>
+                <div className='title'>{params.widget.name}</div>
+                <Grid>
+                    <Grid.Row>
+                        <Grid.Column width={9} className='icon-container'>
+                            <div className='value'>{params.data.value}
+                                {(typeof params.widget.sign !== 'undefined' && (
+                                    <span className='sign'>{params.widget.sign}</span>
+                                ))}
+                            </div>
+                        </Grid.Column>
+                        <Grid.Column width={7}>
+                            <WeatherIcon className='icon' />
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+                <Grid className='grid-info'>
+                    <Grid.Row>
+                        <Grid.Column width={6} className='icon-container'>
+                            {(typeof params.data.info !== 'undefined' && (
+                                <div className='info'>({params.data.info})</div>
+                            ))}
+                            {(params.widget.trend === true && params.data.trend !== 0 && (
+                                <div className='trend'>
+                                    <TrendIcon className={(params.data.trend > 0 ? 'trend-up' : 'trend-down')} /> {params.data.trend > 0 ? '+' : ''} {params.data.trend}
+                                </div>
+                            ))}
+                        </Grid.Column>
+                        <Grid.Column width={5}>
+                            {(typeof params.data.max !== 'undefined' && (
+                                <div className='maxmin'>max: {params.data.max}</div>
+                            ))}
+                        </Grid.Column>
+                        <Grid.Column width={5}>
+                            {(typeof params.data.min !== 'undefined' && (
+                                <div className='maxmin'>min: {params.data.min}</div>
+                            ))}
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+            </div>
+        </Grid.Column>
     )
 }
 
-export default Sensors
+export default Sensor

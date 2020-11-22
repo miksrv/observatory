@@ -73,6 +73,33 @@ const data = [
     },
     {
         type: 'sensors',
+        source: 'i1',
+        name: 'Сила тока HEQ5 Pro',
+        color: 'yellow',
+        icon: 'strength',
+        trend: true,
+        sign: 'А'
+    },
+    {
+        type: 'sensors',
+        source: 'i2',
+        name: 'Сила тока ASI 1600mm',
+        color: 'yellow',
+        icon: 'strength',
+        trend: true,
+        sign: 'А'
+    },
+    {
+        type: 'sensors',
+        source: 'i3',
+        name: 'Сила тока ZWO EAF',
+        color: 'yellow',
+        icon: 'strength',
+        trend: true,
+        sign: 'А'
+    },
+    {
+        type: 'sensors',
         source: 'p1',
         name: 'Мощность HEQ5 Pro',
         color: 'green',

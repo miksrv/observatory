@@ -18,10 +18,12 @@ import Sun from '../informers/Sun'
 import Moon from '../informers/Moon'
 
 import * as observatoryActions from '../store/observatory/actions'
+import * as meteoActions from '../store/meteo/actions'
 
 import _ from 'lodash'
 
 import sensors from '../data/sensors'
+import meteo from '../data/meteo'
 
 class Main extends Component {
     componentDidMount() {
@@ -32,21 +34,31 @@ class Main extends Component {
         dispatch(observatoryActions.fetchGraphData())
         dispatch(observatoryActions.getSensorData())
         dispatch(observatoryActions.getRelayData())
+        dispatch(meteoActions.getMeteoData())
     }
 
     render() {
-        const { statistic, graphic, astroData, sensorData, relayData } = this.props
+        const { statistic, graphic, astroData, sensorData, relayData, meteoData } = this.props
 
         // const localizer = momentLocalizer(moment)
 
         return (
             <MainContainer>
-                { ( ! _.isEmpty(statistic) && ! _.isEmpty(graphic) && ! _.isEmpty(astroData) && ! _.isEmpty(sensorData))  ? (
+                { ( ! _.isEmpty(statistic) && ! _.isEmpty(graphic) && ! _.isEmpty(astroData) && ! _.isEmpty(sensorData) && ! _.isEmpty(meteoData))  ? (
                     <Container>
                         <Grid>
                             <Statistic data={statistic} />
                         </Grid>
                         <Grid>
+                            {meteo.map((item, key) => {
+                                return (
+                                    <Sensors
+                                        key={key}
+                                        widget={item}
+                                        data={meteoData[item.type][item.source]}
+                                    />
+                                )
+                            })}
                             {sensors.map((item, key) => {
                                 return (
                                     <Sensors
@@ -104,7 +116,8 @@ function mapStateToProps(state) {
         sensorData: state.observatory.sensorData,
         relayData: state.observatory.relayData,
         statistic: state.observatory.statistic,
-        graphic: state.observatory.graphic
+        graphic: state.observatory.graphic,
+        meteoData: state.meteo.generalData
     }
 }
 

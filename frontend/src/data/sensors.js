@@ -11,7 +11,7 @@ const data = [
     {
         type: 'sensors',
         source: 'h',
-        name: 'Влажность воздуха',
+        name: 'Влажность в обсерватории',
         color: 'blue',
         icon: 'humd',
         trend: true,
@@ -29,7 +29,7 @@ const data = [
     {
         type: 'sensors',
         source: 't1',
-        name: 'Блок питания',
+        name: 'AC/DC Блок питания',
         color: 'orange',
         icon: 'temp',
         trend: true,

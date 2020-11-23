@@ -5,9 +5,9 @@
 import React  from 'react'
 
 import { Grid } from 'semantic-ui-react'
-import { WiThermometer, WiThermometerExterior, WiHumidity, WiBarometer, WiDaySunny, WiHot, WiRaindrops, WiWindDeg, WiStrongWind } from 'react-icons/wi'
+import { WiThermometer, WiThermometerExterior, WiHumidity } from 'react-icons/wi'
 import { IoIosArrowRoundUp, IoIosArrowRoundDown } from 'react-icons/io'
-import { BsLightning } from 'react-icons/bs'
+import { GiElectric } from 'react-icons/gi'
 import { HiOutlineLightBulb } from 'react-icons/hi'
 import { RiLightbulbFlashLine } from 'react-icons/ri'
 
@@ -17,7 +17,7 @@ const Sensor = (params) => {
         temp: WiThermometer,
         extemp: WiThermometerExterior,
         humd: WiHumidity,
-        volt: BsLightning,
+        volt: GiElectric,
         strength: HiOutlineLightBulb,
         power: RiLightbulbFlashLine
     };
@@ -31,43 +31,43 @@ const Sensor = (params) => {
     const TrendIcon  = params.data.trend > 0 ? trend['up'] : trend['down']
 
     return (
-        <Grid.Column computer={2} tablet={8} mobile={16}>
-            <div className={'informer ' + params.widget.color}>
+        <Grid.Column computer={2} tablet={8} mobile={8}>
+            <div className={'sensor ' + params.widget.color}>
                 <div className='title'>{params.widget.name}</div>
                 <Grid>
                     <Grid.Row>
-                        <Grid.Column width={9} className='icon-container'>
+                        <Grid.Column width={12} className='icon-container'>
                             <div className='value'>{params.data.value}
                                 {(typeof params.widget.sign !== 'undefined' && (
                                     <span className='sign'>{params.widget.sign}</span>
                                 ))}
                             </div>
                         </Grid.Column>
-                        <Grid.Column width={7}>
+                        <Grid.Column width={4}>
                             <WeatherIcon className='icon' />
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
-                <Grid className='grid-info'>
+                <Grid className='grid-info' columns={3} divided>
                     <Grid.Row>
-                        <Grid.Column width={6} className='icon-container'>
+                        <Grid.Column>
                             {(typeof params.data.info !== 'undefined' && (
                                 <div className='info'>({params.data.info})</div>
                             ))}
                             {(params.widget.trend === true && params.data.trend !== 0 && (
                                 <div className='trend'>
-                                    <TrendIcon className={(params.data.trend > 0 ? 'trend-up' : 'trend-down')} /> {params.data.trend > 0 ? '+' : ''} {params.data.trend}
+                                    <TrendIcon className={(params.data.trend > 0 ? 'trend-up' : 'trend-down')} /> {params.data.trend > 0 ? '+' : ''}{params.data.trend}
                                 </div>
                             ))}
                         </Grid.Column>
-                        <Grid.Column width={5}>
+                        <Grid.Column>
                             {(typeof params.data.max !== 'undefined' && (
-                                <div className='maxmin'>max: {params.data.max}</div>
+                                <div className='maxmin'>MAX<div>{params.data.max}</div></div>
                             ))}
                         </Grid.Column>
-                        <Grid.Column width={5}>
+                        <Grid.Column>
                             {(typeof params.data.min !== 'undefined' && (
-                                <div className='maxmin'>min: {params.data.min}</div>
+                                <div className='maxmin'>MIN<div>{params.data.min}</div></div>
                             ))}
                         </Grid.Column>
                     </Grid.Row>

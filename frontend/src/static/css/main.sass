@@ -97,6 +97,84 @@ body
     .grid-info
         margin-top: 0 !important
 
+.relay
+    position: relative
+    background: #373737
+    border-radius: 5px
+    padding: 1em
+    box-shadow: 0 0 10px rgba(0,0,0,0.5)
+
+    .dimmer
+        border-radius: inherit !important
+
+    .icon
+        font-size: 3em
+        margin-top: 7px
+
+    .desc
+        color: $second-color
+        font-size: .9em
+
+    .checkbox
+        margin-bottom: 5px
+
+        label::before
+            height: 1.0rem !important
+
+        input ~ label::after
+            top: -3px !important
+
+.switch-on .state, .switch-off .state
+    background: $green
+    display: inline-block
+    width: 11px
+    height: 11px
+    border-radius: 50%
+    margin-right: 1vh
+    margin-top: 3px
+    float: left
+
+.switch-on
+    .icon
+        color: $main-color
+
+    .state
+        -webkit-animation: pulsate 2s infinite
+        -moz-animation: pulsate 2s infinite
+        animation: pulsate 2s infinite
+
+.switch-off
+    .icon
+        color: #7B7979
+
+    .state
+        background: $red
+
+@-webkit-keyframes pulsate
+    0%
+        opacity: 1
+    50%
+        opacity: 0
+    100%
+        opacity: 1
+
+@-moz-keyframes pulsate
+    0%
+        opacity: 1
+    50%
+        opacity: 0
+    100%
+        opacity: 1
+
+@keyframes pulsate
+    0%
+        opacity: 1
+    50%
+        opacity: 0
+    100%
+        opacity: 1
+
+
 
 
 .informer
@@ -243,45 +321,3 @@ body
 
 .container
     padding: .3em
-
-.switch-on, .switch-off
-    background: $green
-    display: inline-block
-    width: 11px
-    height: 11px
-    border-radius: 50%
-    margin-right: 1vh
-    margin-top: 3px
-    float: left
-
-.switch-on
-    -webkit-animation: pulsate 2s infinite
-    -moz-animation: pulsate 2s infinite
-    animation: pulsate 2s infinite
-
-.switch-off
-    background: $red
-
-@-webkit-keyframes pulsate
-    0%
-        opacity: 1
-    50%
-        opacity: 0
-    100%
-        opacity: 1
-
-@-moz-keyframes pulsate
-    0%
-        opacity: 1
-    50%
-        opacity: 0
-    100%
-        opacity: 1
-
-@keyframes pulsate
-    0%
-        opacity: 1
-    50%
-        opacity: 0
-    100%
-        opacity: 1

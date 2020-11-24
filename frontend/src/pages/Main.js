@@ -69,14 +69,8 @@ class Main extends Component {
                                 )
                             })}
                         </Grid>
+                        <Relay data={relayData} />
                         <Grid>
-                            { ! _.isEmpty(relayData) ? (
-                                <Relay data={relayData} />
-                            ) : (
-                                <Dimmer active>
-                                    <Loader>Загрузка</Loader>
-                                </Dimmer>
-                            )}
                             <Camera />
                             <ExpChart data={graphic} />
                             <Sun data={astroData.sun} />

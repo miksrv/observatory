@@ -14,6 +14,7 @@ import './static/css/main.sass'
 
 import Main from './pages/Main'
 import ObjectItem from './pages/ObjectItem'
+import Dashboard from './pages/Dashboard'
 import Error404 from './pages/Error404'
 
 const store = createStore(combineReducers(reducers), applyMiddleware(thunk))
@@ -24,6 +25,7 @@ ReactDOM.render(
             <Switch>
                 <Route exact path="/" component={Main} />
                 <Route exact path="/object/:name" component={ObjectItem} />
+                <Route exact path="/dashboard/" component={Dashboard} />
                 <Route component={Error404} />
             </Switch>
         </BrowserRouter>

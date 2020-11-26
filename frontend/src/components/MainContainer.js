@@ -17,7 +17,7 @@ class MainContainer extends Component {
 
     render() {
         const { showSidebar } = this.state
-        const { children } = this.props
+        const { updateTime, onUpdateData, children } = this.props
 
         return (
             <Sidebar.Pushable>
@@ -32,13 +32,19 @@ class MainContainer extends Component {
                     width='thin'
                 >
                     <Menu.Item as={NavLink} exact to='/'>
-                            <Icon name='calendar check outline' />
-                            Сводка
+                        <Icon name='calendar check outline' />
+                        Сводка
+                    </Menu.Item>
+                    <Menu.Item as={NavLink} to='/dashboard' activeClassName='active'>
+                        <Icon name='dashboard' />
+                        Управление
                     </Menu.Item>
                 </Sidebar>
 
                 <Sidebar.Pusher dimmed={showSidebar}>
                     <Header
+                        updateTime={updateTime}
+                        onUpdateData={onUpdateData}
                         onClickMenu={() => this.setVisible(true)}
                     />
                     {children}

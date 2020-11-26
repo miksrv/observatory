@@ -2,28 +2,23 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Container, Dimmer, Loader, Grid } from 'semantic-ui-react'
 
+import moment from 'moment'
+
 // import { Calendar, momentLocalizer } from 'react-big-calendar'
 // import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 import MainContainer from '../components/MainContainer'
 
-import Dashboard from '../layouts/Dashboard'
+import FullTable from '../layouts/FullTable'
 
 import Statistic from '../informers/Statistic'
-import Sensors from '../informers/Sensors'
-import Relay from '../informers/Relay'
-import Camera from '../informers/Camera'
 import ExpChart from '../informers/ExpChart'
 import Sun from '../informers/Sun'
 import Moon from '../informers/Moon'
 
 import * as observatoryActions from '../store/observatory/actions'
-import * as meteoActions from '../store/meteo/actions'
 
 import _ from 'lodash'
-
-import sensors from '../data/sensors'
-import meteo from '../data/meteo'
 
 class Main extends Component {
     componentDidMount() {
@@ -32,46 +27,26 @@ class Main extends Component {
         dispatch(observatoryActions.getAstroData())
         dispatch(observatoryActions.fetchData())
         dispatch(observatoryActions.fetchGraphData())
-        dispatch(observatoryActions.getSensorData())
-        dispatch(observatoryActions.getRelayData())
-        dispatch(meteoActions.getMeteoData())
     }
 
+    updateData = () => {}
+
     render() {
-        const { statistic, graphic, astroData, sensorData, relayData, meteoData } = this.props
+        const { statistic, graphic, astroData } = this.props
 
         // const localizer = momentLocalizer(moment)
 
         return (
-            <MainContainer>
-                { ( ! _.isEmpty(statistic) && ! _.isEmpty(graphic) && ! _.isEmpty(astroData) && ! _.isEmpty(sensorData) && ! _.isEmpty(meteoData))  ? (
+            <MainContainer
+                updateTime={moment().unix()}
+                onUpdateData={this.updateData}
+            >
+                { ( ! _.isEmpty(statistic) && ! _.isEmpty(graphic) && ! _.isEmpty(astroData))  ? (
                     <Container>
                         <Grid>
                             <Statistic data={statistic} />
                         </Grid>
                         <Grid>
-                            {meteo.map((item, key) => {
-                                return (
-                                    <Sensors
-                                        key={key}
-                                        widget={item}
-                                        data={meteoData[item.type][item.source]}
-                                    />
-                                )
-                            })}
-                            {sensors.map((item, key) => {
-                                return (
-                                    <Sensors
-                                        key={key}
-                                        widget={item}
-                                        data={sensorData[item.type][item.source]}
-                                    />
-                                )
-                            })}
-                        </Grid>
-                        <Relay data={relayData} />
-                        <Grid>
-                            <Camera />
                             <ExpChart data={graphic} />
                             <Sun data={astroData.sun} />
                             <Moon data={astroData.moon} />
@@ -90,7 +65,7 @@ class Main extends Component {
                         {/*    </Grid.Column>*/}
                         {/*</Grid>*/}
                         <br />
-                        <Dashboard
+                        <FullTable
                             data={statistic}
                         />
                     </Container>
@@ -107,11 +82,8 @@ class Main extends Component {
 function mapStateToProps(state) {
     return {
         astroData: state.observatory.astroData,
-        sensorData: state.observatory.sensorData,
-        relayData: state.observatory.relayData,
         statistic: state.observatory.statistic,
         graphic: state.observatory.graphic,
-        meteoData: state.meteo.generalData
     }
 }
 

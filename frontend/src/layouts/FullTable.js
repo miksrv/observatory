@@ -30,7 +30,7 @@ const exampleReducer = (state, action) => {
     }
 }
 
-const Dashboard = (props) => {
+const FullTable = (props) => {
     const [state, dispatch] = React.useReducer(exampleReducer, {
         column: 'name',
         data: _.sortBy(props.data.statistic, ['name']),
@@ -108,4 +108,4 @@ const Dashboard = (props) => {
     )
 }
 
-export default Dashboard
+export default FullTable

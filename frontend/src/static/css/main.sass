@@ -29,9 +29,10 @@ body
     margin-left: 1em
     font-size: .8em
     line-height: 20px
+    margin-top: 4px
 
 .update-switch
-    margin-top: 1px
+    margin-top: 3px
     float: right
 
 .online, .offline
@@ -70,12 +71,19 @@ body
     color: $second-color
     font-size: .8em
 
+.table
+    margin-top: 2em !important
+
 
 .sensor
+    position: relative
     background: #373737
     border-radius: 5px
     padding: 1em
     box-shadow: 0 0 10px rgba(0,0,0,0.5)
+
+    .dimmer
+        border-radius: inherit !important
 
     .title
         font-size: 11px
@@ -214,9 +222,10 @@ body
 
 
 .informer
+    position: relative
     background: #373737
     border-radius: 5px
-    padding: 1em
+    padding: .4em
     box-shadow: 0 0 10px rgba(0,0,0,0.5)
 
     .title
@@ -225,44 +234,19 @@ body
         color: #D9D9D9
 
     .value
-        font-size: 25px
+        font-size: 1.6em
+        line-height: 1em
         font-weight: 600
         text-shadow: 0 0 10px rgba(0, 0, 0, 0.5)
 
-        .sign
-            font-size: 13px
-            padding-left: 5px
+    .info
+        color: $second-color
 
     .icon
         position: absolute
-        right: 0
-        top: -12px
-        font-size: 4em
-
-    .trend
-        font-size: .8em
-        padding-left: 1.6em
-        color: $second-color
-
-    .trend-up, .trend-down
-        position: absolute
-        font-size: 2em
-        left: -5px
-        bottom: -3px
-
-    .trend-up
-        color: #DD523A
-
-    .trend-down
-        color: #7EC51D
-
-    .maxmin
-        font-size: .8em
-        text-align: right
-        color: $second-color
-
-    .info
-        font-size: .7em
+        left: 20%
+        font-size: 3em
+        top: -11px
 
     .row > div, .grid-info .row
         padding: 0 !important
@@ -273,14 +257,14 @@ body
     .grid-info
         margin-top: 0 !important
 
-    img
-        width: 100%
-        max-height: 228px
-        object-fit: cover
+.informer.cameraPhoto
+    padding: .3em
 
 .cameraPhoto
     > img
         width: 100%
+        margin-bottom: -3px
+        border-radius: inherit
         cursor: pointer
 
 .error404

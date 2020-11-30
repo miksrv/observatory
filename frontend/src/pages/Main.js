@@ -24,15 +24,14 @@ class Main extends Component {
     componentDidMount() {
         const { dispatch } = this.props
 
-        dispatch(observatoryActions.getAstroData())
-        dispatch(observatoryActions.fetchData())
+        dispatch(observatoryActions.getFITStat())
         dispatch(observatoryActions.fetchGraphData())
     }
 
     updateData = () => {}
 
     render() {
-        const { statistic, graphic, astroData } = this.props
+        const { FITStat, graphic } = this.props
 
         // const localizer = momentLocalizer(moment)
 
@@ -41,16 +40,20 @@ class Main extends Component {
                 updateTime={moment().unix()}
                 onUpdateData={this.updateData}
             >
-                { ( ! _.isEmpty(statistic) && ! _.isEmpty(graphic) && ! _.isEmpty(astroData))  ? (
-                    <Container>
-                        <Grid>
-                            <Statistic data={statistic} />
-                        </Grid>
-                        <Grid>
-                            <ExpChart data={graphic} />
-                            <Sun data={astroData.sun} />
-                            <Moon data={astroData.moon} />
-                        </Grid>
+                <Container>
+                    <Statistic data={FITStat} />
+                    { ! _.isEmpty(FITStat) && (
+                        <FullTable
+                            data={FITStat}
+                        />
+                    )}
+                </Container>
+
+                        {/*<Grid>*/}
+                        {/*    <ExpChart data={graphic} />*/}
+                        {/*    <Sun data={astroData.sun} />*/}
+                        {/*    <Moon data={astroData.moon} />*/}
+                        {/*</Grid>*/}
                         {/*<Grid>*/}
                         {/*    <Grid.Column computer={16} tablet={16} mobile={16}>*/}
                         {/*        <div className='informer container'>*/}
@@ -64,16 +67,6 @@ class Main extends Component {
                         {/*        </div>*/}
                         {/*    </Grid.Column>*/}
                         {/*</Grid>*/}
-                        <br />
-                        <FullTable
-                            data={statistic}
-                        />
-                    </Container>
-                ) : (
-                    <Dimmer active>
-                        <Loader>Загрузка</Loader>
-                    </Dimmer>
-                )}
             </MainContainer>
         )
     }
@@ -81,8 +74,7 @@ class Main extends Component {
 
 function mapStateToProps(state) {
     return {
-        astroData: state.observatory.astroData,
-        statistic: state.observatory.statistic,
+        FITStat: state.observatory.FITStat,
         graphic: state.observatory.graphic,
     }
 }

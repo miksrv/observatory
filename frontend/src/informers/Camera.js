@@ -12,7 +12,7 @@ const Camera = ( ) => {
     return (
         <Grid>
             <Grid.Column computer={6} tablet={16} mobile={16}>
-                <div className='informer container'>
+                <div className='informer cameraPhoto'>
                     {isOpen && (
                         <Lightbox
                             mainSrc={camera}

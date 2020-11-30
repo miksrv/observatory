@@ -4,12 +4,14 @@
 
 import React  from 'react'
 
-import { Grid } from 'semantic-ui-react'
+import { Grid, Dimmer, Loader } from 'semantic-ui-react'
 import { WiThermometer, WiThermometerExterior, WiHumidity } from 'react-icons/wi'
 import { IoIosArrowRoundUp, IoIosArrowRoundDown } from 'react-icons/io'
 import { GiElectric } from 'react-icons/gi'
 import { HiOutlineLightBulb } from 'react-icons/hi'
 import { RiLightbulbFlashLine } from 'react-icons/ri'
+
+import _ from 'lodash'
 
 const Sensor = (params) => {
 
@@ -33,6 +35,13 @@ const Sensor = (params) => {
     return (
         <Grid.Column computer={2} tablet={8} mobile={8}>
             <div className={'sensor ' + params.widget.color}>
+                {
+                    _.isEmpty(params.data) && (
+                        <Dimmer active>
+                            <Loader />
+                        </Dimmer>
+                    )
+                }
                 <div className='title'>{params.widget.name}</div>
                 <Grid>
                     <Grid.Row>

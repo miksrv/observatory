@@ -50,10 +50,10 @@ export function getSensorData() {
     }
 }
 
-export function getAstroData() {
+export function getFITStat() {
     return async(dispatch) => {
         try {
-            const url = `https://api.miksoft.pro/get/general`
+            const url = API_ENDPOINT + `/astro/get/fit_stats`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -63,12 +63,13 @@ export function getAstroData() {
 
             const payload = await response.json()
 
-            dispatch({ type: types.GET_ASTRO_DATA, payload })
+            dispatch({ type: types.GET_FITS_STAT, payload })
         } catch (error) {
             console.error(error)
         }
     }
 }
+
 
 export function fetchData() {
     return async(dispatch) => {

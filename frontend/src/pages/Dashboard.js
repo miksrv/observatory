@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Dimmer, Loader, Grid } from 'semantic-ui-react'
-
-import moment from 'moment'
+import { Container, Grid } from 'semantic-ui-react'
 
 import MainContainer from '../components/MainContainer'
 
@@ -40,36 +38,30 @@ class Dashboard extends Component {
                 updateTime={sensorData.update}
                 onUpdateData={this.updateData}
             >
-                { ( ! _.isEmpty(sensorData) && ! _.isEmpty(meteoData))  ? (
-                    <Container>
-                        <Grid>
-                            {meteo.map((item, key) => {
-                                return (
-                                    <Sensors
-                                        key={key}
-                                        widget={item}
-                                        data={meteoData[item.type][item.source]}
-                                    />
-                                )
-                            })}
-                            {sensors.map((item, key) => {
-                                return (
-                                    <Sensors
-                                        key={key}
-                                        widget={item}
-                                        data={sensorData[item.type][item.source]}
-                                    />
-                                )
-                            })}
-                        </Grid>
-                        <Relay data={relayData} />
-                        <Camera />
-                    </Container>
-                ) : (
-                    <Dimmer active>
-                        <Loader>Загрузка</Loader>
-                    </Dimmer>
-                )}
+                <Container>
+                    <Relay data={relayData} />
+                    <Grid>
+                        {meteo.map((item, key) => {
+                            return (
+                                <Sensors
+                                    key={key}
+                                    widget={item}
+                                    data={! _.isEmpty(meteoData) ? meteoData[item.type][item.source] : 0}
+                                />
+                            )
+                        })}
+                        {sensors.map((item, key) => {
+                            return (
+                                <Sensors
+                                    key={key}
+                                    widget={item}
+                                    data={! _.isEmpty(sensorData) ? sensorData['data'][item.source] : 0}
+                                />
+                            )
+                        })}
+                    </Grid>
+                    <Camera />
+                </Container>
             </MainContainer>
         )
     }

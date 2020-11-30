@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Sidebar, Menu, Icon } from 'semantic-ui-react'
+import {Sidebar, Menu, Icon, Container} from 'semantic-ui-react'
 
 import Header from '../components/Header'
 import Footer from '../layouts/Footer'
@@ -42,11 +42,13 @@ class MainContainer extends Component {
                 </Sidebar>
 
                 <Sidebar.Pusher dimmed={showSidebar}>
-                    <Header
-                        updateTime={updateTime}
-                        onUpdateData={onUpdateData}
-                        onClickMenu={() => this.setVisible(true)}
-                    />
+                    <Container>
+                        <Header
+                            updateTime={updateTime}
+                            onUpdateData={onUpdateData}
+                            onClickMenu={() => this.setVisible(true)}
+                        />
+                    </Container>
                     {children}
                     <Footer />
                 </Sidebar.Pusher>

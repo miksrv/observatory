@@ -28,3 +28,23 @@ export function getMeteoData() {
         }
     }
 }
+
+export function getMeteoStat() {
+    return async(dispatch) => {
+        try {
+            const url = API_ENDPOINT + `/get/statistic?dataset=t1,h&period=today`
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json'
+                }
+            });
+
+            const payload = await response.json()
+
+            dispatch({ type: types.GET_METEO_STAT, payload })
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}

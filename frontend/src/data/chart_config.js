@@ -1,5 +1,11 @@
 const chart_config = {
     colors: [
+        '#b8bc18',
+        '#8bbc2e',
+        '#38bc57',
+        '#2884bc',
+        '#bc4cb3',
+        '#bc4c54',
         '#08B8F4',
         '#e64b24',
         '#d87040',

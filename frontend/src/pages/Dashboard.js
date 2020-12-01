@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Grid } from 'semantic-ui-react'
+import { Container, Grid, Dimmer, Loader } from 'semantic-ui-react'
 
 import MainContainer from '../components/MainContainer'
 
 import Sensors from '../informers/Sensors'
 import Relay from '../informers/Relay'
 import Camera from '../informers/Camera'
+import TempGraphic from '../components/TempGraphic'
 
 import * as observatoryActions from '../store/observatory/actions'
 import * as meteoActions from '../store/meteo/actions'
@@ -19,7 +20,11 @@ import meteo from '../data/meteo'
 class Dashboard extends Component {
 
     componentDidMount() {
+        const { dispatch } = this.props
+
         this.updateData()
+
+        dispatch(observatoryActions.getSensorStat())
     }
 
     updateData = () => {
@@ -31,7 +36,7 @@ class Dashboard extends Component {
     }
 
     render() {
-        const { sensorData, relayData, meteoData } = this.props
+        const { sensorData, relayData, meteoData, meteoStat, sensorStat } = this.props
 
         return (
             <MainContainer
@@ -60,7 +65,24 @@ class Dashboard extends Component {
                             )
                         })}
                     </Grid>
-                    <Camera />
+                    <Grid>
+                        <Grid.Column computer={6} tablet={16} mobile={16}>
+                            <Camera />
+                        </Grid.Column>
+                        <Grid.Column computer={10} tablet={16} mobile={16}>
+                            {(! _.isEmpty(sensorStat)) && (
+                                <TempGraphic
+                                    sensorStat={sensorStat}
+                                />
+                            ) || (
+                                <div className='informer' style={{height: 305}}>
+                                    <Dimmer active>
+                                        <Loader />
+                                    </Dimmer>
+                                </div>
+                            )}
+                        </Grid.Column>
+                    </Grid>
                 </Container>
             </MainContainer>
         )
@@ -71,7 +93,9 @@ function mapStateToProps(state) {
     return {
         sensorData: state.observatory.sensorData,
         relayData: state.observatory.relayData,
-        meteoData: state.meteo.generalData
+        meteoData: state.meteo.meteoData,
+
+        sensorStat: state.observatory.sensorStat
     }
 }
 

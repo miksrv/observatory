@@ -50,6 +50,26 @@ export function getSensorData() {
     }
 }
 
+export function getSensorStat() {
+    return async(dispatch) => {
+        try {
+            const url = API_ENDPOINT + `/astro/get/statistic`
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json'
+                }
+            });
+
+            const payload = await response.json()
+
+            dispatch({ type: types.GET_SENSOR_STAT, payload })
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}
+
 export function getFITStat() {
     return async(dispatch) => {
         try {

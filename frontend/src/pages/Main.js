@@ -47,25 +47,25 @@ class Main extends Component {
                             data={FITStat}
                         />
                     )}
+                    {/*<Grid>*/}
+                    {/*    <Grid.Column computer={16} tablet={16} mobile={16}>*/}
+                    {/*        <div className='informer container'>*/}
+                    {/*            <Calendar*/}
+                    {/*                localizer={localizer}*/}
+                    {/*                events={[]}*/}
+                    {/*                startAccessor="start"*/}
+                    {/*                endAccessor="end"*/}
+                    {/*                style={{ height: 500 }}*/}
+                    {/*            />*/}
+                    {/*        </div>*/}
+                    {/*    </Grid.Column>*/}
+                    {/*</Grid>*/}
                 </Container>
 
                         {/*<Grid>*/}
                         {/*    <ExpChart data={graphic} />*/}
                         {/*    <Sun data={astroData.sun} />*/}
                         {/*    <Moon data={astroData.moon} />*/}
-                        {/*</Grid>*/}
-                        {/*<Grid>*/}
-                        {/*    <Grid.Column computer={16} tablet={16} mobile={16}>*/}
-                        {/*        <div className='informer container'>*/}
-                        {/*            <Calendar*/}
-                        {/*                localizer={localizer}*/}
-                        {/*                events={[]}*/}
-                        {/*                startAccessor="start"*/}
-                        {/*                endAccessor="end"*/}
-                        {/*                style={{ height: 500 }}*/}
-                        {/*            />*/}
-                        {/*        </div>*/}
-                        {/*    </Grid.Column>*/}
                         {/*</Grid>*/}
             </MainContainer>
         )

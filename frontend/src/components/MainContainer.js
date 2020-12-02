@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
-import {Sidebar, Menu, Icon, Container} from 'semantic-ui-react'
+import { Sidebar, Menu, Icon, Container, Modal, Button, Form, Segment } from 'semantic-ui-react'
 
 import Header from '../components/Header'
 import Footer from '../layouts/Footer'
@@ -9,14 +9,19 @@ class MainContainer extends Component {
 
     state = {
         showSidebar: false,
+        showModal: false
     }
 
     setVisible = showSidebar => {
         this.setState({showSidebar})
     }
 
+    setModal = showModal => {
+        this.setState({showModal})
+    }
+
     render() {
-        const { showSidebar } = this.state
+        const { showSidebar, showModal } = this.state
         const { updateTime, onUpdateData, children } = this.props
 
         return (
@@ -39,6 +44,10 @@ class MainContainer extends Component {
                         <Icon name='dashboard' />
                         Управление
                     </Menu.Item>
+                    <Menu.Item onClick={() => {this.setModal(true); this.setVisible(false)}} activeClassName='active'>
+                        <Icon name='user circle' />
+                        Авторизация
+                    </Menu.Item>
                 </Sidebar>
 
                 <Sidebar.Pusher dimmed={showSidebar}>
@@ -52,6 +61,46 @@ class MainContainer extends Component {
                     {children}
                     <Footer />
                 </Sidebar.Pusher>
+                <Modal
+                    size={'tiny'}
+                    open={showModal}
+                    onClose={() => this.setModal(false)}
+                >
+                    <Modal.Header>Авторизация</Modal.Header>
+                    <Modal.Content>
+                        <Form size='large'>
+                            <Form.Input
+                                fluid
+                                icon='user'
+                                iconPosition='left'
+                                placeholder='Логин'
+                            />
+                            <Form.Input
+                                fluid
+                                icon='lock'
+                                iconPosition='left'
+                                placeholder='Пароль'
+                                type='password'
+                            />
+                        </Form>
+                    </Modal.Content>
+                    <Modal.Actions>
+                        <Button
+                            size='small'
+                            onClick={() => this.setModal(false)}
+                            color='grey'
+                        >
+                            Отмена
+                        </Button>
+                        <Button
+                            size='small'
+                            onClick={() => this.setModal(false)}
+                            color='green'
+                        >
+                            Войти
+                        </Button>
+                    </Modal.Actions>
+                </Modal>
             </Sidebar.Pushable>
         )
     }

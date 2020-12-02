@@ -57,6 +57,7 @@ const Relay = (props) => {
                                         toggle
                                         checked={item.value}
                                         className='checkbox'
+                                        disabled={true}
                                     />
                                     <div className='title'><span className='state'></span>{item.name}</div>
                                     <div className='desc'>{item.description}</div>

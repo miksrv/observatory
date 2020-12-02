@@ -104,6 +104,12 @@ class Header extends Component {
                     onChange={this.handleChangeAutoupdate}
                     className='update-switch'
                 />
+                <Icon
+                    className='update-icon'
+                    name='refresh'
+                    size='large'
+                    disabled={!autoUpdate}
+                />
             </Container>
         )
     }

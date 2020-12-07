@@ -13,7 +13,9 @@ const initialState = {
     relayData: {},
     statistic: {},
     objectData: [],
-    graphic: {}
+    graphic: {},
+
+    token: []
 }
 
 export default function reduce(state = initialState, action = {}) {
@@ -59,6 +61,12 @@ export default function reduce(state = initialState, action = {}) {
             return {
                 ...state,
                 objectData: action.payload
+            }
+
+        case types.POST_AUTH_LOGIN:
+            return {
+                ...state,
+                token: action.payload
             }
 
         default:

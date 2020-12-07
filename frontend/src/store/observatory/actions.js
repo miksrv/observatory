@@ -150,3 +150,28 @@ export function fetchGraphData() {
         }
     }
 }
+
+
+export function postAuthLogin(login, passw) {
+    return async(dispatch) => {
+        try {
+            const url = `${ASTRO_ENDPOINT}/auth/login`
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json'
+                },
+                body: {
+                    login: login,
+                    passw: passw
+                }
+            });
+
+            const payload = await response.json()
+
+            dispatch({ type: types.POST_AUTH_LOGIN, payload })
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}

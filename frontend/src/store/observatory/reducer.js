@@ -14,8 +14,7 @@ const initialState = {
     statistic: {},
     objectData: [],
     graphic: {},
-
-    token: []
+    authData: {}
 }
 
 export default function reduce(state = initialState, action = {}) {
@@ -66,7 +65,7 @@ export default function reduce(state = initialState, action = {}) {
         case types.POST_AUTH_LOGIN:
             return {
                 ...state,
-                token: action.payload
+                authData: action.payload
             }
 
         default:

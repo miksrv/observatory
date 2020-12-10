@@ -140,7 +140,7 @@ export function fetchGraphData() {
                 headers: {
                     Accept: 'application/json'
                 }
-            });
+            })
 
             const payload = await response.json()
 
@@ -155,17 +155,17 @@ export function fetchGraphData() {
 export function postAuthLogin(login, passw) {
     return async(dispatch) => {
         try {
-            const url = `${ASTRO_ENDPOINT}/auth/login`
+            const url = `${API_ENDPOINT}/auth/login`
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json'
                 },
-                body: {
+                body: JSON.stringify({
                     login: login,
                     passw: passw
-                }
-            });
+                })
+            })
 
             const payload = await response.json()
 

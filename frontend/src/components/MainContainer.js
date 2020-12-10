@@ -1,15 +1,23 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { Sidebar, Menu, Icon, Container, Modal, Button, Form, Segment } from 'semantic-ui-react'
+import { Sidebar, Menu, Icon, Container, Modal, Button, Form, Message } from 'semantic-ui-react'
 
 import Header from '../components/Header'
 import Footer from '../layouts/Footer'
+
+import * as observatoryActions from '../store/observatory/actions'
+
+import _ from 'lodash'
 
 class MainContainer extends Component {
 
     state = {
         showSidebar: false,
-        showModal: false
+        showModal: false,
+        formLoading: false,
+        userLogin: null,
+        userPassw: null
     }
 
     setVisible = showSidebar => {
@@ -20,9 +28,30 @@ class MainContainer extends Component {
         this.setState({showModal})
     }
 
+    handleChange = (e, { name, value }) => this.setState({ [name]: value })
+
+    handleSubmit = () => {
+        const { dispatch } = this.props
+        const { userLogin, userPassw } = this.state
+
+        this.setState({formLoading: true})
+
+        dispatch(observatoryActions.postAuthLogin(userLogin, userPassw))
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.authData !== prevProps.authData) {
+            this.setState({formLoading: false})
+
+            if (this.props.authData.status === true) {
+
+            }
+        }
+    }
+
     render() {
-        const { showSidebar, showModal } = this.state
-        const { updateTime, onUpdateData, children } = this.props
+        const { showSidebar, showModal, formLoading } = this.state
+        const { updateTime, onUpdateData, children, authData } = this.props
 
         return (
             <Sidebar.Pushable>
@@ -68,19 +97,33 @@ class MainContainer extends Component {
                 >
                     <Modal.Header>Авторизация</Modal.Header>
                     <Modal.Content>
-                        <Form size='large'>
+                        {(!_.isEmpty(authData) && authData.status === false) && (
+                            <Message
+                                error
+                                content="Не верный логин или пароль"
+                            />
+                        )}
+                        <Form
+                            size='large'
+                            loading={formLoading}
+                            onSubmit={this.handleSubmit}
+                        >
                             <Form.Input
                                 fluid
                                 icon='user'
+                                name='userLogin'
                                 iconPosition='left'
                                 placeholder='Логин'
+                                onChange={this.handleChange}
                             />
                             <Form.Input
                                 fluid
                                 icon='lock'
+                                name='userPassw'
                                 iconPosition='left'
                                 placeholder='Пароль'
                                 type='password'
+                                onChange={this.handleChange}
                             />
                         </Form>
                     </Modal.Content>
@@ -94,7 +137,7 @@ class MainContainer extends Component {
                         </Button>
                         <Button
                             size='small'
-                            onClick={() => this.setModal(false)}
+                            onClick={() => this.handleSubmit()}
                             color='green'
                         >
                             Войти
@@ -106,4 +149,10 @@ class MainContainer extends Component {
     }
 }
 
-export default MainContainer
+function mapStateToProps(state) {
+    return {
+        authData: state.observatory.authData,
+    }
+}
+
+export default connect(mapStateToProps)(MainContainer)

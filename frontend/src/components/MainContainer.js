@@ -17,15 +17,63 @@ class MainContainer extends Component {
         showModal: false,
         formLoading: false,
         userLogin: null,
-        userPassw: null
+        userPassw: null,
+        token: null,
+        pingTimer: null
     }
 
-    setVisible = showSidebar => {
+    componentDidMount() {
+        const token = sessionStorage.getItem('token')
+
+        if (token) {
+            this.setState({token: token})
+            this.pingCheckAuth(token)
+            this.startPingTimer()
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const { authData } = this.props
+        const { token, pingTimer } = this.state
+
+        if (authData !== prevProps.authData) {
+            this.setState({formLoading: false})
+
+            if (authData.status === true && token === null) {
+                sessionStorage.setItem('token', authData.token)
+                this.setState({token: authData.token})
+                this.setModal(false)
+                this.startPingTimer()
+            } else if (authData.status === false && token !== null) {
+                sessionStorage.removeItem('token')
+                this.setState({token: null})
+                clearInterval(pingTimer)
+            }
+        }
+    }
+
+    componentWillUnmount() {
+        const { pingTimer } = this.state
+
+        clearInterval(pingTimer)
+    }
+
+    setSidebar = showSidebar => {
         this.setState({showSidebar})
     }
 
     setModal = showModal => {
         this.setState({showModal})
+    }
+
+    startPingTimer = () => {
+        const pingTimer = setInterval(() => {
+            this.pingCheckAuth()
+        }, 60000)
+
+        this.setState({
+            pingTimer: pingTimer
+        })
     }
 
     handleChange = (e, { name, value }) => this.setState({ [name]: value })
@@ -36,21 +84,30 @@ class MainContainer extends Component {
 
         this.setState({formLoading: true})
 
-        dispatch(observatoryActions.postAuthLogin(userLogin, userPassw))
+        dispatch(observatoryActions.authLogin(userLogin, userPassw))
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.authData !== prevProps.authData) {
-            this.setState({formLoading: false})
+    handleLogout = () => {
+        const { dispatch } = this.props
+        const { token } = this.state
 
-            if (this.props.authData.status === true) {
+        dispatch(observatoryActions.authLogout(token))
 
-            }
-        }
+        sessionStorage.removeItem('token')
+
+        this.setState({token: null})
+        this.setSidebar(false)
+    }
+
+    pingCheckAuth = (tmpToken = null) => {
+        const { dispatch } = this.props
+        const { token } = this.state
+
+        dispatch(observatoryActions.authCheck((tmpToken !== null) ? tmpToken : token))
     }
 
     render() {
-        const { showSidebar, showModal, formLoading } = this.state
+        const { showSidebar, showModal, formLoading, token } = this.state
         const { updateTime, onUpdateData, children, authData } = this.props
 
         return (
@@ -60,7 +117,7 @@ class MainContainer extends Component {
                     animation='overlay'
                     icon='labeled'
                     inverted
-                    onHide={() => this.setVisible(false)}
+                    onHide={() => this.setSidebar(false)}
                     vertical
                     visible={showSidebar}
                     width='thin'
@@ -73,10 +130,17 @@ class MainContainer extends Component {
                         <Icon name='dashboard' />
                         Управление
                     </Menu.Item>
-                    <Menu.Item onClick={() => {this.setModal(true); this.setVisible(false)}} activeClassName='active'>
-                        <Icon name='user circle' />
-                        Авторизация
-                    </Menu.Item>
+                    {(token === null) && (
+                        <Menu.Item onClick={() => {this.setModal(true); this.setSidebar(false)}} activeClassName='active'>
+                            <Icon name='user circle' />
+                            Авторизация
+                        </Menu.Item>
+                    ) || (
+                        <Menu.Item onClick={() => {this.handleLogout()}} activeClassName='active'>
+                            <Icon name='log out' />
+                            Выход
+                        </Menu.Item>
+                    )}
                 </Sidebar>
 
                 <Sidebar.Pusher dimmed={showSidebar}>
@@ -84,7 +148,7 @@ class MainContainer extends Component {
                         <Header
                             updateTime={updateTime}
                             onUpdateData={onUpdateData}
-                            onClickMenu={() => this.setVisible(true)}
+                            onClickMenu={() => this.setSidebar(true)}
                         />
                     </Container>
                     {children}
@@ -100,12 +164,11 @@ class MainContainer extends Component {
                         {(!_.isEmpty(authData) && authData.status === false) && (
                             <Message
                                 error
-                                content="Не верный логин или пароль"
+                                content="Неверный логин или пароль"
                             />
                         )}
                         <Form
                             size='large'
-                            loading={formLoading}
                             onSubmit={this.handleSubmit}
                         >
                             <Form.Input
@@ -115,6 +178,7 @@ class MainContainer extends Component {
                                 iconPosition='left'
                                 placeholder='Логин'
                                 onChange={this.handleChange}
+                                disabled={formLoading}
                             />
                             <Form.Input
                                 fluid
@@ -124,6 +188,7 @@ class MainContainer extends Component {
                                 placeholder='Пароль'
                                 type='password'
                                 onChange={this.handleChange}
+                                disabled={formLoading}
                             />
                         </Form>
                     </Modal.Content>
@@ -139,6 +204,8 @@ class MainContainer extends Component {
                             size='small'
                             onClick={() => this.handleSubmit()}
                             color='green'
+                            disabled={formLoading}
+                            loading={formLoading}
                         >
                             Войти
                         </Button>

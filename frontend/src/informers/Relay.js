@@ -4,7 +4,7 @@ import { Grid, Icon, Checkbox, Dimmer, Loader } from 'semantic-ui-react'
 import _ from 'lodash'
 
 const Relay = (props) => {
-    const { data } = props
+    const { data, auth } = props
 
     const relayList = [
         {
@@ -34,6 +34,11 @@ const Relay = (props) => {
         }
     ]
 
+    const handleSwitch = (data, key) => {
+        console.log('handleSwitch', key, data);
+        props.handleSwitch(key)
+    }
+
     return (
         <Grid columns={5}>
             {relayList.map((item, key) => {
@@ -57,7 +62,8 @@ const Relay = (props) => {
                                         toggle
                                         checked={item.value}
                                         className='checkbox'
-                                        disabled={true}
+                                        disabled={!auth}
+                                        onChange={() => handleSwitch(item, key)}
                                     />
                                     <div className='title'><span className='state'></span>{item.name}</div>
                                     <div className='desc'>{item.description}</div>

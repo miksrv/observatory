@@ -35,8 +35,14 @@ class Dashboard extends Component {
         dispatch(meteoActions.getMeteoData())
     }
 
+    handleRelaySwitch = (data) => {
+        if (typeof (data) === 'undefined') return
+
+        console.log('handleRelaySwitch', data)
+    }
+
     render() {
-        const { sensorData, relayData, meteoData, meteoStat, sensorStat } = this.props
+        const { sensorData, relayData, meteoData, authData, sensorStat } = this.props
 
         return (
             <MainContainer
@@ -44,7 +50,11 @@ class Dashboard extends Component {
                 onUpdateData={this.updateData}
             >
                 <Container>
-                    <Relay data={relayData} />
+                    <Relay
+                        data={relayData}
+                        auth={(!_.isEmpty(authData) && authData.status === true)}
+                        handleSwitch={(k) => this.handleRelaySwitch(k)}
+                    />
                     <Grid>
                         {meteo.map((item, key) => {
                             return (
@@ -94,6 +104,8 @@ function mapStateToProps(state) {
         sensorData: state.observatory.sensorData,
         relayData: state.observatory.relayData,
         meteoData: state.meteo.meteoData,
+
+        authData: state.observatory.authData,
 
         sensorStat: state.observatory.sensorStat
     }

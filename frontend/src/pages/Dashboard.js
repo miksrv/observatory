@@ -35,10 +35,14 @@ class Dashboard extends Component {
         dispatch(meteoActions.getMeteoData())
     }
 
-    handleRelaySwitch = (data) => {
-        if (typeof (data) === 'undefined') return
+    handleRelaySwitch = (index) => {
+        if (typeof (index) === 'undefined') return
 
-        console.log('handleRelaySwitch', data)
+        console.log('handleRelaySwitch', index)
+        console.log('relayData', this.props.relayData)
+        // console.log('relayData', this.props.relayData.data.relay[index])
+
+        delete this.props.relayData.data.relay[index]
     }
 
     render() {

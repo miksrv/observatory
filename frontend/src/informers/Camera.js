@@ -24,7 +24,7 @@ const Camera = ( ) => {
         }, 300)
 
         return () => clearInterval(interval)
-    });
+    })
 
     return (
         <div className='informer cameraPhoto'>

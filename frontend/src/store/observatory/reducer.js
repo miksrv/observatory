@@ -11,6 +11,7 @@ const initialState = {
     sensorData: {},
     sensorStat: {},
     relayData: {},
+    relayCurrent: [],
     statistic: {},
     objectData: [],
     graphic: {},
@@ -29,6 +30,12 @@ export default function reduce(state = initialState, action = {}) {
             return {
                 ...state,
                 relayData: action.payload
+            }
+
+        case types.GET_RELAY_CURRENT:
+            return {
+                ...state,
+                relayCurrent: action.payload
             }
 
         case types.GET_SENSOR_DATA:

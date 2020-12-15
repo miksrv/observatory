@@ -16,8 +16,14 @@ import _ from 'lodash'
 
 import sensors from '../data/sensors'
 import meteo from '../data/meteo'
+import relay from '../data/relay'
 
 class Dashboard extends Component {
+
+    state = {
+        relayList: relay,
+        relayIndex: null
+    }
 
     componentDidMount() {
         const { dispatch } = this.props
@@ -25,6 +31,23 @@ class Dashboard extends Component {
         this.updateData()
 
         dispatch(observatoryActions.getSensorStat())
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const { relayCurrent, relayData } = this.props
+        const { relayIndex, relayList } = this.state
+
+        if (relayCurrent !== prevProps.relayCurrent) {
+
+            relayList[relayIndex].loader = ! relayList[relayIndex].loader
+            relayList[relayIndex].value = ! relayList[relayIndex].value
+            relayData.data.relay[relayIndex][relayIndex] = (relayData.data.relay[relayIndex][relayIndex] === 1 ? 0 : 1)
+
+            this.setState({
+                relayList: relayList,
+                relayIndex: false
+            })
+        }
     }
 
     updateData = () => {
@@ -36,17 +59,23 @@ class Dashboard extends Component {
     }
 
     handleRelaySwitch = (index) => {
-        if (typeof (index) === 'undefined') return
+        const { dispatch } = this.props
+        const { relay } = this.props.relayData.data
+        const { relayList } = this.state
 
-        console.log('handleRelaySwitch', index)
-        console.log('relayData', this.props.relayData)
-        // console.log('relayData', this.props.relayData.data.relay[index])
+        relayList[index].loader = ! relayList[index].loader
 
-        delete this.props.relayData.data.relay[index]
+        this.setState({
+            relayList: relayList,
+            relayIndex: index
+        })
+
+        dispatch(observatoryActions.setRelayData(index, ! relay[index][index]))
     }
 
     render() {
         const { sensorData, relayData, meteoData, authData, sensorStat } = this.props
+        const { relayList } = this.state
 
         return (
             <MainContainer
@@ -54,11 +83,20 @@ class Dashboard extends Component {
                 onUpdateData={this.updateData}
             >
                 <Container>
-                    <Relay
-                        data={relayData}
-                        auth={(!_.isEmpty(authData) && authData.status === true)}
-                        handleSwitch={(k) => this.handleRelaySwitch(k)}
-                    />
+                    <Grid columns={relayList.length}>
+                        {relayList.map((item, key) => {
+                            return (
+                                <Relay
+                                    key={key}
+                                    data={item}
+                                    index={key}
+                                    auth={(!_.isEmpty(authData) && authData.status === true)}
+                                    state={! _.isEmpty(relayData) ? relayData.data.relay[key][key] : false}
+                                    handleSwitch={(k) => this.handleRelaySwitch(k)}
+                                />
+                            )
+                        })}
+                    </Grid>
                     <Grid>
                         {meteo.map((item, key) => {
                             return (
@@ -107,6 +145,7 @@ function mapStateToProps(state) {
     return {
         sensorData: state.observatory.sensorData,
         relayData: state.observatory.relayData,
+        relayCurrent: state.observatory.relayCurrent,
         meteoData: state.meteo.meteoData,
 
         authData: state.observatory.authData,

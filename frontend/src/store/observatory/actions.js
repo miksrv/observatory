@@ -30,6 +30,27 @@ export function getRelayData() {
     }
 }
 
+export function setRelayData(device, status) {
+    return async(dispatch) => {
+        try {
+            const url = API_ENDPOINT + `/relay/set?device=${device}&status=${status}`
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json'
+                }
+            });
+
+            const payload = await response.json()
+
+            dispatch({ type: types.GET_RELAY_CURRENT, payload })
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}
+
+
 export function getSensorData() {
     return async(dispatch) => {
         try {

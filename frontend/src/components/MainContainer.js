@@ -7,6 +7,7 @@ import Header from '../components/Header'
 import Footer from '../layouts/Footer'
 
 import * as observatoryActions from '../store/observatory/actions'
+import * as authActions from '../store/auth/actions'
 
 import _ from 'lodash'
 
@@ -84,14 +85,14 @@ class MainContainer extends Component {
 
         this.setState({formLoading: true})
 
-        dispatch(observatoryActions.authLogin(userLogin, userPassw))
+        dispatch(authActions.authLogin(userLogin, userPassw))
     }
 
     handleLogout = () => {
         const { dispatch } = this.props
         const { token } = this.state
 
-        dispatch(observatoryActions.authLogout(token))
+        dispatch(authActions.authLogout(token))
 
         sessionStorage.removeItem('token')
 
@@ -103,7 +104,7 @@ class MainContainer extends Component {
         const { dispatch } = this.props
         const { token } = this.state
 
-        dispatch(observatoryActions.authCheck((tmpToken !== null) ? tmpToken : token))
+        dispatch(authActions.authCheck((tmpToken !== null) ? tmpToken : token))
     }
 
     render() {
@@ -218,7 +219,7 @@ class MainContainer extends Component {
 
 function mapStateToProps(state) {
     return {
-        authData: state.observatory.authData,
+        authData: state.auth.authData,
     }
 }
 

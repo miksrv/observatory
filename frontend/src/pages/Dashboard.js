@@ -59,7 +59,7 @@ class Dashboard extends Component {
     }
 
     handleRelaySwitch = (index) => {
-        const { dispatch } = this.props
+        const { dispatch, token } = this.props
         const { relay } = this.props.relayData.data
         const { relayList } = this.state
 
@@ -70,7 +70,7 @@ class Dashboard extends Component {
             relayIndex: index
         })
 
-        dispatch(observatoryActions.setRelayData(index, ! relay[index][index]))
+        dispatch(observatoryActions.setRelayData(index, ! relay[index][index], token))
     }
 
     render() {
@@ -148,7 +148,8 @@ function mapStateToProps(state) {
         relayCurrent: state.observatory.relayCurrent,
         meteoData: state.meteo.meteoData,
 
-        authData: state.observatory.authData,
+        authData: state.auth.authData,
+        token: state.auth.token,
 
         sensorStat: state.observatory.sensorStat
     }

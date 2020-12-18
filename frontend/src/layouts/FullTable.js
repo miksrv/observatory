@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table, Container } from 'semantic-ui-react'
+import { Table } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 import 'moment/locale/ru'
@@ -92,13 +92,13 @@ const FullTable = (props) => {
                         <Table.Cell><Link to={'/object/' + item.name}>{item.name}</Link></Table.Cell>
                         <Table.Cell>{item.frame}</Table.Cell>
                         <Table.Cell>{getTimeFromSec(item.total)}</Table.Cell>
-                        <Table.Cell className={item.l > 0 && 'filter-l'}>{getTimeFromSec(item.l)}</Table.Cell>
-                        <Table.Cell className={item.r > 0 && 'filter-r'}>{getTimeFromSec(item.r)}</Table.Cell>
-                        <Table.Cell className={item.g > 0 && 'filter-g'}>{getTimeFromSec(item.g)}</Table.Cell>
-                        <Table.Cell className={item.b > 0 && 'filter-b'}>{getTimeFromSec(item.b)}</Table.Cell>
-                        <Table.Cell className={item.h > 0 && 'filter-h'}>{getTimeFromSec(item.h)}</Table.Cell>
-                        <Table.Cell className={item.o > 0 && 'filter-o'}>{getTimeFromSec(item.o)}</Table.Cell>
-                        <Table.Cell className={item.s > 0 && 'filter-s'}>{getTimeFromSec(item.s)}</Table.Cell>
+                        <Table.Cell className={(item.l > 0) ? 'filter-l' : ''}>{getTimeFromSec(item.l)}</Table.Cell>
+                        <Table.Cell className={(item.r > 0) ? 'filter-r' : ''}>{getTimeFromSec(item.r)}</Table.Cell>
+                        <Table.Cell className={(item.g > 0) ? 'filter-g' : ''}>{getTimeFromSec(item.g)}</Table.Cell>
+                        <Table.Cell className={(item.b > 0) ? 'filter-b' : ''}>{getTimeFromSec(item.b)}</Table.Cell>
+                        <Table.Cell className={(item.h > 0) ? 'filter-h' : ''}>{getTimeFromSec(item.h)}</Table.Cell>
+                        <Table.Cell className={(item.o > 0) ? 'filter-o' : ''}>{getTimeFromSec(item.o)}</Table.Cell>
+                        <Table.Cell className={(item.s > 0) ? 'filter-s' : ''}>{getTimeFromSec(item.s)}</Table.Cell>
                     </Table.Row>
                 ))}
             </Table.Body>

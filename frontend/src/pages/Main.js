@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Dimmer, Loader, Grid } from 'semantic-ui-react'
+import { Container } from 'semantic-ui-react' // , Dimmer, Loader, Grid
 
 import moment from 'moment'
 
@@ -8,13 +8,11 @@ import moment from 'moment'
 // import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 import MainContainer from '../components/MainContainer'
-
 import FullTable from '../layouts/FullTable'
-
 import Statistic from '../informers/Statistic'
-import ExpChart from '../informers/ExpChart'
-import Sun from '../informers/Sun'
-import Moon from '../informers/Moon'
+// import ExpChart from '../informers/ExpChart'
+// import Sun from '../informers/Sun'
+// import Moon from '../informers/Moon'
 
 import * as observatoryActions from '../store/observatory/actions'
 
@@ -31,7 +29,7 @@ class Main extends Component {
     updateData = () => {}
 
     render() {
-        const { FITStat, graphic } = this.props
+        const { FITStat } = this.props // graphic
 
         // const localizer = momentLocalizer(moment)
 

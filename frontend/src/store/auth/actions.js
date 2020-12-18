@@ -38,9 +38,9 @@ export function authLogout(token) {
                 }
             })
 
-            // const payload = await response.json()
-            //
-            // dispatch({ type: types.POST_AUTH_LOGIN, payload })
+            const payload = await response.json()
+
+            dispatch({ type: types.POST_AUTH_LOGIN, payload })
         } catch (error) {
             console.error(error)
         }

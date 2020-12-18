@@ -6,8 +6,8 @@ import { Sidebar, Menu, Icon, Container, Modal, Button, Form, Message } from 'se
 import Header from '../components/Header'
 import Footer from '../layouts/Footer'
 
-import * as observatoryActions from '../store/observatory/actions'
 import * as authActions from '../store/auth/actions'
+import * as types from '../store/auth/actionTypes'
 
 import _ from 'lodash'
 
@@ -24,17 +24,21 @@ class MainContainer extends Component {
     }
 
     componentDidMount() {
+        const { dispatch } = this.props
+
         const token = sessionStorage.getItem('token')
 
         if (token) {
             this.setState({token: token})
             this.pingCheckAuth(token)
             this.startPingTimer()
+
+            dispatch({ type: types.SET_AUTH_TOKEN, payload: token })
         }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const { authData } = this.props
+        const { authData, dispatch } = this.props
         const { token, pingTimer } = this.state
 
         if (authData !== prevProps.authData) {
@@ -42,11 +46,15 @@ class MainContainer extends Component {
 
             if (authData.status === true && token === null) {
                 sessionStorage.setItem('token', authData.token)
+                dispatch({ type: types.SET_AUTH_TOKEN, payload: token })
+
                 this.setState({token: authData.token})
                 this.setModal(false)
                 this.startPingTimer()
             } else if (authData.status === false && token !== null) {
                 sessionStorage.removeItem('token')
+                dispatch({ type: types.SET_AUTH_TOKEN, payload: null })
+
                 this.setState({token: null})
                 clearInterval(pingTimer)
             }
@@ -93,6 +101,7 @@ class MainContainer extends Component {
         const { token } = this.state
 
         dispatch(authActions.authLogout(token))
+        dispatch({ type: types.SET_AUTH_TOKEN, payload: null })
 
         sessionStorage.removeItem('token')
 
@@ -127,17 +136,17 @@ class MainContainer extends Component {
                         <Icon name='calendar check outline' />
                         Сводка
                     </Menu.Item>
-                    <Menu.Item as={NavLink} to='/dashboard' activeClassName='active'>
+                    <Menu.Item as={NavLink} to='/dashboard' activeclassname='active'>
                         <Icon name='dashboard' />
                         Управление
                     </Menu.Item>
                     {(token === null) && (
-                        <Menu.Item onClick={() => {this.setModal(true); this.setSidebar(false)}} activeClassName='active'>
+                        <Menu.Item onClick={() => {this.setModal(true); this.setSidebar(false)}} activeclassname='active'>
                             <Icon name='user circle' />
                             Авторизация
                         </Menu.Item>
                     ) || (
-                        <Menu.Item onClick={() => {this.handleLogout()}} activeClassName='active'>
+                        <Menu.Item onClick={() => {this.handleLogout()}} activeclassname='active'>
                             <Icon name='log out' />
                             Выход
                         </Menu.Item>
@@ -196,19 +205,19 @@ class MainContainer extends Component {
                     <Modal.Actions>
                         <Button
                             size='small'
-                            onClick={() => this.setModal(false)}
-                            color='grey'
-                        >
-                            Отмена
-                        </Button>
-                        <Button
-                            size='small'
                             onClick={() => this.handleSubmit()}
                             color='green'
                             disabled={formLoading}
                             loading={formLoading}
                         >
                             Войти
+                        </Button>
+                        <Button
+                            size='small'
+                            onClick={() => this.setModal(false)}
+                            color='grey'
+                        >
+                            Отмена
                         </Button>
                     </Modal.Actions>
                 </Modal>

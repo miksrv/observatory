@@ -19,7 +19,7 @@ export function getRelayData() {
                 headers: {
                     Accept: 'application/json'
                 }
-            });
+            })
 
             const payload = await response.json()
 
@@ -30,16 +30,17 @@ export function getRelayData() {
     }
 }
 
-export function setRelayData(device, status) {
+export function setRelayData(device, status, token) {
     return async(dispatch) => {
         try {
             const url = API_ENDPOINT + `/relay/set?device=${device}&status=${status}`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
-                    Accept: 'application/json'
+                    Accept: 'application/json',
+                    AuthToken: token
                 }
-            });
+            })
 
             const payload = await response.json()
 
@@ -80,7 +81,7 @@ export function getSensorStat() {
                 headers: {
                     Accept: 'application/json'
                 }
-            });
+            })
 
             const payload = await response.json()
 

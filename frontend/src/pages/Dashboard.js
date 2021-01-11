@@ -122,11 +122,11 @@ class Dashboard extends Component {
                             <Camera />
                         </Grid.Column>
                         <Grid.Column computer={10} tablet={16} mobile={16}>
-                            {(! _.isEmpty(sensorStat)) && (
+                            {! _.isEmpty(sensorStat) ? (
                                 <TempGraphic
                                     sensorStat={sensorStat}
                                 />
-                            ) || (
+                            ) : (
                                 <div className='informer' style={{height: 305}}>
                                     <Dimmer active>
                                         <Loader />

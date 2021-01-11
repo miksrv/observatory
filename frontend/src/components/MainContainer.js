@@ -140,12 +140,12 @@ class MainContainer extends Component {
                         <Icon name='dashboard' />
                         Управление
                     </Menu.Item>
-                    {(token === null) && (
+                    {(token === null) ? (
                         <Menu.Item onClick={() => {this.setModal(true); this.setSidebar(false)}} activeclassname='active'>
                             <Icon name='user circle' />
                             Авторизация
                         </Menu.Item>
-                    ) || (
+                    ) : (
                         <Menu.Item onClick={() => {this.handleLogout()}} activeclassname='active'>
                             <Icon name='log out' />
                             Выход
@@ -160,6 +160,13 @@ class MainContainer extends Component {
                             onUpdateData={onUpdateData}
                             onClickMenu={() => this.setSidebar(true)}
                         />
+                        {(token !== null) && (
+                            <Message
+                                error
+                                content='Вы авторизованы, режим оператора включен - управление электропитанием активно'
+                                className='admin-message'
+                            />
+                        )}
                     </Container>
                     {children}
                     <Footer />

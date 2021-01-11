@@ -28,7 +28,7 @@ const Relay = (props) => {
                         <Grid.Column width={12}>
                             <Checkbox
                                 toggle
-                                checked={checked && true || false}
+                                checked={checked ? true : false}
                                 className='checkbox'
                                 disabled={!auth}
                                 onChange={() => handleSwitch(index)}

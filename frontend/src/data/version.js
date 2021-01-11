@@ -1,3 +1,3 @@
-const version = '0.7.11 (18.12.2020)'
+const version = '0.7.12 (11.01.2021)'
 
 export default version

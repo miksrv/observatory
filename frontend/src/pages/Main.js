@@ -14,6 +14,8 @@ import Statistic from '../informers/Statistic'
 // import Sun from '../informers/Sun'
 // import Moon from '../informers/Moon'
 
+// Calendar: https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/guides/date-navigation/
+
 import * as observatoryActions from '../store/observatory/actions'
 
 import _ from 'lodash'

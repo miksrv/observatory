@@ -1,7 +1,7 @@
 const data = [
     {
         source: 't',
-        name: 'Температура в обсерватории',
+        name: 'Температура обсерватории',
         color: 'red',
         icon: 'extemp',
         trend: true,

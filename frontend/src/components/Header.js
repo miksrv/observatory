@@ -95,7 +95,7 @@ class Header extends Component {
                 />
                 <span className='last-update'>
                     <span className={((last_update > -180 && last_update < 180) ? 'online' : 'offline') + (autoUpdate ? ' pulsate' : '')}></span>
-                    26.11.2020 20:03:04 {timeAgo(last_update)}
+                    {moment.unix(lastUpdate).format("DD.MM.Y, H:mm:ss")}{timeAgo(last_update)}
                 </span>
                 <Checkbox
                     toggle

@@ -34,4 +34,4 @@ export const timeAgo = sec => {
         + (s > 0 ? (s < 10 ? '0' + s : s) + ' сек.' : '')) + ' назад'
 }
 
-export default getTimeFromSec
+export default (getTimeFromSec, setClassByFilter, timeAgo)

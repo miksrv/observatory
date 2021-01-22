@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Icon, Dimmer, Loader } from 'semantic-ui-react'
 
-import getTimeFromSec from '../data/functions'
+import { getTimeFromSec } from '../data/functions'
 
 import _ from 'lodash'
 

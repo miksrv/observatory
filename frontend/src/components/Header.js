@@ -3,7 +3,7 @@ import { Checkbox, Container, Icon } from 'semantic-ui-react'
 
 import moment from 'moment'
 
-import timeAgo from '../data/functions'
+import { timeAgo } from '../data/functions'
 
 class Header extends Component {
 

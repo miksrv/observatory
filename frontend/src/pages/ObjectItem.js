@@ -7,7 +7,7 @@ import * as observatoryActions from '../store/observatory/actions'
 
 import MainContainer from '../components/MainContainer'
 
-import getTimeFromSec from '../data/functions'
+import { getTimeFromSec } from '../data/functions'
 
 import moment from 'moment'
 

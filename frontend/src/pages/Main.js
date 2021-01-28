@@ -25,7 +25,7 @@ class Main extends Component {
         const { dispatch } = this.props
 
         dispatch(observatoryActions.getFITStat())
-        dispatch(observatoryActions.fetchGraphData())
+        // dispatch(observatoryActions.fetchGraphData())
     }
 
     updateData = () => {}
@@ -75,7 +75,7 @@ class Main extends Component {
 function mapStateToProps(state) {
     return {
         FITStat: state.observatory.FITStat,
-        graphic: state.observatory.graphic,
+        // graphic: state.observatory.graphic,
     }
 }
 

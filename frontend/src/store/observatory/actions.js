@@ -113,30 +113,30 @@ export function getFITStat() {
 }
 
 
-export function fetchData() {
-    return async(dispatch) => {
-        try {
-            const url = `${ASTRO_ENDPOINT}/get/data`
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json'
-                }
-            });
-
-            const payload = await response.json()
-
-            dispatch({ type: types.GET_STAT_DATA, payload })
-        } catch (error) {
-            console.error(error)
-        }
-    }
-}
+// export function fetchData() {
+//     return async(dispatch) => {
+//         try {
+//             const url = `${API_ENDPOINT}/get/data`
+//             const response = await fetch(url, {
+//                 method: 'GET',
+//                 headers: {
+//                     Accept: 'application/json'
+//                 }
+//             });
+//
+//             const payload = await response.json()
+//
+//             dispatch({ type: types.GET_STAT_DATA, payload })
+//         } catch (error) {
+//             console.error(error)
+//         }
+//     }
+// }
 
 export function fetchDataByName(name = '') {
     return async(dispatch) => {
         try {
-            const url = `${ASTRO_ENDPOINT}/get/object_data?name=${name}`
+            const url = `${API_ENDPOINT}/astro/get/fit_object_stats?name=${name}`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -153,22 +153,22 @@ export function fetchDataByName(name = '') {
     }
 }
 
-export function fetchGraphData() {
-    return async(dispatch) => {
-        try {
-            const url = `${ASTRO_ENDPOINT}/get/graph_data`
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json'
-                }
-            })
-
-            const payload = await response.json()
-
-            dispatch({ type: types.GET_GRAPH_DATA, payload })
-        } catch (error) {
-            console.error(error)
-        }
-    }
-}
+// export function fetchGraphData() {
+//     return async(dispatch) => {
+//         try {
+//             const url = `${API_ENDPOINT}/get/graph_data`
+//             const response = await fetch(url, {
+//                 method: 'GET',
+//                 headers: {
+//                     Accept: 'application/json'
+//                 }
+//             })
+//
+//             const payload = await response.json()
+//
+//             dispatch({ type: types.GET_GRAPH_DATA, payload })
+//         } catch (error) {
+//             console.error(error)
+//         }
+//     }
+// }

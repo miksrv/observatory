@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container } from 'semantic-ui-react' // , Dimmer, Loader, Grid
+import { Container, Dimmer, Loader, Grid } from 'semantic-ui-react' // , Dimmer, Loader, Grid
 
 import moment from 'moment'
 
-// import { Calendar, momentLocalizer } from 'react-big-calendar'
+import { Calendar, momentLocalizer } from 'react-big-calendar'
 // import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 import MainContainer from '../components/MainContainer'
@@ -19,21 +19,52 @@ import Statistic from '../informers/Statistic'
 import * as observatoryActions from '../store/observatory/actions'
 
 import _ from 'lodash'
+import TempGraphic from "../components/TempGraphic";
+
+const
+    currentDate = new Date(),
+    defaultYear = currentDate.getFullYear(),
+    defaultMonth = currentDate.getMonth(),
+    defaultDay = currentDate.getDate() - 1,
+    events = [{
+        id: 0,
+        title: 'Hello, world',
+        allDay: false,
+        start: new Date(defaultYear, defaultMonth, defaultDay, 7, 0, 0),
+        end: new Date(defaultYear, defaultMonth, defaultDay, 21, 0, 0),
+        text: 'test'
+    }]
 
 class Main extends Component {
     componentDidMount() {
         const { dispatch } = this.props
 
         dispatch(observatoryActions.getFITStat())
+        dispatch(observatoryActions.getEventCalendarFIT())
         // dispatch(observatoryActions.fetchGraphData())
     }
 
     updateData = () => {}
 
-    render() {
-        const { FITStat } = this.props // graphic
+    handleEventPress = (selectSlot) => {
+        console.log('handleEventPress', selectSlot)
+    }
 
-        // const localizer = momentLocalizer(moment)
+    handleNavigatePress = (date) => {
+        console.log('handleNavigatePress!', moment(date).format('MM.YYYY'))
+    }
+
+    render() {
+        const { FITStat, FITEvent } = this.props // graphic
+
+        const localizer = momentLocalizer(moment)
+
+        !_.isEmpty(FITEvent) && (
+            FITEvent.data.map((item, key) => {
+                item.start = moment(item.start, 'DD-MM-YYYY').toDate()
+                item.end   = moment(item.end, 'DD-MM-YYYY').toDate()
+            })
+        )
 
         return (
             <MainContainer
@@ -42,24 +73,49 @@ class Main extends Component {
             >
                 <Container>
                     <Statistic data={FITStat} />
+
+                    <Grid>
+                        <Grid.Column computer={16} tablet={16} mobile={16}>
+                            <div className='informer container'>
+                                {_.isEmpty(FITEvent) && (
+                                    <Dimmer active>
+                                        <Loader />
+                                    </Dimmer>
+                                )}
+                                <Calendar
+                                    defaultDate={new Date()}
+                                    localizer={localizer}
+                                    events={!_.isEmpty(FITEvent) ? FITEvent.data : []}
+                                    startAccessor="start"
+                                    endAccessor="end"
+                                    views={['month']}
+                                    style={{ height: 500 }}
+                                    messages={{
+                                        today: 'сегодня',
+                                        previous: '<',
+                                        next: '>',
+                                        showMore: function showMore(total) {
+                                            return 'еще ' + total;
+                                        }
+                                    }}
+                                    onSelectEvent={this.handleEventPress}
+                                    onNavigate={this.handleNavigatePress}
+                                    eventPropGetter={(event, start, end, isSelected) => {
+                                            return {
+                                                className: event.type,
+                                            }
+                                        }
+                                    }
+                                />
+                            </div>
+                        </Grid.Column>
+                    </Grid>
+
                     { ! _.isEmpty(FITStat) && (
                         <FullTable
                             data={FITStat}
                         />
                     )}
-                    {/*<Grid>*/}
-                    {/*    <Grid.Column computer={16} tablet={16} mobile={16}>*/}
-                    {/*        <div className='informer container'>*/}
-                    {/*            <Calendar*/}
-                    {/*                localizer={localizer}*/}
-                    {/*                events={[]}*/}
-                    {/*                startAccessor="start"*/}
-                    {/*                endAccessor="end"*/}
-                    {/*                style={{ height: 500 }}*/}
-                    {/*            />*/}
-                    {/*        </div>*/}
-                    {/*    </Grid.Column>*/}
-                    {/*</Grid>*/}
                 </Container>
 
                         {/*<Grid>*/}
@@ -75,6 +131,7 @@ class Main extends Component {
 function mapStateToProps(state) {
     return {
         FITStat: state.observatory.FITStat,
+        FITEvent: state.observatory.FITEvent,
         // graphic: state.observatory.graphic,
     }
 }

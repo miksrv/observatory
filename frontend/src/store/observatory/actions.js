@@ -112,6 +112,25 @@ export function getFITStat() {
     }
 }
 
+export function getEventCalendarFIT() {
+    return async(dispatch) => {
+        try {
+            const url = API_ENDPOINT + `/astro/get/month_stats`
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json'
+                }
+            });
+
+            const payload = await response.json()
+
+            dispatch({ type: types.GET_FITS_EVENT, payload })
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}
 
 // export function fetchData() {
 //     return async(dispatch) => {

@@ -8,6 +8,7 @@ import * as types from './actionTypes'
 
 const initialState = {
     FITStat: {},
+    FITEvent: {},
     sensorData: {},
     sensorStat: {},
     relayData: {},
@@ -67,6 +68,14 @@ export default function reduce(state = initialState, action = {}) {
                 ...state,
                 objectData: action.payload
             }
+
+
+        case types.GET_FITS_EVENT:
+            return {
+                ...state,
+                FITEvent: action.payload
+            }
+
 
         default:
             return state

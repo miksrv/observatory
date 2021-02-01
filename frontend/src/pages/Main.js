@@ -19,20 +19,21 @@ import Statistic from '../informers/Statistic'
 import * as observatoryActions from '../store/observatory/actions'
 
 import _ from 'lodash'
-import TempGraphic from "../components/TempGraphic";
+// import TempGraphic from "../components/TempGraphic";
 
 const
-    currentDate = new Date(),
-    defaultYear = currentDate.getFullYear(),
-    defaultMonth = currentDate.getMonth(),
-    defaultDay = currentDate.getDate() - 1,
+    // currentDate = new Date(),
+    // defaultYear = currentDate.getFullYear(),
+    // defaultMonth = currentDate.getMonth(),
+    // defaultDay = currentDate.getDate()-4,
     events = [{
-        id: 0,
-        title: 'Hello, world',
-        allDay: false,
-        start: new Date(defaultYear, defaultMonth, defaultDay, 7, 0, 0),
-        end: new Date(defaultYear, defaultMonth, defaultDay, 21, 0, 0),
-        text: 'test'
+        // id: 0,
+        // title: 'Hello, world',
+        // allDay: false,
+        // start: new Date(defaultYear, defaultMonth, defaultDay, 7, 0, 0),
+        // end: new Date(defaultYear, defaultMonth, defaultDay, 21, 0, 0),
+        // text: 'test',
+        // type: 'meteo'
     }]
 
 class Main extends Component {
@@ -51,7 +52,11 @@ class Main extends Component {
     }
 
     handleNavigatePress = (date) => {
-        console.log('handleNavigatePress!', moment(date).format('MM.YYYY'))
+        const { dispatch } = this.props
+
+        dispatch(observatoryActions.getEventCalendarFIT(moment(date).format('DD.MM.YYYY')))
+
+        //console.log('handleNavigatePress!', moment(date).format('MM.YYYY'))
     }
 
     render() {
@@ -59,8 +64,8 @@ class Main extends Component {
 
         const localizer = momentLocalizer(moment)
 
-        !_.isEmpty(FITEvent) && (
-            FITEvent.data.map((item, key) => {
+        !_.isEmpty(FITEvent.data) && (
+            FITEvent.data.map((item) => {
                 item.start = moment(item.start, 'DD-MM-YYYY').toDate()
                 item.end   = moment(item.end, 'DD-MM-YYYY').toDate()
             })
@@ -73,7 +78,6 @@ class Main extends Component {
             >
                 <Container>
                     <Statistic data={FITStat} />
-
                     <Grid>
                         <Grid.Column computer={16} tablet={16} mobile={16}>
                             <div className='informer container'>
@@ -85,7 +89,7 @@ class Main extends Component {
                                 <Calendar
                                     defaultDate={new Date()}
                                     localizer={localizer}
-                                    events={!_.isEmpty(FITEvent) ? FITEvent.data : []}
+                                    events={!_.isEmpty(FITEvent.data) ? [...events, ...FITEvent.data] : [...events]}
                                     startAccessor="start"
                                     endAccessor="end"
                                     views={['month']}

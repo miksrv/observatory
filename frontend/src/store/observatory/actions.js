@@ -7,7 +7,7 @@
 
 import * as types from './actionTypes'
 
-const ASTRO_ENDPOINT = 'https://fits.miksoft.pro'
+// const ASTRO_ENDPOINT = 'https://fits.miksoft.pro'
 const API_ENDPOINT = 'https://api.miksoft.pro'
 
 export function getRelayData() {
@@ -112,10 +112,10 @@ export function getFITStat() {
     }
 }
 
-export function getEventCalendarFIT() {
+export function getEventCalendarFIT(date = '') {
     return async(dispatch) => {
         try {
-            const url = API_ENDPOINT + `/astro/get/month_stats`
+            const url = API_ENDPOINT + `/astro/get/month_stats` + (date && `?date=${date}`)
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {

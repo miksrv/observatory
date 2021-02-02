@@ -48,3 +48,23 @@ export function getMeteoStat() {
         }
     }
 }
+
+export function getMeteoEvents(date = '') {
+    return async(dispatch) => {
+        try {
+            const url = API_ENDPOINT + `/get/month_event` + (date && `?date=${date}`)
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json'
+                }
+            });
+
+            const payload = await response.json()
+
+            dispatch({ type: types.GET_METEO_EVENTS, payload })
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}

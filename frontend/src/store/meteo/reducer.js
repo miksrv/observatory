@@ -2,7 +2,8 @@ import * as types from './actionTypes'
 
 const initialState = {
     meteoData: {},
-    meteoStat: {}
+    meteoStat: {},
+    meteoEvents: {}
 }
 
 export default function reduce(state = initialState, action = {}) {
@@ -17,6 +18,12 @@ export default function reduce(state = initialState, action = {}) {
             return {
                 ...state,
                 meteoStat: action.payload
+            }
+
+        case types.GET_METEO_EVENTS:
+            return {
+                ...state,
+                meteoEvents: action.payload
             }
 
         default:

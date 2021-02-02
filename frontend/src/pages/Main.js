@@ -17,6 +17,7 @@ import Statistic from '../informers/Statistic'
 // Calendar: https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/guides/date-navigation/
 
 import * as observatoryActions from '../store/observatory/actions'
+import * as meteoActions from '../store/meteo/actions'
 
 import _ from 'lodash'
 // import TempGraphic from "../components/TempGraphic";
@@ -42,6 +43,8 @@ class Main extends Component {
 
         dispatch(observatoryActions.getFITStat())
         dispatch(observatoryActions.getEventCalendarFIT())
+
+        dispatch(meteoActions.getMeteoEvents())
         // dispatch(observatoryActions.fetchGraphData())
     }
 
@@ -55,21 +58,44 @@ class Main extends Component {
         const { dispatch } = this.props
 
         dispatch(observatoryActions.getEventCalendarFIT(moment(date).format('DD.MM.YYYY')))
+        dispatch(meteoActions.getMeteoEvents(moment(date).format('DD.MM.YYYY')))
 
         //console.log('handleNavigatePress!', moment(date).format('MM.YYYY'))
     }
 
     render() {
-        const { FITStat, FITEvent } = this.props // graphic
+        const { FITStat, FITEvent, meteoEvents } = this.props // graphic
 
         const localizer = momentLocalizer(moment)
 
-        !_.isEmpty(FITEvent.data) && (
+
+        let calendarEvents = []
+
+        if (!_.isEmpty(meteoEvents.data)) {
+            meteoEvents.data.map((item) => {
+                item.start = moment(item.start, 'DD-MM-YYYY').toDate()
+                item.end   = moment(item.end, 'DD-MM-YYYY').toDate()
+            })
+
+            calendarEvents = [...calendarEvents, ...meteoEvents.data]
+        }
+
+        // !_.isEmpty(meteoEvents.data) && (
+        //
+        // )
+
+        if (!_.isEmpty(FITEvent.data)) {
             FITEvent.data.map((item) => {
                 item.start = moment(item.start, 'DD-MM-YYYY').toDate()
                 item.end   = moment(item.end, 'DD-MM-YYYY').toDate()
             })
-        )
+
+            calendarEvents = [...calendarEvents, ...FITEvent.data]
+        }
+
+        // !_.isEmpty(FITEvent.data) && (
+        //
+        // )
 
         return (
             <MainContainer
@@ -89,7 +115,7 @@ class Main extends Component {
                                 <Calendar
                                     defaultDate={new Date()}
                                     localizer={localizer}
-                                    events={!_.isEmpty(FITEvent.data) ? [...events, ...FITEvent.data] : [...events]}
+                                    events={calendarEvents}
                                     startAccessor="start"
                                     endAccessor="end"
                                     views={['month']}
@@ -136,6 +162,7 @@ function mapStateToProps(state) {
     return {
         FITStat: state.observatory.FITStat,
         FITEvent: state.observatory.FITEvent,
+        meteoEvents: state.meteo.meteoEvents
         // graphic: state.observatory.graphic,
     }
 }

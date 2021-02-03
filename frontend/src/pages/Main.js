@@ -5,7 +5,6 @@ import { Container, Dimmer, Loader, Grid } from 'semantic-ui-react' // , Dimmer,
 import moment from 'moment'
 
 import { Calendar, momentLocalizer } from 'react-big-calendar'
-// import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 import MainContainer from '../components/MainContainer'
 import FullTable from '../layouts/FullTable'
@@ -14,28 +13,11 @@ import Statistic from '../informers/Statistic'
 // import Sun from '../informers/Sun'
 // import Moon from '../informers/Moon'
 
-// Calendar: https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/guides/date-navigation/
-
 import * as observatoryActions from '../store/observatory/actions'
 import * as meteoActions from '../store/meteo/actions'
 
 import _ from 'lodash'
 // import TempGraphic from "../components/TempGraphic";
-
-const
-    // currentDate = new Date(),
-    // defaultYear = currentDate.getFullYear(),
-    // defaultMonth = currentDate.getMonth(),
-    // defaultDay = currentDate.getDate()-4,
-    events = [{
-        // id: 0,
-        // title: 'Hello, world',
-        // allDay: false,
-        // start: new Date(defaultYear, defaultMonth, defaultDay, 7, 0, 0),
-        // end: new Date(defaultYear, defaultMonth, defaultDay, 21, 0, 0),
-        // text: 'test',
-        // type: 'meteo'
-    }]
 
 class Main extends Component {
     componentDidMount() {
@@ -45,7 +27,6 @@ class Main extends Component {
         dispatch(observatoryActions.getEventCalendarFIT())
 
         dispatch(meteoActions.getMeteoEvents())
-        // dispatch(observatoryActions.fetchGraphData())
     }
 
     updateData = () => {}
@@ -59,16 +40,11 @@ class Main extends Component {
 
         dispatch(observatoryActions.getEventCalendarFIT(moment(date).format('DD.MM.YYYY')))
         dispatch(meteoActions.getMeteoEvents(moment(date).format('DD.MM.YYYY')))
-
-        //console.log('handleNavigatePress!', moment(date).format('MM.YYYY'))
     }
 
     render() {
         const { FITStat, FITEvent, meteoEvents } = this.props // graphic
-
         const localizer = momentLocalizer(moment)
-
-
         let calendarEvents = []
 
         if (!_.isEmpty(meteoEvents.data)) {
@@ -80,10 +56,6 @@ class Main extends Component {
             calendarEvents = [...calendarEvents, ...meteoEvents.data]
         }
 
-        // !_.isEmpty(meteoEvents.data) && (
-        //
-        // )
-
         if (!_.isEmpty(FITEvent.data)) {
             FITEvent.data.map((item) => {
                 item.start = moment(item.start, 'DD-MM-YYYY').toDate()
@@ -92,10 +64,6 @@ class Main extends Component {
 
             calendarEvents = [...calendarEvents, ...FITEvent.data]
         }
-
-        // !_.isEmpty(FITEvent.data) && (
-        //
-        // )
 
         return (
             <MainContainer
@@ -107,7 +75,7 @@ class Main extends Component {
                     <Grid>
                         <Grid.Column computer={16} tablet={16} mobile={16}>
                             <div className='informer container'>
-                                {_.isEmpty(FITEvent) && (
+                                {_.isEmpty(meteoEvents) && (
                                     <Dimmer active>
                                         <Loader />
                                     </Dimmer>

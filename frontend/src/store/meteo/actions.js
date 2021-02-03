@@ -51,6 +51,8 @@ export function getMeteoStat() {
 
 export function getMeteoEvents(date = '') {
     return async(dispatch) => {
+        dispatch({ type: types.CLEAR_METEO_EVENTS })
+
         try {
             const url = API_ENDPOINT + `/get/month_event` + (date && `?date=${date}`)
             const response = await fetch(url, {

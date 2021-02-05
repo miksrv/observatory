@@ -8,6 +8,7 @@ import MainContainer from '../components/MainContainer'
 import FullTable from '../layouts/FullTable'
 import Statistic from '../informers/Statistic'
 import EventCalendar from '../informers/EventCalendar'
+import EventModal from '../informers/EventModal'
 // import ExpChart from '../informers/ExpChart'
 // import Sun from '../informers/Sun'
 // import Moon from '../informers/Moon'
@@ -20,6 +21,10 @@ import _ from 'lodash'
 // import TempGraphic from "../components/TempGraphic";
 
 class Main extends Component {
+    state = {
+        showModalEvent: false
+    }
+
     componentDidMount() {
         const { dispatch } = this.props
 
@@ -32,7 +37,12 @@ class Main extends Component {
     updateData = () => {}
 
     handleEventPress = (selectSlot) => {
-        console.log('handleEventPress', selectSlot)
+        this.setState({ showModalEvent: true })
+        // console.log('handleEventPress', selectSlot)
+    }
+
+    handleEventModalClose = () => {
+        this.setState({ showModalEvent: false })
     }
 
     handleNavigatePress = (date) => {
@@ -44,12 +54,18 @@ class Main extends Component {
 
     render() {
         const { FITStat, FITEvent, meteoEvents } = this.props // graphic
+        const { showModalEvent } = this.state
 
         return (
             <MainContainer
                 updateTime={moment().unix()}
                 onUpdateData={this.updateData}
             >
+                <EventModal
+                    show={showModalEvent}
+                    data={[]}
+                    fOnClose={() => this.handleEventModalClose()}
+                />
                 <Container>
                     <Statistic
                         data={FITStat}

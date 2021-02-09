@@ -9,10 +9,30 @@ import * as types from './actionTypes'
 
 const API_ENDPOINT = 'https://api.miksoft.pro'
 
+export function getStatisticDay(date) {
+    return async(dispatch) => {
+        try {
+            const url = API_ENDPOINT + `/meteo/get/statistic?date=${date}`
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json'
+                }
+            });
+
+            const payload = await response.json()
+
+            dispatch({ type: types.GET_STATISTIC_DAY, payload })
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}
+
 export function getMeteoData() {
     return async(dispatch) => {
         try {
-            const url = API_ENDPOINT + `/get/general`
+            const url = API_ENDPOINT + `/meteo/get/summary`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {

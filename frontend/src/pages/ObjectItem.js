@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Container, Dimmer, Loader, Table, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
-import * as observatoryActions from '../store/observatory/actions'
+import * as astroActions from '../store/astro/actions'
 
 import MainContainer from '../components/MainContainer'
 
@@ -19,7 +19,7 @@ class ObjectItem extends Component {
         const { dispatch } = this.props
         const { name } = this.props.match.params
 
-        dispatch(observatoryActions.fetchDataByName(name))
+        dispatch(astroActions.fetchDataByName(name))
     }
 
     setClassByFilter = filter => {
@@ -95,7 +95,7 @@ class ObjectItem extends Component {
 
 function mapStateToProps(state) {
     return {
-        objectData: state.observatory.objectData
+        objectData: state.astro.objectData
     }
 }
 

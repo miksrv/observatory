@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import * as observatoryActions from '../store/observatory/actions'
+import * as astroActions from '../store/astro/actions'
 
 class ObjectList extends Component {
 
@@ -18,7 +18,7 @@ class ObjectList extends Component {
 
 function mapStateToProps(state) {
     return {
-        objectData: state.observatory.objectData
+        objectData: state.astro.objectData
     }
 }
 

@@ -1,9 +1,11 @@
-import observatory from './observatory/reducer'
+import astro from './astro/reducer'
 import meteo from './meteo/reducer'
+import relay from './relay/reducer'
 import auth from './auth/reducer'
 
 export {
-    observatory,
+    astro,
     meteo,
+    relay,
     auth
 }

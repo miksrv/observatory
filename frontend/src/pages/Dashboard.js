@@ -4,13 +4,14 @@ import { Container, Grid, Dimmer, Loader } from 'semantic-ui-react'
 
 import MainContainer from '../components/MainContainer'
 
-import Sensors from '../informers/Sensors'
-import Relay from '../informers/Relay'
-import Camera from '../informers/Camera'
+import Sensors from '../layouts/Sensors'
+import Relay from '../layouts/Relay'
+import Camera from '../layouts/Camera'
 import TempGraphic from '../components/TempGraphic'
 
-import * as observatoryActions from '../store/observatory/actions'
+import * as astroActions from '../store/astro/actions'
 import * as meteoActions from '../store/meteo/actions'
+import * as relayActions from '../store/relay/actions'
 
 import _ from 'lodash'
 
@@ -30,18 +31,18 @@ class Dashboard extends Component {
 
         this.updateData()
 
-        dispatch(observatoryActions.getSensorStat())
+        dispatch(astroActions.getSensorStat())
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const { relayCurrent, relayData } = this.props
+        const { storeRelayCurrent, storeRelayStatus } = this.props
         const { relayIndex, relayList } = this.state
 
-        if (relayCurrent !== prevProps.relayCurrent) {
+        if (storeRelayCurrent !== prevProps.storeRelayCurrent) {
 
             relayList[relayIndex].loader = ! relayList[relayIndex].loader
             relayList[relayIndex].value = ! relayList[relayIndex].value
-            relayData.data.relay[relayIndex][relayIndex] = (relayData.data.relay[relayIndex][relayIndex] === 1 ? 0 : 1)
+            storeRelayStatus.data.relay[relayIndex][relayIndex] = (storeRelayStatus.data.relay[relayIndex][relayIndex] === 1 ? 0 : 1)
 
             this.setState({
                 relayList: relayList,
@@ -53,14 +54,14 @@ class Dashboard extends Component {
     updateData = () => {
         const { dispatch } = this.props
 
-        dispatch(observatoryActions.getSensorData())
-        dispatch(observatoryActions.getRelayData())
+        dispatch(astroActions.getSensorData())
+        dispatch(relayActions.getStatus())
         dispatch(meteoActions.getMeteoData())
     }
 
     handleRelaySwitch = (index) => {
         const { dispatch, token } = this.props
-        const { relay } = this.props.relayData.data
+        const { relay } = this.props.storeRelayStatus.data
         const { relayList } = this.state
 
         relayList[index].loader = ! relayList[index].loader
@@ -70,11 +71,11 @@ class Dashboard extends Component {
             relayIndex: index
         })
 
-        dispatch(observatoryActions.setRelayData(index, ! relay[index][index], token))
+        dispatch(relayActions.setStatus(index, ! relay[index][index], token))
     }
 
     render() {
-        const { sensorData, relayData, meteoData, authData, sensorStat } = this.props
+        const { sensorData, storeRelayStatus, meteoData, authData, sensorStat } = this.props
         const { relayList } = this.state
 
         return (
@@ -91,7 +92,7 @@ class Dashboard extends Component {
                                     data={item}
                                     index={key}
                                     auth={(!_.isEmpty(authData) && authData.status === true)}
-                                    state={! _.isEmpty(relayData) ? relayData.data.relay[key][key] : false}
+                                    state={! _.isEmpty(storeRelayStatus) ? storeRelayStatus.data.relay[key][key] : false}
                                     handleSwitch={(k) => this.handleRelaySwitch(k)}
                                 />
                             )
@@ -103,7 +104,7 @@ class Dashboard extends Component {
                                 <Sensors
                                     key={key}
                                     widget={item}
-                                    data={! _.isEmpty(meteoData) ? meteoData[item.type][item.source] : 0}
+                                    data={! _.isEmpty(meteoData) ? meteoData.data[item.source] : 0}
                                 />
                             )
                         })}
@@ -143,15 +144,16 @@ class Dashboard extends Component {
 
 function mapStateToProps(state) {
     return {
-        sensorData: state.observatory.sensorData,
-        relayData: state.observatory.relayData,
-        relayCurrent: state.observatory.relayCurrent,
+        storeRelayStatus: state.relay.relayStatus,
+        storeRelayCurrent: state.relay.relayCurrent,
+
+        sensorData: state.astro.sensorData,
         meteoData: state.meteo.meteoData,
 
         authData: state.auth.authData,
         token: state.auth.token,
 
-        sensorStat: state.observatory.sensorStat
+        sensorStat: state.astro.sensorStat
     }
 }
 

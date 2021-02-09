@@ -1,22 +1,22 @@
 import * as types from './actionTypes'
 
 const initialState = {
-    authData: {},
-    token: null
+    relayStatus: {},
+    relayCurrent: [],
 }
 
 export default function reduce(state = initialState, action = {}) {
     switch (action.type) {
-        case types.LOGIN:
+        case types.GET_STATUS:
             return {
                 ...state,
-                authData: action.payload
+                relayStatus: action.payload
             }
 
-        case types.CHECK:
+        case types.SET_STATUS:
             return {
                 ...state,
-                token: action.payload
+                relayCurrent: action.payload
             }
 
         default:

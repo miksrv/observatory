@@ -2,7 +2,7 @@ import * as types from './actionTypes'
 
 const API_ENDPOINT = 'https://api.miksoft.pro'
 
-export function authLogin(login, passw) {
+export function Login(login, passw) {
     return async(dispatch) => {
         try {
             const url = `${API_ENDPOINT}/auth/login`
@@ -19,14 +19,14 @@ export function authLogin(login, passw) {
 
             const payload = await response.json()
 
-            dispatch({ type: types.POST_AUTH_LOGIN, payload })
+            dispatch({ type: types.LOGIN, payload })
         } catch (error) {
             console.error(error)
         }
     }
 }
 
-export function authLogout(token) {
+export function Logout(token) {
     return async(dispatch) => {
         try {
             const url = `${API_ENDPOINT}/auth/logout`
@@ -40,14 +40,14 @@ export function authLogout(token) {
 
             const payload = await response.json()
 
-            dispatch({ type: types.POST_AUTH_LOGIN, payload })
+            dispatch({ type: types.LOGIN, payload })
         } catch (error) {
             console.error(error)
         }
     }
 }
 
-export function authCheck(token) {
+export function Check(token) {
     return async(dispatch) => {
         try {
             const url = `${API_ENDPOINT}/auth/check`
@@ -61,7 +61,7 @@ export function authCheck(token) {
 
             const payload = await response.json()
 
-            dispatch({ type: types.POST_AUTH_LOGIN, payload })
+            dispatch({ type: types.LOGIN, payload })
         } catch (error) {
             console.error(error)
         }

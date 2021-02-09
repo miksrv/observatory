@@ -6,14 +6,14 @@ import moment from 'moment'
 
 import MainContainer from '../components/MainContainer'
 import FullTable from '../layouts/FullTable'
-import Statistic from '../informers/Statistic'
-import EventCalendar from '../informers/EventCalendar'
-import EventModal from '../informers/EventModal'
+import Statistic from '../layouts/Statistic'
+import EventCalendar from '../layouts/EventCalendar'
+import EventModal from '../layouts/EventModal'
 // import ExpChart from '../informers/ExpChart'
 // import Sun from '../informers/Sun'
 // import Moon from '../informers/Moon'
 
-import * as observatoryActions from '../store/observatory/actions'
+import * as astroActions from '../store/astro/actions'
 import * as meteoActions from '../store/meteo/actions'
 
 import _ from 'lodash'
@@ -28,27 +28,31 @@ class Main extends Component {
     componentDidMount() {
         const { dispatch } = this.props
 
-        dispatch(observatoryActions.getFITStat())
-        dispatch(observatoryActions.getEventCalendarFIT())
+        dispatch(astroActions.getFITStat())
+        dispatch(astroActions.getEventCalendarFIT())
 
         dispatch(meteoActions.getMeteoEvents())
     }
 
     updateData = () => {}
 
-    handleEventPress = (selectSlot) => {
+    handleEventPress = selected => {
         this.setState({ showModalEvent: true })
-        // console.log('handleEventPress', selectSlot)
+
+        const { dispatch } = this.props
+        let action = (selected.type === 'meteo' ? meteoActions : astroActions)
+
+        dispatch(action.getStatisticDay(moment(selected.start).format('DD.MM.YYYY')))
     }
 
     handleEventModalClose = () => {
         this.setState({ showModalEvent: false })
     }
 
-    handleNavigatePress = (date) => {
+    handleNavigatePress = date => {
         const { dispatch } = this.props
 
-        dispatch(observatoryActions.getEventCalendarFIT(moment(date).format('DD.MM.YYYY')))
+        dispatch(astroActions.getEventCalendarFIT(moment(date).format('DD.MM.YYYY')))
         dispatch(meteoActions.getMeteoEvents(moment(date).format('DD.MM.YYYY')))
     }
 
@@ -94,10 +98,10 @@ class Main extends Component {
 
 function mapStateToProps(state) {
     return {
-        FITStat: state.observatory.FITStat,
-        FITEvent: state.observatory.FITEvent,
+        FITStat: state.astro.FITStat,
+        FITEvent: state.astro.FITEvent,
         meteoEvents: state.meteo.meteoEvents
-        // graphic: state.observatory.graphic,
+        // graphic: state.astro.graphic,
     }
 }
 

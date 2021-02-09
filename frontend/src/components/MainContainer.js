@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { Sidebar, Menu, Icon, Container, Modal, Button, Form, Message } from 'semantic-ui-react'
+import { Sidebar, Menu, Icon, Container, Modal, Button, Form, Message, Dropdown } from 'semantic-ui-react'
 
 import Header from '../components/Header'
 import Footer from '../layouts/Footer'
@@ -33,7 +33,7 @@ class MainContainer extends Component {
             this.pingCheckAuth(token)
             this.startPingTimer()
 
-            dispatch({ type: types.SET_AUTH_TOKEN, payload: token })
+            dispatch({ type: types.CHECK, payload: token })
         }
     }
 
@@ -46,14 +46,14 @@ class MainContainer extends Component {
 
             if (authData.status === true && token === null) {
                 sessionStorage.setItem('token', authData.token)
-                dispatch({ type: types.SET_AUTH_TOKEN, payload: token })
+                dispatch({ type: types.CHECK, payload: token })
 
                 this.setState({token: authData.token})
                 this.setModal(false)
                 this.startPingTimer()
             } else if (authData.status === false && token !== null) {
                 sessionStorage.removeItem('token')
-                dispatch({ type: types.SET_AUTH_TOKEN, payload: null })
+                dispatch({ type: types.CHECK, payload: null })
 
                 this.setState({token: null})
                 clearInterval(pingTimer)
@@ -93,15 +93,15 @@ class MainContainer extends Component {
 
         this.setState({formLoading: true})
 
-        dispatch(authActions.authLogin(userLogin, userPassw))
+        dispatch(authActions.Login(userLogin, userPassw))
     }
 
     handleLogout = () => {
         const { dispatch } = this.props
         const { token } = this.state
 
-        dispatch(authActions.authLogout(token))
-        dispatch({ type: types.SET_AUTH_TOKEN, payload: null })
+        dispatch(authActions.Logout(token))
+        dispatch({ type: types.CHECK, payload: null })
 
         sessionStorage.removeItem('token')
 
@@ -113,7 +113,7 @@ class MainContainer extends Component {
         const { dispatch } = this.props
         const { token } = this.state
 
-        dispatch(authActions.authCheck((tmpToken !== null) ? tmpToken : token))
+        dispatch(authActions.Check((tmpToken !== null) ? tmpToken : token))
     }
 
     render() {
@@ -152,9 +152,33 @@ class MainContainer extends Component {
                         </Menu.Item>
                     )}
                 </Sidebar>
-
                 <Sidebar.Pusher dimmed={showSidebar}>
                     <Container>
+                        <Menu stackable size='tiny'>
+                            <Menu.Item>
+                                <img src='/images/logo.svg' />
+                            </Menu.Item>
+                            <Menu.Item as={NavLink} exact to='/'>
+                                Сводка
+                            </Menu.Item>
+                            <Menu.Item as={NavLink} to='/dashboard' activeclassname='active'>
+                                Управление
+                            </Menu.Item>
+                            <Menu.Menu position='right'>
+                                <Dropdown item text='Language'>
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item>English</Dropdown.Item>
+                                        <Dropdown.Item>Russian</Dropdown.Item>
+                                        <Dropdown.Item>Spanish</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+
+                                <Menu.Item>
+                                    <Button primary>Sign Up</Button>
+                                </Menu.Item>
+                            </Menu.Menu>
+                        </Menu>
+
                         <Header
                             updateTime={updateTime}
                             onUpdateData={onUpdateData}
@@ -172,7 +196,7 @@ class MainContainer extends Component {
                     <Footer />
                 </Sidebar.Pusher>
                 <Modal
-                    size={'tiny'}
+                    size='tiny'
                     open={showModal}
                     onClose={() => this.setModal(false)}
                 >

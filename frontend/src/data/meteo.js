@@ -1,6 +1,5 @@
 const data = [
     {
-        type: 'sensors',
         source: 't1',
         name: 'Температура на улице',
         color: 'red',
@@ -9,7 +8,6 @@ const data = [
         sign: '℃'
     },
     {
-        type: 'sensors',
         source: 'h',
         name: 'Влажность на улице',
         color: 'blue',

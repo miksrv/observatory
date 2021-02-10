@@ -53,7 +53,7 @@ class ObjectItem extends Component {
                             <Header inverted as='h2'>Объект: {name}</Header>
                             <div>Всего кадров: <b>{objectData.frames}</b></div>
                             <div>Общая выдержка: <b>{getTimeFromSec(objectData.exposure)}</b></div>
-                            <Link to={'/'}>Вернуться к списку всех объектов</Link>
+                            <Link to={'/object/'}>Вернуться к списку всех объектов</Link>
                             <br />
                             <Table celled inverted selectable>
                                 <Table.Header>

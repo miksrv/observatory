@@ -34,7 +34,7 @@ const Sensor = (params) => {
 
     return (
         <Grid.Column computer={2} tablet={8} mobile={8}>
-            <div className={'sensor ' + params.widget.color}>
+            <div className={'card sensor ' + params.widget.color}>
                 {
                     _.isEmpty(params.data) && (
                         <Dimmer active>

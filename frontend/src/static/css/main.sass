@@ -12,12 +12,12 @@ body
     color: $main-color
     font-size: 12px
     line-height: 1.5
-    background-color: #191b22
+    background-color: $background-color
     margin: 0
     height: 100%
 
 .header-toolbar
-    background: #373737
+    background: $card-background-color
     padding: .8em 1em !important
     margin: 2em 0
 
@@ -84,16 +84,9 @@ body
         vertical-align: middle
         margin-top: -3px
 
-.table
-    margin-top: 2em !important
-
-
 .sensor
     position: relative
-    background: #373737
-    border-radius: 5px
     padding: 1em
-    box-shadow: 0 0 10px rgba(0,0,0,0.5)
 
     .dimmer
         border-radius: inherit !important
@@ -156,10 +149,7 @@ body
 
 .relay
     position: relative
-    background: #373737
-    border-radius: 5px
     padding: 1em
-    box-shadow: 0 0 10px rgba(0,0,0,0.5)
 
     .dimmer
         border-radius: inherit !important
@@ -234,12 +224,14 @@ body
 
 
 
-.informer
+.card
     position: relative
-    background: #373737
-    border-radius: 5px
+    background: $card-background-color
+    border-radius: 0.25rem
+    background-clip: border-box
+    border: 1px solid rgba(0, 0, 0, 0.125)
     padding: .4em
-    box-shadow: 0 0 10px rgba(0,0,0,0.5)
+    //box-shadow: 0 0 10px rgba(0,0,0,0.5)
 
     .title
         text-transform: uppercase
@@ -250,10 +242,6 @@ body
         font-size: 1.6em
         line-height: 1em
         font-weight: 600
-        text-shadow: 0 0 10px rgba(0, 0, 0, 0.5)
-
-    .info
-        color: $second-color
 
     .icon
         position: absolute
@@ -270,7 +258,7 @@ body
     .grid-info
         margin-top: 0 !important
 
-.informer.cameraPhoto
+.card.cameraPhoto
     padding: .3em
 
 .cameraPhoto
@@ -356,9 +344,14 @@ body
     .right > div
         padding-right: 10px
 
-.container
-    padding: .3em
 
 .ui.modal > .content
     color: #333
     font-weight: 100
+
+.ui.grid
+    margin-left: -.45rem
+    margin-right: -.45rem
+
+.ui.grid > .column:not(.row)
+    padding: .45rem !important

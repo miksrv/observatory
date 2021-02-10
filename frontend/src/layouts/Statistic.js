@@ -36,7 +36,7 @@ const Statistic = (props) => {
             {informers.map((item, key) => {
                 return (
                     <Grid.Column computer={4} tablet={8} mobile={16} key={key}>
-                        <div className='informer'>
+                        <div className='card'>
                             {
                                 _.isEmpty(data) && (
                                     <Dimmer active>

@@ -8,7 +8,7 @@ const Sun = (props) => {
 
     return (
         <Grid.Column computer={6} tablet={8} mobile={16}>
-            <div className='informer sun'>
+            <div className='card sun'>
                 <Grid>
                     <Grid.Column width={5} className='icon-container'>
                         <WiSunset className='icon' />

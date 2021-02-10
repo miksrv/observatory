@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { Sidebar, Menu, Icon, Container, Modal, Button, Form, Message, Dropdown } from 'semantic-ui-react'
+import { Sidebar, Menu, Icon, Container, Modal, Button, Form, Message, Dropdown, Label } from 'semantic-ui-react'
 
 import Header from '../components/Header'
 import Footer from '../layouts/Footer'
@@ -118,7 +118,7 @@ class MainContainer extends Component {
 
     render() {
         const { showSidebar, showModal, formLoading, token } = this.state
-        const { updateTime, onUpdateData, children, authData } = this.props
+        const { updateTime, onUpdateData, children, authData, FITStat } = this.props
 
         return (
             <Sidebar.Pushable>
@@ -160,6 +160,10 @@ class MainContainer extends Component {
                             </Menu.Item>
                             <Menu.Item as={NavLink} exact to='/'>
                                 Сводка
+                            </Menu.Item>
+                            <Menu.Item as={NavLink} exact to='/object/'>
+                                Объекты
+                                <Label color='yellow'>{(!_.isEmpty(FITStat) ? FITStat.objects : 0)}</Label>
                             </Menu.Item>
                             <Menu.Item as={NavLink} to='/dashboard' activeclassname='active'>
                                 Управление
@@ -260,6 +264,7 @@ class MainContainer extends Component {
 function mapStateToProps(state) {
     return {
         authData: state.auth.authData,
+        FITStat: state.astro.FITStat,
     }
 }
 

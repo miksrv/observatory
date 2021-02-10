@@ -56,7 +56,7 @@ class Dashboard extends Component {
 
         dispatch(astroActions.getSensorData())
         dispatch(relayActions.getStatus())
-        dispatch(meteoActions.getMeteoData())
+        dispatch(meteoActions.getSummary())
     }
 
     handleRelaySwitch = (index) => {
@@ -75,7 +75,7 @@ class Dashboard extends Component {
     }
 
     render() {
-        const { sensorData, storeRelayStatus, meteoData, authData, sensorStat } = this.props
+        const { sensorData, storeRelayStatus, storeMeteoSummary, authData, sensorStat } = this.props
         const { relayList } = this.state
 
         return (
@@ -104,7 +104,7 @@ class Dashboard extends Component {
                                 <Sensors
                                     key={key}
                                     widget={item}
-                                    data={! _.isEmpty(meteoData) ? meteoData.data[item.source] : 0}
+                                    data={! _.isEmpty(storeMeteoSummary) ? storeMeteoSummary.data[item.source] : 0}
                                 />
                             )
                         })}
@@ -128,7 +128,7 @@ class Dashboard extends Component {
                                     sensorStat={sensorStat}
                                 />
                             ) : (
-                                <div className='informer' style={{height: 305}}>
+                                <div className='card' style={{height: 305}}>
                                     <Dimmer active>
                                         <Loader />
                                     </Dimmer>
@@ -146,9 +146,9 @@ function mapStateToProps(state) {
     return {
         storeRelayStatus: state.relay.relayStatus,
         storeRelayCurrent: state.relay.relayCurrent,
+        storeMeteoSummary: state.meteo.summaryData,
 
         sensorData: state.astro.sensorData,
-        meteoData: state.meteo.meteoData,
 
         authData: state.auth.authData,
         token: state.auth.token,

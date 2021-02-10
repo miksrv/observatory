@@ -56,7 +56,7 @@ const ExpChart = (props) => {
 
     return (
         <Grid.Column computer={10} tablet={16} mobile={16}>
-            <div className='informer container'>
+            <div className='card container'>
                 <HighchartsReact
                     highcharts={Highcharts}
                     options={ExposureChart}

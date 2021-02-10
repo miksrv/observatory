@@ -13,6 +13,7 @@ import 'semantic-ui-css/semantic.min.css'
 import './static/css/main.sass'
 
 import Main from './pages/Main'
+import ObjectList from './pages/ObjectList'
 import ObjectItem from './pages/ObjectItem'
 import Dashboard from './pages/Dashboard'
 import Error404 from './pages/Error404'
@@ -24,6 +25,7 @@ ReactDOM.render(
         <BrowserRouter>
             <Switch>
                 <Route exact path="/" component={Main} />
+                <Route exact path="/object/" component={ObjectList} />
                 <Route exact path="/object/:name" component={ObjectItem} />
                 <Route exact path="/dashboard/" component={Dashboard} />
                 <Route component={Error404} />

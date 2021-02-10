@@ -10,29 +10,49 @@ const EventCalendar = (params) => {
     const localizer = momentLocalizer(moment)
     let calendarEvents = []
 
-    if (!_.isEmpty(params.meteo.data)) {
-        params.meteo.data.map((item) => {
-            item.start = moment(item.start, 'DD-MM-YYYY').toDate()
-            item.end   = moment(item.end, 'DD-MM-YYYY').toDate()
+    const createMeteoEvents = () => {
+        if (_.isEmpty(params.meteo)) return []
+
+        const { data } = params.meteo
+        let result = []
+
+        data.map((item, key) => {
+            result.push({
+                'title': item.t2 + '°C, ' + item.h + '%',
+                'start': moment(item.date, 'DD-MM-YYYY').toDate(),
+                'end'  : moment(item.date, 'DD-MM-YYYY').toDate(),
+                'type' :'meteo'
+            })
         })
 
-        calendarEvents = [...calendarEvents, ...params.meteo.data]
+        return result
     }
 
-    if (!_.isEmpty(params.astro.data)) {
-        params.astro.data.map((item) => {
-            item.start = moment(item.start, 'DD-MM-YYYY').toDate()
-            item.end   = moment(item.end, 'DD-MM-YYYY').toDate()
-        })
+    calendarEvents = [...calendarEvents, ...createMeteoEvents()]
 
-        calendarEvents = [...calendarEvents, ...params.astro.data]
-    }
+    // if (!_.isEmpty(params.meteo.data)) {
+    //     params.meteo.data.map((item) => {
+    //         item.start = moment(item.start, 'DD-MM-YYYY').toDate()
+    //         item.end   = moment(item.end, 'DD-MM-YYYY').toDate()
+    //     })
+    //
+    //     calendarEvents = [...calendarEvents, ...params.meteo.data]
+    // }
+    //
+    // if (!_.isEmpty(params.astro.data)) {
+    //     params.astro.data.map((item) => {
+    //         item.start = moment(item.start, 'DD-MM-YYYY').toDate()
+    //         item.end   = moment(item.end, 'DD-MM-YYYY').toDate()
+    //     })
+    //
+    //     calendarEvents = [...calendarEvents, ...params.astro.data]
+    // }
 
     return (
         <Grid>
             <Grid.Column computer={16} tablet={16} mobile={16}>
-                <div className='informer container'>
-                    {_.isEmpty(params.meteo) && (
+                <div className='card container'>
+                    {_.isNull(params.meteo) && (
                         <Dimmer active>
                             <Loader />
                         </Dimmer>

@@ -12,7 +12,7 @@ const Relay = (props) => {
 
     return (
         <Grid.Column>
-            <div className={'relay ' + (checked ? 'switch-on' : 'switch-off')}>
+            <div className={'card relay ' + (checked ? 'switch-on' : 'switch-off')}>
                 {
                     (state === false || data.loader) && (
                         <Dimmer active>

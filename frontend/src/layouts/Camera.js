@@ -27,7 +27,7 @@ const Camera = ( ) => {
     })
 
     return (
-        <div className='informer cameraPhoto'>
+        <div className='card cameraPhoto'>
             {isOpen && (
                 <Lightbox
                     mainSrc={cameraSRC}

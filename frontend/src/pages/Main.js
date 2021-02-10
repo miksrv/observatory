@@ -5,7 +5,7 @@ import { Container } from 'semantic-ui-react'
 import moment from 'moment'
 
 import MainContainer from '../components/MainContainer'
-import FullTable from '../layouts/FullTable'
+
 import Statistic from '../layouts/Statistic'
 import EventCalendar from '../layouts/EventCalendar'
 import EventModal from '../layouts/EventModal'
@@ -27,22 +27,24 @@ class Main extends Component {
 
     componentDidMount() {
         const { dispatch } = this.props
+        const monthStart = moment().clone().startOf('month').format('DD-MM-YYYY')
+        const monthEnd   = moment().clone().endOf('month').format('DD-MM-YYYY')
 
         dispatch(astroActions.getFITStat())
         dispatch(astroActions.getEventCalendarFIT())
 
-        dispatch(meteoActions.getMeteoEvents())
+        dispatch(meteoActions.getArchive(monthStart, monthEnd))
     }
 
     updateData = () => {}
 
     handleEventPress = selected => {
-        this.setState({ showModalEvent: true })
-
-        const { dispatch } = this.props
-        let action = (selected.type === 'meteo' ? meteoActions : astroActions)
-
-        dispatch(action.getStatisticDay(moment(selected.start).format('DD.MM.YYYY')))
+        // this.setState({ showModalEvent: true })
+        //
+        // const { dispatch } = this.props
+        // let action = (selected.type === 'meteo' ? meteoActions : astroActions)
+        //
+        // dispatch(action.getStatisticDay(moment(selected.start).format('DD.MM.YYYY')))
     }
 
     handleEventModalClose = () => {
@@ -52,12 +54,15 @@ class Main extends Component {
     handleNavigatePress = date => {
         const { dispatch } = this.props
 
-        dispatch(astroActions.getEventCalendarFIT(moment(date).format('DD.MM.YYYY')))
-        dispatch(meteoActions.getMeteoEvents(moment(date).format('DD.MM.YYYY')))
+        const monthStart = moment(date).clone().startOf('month').format('DD-MM-YYYY')
+        const monthEnd   = moment(date).clone().endOf('month').format('DD-MM-YYYY')
+
+        // dispatch(astroActions.getEventCalendarFIT(moment(date).format('DD.MM.YYYY')))
+        dispatch(meteoActions.getArchive(monthStart, monthEnd))
     }
 
     render() {
-        const { FITStat, FITEvent, meteoEvents } = this.props // graphic
+        const { FITStat, FITEvent, storeMeteoArchive } = this.props // graphic
         const { showModalEvent } = this.state
 
         return (
@@ -75,16 +80,11 @@ class Main extends Component {
                         data={FITStat}
                     />
                     <EventCalendar
-                        meteo={meteoEvents}
+                        meteo={storeMeteoArchive}
                         astro={FITEvent}
                         fNavigate={this.handleNavigatePress}
                         fGetEvent={this.handleEventPress}
                     />
-                    { ! _.isEmpty(FITStat) && (
-                        <FullTable
-                            data={FITStat}
-                        />
-                    )}
                 </Container>
                         {/*<Grid>*/}
                         {/*    <ExpChart data={graphic} />*/}
@@ -100,7 +100,7 @@ function mapStateToProps(state) {
     return {
         FITStat: state.astro.FITStat,
         FITEvent: state.astro.FITEvent,
-        meteoEvents: state.meteo.meteoEvents
+        storeMeteoArchive: state.meteo.archiveData
         // graphic: state.astro.graphic,
     }
 }

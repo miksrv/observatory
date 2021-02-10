@@ -52,7 +52,7 @@ const Moon = (props) => {
 
     return (
         <Grid.Column computer={10} tablet={8} mobile={16}>
-            <div className='informer moon'>
+            <div className='card moon'>
                 <Grid columns={3}>
                     <Grid.Row stretched>
                         <Grid.Column textAlign='left' width={7}>

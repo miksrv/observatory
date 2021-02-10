@@ -7,12 +7,12 @@
 
 import * as types from './actionTypes'
 
-const API_ENDPOINT = 'https://api.miksoft.pro'
+const API_ENDPOINT = 'https://api.miksoft.pro/meteo/get/'
 
 export function getStatisticDay(date) {
     return async(dispatch) => {
         try {
-            const url = API_ENDPOINT + `/meteo/get/statistic?date=${date}`
+            const url = API_ENDPOINT + `statistic?date=${date}`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -29,62 +29,42 @@ export function getStatisticDay(date) {
     }
 }
 
-export function getMeteoData() {
+export function getSummary() {
     return async(dispatch) => {
         try {
-            const url = API_ENDPOINT + `/meteo/get/summary`
+            const url = API_ENDPOINT + `summary`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json'
                 }
-            });
+            })
 
             const payload = await response.json()
 
-            dispatch({ type: types.GET_METEO_DATA, payload })
+            dispatch({ type: types.GET_SUMMARY, payload })
         } catch (error) {
             console.error(error)
         }
     }
 }
 
-export function getMeteoStat() {
+export function getArchive(date_start, date_end) {
     return async(dispatch) => {
+        dispatch({ type: types.CLEAR_ARCHIVE })
+
         try {
-            const url = API_ENDPOINT + `/get/statistic?dataset=t1,h&period=today`
+            const url = API_ENDPOINT + `archive?date_start=${date_start}&date_end=${date_end}`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json'
                 }
-            });
+            })
 
             const payload = await response.json()
 
-            dispatch({ type: types.GET_METEO_STAT, payload })
-        } catch (error) {
-            console.error(error)
-        }
-    }
-}
-
-export function getMeteoEvents(date = '') {
-    return async(dispatch) => {
-        dispatch({ type: types.CLEAR_METEO_EVENTS })
-
-        try {
-            const url = API_ENDPOINT + `/get/month_event` + (date && `?date=${date}`)
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json'
-                }
-            });
-
-            const payload = await response.json()
-
-            dispatch({ type: types.GET_METEO_EVENTS, payload })
+            dispatch({ type: types.GET_ARCHIVE, payload })
         } catch (error) {
             console.error(error)
         }

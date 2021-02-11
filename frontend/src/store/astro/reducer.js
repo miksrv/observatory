@@ -63,6 +63,11 @@ export default function reduce(state = initialState, action = {}) {
                 objectData: action.payload
             }
 
+        case types.CLEAR_OBJECT_DATA:
+            return {
+                ...state,
+                objectData: []
+            }
 
         case types.GET_FITS_EVENT:
             return {

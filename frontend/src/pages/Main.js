@@ -26,14 +26,13 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        const { dispatch } = this.props
+        const { dispatch, storeMeteoArchive, storePhotoArchive, storePhotoStatistic } = this.props
         const monthStart = moment().clone().startOf('month').format('DD-MM-YYYY')
         const monthEnd   = moment().clone().endOf('month').format('DD-MM-YYYY')
 
-        dispatch(astroActions.getFITStat())
-        dispatch(astroActions.getEventCalendarFIT())
-
-        dispatch(meteoActions.getArchive(monthStart, monthEnd))
+        _.isEmpty(storePhotoStatistic) && dispatch(astroActions.getFITStat())
+        _.isEmpty(storeMeteoArchive) && dispatch(meteoActions.getArchive(monthStart, monthEnd))
+        _.isEmpty(storePhotoArchive) && dispatch(astroActions.getEventCalendarFIT())
     }
 
     updateData = () => {}
@@ -62,7 +61,7 @@ class Main extends Component {
     }
 
     render() {
-        const { FITStat, FITEvent, storeMeteoArchive } = this.props // graphic
+        const { storePhotoStatistic, storePhotoArchive, storeMeteoArchive } = this.props // graphic
         const { showModalEvent } = this.state
 
         return (
@@ -77,11 +76,11 @@ class Main extends Component {
                 />
                 <Container>
                     <Statistic
-                        data={FITStat}
+                        data={storePhotoStatistic}
                     />
                     <EventCalendar
                         meteo={storeMeteoArchive}
-                        astro={FITEvent}
+                        astro={storePhotoArchive}
                         fNavigate={this.handleNavigatePress}
                         fGetEvent={this.handleEventPress}
                     />
@@ -98,8 +97,8 @@ class Main extends Component {
 
 function mapStateToProps(state) {
     return {
-        FITStat: state.astro.FITStat,
-        FITEvent: state.astro.FITEvent,
+        storePhotoStatistic: state.astro.FITStat,
+        storePhotoArchive: state.astro.FITEvent,
         storeMeteoArchive: state.meteo.archiveData
         // graphic: state.astro.graphic,
     }

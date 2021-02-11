@@ -142,6 +142,12 @@ export function fetchDataByName(name = '') {
     }
 }
 
+export function clearDataByName() {
+    return async(dispatch) => {
+        dispatch({ type: types.CLEAR_OBJECT_DATA })
+    }
+}
+
 // export function fetchGraphData() {
 //     return async(dispatch) => {
 //         try {

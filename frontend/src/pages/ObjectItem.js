@@ -22,6 +22,12 @@ class ObjectItem extends Component {
         dispatch(astroActions.fetchDataByName(name))
     }
 
+    componentWillUnmount() {
+        const { dispatch } = this.props
+
+        dispatch(astroActions.clearDataByName())
+    }
+
     setClassByFilter = filter => {
         switch (filter) {
             case 'Red'       : return 'filter-r'
@@ -48,13 +54,13 @@ class ObjectItem extends Component {
                 onUpdateData={this.updateData}
             >
                 <Container>
-                    { ( ! _.isEmpty(objectData)) ? (
-                        <>
-                            <Header inverted as='h2'>Объект: {name}</Header>
-                            <div>Всего кадров: <b>{objectData.frames}</b></div>
-                            <div>Общая выдержка: <b>{getTimeFromSec(objectData.exposure)}</b></div>
-                            <Link to={'/object/'}>Вернуться к списку всех объектов</Link>
-                            <br />
+                    <Header inverted as='h2'>Объект: {name}</Header>
+                    <div>Всего кадров: <b>{(!_.isEmpty(objectData) ? objectData.frames : '---')}</b></div>
+                    <div>Общая выдержка: <b>{(!_.isEmpty(objectData) ? getTimeFromSec(objectData.exposure) : '---')}</b></div>
+                    <Link to={'/object/'}>Вернуться к списку всех объектов</Link>
+                    <br /><br />
+                    <div className='card table-loader'>
+                        { ( ! _.isEmpty(objectData)) ? (
                             <Table celled inverted selectable>
                                 <Table.Header>
                                     <Table.Row>
@@ -81,12 +87,12 @@ class ObjectItem extends Component {
                                     ))}
                                 </Table.Body>
                             </Table>
-                        </>
-                    ) : (
-                        <Dimmer active>
-                            <Loader>Загрузка</Loader>
-                        </Dimmer>
-                    )}
+                        ) : (
+                            <Dimmer active>
+                                <Loader>Загрузка</Loader>
+                            </Dimmer>
+                        )}
+                    </div>
                 </Container>
             </MainContainer>
         )

@@ -51,7 +51,7 @@ const EventCalendar = (params) => {
     return (
         <Grid>
             <Grid.Column computer={16} tablet={16} mobile={16}>
-                <div className='card container'>
+                <div className='card'>
                     {_.isNull(params.meteo) && (
                         <Dimmer active>
                             <Loader />

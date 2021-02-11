@@ -1,28 +1,27 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Container, Dimmer, Loader } from 'semantic-ui-react'
 
-
-import MainContainer from "../components/MainContainer";
-import moment from "moment";
-import FullTable from "../layouts/FullTable";
-import {Container} from "semantic-ui-react";
+import FullTable from '../layouts/FullTable'
+import MainContainer from '../components/MainContainer'
 
 import * as astroActions from '../store/astro/actions'
 
+import moment from 'moment'
 import _ from 'lodash'
 
 class ObjectList extends Component {
 
     componentDidMount() {
-        const { dispatch } = this.props
+        const { dispatch, storePhotoStatistic } = this.props
 
-        dispatch(astroActions.getFITStat())
+        _.isEmpty(storePhotoStatistic) && dispatch(astroActions.getFITStat())
     }
 
     updateData = () => {}
 
     render() {
-        const { FITStat } = this.props
+        const { storePhotoStatistic } = this.props
 
         return (
             <MainContainer
@@ -30,11 +29,17 @@ class ObjectList extends Component {
                 onUpdateData={this.updateData}
             >
                 <Container>
-                    { ! _.isEmpty(FITStat) && (
+                    <div className='card table-loader'>
+                    { ! _.isEmpty(storePhotoStatistic) ? (
                         <FullTable
-                            data={FITStat}
+                            data={storePhotoStatistic}
                         />
+                    ) : (
+                        <Dimmer active>
+                            <Loader>Загрузка</Loader>
+                        </Dimmer>
                     )}
+                    </div>
                 </Container>
             </MainContainer>
         )
@@ -43,7 +48,7 @@ class ObjectList extends Component {
 
 function mapStateToProps(state) {
     return {
-        FITStat: state.astro.FITStat,
+        storePhotoStatistic: state.astro.FITStat,
     }
 }
 

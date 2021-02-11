@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { Sidebar, Menu, Icon, Container, Modal, Button, Form, Message, Dropdown, Label } from 'semantic-ui-react'
+import { Menu, Container, Modal, Button, Form, Message, Dropdown, Label } from 'semantic-ui-react'
 
-import Header from '../components/Header'
+// import Header from '../components/Header'
 import Footer from '../layouts/Footer'
 
 import * as authActions from '../store/auth/actions'
@@ -117,88 +117,51 @@ class MainContainer extends Component {
     }
 
     render() {
-        const { showSidebar, showModal, formLoading, token } = this.state
-        const { updateTime, onUpdateData, children, authData, FITStat } = this.props
+        const { showModal, formLoading, token } = this.state
+        const { children, authData, storePhotoStatistic } = this.props
 
         return (
-            <Sidebar.Pushable>
-                <Sidebar
-                    as={Menu}
-                    animation='overlay'
-                    icon='labeled'
-                    inverted
-                    onHide={() => this.setSidebar(false)}
-                    vertical
-                    visible={showSidebar}
-                    width='thin'
-                >
-                    <Menu.Item as={NavLink} exact to='/'>
-                        <Icon name='calendar check outline' />
-                        Сводка
-                    </Menu.Item>
-                    <Menu.Item as={NavLink} to='/dashboard' activeclassname='active'>
-                        <Icon name='dashboard' />
-                        Управление
-                    </Menu.Item>
-                    {(token === null) ? (
-                        <Menu.Item onClick={() => {this.setModal(true); this.setSidebar(false)}} activeclassname='active'>
-                            <Icon name='user circle' />
-                            Авторизация
+            <>
+                <Container>
+                    <br />
+                    <Menu stackable inverted size='tiny'>
+                        <Menu.Item>
+                            <img src='/images/logo-w.svg' />
                         </Menu.Item>
-                    ) : (
-                        <Menu.Item onClick={() => {this.handleLogout()}} activeclassname='active'>
-                            <Icon name='log out' />
-                            Выход
+                        <Menu.Item as={NavLink} exact to='/'>
+                            Сводка
                         </Menu.Item>
-                    )}
-                </Sidebar>
-                <Sidebar.Pusher dimmed={showSidebar}>
-                    <Container>
-                        <Menu stackable size='tiny'>
-                            <Menu.Item>
-                                <img src='/images/logo.svg' />
-                            </Menu.Item>
-                            <Menu.Item as={NavLink} exact to='/'>
-                                Сводка
-                            </Menu.Item>
-                            <Menu.Item as={NavLink} exact to='/object/'>
-                                Объекты
-                                <Label color='yellow'>{(!_.isEmpty(FITStat) ? FITStat.objects : 0)}</Label>
-                            </Menu.Item>
-                            <Menu.Item as={NavLink} to='/dashboard' activeclassname='active'>
-                                Управление
-                            </Menu.Item>
-                            <Menu.Menu position='right'>
-                                <Dropdown item text='Language'>
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item>English</Dropdown.Item>
-                                        <Dropdown.Item>Russian</Dropdown.Item>
-                                        <Dropdown.Item>Spanish</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-
+                        <Menu.Item as={NavLink} exact to='/object/'>
+                            Объекты
+                            <Label color='yellow'>{(!_.isEmpty(storePhotoStatistic) ? storePhotoStatistic.objects : 0)}</Label>
+                        </Menu.Item>
+                        <Menu.Item as={NavLink} to='/dashboard' activeclassname='active'>
+                            Управление
+                        </Menu.Item>
+                        <Menu.Menu position='right'>
+                            <Dropdown item text='Language'>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item disabled>English</Dropdown.Item>
+                                    <Dropdown.Item disabled>Russian</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                            {(token === null) ? (
                                 <Menu.Item>
-                                    <Button primary>Sign Up</Button>
+                                    <Button primary onClick={() => {this.setModal(true)}}>Войти</Button>
                                 </Menu.Item>
-                            </Menu.Menu>
-                        </Menu>
+                            ) : (
+                                <Menu.Item>
+                                    <Button onClick={() => {this.handleLogout()}}>Выход</Button>
+                                </Menu.Item>
+                            )}
 
-                        <Header
-                            updateTime={updateTime}
-                            onUpdateData={onUpdateData}
-                            onClickMenu={() => this.setSidebar(true)}
-                        />
-                        {(token !== null) && (
-                            <Message
-                                error
-                                content='Вы авторизованы, режим оператора включен - управление электропитанием активно'
-                                className='admin-message'
-                            />
-                        )}
-                    </Container>
-                    {children}
-                    <Footer />
-                </Sidebar.Pusher>
+                        </Menu.Menu>
+                    </Menu>
+
+                </Container>
+                <br /><br />
+                {children}
+                <Footer />
                 <Modal
                     size='tiny'
                     open={showModal}
@@ -256,7 +219,7 @@ class MainContainer extends Component {
                         </Button>
                     </Modal.Actions>
                 </Modal>
-            </Sidebar.Pushable>
+            </>
         )
     }
 }
@@ -264,7 +227,7 @@ class MainContainer extends Component {
 function mapStateToProps(state) {
     return {
         authData: state.auth.authData,
-        FITStat: state.astro.FITStat,
+        storePhotoStatistic: state.astro.FITStat,
     }
 }
 

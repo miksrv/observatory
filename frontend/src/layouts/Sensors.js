@@ -33,15 +33,13 @@ const Sensor = (params) => {
     const TrendIcon  = params.data.trend > 0 ? trend['up'] : trend['down']
 
     return (
-        <Grid.Column computer={2} tablet={8} mobile={8}>
+        <Grid.Column computer={4} tablet={8} mobile={8}>
             <div className={'card sensor ' + params.widget.color}>
-                {
-                    _.isEmpty(params.data) && (
-                        <Dimmer active>
-                            <Loader />
-                        </Dimmer>
-                    )
-                }
+                {_.isEmpty(params.data) && (
+                    <Dimmer active>
+                        <Loader />
+                    </Dimmer>
+                )}
                 <div className='title'>{params.widget.name}</div>
                 <Grid>
                     <Grid.Row>

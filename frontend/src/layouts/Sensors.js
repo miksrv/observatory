@@ -40,7 +40,7 @@ const Sensor = (params) => {
                         <Loader />
                     </Dimmer>
                 )}
-                <div className='title'>{params.widget.name}</div>
+                <h5 className='title'>{params.widget.name}</h5>
                 <Grid>
                     <Grid.Row>
                         <Grid.Column width={12} className='icon-container'>

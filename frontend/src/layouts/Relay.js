@@ -22,10 +22,10 @@ const Relay = (props) => {
                 }
                 <Grid>
                     <Grid.Row>
-                        <Grid.Column width={4}>
+                        <Grid.Column width={6}>
                             <Icon name='plug' className='icon' />
                         </Grid.Column>
-                        <Grid.Column width={12}>
+                        <Grid.Column width={10}>
                             <Checkbox
                                 toggle
                                 checked={checked ? true : false}
@@ -34,7 +34,6 @@ const Relay = (props) => {
                                 onChange={() => handleSwitch(index)}
                             />
                             <div className='title'><span className='state'></span>{data.name}</div>
-                            <div className='desc'>{data.description}</div>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

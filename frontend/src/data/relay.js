@@ -1,31 +1,26 @@
 const data = [
     {
-        name: 'Реле №1',
-        description: 'AC/DC Блок питания',
+        name: '12V Input',
         loader: false,
         value: false
     },
     {
-        name: 'Реле №2',
-        description: 'Монтировка HEQ5',
+        name: 'HEQ5 Pro',
         loader: false,
         value: false
     },
     {
-        name: 'Реле №3',
-        description: 'Камера ASI 1600MM',
+        name: 'ZWO ASI 1600MM',
         loader: false,
         value: false
     },
     {
-        name: 'Реле №4',
-        description: 'Фокусер ZWO EAF',
+        name: 'ZWO EAF',
         loader: false,
         value: false
     },
     {
-        name: 'Реле №5',
-        description: 'Обдув телескопа',
+        name: 'Охлаждение ГЗ',
         loader: false,
         value: false
     }

@@ -47,7 +47,9 @@ const Statistic = (props) => {
                             <Grid>
                                 <Grid.Row>
                                     <Grid.Column width={5} className='icon-container'>
-                                        <Icon name={item.icon} />
+                                        <div className='statistic-image'>
+                                            <Icon name={item.icon} />
+                                        </div>
                                     </Grid.Column>
                                     <Grid.Column width={11}>
                                         <div className='value'>{item.value}</div>

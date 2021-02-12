@@ -6,6 +6,7 @@ import { Menu, Container, Modal, Button, Form, Message, Dropdown, Label } from '
 // import Header from '../components/Header'
 import Footer from '../layouts/Footer'
 
+import * as astroActions from '../store/astro/actions'
 import * as authActions from '../store/auth/actions'
 import * as types from '../store/auth/actionTypes'
 
@@ -24,9 +25,10 @@ class MainContainer extends Component {
     }
 
     componentDidMount() {
-        const { dispatch } = this.props
-
+        const { dispatch, storePhotoStatistic } = this.props
         const token = sessionStorage.getItem('token')
+
+        _.isEmpty(storePhotoStatistic) && dispatch(astroActions.getFITStat())
 
         if (token) {
             this.setState({token: token})

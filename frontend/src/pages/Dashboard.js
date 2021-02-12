@@ -121,27 +121,27 @@ class Dashboard extends Component {
                     {! _.isEmpty(sensorData) && (
                         <Grid>
                             <Grid.Column computer={4} tablet={8} mobile={8}>
-                                <div className={'card sensor'}>
+                                <div className='card sensor astro'>
                                     <h5>Монтировка HEQ5 Pro</h5>
-                                    <div>Напряжение: {sensorData.data.v1.value}В</div>
-                                    <div>Сила тока: {sensorData.data.i1.value}А</div>
-                                    <div>Мощность: {sensorData.data.p1.value}мВт</div>
+                                    <div>Напряжение: <b>{sensorData.data.v1.value}В</b></div>
+                                    <div>Сила тока: <b>{sensorData.data.i1.value}А</b></div>
+                                    <div>Мощность: <b>{sensorData.data.p1.value}мВт</b></div>
                                 </div>
                             </Grid.Column>
                             <Grid.Column computer={4} tablet={8} mobile={8}>
                                 <div className={'card sensor'}>
                                     <h5>Камера ZWO ASI 1600mm</h5>
-                                    <div>Напряжение: {sensorData.data.v2.value}В</div>
-                                    <div>Сила тока: {sensorData.data.i2.value}А</div>
-                                    <div>Мощность: {sensorData.data.p2.value}мВт</div>
+                                    <div>Напряжение: <b>{sensorData.data.v2.value}В</b></div>
+                                    <div>Сила тока: <b>{sensorData.data.i2.value}А</b></div>
+                                    <div>Мощность: <b>{sensorData.data.p2.value}мВт</b></div>
                                 </div>
                             </Grid.Column>
                             <Grid.Column computer={4} tablet={8} mobile={8}>
                                 <div className={'card sensor'}>
                                     <h5>Фокусер ZWO EAF</h5>
-                                    <div>Напряжение: {sensorData.data.v3.value}В</div>
-                                    <div>Сила тока: {sensorData.data.i3.value}А</div>
-                                    <div>Мощность: {sensorData.data.p3.value}мВт</div>
+                                    <div>Напряжение: <b>{sensorData.data.v3.value}В</b></div>
+                                    <div>Сила тока: <b>{sensorData.data.i3.value}А</b></div>
+                                    <div>Мощность: <b>{sensorData.data.p3.value}мВт</b></div>
                                 </div>
                             </Grid.Column>
                             <Grid.Column computer={4} tablet={8} mobile={8}>

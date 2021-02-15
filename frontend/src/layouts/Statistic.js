@@ -52,7 +52,7 @@ const Statistic = (props) => {
                                         </div>
                                     </Grid.Column>
                                     <Grid.Column width={11}>
-                                        <div className='value'>{item.value}</div>
+                                        <div className='statistic-value'>{item.value}</div>
                                         <div className='info'>{item.name}</div>
                                     </Grid.Column>
                                 </Grid.Row>

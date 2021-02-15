@@ -8,7 +8,6 @@ import _ from 'lodash'
 
 const EventCalendar = (params) => {
     const localizer = momentLocalizer(moment)
-    let calendarEvents = []
 
     const createMeteoEvents = () => {
         if (_.isEmpty(params.meteo)) return []
@@ -16,11 +15,11 @@ const EventCalendar = (params) => {
         const { data } = params.meteo
         let result = []
 
-        data.map((item, key) => {
+        Object.keys(data).map(function(key) {
             result.push({
-                'title': item.t2 + '°C, ' + item.h + '%',
-                'start': moment(item.date, 'DD-MM-YYYY').toDate(),
-                'end'  : moment(item.date, 'DD-MM-YYYY').toDate(),
+                'title': data[key].t2 + '°C, ' + data[key].h + '%, ' + data[key].lux + ' lux',
+                'start': moment(key, 'DD-MM-YYYY').toDate(),
+                'end'  : moment(key, 'DD-MM-YYYY').toDate(),
                 'type' :'meteo'
             })
         })
@@ -28,25 +27,23 @@ const EventCalendar = (params) => {
         return result
     }
 
-    calendarEvents = [...calendarEvents, ...createMeteoEvents()]
+    const createPhotoEvents = () => {
+        if (_.isEmpty(params.astro.data) || params.astro.status === false) return []
 
-    // if (!_.isEmpty(params.meteo.data)) {
-    //     params.meteo.data.map((item) => {
-    //         item.start = moment(item.start, 'DD-MM-YYYY').toDate()
-    //         item.end   = moment(item.end, 'DD-MM-YYYY').toDate()
-    //     })
-    //
-    //     calendarEvents = [...calendarEvents, ...params.meteo.data]
-    // }
-    //
-    // if (!_.isEmpty(params.astro.data)) {
-    //     params.astro.data.map((item) => {
-    //         item.start = moment(item.start, 'DD-MM-YYYY').toDate()
-    //         item.end   = moment(item.end, 'DD-MM-YYYY').toDate()
-    //     })
-    //
-    //     calendarEvents = [...calendarEvents, ...params.astro.data]
-    // }
+        const { data } = params.astro
+        let result = []
+
+        Object.keys(data).map(function(key) {
+            result.push({
+                'title': data[key].frames + ' кадров, ' + data[key].exposure + ' мин',
+                'start': moment(key, 'DD-MM-YYYY').toDate(),
+                'end'  : moment(key, 'DD-MM-YYYY').toDate(),
+                'type' :'astro'
+            })
+        })
+
+        return result
+    }
 
     return (
         <Grid>
@@ -60,7 +57,7 @@ const EventCalendar = (params) => {
                     <Calendar
                         defaultDate={new Date()}
                         localizer={localizer}
-                        events={calendarEvents}
+                        events={[...createMeteoEvents(), ...createPhotoEvents()]}
                         startAccessor="start"
                         endAccessor="end"
                         views={['month']}

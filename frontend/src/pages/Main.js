@@ -32,7 +32,7 @@ class Main extends Component {
 
         _.isEmpty(storePhotoStatistic) && dispatch(astroActions.getFITStat())
         _.isEmpty(storeMeteoArchive) && dispatch(meteoActions.getArchive(monthStart, monthEnd))
-        _.isEmpty(storePhotoArchive) && dispatch(astroActions.getEventCalendarFIT())
+        _.isEmpty(storePhotoArchive) && dispatch(astroActions.getArchive(monthStart, monthEnd))
     }
 
     updateData = () => {}
@@ -56,7 +56,7 @@ class Main extends Component {
         const monthStart = moment(date).clone().startOf('month').format('DD-MM-YYYY')
         const monthEnd   = moment(date).clone().endOf('month').format('DD-MM-YYYY')
 
-        // dispatch(astroActions.getEventCalendarFIT(moment(date).format('DD.MM.YYYY')))
+        dispatch(astroActions.getArchive(monthStart, monthEnd))
         dispatch(meteoActions.getArchive(monthStart, monthEnd))
     }
 

@@ -1,11 +1,11 @@
 import * as types from './actionTypes'
 
-const API_ENDPOINT = 'https://api.miksoft.pro'
+const API_ENDPOINT = 'https://api.miksoft.pro/astro/get/'
 
 export function getStatisticDay(date) {
     return async(dispatch) => {
         try {
-            const url = API_ENDPOINT + `/astro/get/statistic?date=${date}`
+            const url = API_ENDPOINT + `statistic?date=${date}`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -25,7 +25,7 @@ export function getStatisticDay(date) {
 export function getSensorData() {
     return async(dispatch) => {
         try {
-            const url = API_ENDPOINT + `/astro/get/summary`
+            const url = API_ENDPOINT + `summary`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -45,7 +45,7 @@ export function getSensorData() {
 export function getSensorStat() {
     return async(dispatch) => {
         try {
-            const url = API_ENDPOINT + `/astro/get/statistic`
+            const url = API_ENDPOINT + `statistic`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -65,13 +65,13 @@ export function getSensorStat() {
 export function getFITStat() {
     return async(dispatch) => {
         try {
-            const url = API_ENDPOINT + `/astro/get/fit_stats`
+            const url = API_ENDPOINT + `fit_stats`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json'
                 }
-            });
+            })
 
             const payload = await response.json()
 
@@ -82,16 +82,17 @@ export function getFITStat() {
     }
 }
 
-export function getEventCalendarFIT(date = '') {
+export function getArchive(date_start, date_end) {
     return async(dispatch) => {
         try {
-            const url = API_ENDPOINT + `/astro/get/month_stats` + (date && `?date=${date}`)
+            // const url = API_ENDPOINT + `archive?date_start=${date_start}&date_end=${date_end}`
+            const url = API_ENDPOINT + `archive?date=${date_start}`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json'
                 }
-            });
+            })
 
             const payload = await response.json()
 
@@ -125,13 +126,13 @@ export function getEventCalendarFIT(date = '') {
 export function fetchDataByName(name = '') {
     return async(dispatch) => {
         try {
-            const url = `${API_ENDPOINT}/astro/get/fit_object_stats?name=${name}`
+            const url = `${API_ENDPOINT}fit_object_stats?name=${name}`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json'
                 }
-            });
+            })
 
             const payload = await response.json()
 

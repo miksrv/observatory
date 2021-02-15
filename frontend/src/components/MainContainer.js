@@ -10,12 +10,13 @@ import * as astroActions from '../store/astro/actions'
 import * as authActions from '../store/auth/actions'
 import * as types from '../store/auth/actionTypes'
 
+import languageRU from '../locate/ru/translate.json'
+
 import _ from 'lodash'
 
 class MainContainer extends Component {
 
     state = {
-        showSidebar: false,
         showModal: false,
         formLoading: false,
         userLogin: null,
@@ -67,10 +68,6 @@ class MainContainer extends Component {
         const { pingTimer } = this.state
 
         clearInterval(pingTimer)
-    }
-
-    setSidebar = showSidebar => {
-        this.setState({showSidebar})
     }
 
     setModal = showModal => {
@@ -131,14 +128,14 @@ class MainContainer extends Component {
                             <img src='/images/logo-w.svg' />
                         </Menu.Item>
                         <Menu.Item as={NavLink} exact to='/'>
-                            Сводка
+                            {languageRU.menu.summary}
                         </Menu.Item>
                         <Menu.Item as={NavLink} exact to='/object/'>
-                            Объекты
+                            {languageRU.menu.objects}
                             <Label color='yellow'>{(!_.isEmpty(storePhotoStatistic) ? storePhotoStatistic.objects : 0)}</Label>
                         </Menu.Item>
                         <Menu.Item as={NavLink} to='/dashboard' activeclassname='active'>
-                            Управление
+                            {languageRU.menu.control}
                         </Menu.Item>
                         <Menu.Menu position='right'>
                             <Dropdown item text='Language'>
@@ -149,14 +146,13 @@ class MainContainer extends Component {
                             </Dropdown>
                             {(token === null) ? (
                                 <Menu.Item>
-                                    <Button primary onClick={() => {this.setModal(true)}}>Войти</Button>
+                                    <Button primary onClick={() => {this.setModal(true)}}>{languageRU.menu.login}</Button>
                                 </Menu.Item>
                             ) : (
                                 <Menu.Item>
-                                    <Button onClick={() => {this.handleLogout()}}>Выход</Button>
+                                    <Button onClick={() => {this.handleLogout()}}>{languageRU.menu.logout}</Button>
                                 </Menu.Item>
                             )}
-
                         </Menu.Menu>
                     </Menu>
 

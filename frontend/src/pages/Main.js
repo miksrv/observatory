@@ -30,7 +30,6 @@ class Main extends Component {
         const monthStart = moment().clone().startOf('month').format('DD-MM-YYYY')
         const monthEnd   = moment().clone().endOf('month').format('DD-MM-YYYY')
 
-        _.isEmpty(storePhotoStatistic) && dispatch(astroActions.getFITStat())
         _.isEmpty(storeMeteoArchive) && dispatch(meteoActions.getArchive(monthStart, monthEnd))
         _.isEmpty(storePhotoArchive) && dispatch(astroActions.getArchive(monthStart, monthEnd))
     }

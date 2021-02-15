@@ -6,6 +6,8 @@ import moment from 'moment'
 
 import _ from 'lodash'
 
+const phases = ["🌑", "🌒", "🌓", "🌔", "🌕", "🌖", "🌗", "🌘"]
+
 const EventCalendar = (params) => {
     const localizer = momentLocalizer(moment)
 

@@ -5,18 +5,12 @@ import { Container, Dimmer, Loader } from 'semantic-ui-react'
 import FullTable from '../layouts/FullTable'
 import MainContainer from '../components/MainContainer'
 
-import * as astroActions from '../store/astro/actions'
-
 import moment from 'moment'
 import _ from 'lodash'
 
 class ObjectList extends Component {
 
-    componentDidMount() {
-        const { dispatch, storePhotoStatistic } = this.props
-
-        _.isEmpty(storePhotoStatistic) && dispatch(astroActions.getFITStat())
-    }
+    componentDidMount() {}
 
     updateData = () => {}
 

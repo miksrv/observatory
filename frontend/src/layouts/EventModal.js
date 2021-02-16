@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Icon, Modal } from 'semantic-ui-react'
+import { Button, Modal } from 'semantic-ui-react'
 
 const EventModal = (params) => {
     let handleOnClose = (state) => {

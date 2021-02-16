@@ -125,7 +125,7 @@ class MainContainer extends Component {
                     <br />
                     <Menu stackable inverted size='tiny'>
                         <Menu.Item>
-                            <img src='/images/logo-w.svg' />
+                            <img src='/images/logo-w.svg' alt='' />
                         </Menu.Item>
                         <Menu.Item as={NavLink} exact to='/'>
                             {languageRU.menu.summary}
@@ -155,7 +155,6 @@ class MainContainer extends Component {
                             )}
                         </Menu.Menu>
                     </Menu>
-
                 </Container>
                 <br /><br />
                 {children}

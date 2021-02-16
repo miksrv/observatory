@@ -6,8 +6,6 @@ import moment from 'moment'
 
 import _ from 'lodash'
 
-const phases = ["🌑", "🌒", "🌓", "🌔", "🌕", "🌖", "🌗", "🌘"]
-
 const EventCalendar = (params) => {
     const localizer = momentLocalizer(moment)
 
@@ -59,24 +57,25 @@ const EventCalendar = (params) => {
                     <Calendar
                         defaultDate={new Date()}
                         localizer={localizer}
-                        events={[...createMeteoEvents(), ...createPhotoEvents()]}
+                        events={[...params.moon, ...createMeteoEvents(), ...createPhotoEvents()]}
                         startAccessor="start"
                         endAccessor="end"
+                        popup={true}
                         views={['month']}
-                        style={{ height: 500 }}
+                        style={{ height: 550 }}
                         messages={{
                             today: 'сегодня',
                             previous: '<',
                             next: '>',
                             showMore: function showMore(total) {
-                                return 'еще ' + total;
+                                return '+ Еще ' + total
                             }
                         }}
                         onSelectEvent={params.fGetEvent}
                         onNavigate={params.fNavigate}
                         eventPropGetter={(event, start, end, isSelected) => {
                             return {
-                                className: event.type,
+                                className: event.type
                             }
                         }
                         }

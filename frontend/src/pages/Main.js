@@ -16,22 +16,27 @@ import EventModal from '../layouts/EventModal'
 import * as astroActions from '../store/astro/actions'
 import * as meteoActions from '../store/meteo/actions'
 
+import moonPhrase from '../data/moon_phrase'
+
 import _ from 'lodash'
 
 // import TempGraphic from "../components/TempGraphic";
 
 class Main extends Component {
     state = {
-        showModalEvent: false
+        showModalEvent: false,
+        calendarMoonPhrases: []
     }
 
     componentDidMount() {
-        const { dispatch, storeMeteoArchive, storePhotoArchive, storePhotoStatistic } = this.props
+        const { dispatch, storeMeteoArchive, storePhotoArchive } = this.props
         const monthStart = moment().clone().startOf('month').format('DD-MM-YYYY')
         const monthEnd   = moment().clone().endOf('month').format('DD-MM-YYYY')
 
         _.isEmpty(storeMeteoArchive) && dispatch(meteoActions.getArchive(monthStart, monthEnd))
         _.isEmpty(storePhotoArchive) && dispatch(astroActions.getArchive(monthStart, monthEnd))
+
+        this.setState({calendarMoonPhrases: moonPhrase(monthStart, monthEnd)})
     }
 
     updateData = () => {}
@@ -57,11 +62,13 @@ class Main extends Component {
 
         dispatch(astroActions.getArchive(monthStart, monthEnd))
         dispatch(meteoActions.getArchive(monthStart, monthEnd))
+
+        this.setState({calendarMoonPhrases: moonPhrase(monthStart, monthEnd)})
     }
 
     render() {
         const { storePhotoStatistic, storePhotoArchive, storeMeteoArchive } = this.props // graphic
-        const { showModalEvent } = this.state
+        const { showModalEvent, calendarMoonPhrases } = this.state
 
         return (
             <MainContainer
@@ -78,6 +85,7 @@ class Main extends Component {
                         data={storePhotoStatistic}
                     />
                     <EventCalendar
+                        moon={calendarMoonPhrases}
                         meteo={storeMeteoArchive}
                         astro={storePhotoArchive}
                         fNavigate={this.handleNavigatePress}

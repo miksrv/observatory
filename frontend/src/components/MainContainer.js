@@ -105,7 +105,6 @@ class MainContainer extends Component {
         sessionStorage.removeItem('token')
 
         this.setState({token: null})
-        this.setSidebar(false)
     }
 
     pingCheckAuth = (tmpToken = null) => {

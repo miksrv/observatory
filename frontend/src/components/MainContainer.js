@@ -163,12 +163,12 @@ class MainContainer extends Component {
                     open={showModal}
                     onClose={() => this.setModal(false)}
                 >
-                    <Modal.Header>Авторизация</Modal.Header>
+                    <Modal.Header>{languageRU.modalAuth.header}</Modal.Header>
                     <Modal.Content>
                         {(!_.isEmpty(authData) && authData.status === false) && (
                             <Message
                                 error
-                                content="Неверный логин или пароль"
+                                content={languageRU.modalAuth.error}
                             />
                         )}
                         <Form
@@ -180,7 +180,7 @@ class MainContainer extends Component {
                                 icon='user'
                                 name='userLogin'
                                 iconPosition='left'
-                                placeholder='Логин'
+                                placeholder={languageRU.modalAuth.form.login}
                                 onChange={this.handleChange}
                                 disabled={formLoading}
                             />
@@ -189,7 +189,7 @@ class MainContainer extends Component {
                                 icon='lock'
                                 name='userPassw'
                                 iconPosition='left'
-                                placeholder='Пароль'
+                                placeholder={languageRU.modalAuth.form.password}
                                 type='password'
                                 onChange={this.handleChange}
                                 disabled={formLoading}

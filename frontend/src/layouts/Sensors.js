@@ -40,9 +40,9 @@ const Sensor = (params) => {
                         <Loader />
                     </Dimmer>
                 )}
-                <h5 className='title'>{params.widget.name}</h5>
+                <div className='title'>{params.widget.name}</div>
                 <Grid>
-                    <Grid.Row>
+                    <Grid.Row className='value-container'>
                         <Grid.Column width={12} className='icon-container'>
                             <div className='value'>{params.data.value}
                                 {(typeof params.widget.sign !== 'undefined' && (

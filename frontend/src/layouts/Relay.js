@@ -22,10 +22,10 @@ const Relay = (props) => {
                 }
                 <Grid>
                     <Grid.Row>
-                        <Grid.Column width={6}>
+                        <Grid.Column width={5}>
                             <Icon name='plug' className='icon' />
                         </Grid.Column>
-                        <Grid.Column width={10}>
+                        <Grid.Column width={11}>
                             <Checkbox
                                 toggle
                                 checked={checked ? true : false}

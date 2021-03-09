@@ -7,7 +7,7 @@ import * as astroActions from '../store/astro/actions'
 
 import MainContainer from '../components/MainContainer'
 
-import { getTimeFromSec } from '../data/functions'
+import { getTimeFromSec, setClassByFilter } from '../data/functions'
 
 import moment from 'moment'
 
@@ -26,20 +26,6 @@ class ObjectItem extends Component {
         const { dispatch } = this.props
 
         dispatch(astroActions.clearDataByName())
-    }
-
-    setClassByFilter = filter => {
-        switch (filter) {
-            case 'Red'       : return 'filter-r'
-            case 'Green'     : return 'filter-g'
-            case 'Blue'      : return 'filter-b'
-            case 'Luminance' : return 'filter-l'
-            case 'Ha'        : return 'filter-h'
-            case 'SII'       : return 'filter-s'
-            case 'OIII'      : return 'filter-o'
-
-            default : return ''
-        }
     }
 
     updateData = () => {}
@@ -78,7 +64,7 @@ class ObjectItem extends Component {
                                         <Table.Row key={key}>
                                             <Table.Cell>{item.item_file_name}</Table.Cell>
                                             <Table.Cell>{item.item_exptime}</Table.Cell>
-                                            <Table.Cell className={this.setClassByFilter(item.item_filter)}>{item.item_filter}</Table.Cell>
+                                            <Table.Cell className={setClassByFilter(item.item_filter)}>{item.item_filter}</Table.Cell>
                                             <Table.Cell>{item.item_ccd_temp}</Table.Cell>
                                             <Table.Cell>{item.item_gain}</Table.Cell>
                                             <Table.Cell>{item.item_offset}</Table.Cell>

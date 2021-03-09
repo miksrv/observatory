@@ -1,28 +1,15 @@
 import React from 'react'
 import { Button, Modal, List } from 'semantic-ui-react'
-import { getTimeFromSec } from '../data/functions'
+import { getTimeFromSec, setClassByFilter } from '../data/functions'
+
+import moment from 'moment'
 
 import _ from 'lodash'
-import moment from "moment";
 
 const EventModal = (params) => {
     let astroData = params.data
     let handleOnClose = (state) => {
         params.fOnClose()
-    }
-
-    let setClassByFilter = filter => {
-        switch (filter) {
-            case 'Red'       : return 'filter-r'
-            case 'Green'     : return 'filter-g'
-            case 'Blue'      : return 'filter-b'
-            case 'Luminance' : return 'filter-l'
-            case 'Ha'        : return 'filter-h'
-            case 'SII'       : return 'filter-s'
-            case 'OIII'      : return 'filter-o'
-
-            default : return ''
-        }
     }
 
     return (

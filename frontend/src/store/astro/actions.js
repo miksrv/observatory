@@ -2,10 +2,10 @@ import * as types from './actionTypes'
 
 const API_ENDPOINT = 'https://api.miksoft.pro/astro/get/'
 
-export function getStatisticDay(date) {
+export function getObjectStats(date) {
     return async(dispatch) => {
         try {
-            const url = API_ENDPOINT + `statistic?date=${date}`
+            const url = API_ENDPOINT + `day_object_stats?date=${date}`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {

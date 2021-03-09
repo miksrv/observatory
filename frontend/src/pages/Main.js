@@ -42,9 +42,16 @@ class Main extends Component {
     updateData = () => {}
 
     handleEventPress = selected => {
-        // this.setState({ showModalEvent: true })
-        //
-        // const { dispatch } = this.props
+        const { dispatch } = this.props
+
+        this.setState({showModalEvent: true})
+
+        if (selected.type === 'astro')
+        {
+            //console.log('handleEventPress', moment(selected.start).format('YYYY-MM-DD'))
+            dispatch(astroActions.getObjectStats(moment(selected.start).format('YYYY-MM-DD')))
+        }
+
         // let action = (selected.type === 'meteo' ? meteoActions : astroActions)
         //
         // dispatch(action.getStatisticDay(moment(selected.start).format('DD.MM.YYYY')))
@@ -67,7 +74,7 @@ class Main extends Component {
     }
 
     render() {
-        const { storePhotoStatistic, storePhotoArchive, storeMeteoArchive } = this.props // graphic
+        const { storePhotoStatistic, storePhotoArchive, storeMeteoArchive, storeStatisticDay } = this.props // graphic
         const { showModalEvent, calendarMoonPhrases } = this.state
 
         return (
@@ -77,7 +84,7 @@ class Main extends Component {
             >
                 <EventModal
                     show={showModalEvent}
-                    data={[]}
+                    data={storeStatisticDay}
                     fOnClose={() => this.handleEventModalClose()}
                 />
                 <Container>
@@ -105,6 +112,7 @@ class Main extends Component {
 function mapStateToProps(state) {
     return {
         storePhotoStatistic: state.astro.FITStat,
+        storeStatisticDay: state.astro.statisticDay,
         storePhotoArchive: state.astro.FITEvent,
         storeMeteoArchive: state.meteo.archiveData
         // graphic: state.astro.graphic,

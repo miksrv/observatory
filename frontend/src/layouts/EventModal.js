@@ -20,9 +20,9 @@ const EventModal = (params) => {
         >
             <Modal.Header>Данные о съемке</Modal.Header>
             <Modal.Content>
+                <div>Сделано кадров: <b>{astroData.frames}</b></div>
                 <div>Общая выдержка: <b>{getTimeFromSec(astroData.exposure)}</b> (часов:минут)</div>
                 <div>Накоплено данных: <b>{astroData.filesize}</b> Гб</div>
-                <div>Сделано кадров: <b>{astroData.frames}</b></div>
                 <List>
                 {! _.isEmpty(astroData) && astroData.data.map((item, key) => {
                     return (

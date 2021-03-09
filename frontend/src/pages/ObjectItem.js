@@ -41,8 +41,9 @@ class ObjectItem extends Component {
             >
                 <Container>
                     <Header inverted as='h2'>Объект: {name}</Header>
-                    <div>Всего кадров: <b>{(!_.isEmpty(objectData) ? objectData.frames : '---')}</b></div>
-                    <div>Общая выдержка: <b>{(!_.isEmpty(objectData) ? getTimeFromSec(objectData.exposure) : '---')}</b></div>
+                    <div>Сделано кадров: <b>{(!_.isEmpty(objectData) ? objectData.frames : '---')}</b></div>
+                    <div>Общая выдержка: <b>{(!_.isEmpty(objectData) ? getTimeFromSec(objectData.exposure) : '---')}</b> (часов:минут)</div>
+                    <div>Накоплено данных: <b>{(!_.isEmpty(objectData) ? objectData.filesize : '---')}</b> Гб</div>
                     <Link to={'/object/'}>Вернуться к списку всех объектов</Link>
                     <br /><br />
                     <div className='card table-loader'>

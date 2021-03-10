@@ -143,7 +143,7 @@ export function deleteObjectDataByID(itemID, token) {
 
             const payload = await response.json()
 
-            if (payload.status == true) {
+            if (payload.status === true) {
                 dispatch({ type: types.DELETE_OBJECT_DATA, itemID })
             }
         } catch (error) {

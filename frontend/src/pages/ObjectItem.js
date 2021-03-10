@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Dimmer, Loader, Table, Header, Button, Icon } from 'semantic-ui-react'
+import { Container, Dimmer, Loader, Table, Header, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 import * as astroActions from '../store/astro/actions'

@@ -30,7 +30,7 @@ export function Logout(token) {
     return async(dispatch) => {
         try {
             const url = `${API_ENDPOINT}/auth/logout`
-            const response = await fetch(url, {
+            await fetch(url, {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -38,9 +38,7 @@ export function Logout(token) {
                 }
             })
 
-            const payload = await response.json()
-
-            dispatch({ type: types.LOGIN, payload })
+            dispatch({ type: types.LOGOUT })
         } catch (error) {
             console.error(error)
         }

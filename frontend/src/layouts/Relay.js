@@ -23,7 +23,7 @@ const Relay = (props) => {
                 <Grid>
                     <Grid.Row>
                         <Grid.Column width={5}>
-                            <Icon name='plug' className='icon' />
+                            <Icon name='plug' className='control-icon' />
                         </Grid.Column>
                         <Grid.Column width={11}>
                             <Checkbox

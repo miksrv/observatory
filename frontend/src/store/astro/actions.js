@@ -1,11 +1,11 @@
 import * as types from './actionTypes'
 
-const API_ENDPOINT = 'https://api.miksoft.pro/astro/get/'
+const API_ENDPOINT = 'https://api.miksoft.pro/astro/'
 
 export function getObjectStats(date) {
     return async(dispatch) => {
         try {
-            const url = API_ENDPOINT + `day_object_stats?date=${date}`
+            const url = API_ENDPOINT + `get/day_object_stats?date=${date}`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -25,7 +25,7 @@ export function getObjectStats(date) {
 export function getSensorData() {
     return async(dispatch) => {
         try {
-            const url = API_ENDPOINT + `summary`
+            const url = API_ENDPOINT + `get/summary`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -45,7 +45,7 @@ export function getSensorData() {
 export function getSensorStat() {
     return async(dispatch) => {
         try {
-            const url = API_ENDPOINT + `statistic`
+            const url = API_ENDPOINT + `get/statistic`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -65,7 +65,7 @@ export function getSensorStat() {
 export function getFITStat() {
     return async(dispatch) => {
         try {
-            const url = API_ENDPOINT + `fit_stats`
+            const url = API_ENDPOINT + `get/fit_stats`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -86,7 +86,7 @@ export function getArchive(date_start, date_end) {
     return async(dispatch) => {
         try {
             // const url = API_ENDPOINT + `archive?date_start=${date_start}&date_end=${date_end}`
-            const url = API_ENDPOINT + `archive?date=${date_start}`
+            const url = API_ENDPOINT + `get/archive?date=${date_start}`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -103,30 +103,10 @@ export function getArchive(date_start, date_end) {
     }
 }
 
-// export function fetchData() {
-//     return async(dispatch) => {
-//         try {
-//             const url = `${API_ENDPOINT}/get/data`
-//             const response = await fetch(url, {
-//                 method: 'GET',
-//                 headers: {
-//                     Accept: 'application/json'
-//                 }
-//             });
-//
-//             const payload = await response.json()
-//
-//             dispatch({ type: types.GET_STAT_DATA, payload })
-//         } catch (error) {
-//             console.error(error)
-//         }
-//     }
-// }
-
 export function fetchDataByName(name = '') {
     return async(dispatch) => {
         try {
-            const url = `${API_ENDPOINT}fit_object_stats?name=${name}`
+            const url = `${API_ENDPOINT}get/fit_object_stats?name=${name}`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -149,22 +129,25 @@ export function clearDataByName() {
     }
 }
 
-// export function fetchGraphData() {
-//     return async(dispatch) => {
-//         try {
-//             const url = `${API_ENDPOINT}/get/graph_data`
-//             const response = await fetch(url, {
-//                 method: 'GET',
-//                 headers: {
-//                     Accept: 'application/json'
-//                 }
-//             })
-//
-//             const payload = await response.json()
-//
-//             dispatch({ type: types.GET_GRAPH_DATA, payload })
-//         } catch (error) {
-//             console.error(error)
-//         }
-//     }
-// }
+export function deleteObjectDataByID(itemID, token) {
+    return async(dispatch) => {
+        try {
+            const url = `${API_ENDPOINT}delete/fit?id=${itemID}`
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    AuthToken: token
+                }
+            })
+
+            const payload = await response.json()
+
+            if (payload.status == true) {
+                dispatch({ type: types.DELETE_OBJECT_DATA, itemID })
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}

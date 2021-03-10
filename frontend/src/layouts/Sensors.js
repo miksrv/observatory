@@ -51,7 +51,7 @@ const Sensor = (params) => {
                             </div>
                         </Grid.Column>
                         <Grid.Column width={4}>
-                            <WeatherIcon className='icon' />
+                            <WeatherIcon className='control-icon' />
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

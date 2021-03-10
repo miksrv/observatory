@@ -69,6 +69,15 @@ export default function reduce(state = initialState, action = {}) {
                 objectData: []
             }
 
+        case types.DELETE_OBJECT_DATA:
+            return {
+                ...state,
+                objectData: {
+                    ...state.objectData,
+                    'data': state.objectData.data.filter(item => item.file_id !== action.itemID)
+                }
+            }
+
         case types.GET_FITS_EVENT:
             return {
                 ...state,

@@ -2,7 +2,8 @@ import * as types from './actionTypes'
 
 const initialState = {
     authData: {},
-    token: null
+    token: null,
+    isAuth: false
 }
 
 export default function reduce(state = initialState, action = {}) {
@@ -10,13 +11,21 @@ export default function reduce(state = initialState, action = {}) {
         case types.LOGIN:
             return {
                 ...state,
-                authData: action.payload
+                authData: action.payload,
+                isAuth: true
             }
 
         case types.CHECK:
             return {
                 ...state,
                 token: action.payload
+            }
+
+        case types.LOGOUT:
+            return {
+                ...state,
+                authData: {},
+                isAuth: false
             }
 
         default:

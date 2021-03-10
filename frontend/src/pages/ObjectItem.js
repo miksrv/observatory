@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Dimmer, Loader, Table, Header } from 'semantic-ui-react'
+import { Container, Dimmer, Loader, Table, Header, Button, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 import * as astroActions from '../store/astro/actions'
@@ -28,11 +28,17 @@ class ObjectItem extends Component {
         dispatch(astroActions.clearDataByName())
     }
 
+    onClickDelete = itemID => {
+        const { dispatch, token } = this.props
+
+        dispatch(astroActions.deleteObjectDataByID(itemID, token))
+    }
+
     updateData = () => {}
 
     render() {
+        const { objectData, isAuth } = this.props
         const { name } = this.props.match.params
-        const { objectData } = this.props
 
         return (
             <MainContainer
@@ -51,6 +57,7 @@ class ObjectItem extends Component {
                             <Table celled inverted selectable>
                                 <Table.Header>
                                     <Table.Row>
+                                        {isAuth && <Table.HeaderCell />}
                                         <Table.HeaderCell>Имя файла</Table.HeaderCell>
                                         <Table.HeaderCell>Exp</Table.HeaderCell>
                                         <Table.HeaderCell>Фильтр</Table.HeaderCell>
@@ -63,6 +70,17 @@ class ObjectItem extends Component {
                                 <Table.Body>
                                     {objectData.data.map((item, key) => (
                                         <Table.Row key={key}>
+                                            {isAuth &&
+                                                <Table.Cell collapsing>
+                                                    <Button
+                                                        className='table-button'
+                                                        color='red'
+                                                        icon='delete'
+                                                        size='mini'
+                                                        onClick={() => this.onClickDelete(item.file_id)}
+                                                    />
+                                                </Table.Cell>
+                                            }
                                             <Table.Cell>{item.item_file_name}</Table.Cell>
                                             <Table.Cell>{item.item_exptime}</Table.Cell>
                                             <Table.Cell className={setClassByFilter(item.item_filter)}>{item.item_filter}</Table.Cell>
@@ -88,7 +106,9 @@ class ObjectItem extends Component {
 
 function mapStateToProps(state) {
     return {
-        objectData: state.astro.objectData
+        objectData: state.astro.objectData,
+        isAuth: state.auth.isAuth,
+        token: state.auth.token,
     }
 }
 

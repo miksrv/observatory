@@ -1,11 +1,13 @@
 import * as types from './actionTypes'
 
-const API_ENDPOINT = 'https://api.miksoft.pro/relay/'
-
+/**
+ * Gets the status on the server about the status of all relays
+ * @returns {GET_STATUS}
+ */
 export function getStatus() {
     return async(dispatch) => {
         try {
-            const url = `${API_ENDPOINT}get`
+            const url = `${process.env.REACT_APP_API_HOST}relay/get`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -22,12 +24,19 @@ export function getStatus() {
     }
 }
 
+/**
+ * Changes the state of the relay. This request must be executed with the current user's authorization token.
+ * @param device
+ * @param status
+ * @param token
+ * @returns {SET_STATUS}
+ */
 export function setStatus(device, status, token) {
     status = (status === true ? 1 : 0)
 
     return async(dispatch) => {
         try {
-            const url = `${API_ENDPOINT}set?device=${device}&status=${status}`
+            const url = `${process.env.REACT_APP_API_HOST}relay/set?device=${device}&status=${status}`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {

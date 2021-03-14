@@ -1,0 +1,1 @@
+export const GET_DATA = 'news.GET_DATA'

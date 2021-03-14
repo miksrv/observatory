@@ -129,6 +129,9 @@ class MainContainer extends Component {
                         <Menu.Item as={NavLink} exact to='/'>
                             {languageRU.menu.summary}
                         </Menu.Item>
+                        <Menu.Item as={NavLink} exact to='/news/'>
+                            {languageRU.menu.news}
+                        </Menu.Item>
                         <Menu.Item as={NavLink} exact to='/object/'>
                             {languageRU.menu.objects}
                             <Label color='yellow'>{(!_.isEmpty(storePhotoStatistic) ? storePhotoStatistic.objects : 0)}</Label>

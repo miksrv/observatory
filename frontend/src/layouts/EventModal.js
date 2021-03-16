@@ -26,7 +26,7 @@ const EventModal = (params) => {
                 <List>
                 {! _.isEmpty(astroData) && astroData.data.map((item, key) => {
                     return (
-                        <List.Item key={key}><span className={'filter ' + setClassByFilter(item.item_filter)}>{item.item_filter}</span> <b>{item.item_object}</b> {moment(item.item_date_obs).utcOffset('GMT+05:00').format("D.MM.Y, H:mm")}, {item.item_exptime} сек</List.Item>
+                        <List.Item key={key}><span className={'filter ' + setClassByFilter(item.item_filter)}>{item.item_filter}</span> <b>{item.item_object}</b> {moment.utc(item.item_date_obs).utcOffset('GMT+05:00').format("D.MM.Y, H:mm")}, {item.item_exptime} сек</List.Item>
                     )
                 })}
                 </List>

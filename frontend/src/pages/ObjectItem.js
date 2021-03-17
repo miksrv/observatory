@@ -50,7 +50,7 @@ class ObjectItem extends Component {
                     <div>Сделано кадров: <b>{(!_.isEmpty(objectData) ? objectData.frames : '---')}</b></div>
                     <div>Общая выдержка: <b>{(!_.isEmpty(objectData) ? getTimeFromSec(objectData.exposure) : '---')}</b> (часов:минут)</div>
                     <div>Накоплено данных: <b>{(!_.isEmpty(objectData) ? objectData.filesize : '---')}</b> Гб</div>
-                    <Link to={'/object/'}>Вернуться к списку всех объектов</Link>
+                    <Link to='/object/'>Вернуться к списку всех объектов</Link>
                     <br /><br />
                     <div className='card table-loader'>
                         { ( ! _.isEmpty(objectData)) ? (

@@ -14,6 +14,8 @@ import './static/css/main.sass'
 
 import Main from './pages/Main'
 import News from './pages/News'
+import PhotoList from './pages/PhotoList'
+import PhotoItem from './pages/PhotoItem'
 import ObjectList from './pages/ObjectList'
 import ObjectItem from './pages/ObjectItem'
 import ObjectDate from './pages/ObjectDate'
@@ -28,6 +30,8 @@ ReactDOM.render(
             <Switch>
                 <Route exact path="/" component={Main} />
                 <Route exact path="/news/" component={News} />
+                <Route exact path="/photo/" component={PhotoList} />
+                <Route exact path="/photo/:name" component={PhotoItem} />
                 <Route exact path="/object/" component={ObjectList} />
                 <Route exact path="/object/:name" component={ObjectItem} />
                 <Route exact path="/archive/:date" component={ObjectDate} />

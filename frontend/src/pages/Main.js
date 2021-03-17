@@ -5,21 +5,23 @@ import { Container } from 'semantic-ui-react'
 import moment from 'moment'
 
 import MainContainer from '../components/MainContainer'
-
 import Statistic from '../layouts/Statistic'
+import PhotoGrid from '../layouts/PhotoGrid'
 import EventCalendar from '../layouts/EventCalendar'
+
 // import ExpChart from '../informers/ExpChart'
 // import Sun from '../informers/Sun'
 // import Moon from '../informers/Moon'
+// import TempGraphic from "../components/TempGraphic";
+
 
 import * as astroActions from '../store/astro/actions'
 import * as meteoActions from '../store/meteo/actions'
 
 import moonPhrase from '../data/moon_phrase'
+import PHOTOS from '../data/_temp_PHOTOS'
 
 import _ from 'lodash'
-
-// import TempGraphic from "../components/TempGraphic";
 
 class Main extends Component {
     state = {
@@ -70,6 +72,10 @@ class Main extends Component {
                 <Container>
                     <Statistic
                         data={storePhotoStatistic}
+                    />
+                    <PhotoGrid
+                        photos={PHOTOS.slice(0, 4)}
+                        props={this.props}
                     />
                     <EventCalendar
                         moon={calendarMoonPhrases}

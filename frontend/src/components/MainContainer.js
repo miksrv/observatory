@@ -126,7 +126,7 @@ class MainContainer extends Component {
 
         return (
             <>
-                <Container>
+                <Container className='header'>
                     <br />
                     <Menu stackable inverted size='tiny'>
                         <Menu.Item>
@@ -137,6 +137,9 @@ class MainContainer extends Component {
                         </Menu.Item>
                         <Menu.Item as={NavLink} exact to='/news/'>
                             {languageRU.menu.news}
+                        </Menu.Item>
+                        <Menu.Item as={NavLink} exact to='/photo/'>
+                            {languageRU.menu.photo}
                         </Menu.Item>
                         <Menu.Item as={NavLink} exact to='/object/'>
                             {languageRU.menu.objects}
@@ -164,7 +167,6 @@ class MainContainer extends Component {
                         </Menu.Menu>
                     </Menu>
                 </Container>
-                <br /><br />
                 {children}
                 <Footer />
                 <Modal

@@ -16,6 +16,7 @@ import Main from './pages/Main'
 import News from './pages/News'
 import ObjectList from './pages/ObjectList'
 import ObjectItem from './pages/ObjectItem'
+import ObjectDate from './pages/ObjectDate'
 import Dashboard from './pages/Dashboard'
 import Error404 from './pages/Error404'
 
@@ -29,6 +30,7 @@ ReactDOM.render(
                 <Route exact path="/news/" component={News} />
                 <Route exact path="/object/" component={ObjectList} />
                 <Route exact path="/object/:name" component={ObjectItem} />
+                <Route exact path="/archive/:date" component={ObjectDate} />
                 <Route exact path="/dashboard/" component={Dashboard} />
                 <Route component={Error404} />
             </Switch>

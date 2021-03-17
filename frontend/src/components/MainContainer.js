@@ -114,6 +114,12 @@ class MainContainer extends Component {
         dispatch(authActions.Check((tmpToken !== null) ? tmpToken : token))
     }
 
+    _handleKeyDown = e => {
+        if (e.key === 'Enter') {
+            this.handleSubmit()
+        }
+    }
+
     render() {
         const { showModal, formLoading, token } = this.state
         const { children, authData, storePhotoStatistic } = this.props
@@ -185,6 +191,7 @@ class MainContainer extends Component {
                                 iconPosition='left'
                                 placeholder={languageRU.modalAuth.form.login}
                                 onChange={this.handleChange}
+                                onKeyDown={this._handleKeyDown}
                                 disabled={formLoading}
                             />
                             <Form.Input
@@ -195,6 +202,7 @@ class MainContainer extends Component {
                                 placeholder={languageRU.modalAuth.form.password}
                                 type='password'
                                 onChange={this.handleChange}
+                                onKeyDown={this._handleKeyDown}
                                 disabled={formLoading}
                             />
                         </Form>

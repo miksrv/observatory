@@ -8,7 +8,6 @@ import MainContainer from '../components/MainContainer'
 
 import Statistic from '../layouts/Statistic'
 import EventCalendar from '../layouts/EventCalendar'
-import EventModal from '../layouts/EventModal'
 // import ExpChart from '../informers/ExpChart'
 // import Sun from '../informers/Sun'
 // import Moon from '../informers/Moon'
@@ -24,7 +23,6 @@ import _ from 'lodash'
 
 class Main extends Component {
     state = {
-        showModalEvent: false,
         calendarMoonPhrases: []
     }
 
@@ -42,23 +40,10 @@ class Main extends Component {
     updateData = () => {}
 
     handleEventPress = selected => {
-        const { dispatch } = this.props
-
-        this.setState({showModalEvent: true})
-
         if (selected.type === 'astro')
         {
-            //console.log('handleEventPress', moment(selected.start).format('YYYY-MM-DD'))
-            dispatch(astroActions.getObjectStats(moment(selected.start).format('YYYY-MM-DD')))
+            this.props.history.push('/archive/' + moment(selected.start).format('YYYY-MM-DD'))
         }
-
-        // let action = (selected.type === 'meteo' ? meteoActions : astroActions)
-        //
-        // dispatch(action.getStatisticDay(moment(selected.start).format('DD.MM.YYYY')))
-    }
-
-    handleEventModalClose = () => {
-        this.setState({ showModalEvent: false })
     }
 
     handleNavigatePress = date => {
@@ -74,19 +59,14 @@ class Main extends Component {
     }
 
     render() {
-        const { storePhotoStatistic, storePhotoArchive, storeMeteoArchive, storeStatisticDay } = this.props // graphic
-        const { showModalEvent, calendarMoonPhrases } = this.state
+        const { storePhotoStatistic, storePhotoArchive, storeMeteoArchive } = this.props // graphic
+        const { calendarMoonPhrases } = this.state
 
         return (
             <MainContainer
                 updateTime={moment().unix()}
                 onUpdateData={this.updateData}
             >
-                <EventModal
-                    show={showModalEvent}
-                    data={storeStatisticDay}
-                    fOnClose={() => this.handleEventModalClose()}
-                />
                 <Container>
                     <Statistic
                         data={storePhotoStatistic}
@@ -112,7 +92,6 @@ class Main extends Component {
 function mapStateToProps(state) {
     return {
         storePhotoStatistic: state.astro.FITStat,
-        storeStatisticDay: state.astro.statisticDay,
         storePhotoArchive: state.astro.FITEvent,
         storeMeteoArchive: state.meteo.archiveData
         // graphic: state.astro.graphic,

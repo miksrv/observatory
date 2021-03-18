@@ -6,6 +6,7 @@ import FullTable from '../layouts/FullTable'
 import MainContainer from '../components/MainContainer'
 
 import moment from 'moment'
+
 import _ from 'lodash'
 
 class ObjectList extends Component {
@@ -15,7 +16,7 @@ class ObjectList extends Component {
     updateData = () => {}
 
     render() {
-        const { storePhotoStatistic } = this.props
+        const { storePhotoStatistic, storePhotoList } = this.props
 
         return (
             <MainContainer
@@ -24,9 +25,10 @@ class ObjectList extends Component {
             >
                 <Container>
                     <div className='card table-loader'>
-                    { ! _.isEmpty(storePhotoStatistic) ? (
+                    { ! _.isEmpty(storePhotoStatistic) && ! _.isEmpty(storePhotoList) ? (
                         <FullTable
                             data={storePhotoStatistic}
+                            photo={storePhotoList}
                         />
                     ) : (
                         <Dimmer active>
@@ -43,6 +45,7 @@ class ObjectList extends Component {
 function mapStateToProps(state) {
     return {
         storePhotoStatistic: state.astro.FITStat,
+        storePhotoList: state.photo.dataList
     }
 }
 

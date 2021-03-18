@@ -7,12 +7,12 @@ import moment from 'moment'
 import MainContainer from '../components/MainContainer'
 import PhotoGrid from '../layouts/PhotoGrid'
 
-import PHOTOS from '../data/_temp_PHOTOS'
-
 class PhotoList extends Component {
     updateData = () => {}
 
     render() {
+        const { storePhotoList } = this.props
+
         return (
             <MainContainer
                 updateTime={moment().unix()}
@@ -20,7 +20,7 @@ class PhotoList extends Component {
             >
                 <Container>
                     <PhotoGrid
-                        photos={PHOTOS}
+                        photos={storePhotoList}
                         props={this.props}
                         full={true}
                     />
@@ -32,7 +32,7 @@ class PhotoList extends Component {
 
 function mapStateToProps(state) {
     return {
-
+        storePhotoList: state.photo.dataList
     }
 }
 

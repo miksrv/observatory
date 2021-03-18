@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table } from 'semantic-ui-react'
+import { Table, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 import 'moment/locale/ru'
@@ -37,6 +37,14 @@ const FullTable = (props) => {
         direction: 'descending',
     })
 
+    const findPhoto = (name) => {
+        let dataFIT = props.photo.find(function (o) {
+            return o.photo_obj === name
+        })
+
+        return dataFIT !== undefined
+    }
+
     const { column, data, direction } = state
 
     return (
@@ -47,6 +55,7 @@ const FullTable = (props) => {
                         sorted={column === 'name' ? direction : null}
                         onClick={() => dispatch({ type: 'CHANGE_SORT', column: 'name' })}
                     >Объект</Table.HeaderCell>
+                    <Table.HeaderCell>Фото</Table.HeaderCell>
                     <Table.HeaderCell
                         sorted={column === 'frame' ? direction : null}
                         onClick={() => dispatch({ type: 'CHANGE_SORT', column: 'frame' })}
@@ -90,6 +99,7 @@ const FullTable = (props) => {
                 {data.map((item, key) => (
                     <Table.Row key={key}>
                         <Table.Cell><Link to={'/object/' + item.name}>{item.name}</Link></Table.Cell>
+                        <Table.Cell textAlign='center'>{findPhoto(item.name) && (<Link to={'/photo/' + item.name} className='photo-link'><Icon name='check square' size='large' /></Link>)}</Table.Cell>
                         <Table.Cell>{item.frame}</Table.Cell>
                         <Table.Cell>{getTimeFromSec(item.total)}</Table.Cell>
                         <Table.Cell className={(item.l > 0) ? 'filter-l' : ''}>{getTimeFromSec(item.l)}</Table.Cell>

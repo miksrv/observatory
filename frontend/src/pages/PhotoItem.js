@@ -1,20 +1,52 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Container, Image, Grid } from 'semantic-ui-react'
+import { Container, Image, Grid, Dimmer, Loader } from 'semantic-ui-react'
 import Lightbox from 'react-image-lightbox'
 
 import moment from 'moment'
+import defaultPhoto from '../static/images/default-photo.png'
+
+import { getTimeFromSec, setClassByFilter } from '../data/functions'
 
 import MainContainer from '../components/MainContainer'
 import PhotoGrid from '../layouts/PhotoGrid'
 
-import PHOTOS from '../data/_temp_PHOTOS'
+import * as photoActions from '../store/photo/actions'
+
+import _ from 'lodash'
+
+const PHOTO_URL = 'https://api.miksoft.pro/photo/'
 
 class PhotoItem extends Component {
     state = {
         photoIndex: 0,
         isOpen: false
+    }
+
+    componentDidMount() {
+        const { name } = this.props.match.params
+
+        this.loadItem(name)
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const { name } = this.props.match.params
+
+        if (name !== prevProps.match.params.name)
+            this.loadItem(name)
+    }
+
+    componentWillUnmount() {
+        const { dispatch } = this.props
+
+        dispatch(photoActions.clearItem())
+    }
+
+    loadItem = name => {
+        const { dispatch } = this.props
+
+        dispatch(photoActions.getItem(name))
     }
 
     updateData = () => {}
@@ -23,8 +55,15 @@ class PhotoItem extends Component {
         this.setState({isOpen: true, photoIndex: photo})
     }
 
+    filterLabel = (sec, name) => {
+        if (sec === 0) return ''
+
+        return <li><span className={'filter ' + setClassByFilter(name)}>{name}</span> {Math.round(sec / 60)} минут</li>
+    }
+
     render() {
         const { photoIndex, isOpen } = this.state
+        const { storePhotoList, storePhotoItem } = this.props
 
         return (
             <MainContainer
@@ -35,29 +74,37 @@ class PhotoItem extends Component {
                     <div className='card photo-info'>
                         <Grid>
                             <Grid.Column computer={9} tablet={8} mobile={16}>
-                                <Image src='https://observatory.miksoft.pro/img/3.jpg' onClick={() => this.clickHandler('https://observatory.miksoft.pro/img/3.jpg')} />
+                                <Image src={(!_.isEmpty(storePhotoItem) ? PHOTO_URL + storePhotoItem.photo_obj + '_thumb.jpg' : defaultPhoto)} onClick={() => this.clickHandler(PHOTO_URL + storePhotoItem.photo_obj + '.jpg')} />
+                                {(_.isEmpty(storePhotoItem) && (
+                                    <Dimmer active>
+                                        <Loader>Загрузка</Loader>
+                                    </Dimmer>
+                                ))}
                             </Grid.Column>
                             <Grid.Column computer={7} tablet={8} mobile={16}>
-                                <h3>NGC 6946 Галактика "Фейрверк"</h3>
-                                <div>Дата обработки: 27 февраля 2021 года</div>
-                                <div>Общая выдержка: 5 часов 17 минут</div>
-                                <div>Количество кадров: 87</div>
+                                <h3>{(!_.isEmpty(storePhotoItem) ? storePhotoItem.photo_title : '')}</h3>
+                                <div><span className='second-color'>Дата обработки:</span> {(!_.isEmpty(storePhotoItem) ? moment(storePhotoItem.photo_date).format('DD.MM.YYYY') : '---')}</div>
+                                <div><span className='second-color'>Общая выдержка:</span> {(!_.isEmpty(storePhotoItem) && storePhotoItem.statistic.exp !== 0 ? getTimeFromSec(storePhotoItem.statistic.exp, true) : '---')}</div>
+                                <div><span className='second-color'>Количество кадров:</span> {(!_.isEmpty(storePhotoItem) && storePhotoItem.statistic.shot !== 0 ? <Link to={'/object/' + storePhotoItem.photo_obj}>{storePhotoItem.statistic.shot}</Link> : '---')}</div>
                                 <ul>
-                                    <li>Luminance: 23 кадра, 121 мин</li>
-                                    <li>Red: 10 кадров, 20 мин</li>
-                                    <li>Green: 10 кадров, 20 мин</li>
-                                    <li>Blue: 30 кадров, 20 мин</li>
+                                    {(!_.isEmpty(storePhotoItem) && this.filterLabel(storePhotoItem.statistic.Luminance, 'Luminance'))}
+                                    {(!_.isEmpty(storePhotoItem) && this.filterLabel(storePhotoItem.statistic.Red, 'Red'))}
+                                    {(!_.isEmpty(storePhotoItem) && this.filterLabel(storePhotoItem.statistic.Green, 'Green'))}
+                                    {(!_.isEmpty(storePhotoItem) && this.filterLabel(storePhotoItem.statistic.Blue, 'Blue'))}
+                                    {(!_.isEmpty(storePhotoItem) && this.filterLabel(storePhotoItem.statistic.OIII, 'OIII'))}
+                                    {(!_.isEmpty(storePhotoItem) && this.filterLabel(storePhotoItem.statistic.SII, 'SII'))}
+                                    {(!_.isEmpty(storePhotoItem) && this.filterLabel(storePhotoItem.statistic.Ha, 'Ha'))}
                                 </ul>
                                 <div>
-                                    <p>NGC 6946 (галактика "Фейерверк") - спиральная галактика с перемычкой, которая находится на расстоянии ~ 22 млн св лет в созвездии Лебедь. Диаметр галактики составляет около 40 тыс. св. лет в поперечнике (наша галактика ~ 100 тыс. св. лет). NGC 6946 богата газопылевыми облаками, в которых происходит интенсивное звездообразование: с 1917 по 2008 г. в ней зарегистрировано девять вспышек сверхновых звезд, это рекордное количество таких вспышек, наблюдавшихся в какой-либо галактике. В 2017 мы целый год наблюдали за вспышкой SN2017eaw в этой галактике.</p>
-                                    <p>Свое прозвище "Фейерверк" галактика получила, однако, не из-за частых вспышек сверхновых, а за обилие ярких областей ионизированного водорода HII (красный цвет на фото - водород). Это указывает на многочисленность в NGC 6946 массивных звезд (по массе превышающих восемь солнечных), которые способны не только взрываться, как сверхновые, но и ионизировать своим излучением соседние водородные облака.</p>
+                                    <p>{(!_.isEmpty(storePhotoItem) ? storePhotoItem.photo_text : '')}</p>
                                 </div>
+                                <br />
                                 <div><Link to='/photo/'>Вернуться к списку всех фотографий</Link></div>
                             </Grid.Column>
                         </Grid>
                     </div>
                     <PhotoGrid
-                        photos={PHOTOS.slice(0, 4)}
+                        photos={storePhotoList.slice(0, 4)}
                         props={this.props}
                     />
                     {isOpen && (
@@ -74,7 +121,9 @@ class PhotoItem extends Component {
 
 function mapStateToProps(state) {
     return {
-
+        storePhotoStatistic: state.astro.FITStat,
+        storePhotoList: state.photo.dataList,
+        storePhotoItem: state.photo.dataItem
     }
 }
 

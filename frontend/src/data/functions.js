@@ -1,9 +1,12 @@
-export const getTimeFromSec = (sec) => {
+export const getTimeFromSec = (sec, full = false) => {
     if (sec <= 0)
         return ''
 
     let h = sec / 3600 ^ 0
     let m = (sec - h * 3600) / 60 ^ 0
+
+    if (full)
+        return (h < 10 ? "0" + h : h) + ' часов ' + ( m < 10 ? "0" + m : m) + ' минут'
 
     return (h < 10 ? "0" + h : h) + ':' + ( m < 10 ? "0" + m : m)
 }

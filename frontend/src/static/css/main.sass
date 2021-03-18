@@ -16,11 +16,14 @@ body
     margin: 0
     height: 100%
 
+p
+    white-space: pre-line
+
+.second-color
+    color: $second-color
+
 .header
     margin-bottom: 2.5em !important
-
-.admin-message
-    margin-bottom: 1vh !important
 
 .last-update
     display: inline-block
@@ -71,16 +74,19 @@ body
 .footer
     margin: 5vh 0
     color: $second-color
-    font-size: .8em
+    font-size: 11px
 
-.copyright-link
-    color: #a4ffa4
+.copyright-link, .photo-link
+    color: #3eb93e
 
     img
         height: 11px
         margin-left: 5px
         vertical-align: middle
         margin-top: -3px
+
+.copyright-link:hover, .photo-link:hover
+    color: #a4ffa4
 
 .vk-profile
     a
@@ -235,6 +241,7 @@ body
         border: 1px solid rgba(255, 255, 255, 0.1)
         margin: 0 .5em
         cursor: pointer
+        overflow: hidden
 
         .content
             width: 100%
@@ -243,6 +250,7 @@ body
             padding: 1em
             height: 200px
             background: #262728
+            font-size: .8em
 
     .image
         object-fit: cover
@@ -363,7 +371,7 @@ body
     padding-top: 14%
 
 .filter
-    padding: .2em .6em
+    padding: .3em .6em .1em
     color: #FFF
     font-size: .8em
     font-weight: 900

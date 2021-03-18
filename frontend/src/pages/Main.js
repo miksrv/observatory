@@ -19,7 +19,6 @@ import * as astroActions from '../store/astro/actions'
 import * as meteoActions from '../store/meteo/actions'
 
 import moonPhrase from '../data/moon_phrase'
-import PHOTOS from '../data/_temp_PHOTOS'
 
 import _ from 'lodash'
 
@@ -61,7 +60,7 @@ class Main extends Component {
     }
 
     render() {
-        const { storePhotoStatistic, storePhotoArchive, storeMeteoArchive } = this.props // graphic
+        const { storePhotoStatistic, storePhotoArchive, storeMeteoArchive, storePhotoList } = this.props // graphic
         const { calendarMoonPhrases } = this.state
 
         return (
@@ -74,7 +73,7 @@ class Main extends Component {
                         data={storePhotoStatistic}
                     />
                     <PhotoGrid
-                        photos={PHOTOS.slice(0, 4)}
+                        photos={storePhotoList.slice(0, 4)}
                         props={this.props}
                     />
                     <EventCalendar
@@ -99,7 +98,8 @@ function mapStateToProps(state) {
     return {
         storePhotoStatistic: state.astro.FITStat,
         storePhotoArchive: state.astro.FITEvent,
-        storeMeteoArchive: state.meteo.archiveData
+        storeMeteoArchive: state.meteo.archiveData,
+        storePhotoList: state.photo.dataList
         // graphic: state.astro.graphic,
     }
 }

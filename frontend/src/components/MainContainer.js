@@ -6,8 +6,9 @@ import { Menu, Container, Modal, Button, Form, Message, Dropdown, Label } from '
 // import Header from '../components/Header'
 import Footer from '../layouts/Footer'
 
-import * as astroActions from '../store/astro/actions'
 import * as authActions from '../store/auth/actions'
+import * as astroActions from '../store/astro/actions'
+import * as photoActions from '../store/photo/actions'
 import * as types from '../store/auth/actionTypes'
 
 import languageRU from '../locate/ru/translate.json'
@@ -26,10 +27,11 @@ class MainContainer extends Component {
     }
 
     componentDidMount() {
-        const { dispatch, storePhotoStatistic } = this.props
+        const { dispatch, storePhotoStatistic, storePhotoList } = this.props
         const token = sessionStorage.getItem('token')
 
         _.isEmpty(storePhotoStatistic) && dispatch(astroActions.getFITStat())
+        _.isEmpty(storePhotoList) && dispatch(photoActions.getList())
 
         if (token) {
             this.setState({token: token})
@@ -122,7 +124,7 @@ class MainContainer extends Component {
 
     render() {
         const { showModal, formLoading, token } = this.state
-        const { children, authData, storePhotoStatistic } = this.props
+        const { children, authData, storePhotoStatistic, storePhotoList } = this.props
 
         return (
             <>
@@ -140,6 +142,7 @@ class MainContainer extends Component {
                         </Menu.Item>
                         <Menu.Item as={NavLink} exact to='/photo/'>
                             {languageRU.menu.photo}
+                            <Label color='yellow'>{(!_.isEmpty(storePhotoList) ? storePhotoList.length : 0)}</Label>
                         </Menu.Item>
                         <Menu.Item as={NavLink} exact to='/object/'>
                             {languageRU.menu.objects}
@@ -237,6 +240,7 @@ function mapStateToProps(state) {
     return {
         authData: state.auth.authData,
         storePhotoStatistic: state.astro.FITStat,
+        storePhotoList: state.photo.dataList
     }
 }
 

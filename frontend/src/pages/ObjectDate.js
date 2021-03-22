@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Dimmer, Loader, Table, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+import { Container, Dimmer, Loader, Table } from 'semantic-ui-react'
+import { getTimeFromSec, setClassByFilter } from '../data/functions'
 
 import * as astroActions from '../store/astro/actions'
 
 import MainContainer from '../components/MainContainer'
-
-import { getTimeFromSec, setClassByFilter } from '../data/functions'
+import FilterList from '../layouts/FilterList'
 
 import moment from 'moment'
 
@@ -24,6 +24,18 @@ class ObjectItem extends Component {
 
     updateData = () => {}
 
+    getObjectList = data => {
+        let objectsList = []
+
+        if (_.isEmpty(data)) return objectsList
+
+        data.map(obj => {
+            if (!objectsList.includes(obj.item_object)) objectsList.push(obj.item_object)
+        })
+
+        return objectsList
+    }
+
     render() {
         const { storeStatisticDay } = this.props
         const { date } = this.props.match.params
@@ -34,12 +46,20 @@ class ObjectItem extends Component {
                 onUpdateData={this.updateData}
             >
                 <Container>
-                    <Header inverted as='h2'>Дата съемки: {moment(date).format('dddd, MMMM DD, YYYY')}</Header>
-                    <div>Сделано кадров: <b>{(!_.isEmpty(storeStatisticDay) ? storeStatisticDay.frames : '---')}</b></div>
-                    <div>Общая выдержка: <b>{(!_.isEmpty(storeStatisticDay) ? getTimeFromSec(storeStatisticDay.exposure) : '---')}</b> (часов:минут)</div>
-                    <div>Накоплено данных: <b>{(!_.isEmpty(storeStatisticDay) ? storeStatisticDay.filesize : '---')}</b> Гб</div>
-                    <Link to={'/'}>Вернуться к календарю</Link>
-                    <br /><br />
+                    <div className='card container'>
+                        <h1 inverted as='h1'>Дата съемки: {moment(date).format('dddd, DD.MM.YYYY')}</h1>
+                        <div><span className='second-color'>Сделано кадров:</span> {(!_.isEmpty(storeStatisticDay) ? storeStatisticDay.frames : '---')}</div>
+                        <div><span className='second-color'>Общая выдержка:</span> {(!_.isEmpty(storeStatisticDay) ? getTimeFromSec(storeStatisticDay.exposure, true) : '---')}</div>
+                        <div><span className='second-color'>Накоплено данных:</span> {(!_.isEmpty(storeStatisticDay) ? storeStatisticDay.filesize + ' Гб' : '---')}</div>
+                        <div><span className='second-color'>Объекты съемки:</span>
+                            {!_.isEmpty(storeStatisticDay) && this.getObjectList(storeStatisticDay.data).map((obj, key) => (
+                                <Link key={key} to={'/object/' + obj} className='inline-link'>{obj}</Link>
+                            ))}
+                        </div>
+                        <FilterList data={!_.isEmpty(storeStatisticDay) && storeStatisticDay.statistic} />
+                        <Link to='/'>Вернуться к календарю</Link>
+                    </div>
+                    <br />
                     <div className='card table-loader'>
                         { ( ! _.isEmpty(storeStatisticDay)) ? (
                             <Table celled inverted selectable>

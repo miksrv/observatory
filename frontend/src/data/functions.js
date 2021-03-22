@@ -1,3 +1,5 @@
+import React from "react";
+
 export const getTimeFromSec = (sec, full = false) => {
     if (sec <= 0)
         return ''
@@ -37,6 +39,12 @@ export const timeAgo = sec => {
         + (s > 0 ? (s < 10 ? '0' + s : s) + ' сек.' : '')) + ' назад'
 }
 
+export const filterLabel = (sec, name) => {
+    if (sec === 0) return ''
+
+    return <li><span className={'filter ' + setClassByFilter(name)}>{name}</span> {Math.round(sec / 60)} минут</li>
+}
+
 export const shuffle = array => {
     let currentIndex = array.length, temporaryValue, randomIndex
 
@@ -52,4 +60,4 @@ export const shuffle = array => {
     return array
 }
 
-export default (getTimeFromSec, setClassByFilter, timeAgo, shuffle)
+export default (getTimeFromSec, setClassByFilter, timeAgo, filterLabel, shuffle)

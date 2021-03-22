@@ -7,7 +7,7 @@ import Lightbox from 'react-image-lightbox'
 import moment from 'moment'
 import defaultPhoto from '../static/images/default-photo.png'
 
-import { getTimeFromSec, setClassByFilter } from '../data/functions'
+import shuffle, { getTimeFromSec, setClassByFilter } from '../data/functions'
 
 import MainContainer from '../components/MainContainer'
 import PhotoGrid from '../layouts/PhotoGrid'
@@ -104,7 +104,7 @@ class PhotoItem extends Component {
                         </Grid>
                     </div>
                     <PhotoGrid
-                        photos={storePhotoList.slice(0, 4)}
+                        photos={shuffle(storePhotoList).slice(0, 4)}
                         props={this.props}
                     />
                     {isOpen && (

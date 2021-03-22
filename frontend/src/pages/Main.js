@@ -20,6 +20,8 @@ import * as meteoActions from '../store/meteo/actions'
 
 import moonPhrase from '../data/moon_phrase'
 
+import shuffle from '../data/functions'
+
 import _ from 'lodash'
 
 class Main extends Component {
@@ -73,7 +75,7 @@ class Main extends Component {
                         data={storePhotoStatistic}
                     />
                     <PhotoGrid
-                        photos={storePhotoList.slice(0, 4)}
+                        photos={shuffle(storePhotoList).slice(0, 4)}
                         props={this.props}
                     />
                     <EventCalendar

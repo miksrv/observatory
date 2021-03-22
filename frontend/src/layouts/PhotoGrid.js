@@ -38,7 +38,7 @@ const PhotoGrid = params => {
             ))}
         </div>
         ) : (
-            <div className='card table-loader'>
+            <div className='photos-list card loader'>
                 <Dimmer active>
                     <Loader>Загрузка</Loader>
                 </Dimmer>

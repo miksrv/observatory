@@ -37,4 +37,19 @@ export const timeAgo = sec => {
         + (s > 0 ? (s < 10 ? '0' + s : s) + ' сек.' : '')) + ' назад'
 }
 
-export default (getTimeFromSec, setClassByFilter, timeAgo)
+export const shuffle = array => {
+    let currentIndex = array.length, temporaryValue, randomIndex
+
+    while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex)
+        currentIndex -= 1
+
+        temporaryValue = array[currentIndex]
+        array[currentIndex] = array[randomIndex]
+        array[randomIndex] = temporaryValue
+    }
+
+    return array
+}
+
+export default (getTimeFromSec, setClassByFilter, timeAgo, shuffle)

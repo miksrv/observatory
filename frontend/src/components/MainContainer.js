@@ -152,12 +152,12 @@ class MainContainer extends Component {
                             {languageRU.menu.control}
                         </Menu.Item>
                         <Menu.Menu position='right'>
-                            <Dropdown item text='Language'>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item disabled>English</Dropdown.Item>
-                                    <Dropdown.Item disabled>Russian</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
+                            {/*<Dropdown item text='Language'>*/}
+                            {/*    <Dropdown.Menu>*/}
+                            {/*        <Dropdown.Item disabled>English</Dropdown.Item>*/}
+                            {/*        <Dropdown.Item disabled>Russian</Dropdown.Item>*/}
+                            {/*    </Dropdown.Menu>*/}
+                            {/*</Dropdown>*/}
                             {(token === null) ? (
                                 <Menu.Item>
                                     <Button primary onClick={() => {this.setModal(true)}}>{languageRU.menu.login}</Button>

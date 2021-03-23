@@ -30,7 +30,7 @@ class ObjectItem extends Component {
         if (_.isEmpty(data)) return objectsList
 
         data.map(obj => {
-            if (!objectsList.includes(obj.item_object)) objectsList.push(obj.item_object)
+            return !objectsList.includes(obj.item_object) ? objectsList.push(obj.item_object) : null
         })
 
         return objectsList

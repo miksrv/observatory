@@ -67,6 +67,7 @@ class Main extends Component {
 
         return (
             <MainContainer
+                title='Сводка'
                 updateTime={moment().unix()}
                 onUpdateData={this.updateData}
             >

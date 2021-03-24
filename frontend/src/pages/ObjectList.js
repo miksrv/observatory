@@ -20,6 +20,7 @@ class ObjectList extends Component {
 
         return (
             <MainContainer
+                title='Список объектов'
                 updateTime={moment().unix()}
                 onUpdateData={this.updateData}
             >

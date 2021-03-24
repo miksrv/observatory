@@ -80,6 +80,7 @@ class Dashboard extends Component {
 
         return (
             <MainContainer
+                title='Статус'
                 updateTime={sensorData.update}
                 onUpdateData={this.updateData}
             >

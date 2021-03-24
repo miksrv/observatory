@@ -39,6 +39,7 @@ class PhotoList extends Component {
 
         return (
             <MainContainer
+                title='Список фотографий'
                 updateTime={moment().unix()}
                 onUpdateData={this.updateData}
             >

@@ -42,6 +42,7 @@ class ObjectItem extends Component {
 
         return (
             <MainContainer
+                title={'Данные за ' + moment(date).format('DD.MM.YYYY')}
                 updateTime={moment().unix()}
                 onUpdateData={this.updateData}
             >

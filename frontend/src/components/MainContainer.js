@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { Menu, Container, Modal, Button, Form, Message, Dropdown, Label } from 'semantic-ui-react'
+import { Helmet } from 'react-helmet'
 
 // import Header from '../components/Header'
 import Footer from '../layouts/Footer'
@@ -124,10 +125,13 @@ class MainContainer extends Component {
 
     render() {
         const { showModal, formLoading, token } = this.state
-        const { children, authData, storePhotoStatistic, storePhotoList } = this.props
+        const { children, authData, storePhotoStatistic, storePhotoList, title } = this.props
 
         return (
             <>
+                <Helmet>
+                    <title>{title !== undefined ? title + ' - Обсерватория' : 'Обсерватория'}</title>
+                </Helmet>
                 <Container className='header'>
                     <br />
                     <Menu stackable inverted size='tiny'>

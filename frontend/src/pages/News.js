@@ -101,6 +101,7 @@ class News extends Component {
 
         return (
             <MainContainer
+                title='Новости'
                 updateTime={moment().unix()}
                 onUpdateData={this.updateData}
             >

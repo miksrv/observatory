@@ -62,6 +62,7 @@ class PhotoItem extends Component {
 
         return (
             <MainContainer
+                title={!_.isEmpty(storePhotoItem) ? storePhotoItem.photo_title : 'Фотография'}
                 updateTime={moment().unix()}
                 onUpdateData={this.updateData}
             >

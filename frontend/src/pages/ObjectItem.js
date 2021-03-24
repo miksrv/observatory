@@ -54,6 +54,7 @@ class ObjectItem extends Component {
 
         return (
             <MainContainer
+                title={'Данные съемки ' + name}
                 updateTime={moment().unix()}
                 onUpdateData={this.updateData}
             >

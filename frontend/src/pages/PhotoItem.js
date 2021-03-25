@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Container, Image, Grid, Dimmer, Loader } from 'semantic-ui-react'
+import { Container, Image, Grid, Dimmer, Loader, Button } from 'semantic-ui-react'
 import Lightbox from 'react-image-lightbox'
 
 import moment from 'moment'
@@ -87,11 +87,9 @@ class PhotoItem extends Component {
                                 <div><span className='second-color'>Общая выдержка:</span> {(!_.isEmpty(storePhotoItem) && storePhotoItem.statistic.exp !== 0 ? getTimeFromSec(storePhotoItem.statistic.exp, true) : '---')}</div>
                                 <div><span className='second-color'>Количество кадров:</span> {(!_.isEmpty(storePhotoItem) && storePhotoItem.statistic.shot !== 0 ? <Link to={'/object/' + storePhotoItem.photo_obj}>{storePhotoItem.statistic.shot}</Link> : '---')}</div>
                                 <FilterList data={!_.isEmpty(storePhotoItem) && storePhotoItem.statistic} />
-                                <div>
-                                    <p>{(!_.isEmpty(storePhotoItem) ? storePhotoItem.photo_text : '')}</p>
-                                </div>
+                                <p>{(!_.isEmpty(storePhotoItem) ? storePhotoItem.photo_text : '')}</p>
                                 <br />
-                                <Link to='/photo/'>Вернуться к списку всех фотографий</Link>
+                                <Link to='/photo/'><Button size='mini' icon='grid layout' color='blue' content='Фотографии' /></Link> <Button size='mini' icon='download' color='green' content='Скачать' href={`https://api.miksoft.pro/photo/get/download?name=${storePhotoItem.photo_obj}`} />
                             </Grid.Column>
                         </Grid>
                     </div>

@@ -36,6 +36,8 @@ class PhotoItem extends Component {
 
         if (name !== prevProps.match.params.name)
             this.loadItem(name)
+
+        // if (_.isEmpty(this.props.storePhotoItem)) this.props.history.push('/404')
     }
 
     componentWillUnmount() {
@@ -94,7 +96,8 @@ class PhotoItem extends Component {
                         </Grid>
                     </div>
                     <PhotoGrid
-                        photos={shuffle(storePhotoList).slice(0, 4)}
+                        // photos={shuffle(storePhotoList).slice(0, 4)}
+                        photos={storePhotoList.slice(0, 4)}
                         props={this.props}
                     />
                     {isOpen && (

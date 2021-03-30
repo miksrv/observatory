@@ -76,7 +76,8 @@ class Main extends Component {
                         data={storePhotoStatistic}
                     />
                     <PhotoGrid
-                        photos={shuffle(storePhotoList).slice(0, 4)}
+                        // photos={shuffle(storePhotoList).slice(0, 4)}
+                        photos={storePhotoList.slice(0, 4)}
                         props={this.props}
                     />
                     <EventCalendar

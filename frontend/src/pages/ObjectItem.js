@@ -31,6 +31,10 @@ class ObjectItem extends Component {
         dispatch(astroActions.clearDataByName())
     }
 
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     if (_.isEmpty(this.props.objectData)) this.props.history.push('/404')
+    // }
+
     onClickDelete = itemID => {
         const { dispatch, token } = this.props
 

@@ -243,6 +243,14 @@ p
         object-fit: cover
         cursor: pointer
 
+    .description
+        display: flex !important
+        flex-direction: column
+        justify-content: space-between
+
+    p
+        margin-bottom: 1.5em
+
 .photos-list
     margin: 2em 0
     display: flex
@@ -393,7 +401,22 @@ p
 
 .error404
     text-align: center
-    padding-top: 14%
+    padding: 16vh 0 !important
+
+    h1
+        background: url(https://api.miksoft.pro/photo/IC_1805_thumb.jpg) no-repeat
+        background-position-x: 0%
+        background-position-y: 0%
+        background-size: auto
+        background-clip: border-box
+        -webkit-background-clip: text
+        -webkit-text-fill-color: transparent
+        background-size: 30%
+        background-position: 50%
+        font-size: 12em !important
+
+    h2
+        font-size: 1.6em
 
 .filter
     padding: .3em .6em .1em

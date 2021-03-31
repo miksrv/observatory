@@ -31,9 +31,11 @@ class ObjectItem extends Component {
         dispatch(astroActions.clearDataByName())
     }
 
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     if (_.isEmpty(this.props.objectData)) this.props.history.push('/404')
-    // }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const { objectData } = this.props
+
+        if ( ! _.isEmpty(objectData) && objectData.status === false) this.props.history.push('/404')
+    }
 
     onClickDelete = itemID => {
         const { dispatch, token } = this.props
@@ -55,6 +57,7 @@ class ObjectItem extends Component {
         const { objectData, isAuth, storePhotoList } = this.props
         const { name } = this.props.match.params
         const photo = this.findPhoto(name, storePhotoList)
+        const objectExists = !_.isEmpty(objectData) && objectData.status === true
 
         return (
             <MainContainer
@@ -68,10 +71,10 @@ class ObjectItem extends Component {
                             <Grid.Column computer={10} tablet={10} mobile={16}>
                                 <h1 inverted as='h1'>Данные съемки: {photo !== undefined ? photo.photo_title : name}</h1>
                                 <div><span className='second-color'>Дата обработки:</span> {(photo !== undefined ? moment(photo.photo_date).format('DD.MM.YYYY') : '---')}</div>
-                                <div><span className='second-color'>Сделано кадров:</span> {(!_.isEmpty(objectData) ? objectData.statistic.shot : '---')}</div>
-                                <div><span className='second-color'>Общая выдержка:</span> {(!_.isEmpty(objectData) ? getTimeFromSec(objectData.statistic.exp, true) : '---')}</div>
-                                <div><span className='second-color'>Накоплено данных:</span> {(!_.isEmpty(objectData) ? objectData.filesize + ' Гб' : '---')}</div>
-                                <FilterList data={!_.isEmpty(objectData) && objectData.statistic} />
+                                <div><span className='second-color'>Сделано кадров:</span> {(objectExists ? objectData.statistic.shot : '---')}</div>
+                                <div><span className='second-color'>Общая выдержка:</span> {(objectExists ? getTimeFromSec(objectData.statistic.exp, true) : '---')}</div>
+                                <div><span className='second-color'>Накоплено данных:</span> {(objectExists ? objectData.filesize + ' Гб' : '---')}</div>
+                                <FilterList data={objectExists && objectData.statistic} />
                                 <Link to='/object/'>Вернуться к списку всех объектов</Link>
                             </Grid.Column>
                             <Grid.Column computer={6} tablet={6} mobile={16}>
@@ -87,7 +90,7 @@ class ObjectItem extends Component {
                     </div>
                     <br />
                     <div className='card table-loader'>
-                        { ( ! _.isEmpty(objectData)) ? (
+                        {objectExists ? (
                             <Table celled inverted selectable>
                                 <Table.Header>
                                     <Table.Row>

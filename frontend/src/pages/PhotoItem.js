@@ -7,7 +7,7 @@ import Lightbox from 'react-image-lightbox'
 import moment from 'moment'
 import defaultPhoto from '../static/images/default-photo.png'
 
-import { getTimeFromSec, shuffle } from '../data/functions'
+import { getTimeFromSec } from '../data/functions'
 
 import MainContainer from '../components/MainContainer'
 import PhotoGrid from '../layouts/PhotoGrid'

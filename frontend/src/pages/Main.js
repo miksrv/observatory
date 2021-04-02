@@ -20,7 +20,7 @@ import * as meteoActions from '../store/meteo/actions'
 
 import moonPhrase from '../data/moon_phrase'
 
-import shuffle from '../data/functions'
+// import shuffle from '../data/functions'
 
 import _ from 'lodash'
 

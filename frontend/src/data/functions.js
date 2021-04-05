@@ -43,12 +43,12 @@ export const timeAgo = sec => {
         + (s > 0 ? (s < 10 ? '0' + s : s) + ' сек.' : '')) + ' назад'
 }
 
-export const filterLabel = (sec, name) => {
+export const filterLabel = (sec, shot = 0, name) => {
     if (sec === 0) return ''
 
     const min = Math.round(sec / 60)
 
-    return <li><span className={'filter ' + setClassByFilter(name)}>{name}</span> {min} {declOfNum(min, ['минута', 'минуты', 'минут'])}</li>
+    return <li><span className={'filter ' + setClassByFilter(name)}>{name}</span> {min} {declOfNum(min, ['минута', 'минуты', 'минут'])} {shot !== 0 ? `(${shot} ${declOfNum(shot, ['кадр', 'кадра', 'кадров'])})` : ``}</li>
 }
 
 export const shuffle = array => {

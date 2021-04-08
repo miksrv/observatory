@@ -91,7 +91,7 @@ class PhotoItem extends Component {
                                     <div><span className='second-color'>Дата обработки:</span> {(objectExists ? moment(storePhotoItem.photo_date).format('DD.MM.YYYY') : '---')}</div>
                                     <div><span className='second-color'>Общая выдержка:</span> {(objectExists && storePhotoItem.statistic.exp !== 0 ? getTimeFromSec(storePhotoItem.statistic.exp, true) : '---')}</div>
                                     <div><span className='second-color'>Количество кадров:</span> {(objectExists && storePhotoItem.statistic.shot !== 0 ? <Link to={'/object/' + storePhotoItem.photo_obj}>{storePhotoItem.statistic.shot}</Link> : '---')}</div>
-                                    <FilterList data={objectExists && storePhotoItem.statistic} />
+                                    <FilterList data={objectExists && storePhotoItem.stats} />
                                     <p>{(objectExists ? storePhotoItem.photo_text : '')}</p>
                                 </div>
                                 <div>

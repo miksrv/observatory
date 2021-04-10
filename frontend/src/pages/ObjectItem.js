@@ -71,8 +71,8 @@ class ObjectItem extends Component {
                             <Grid.Column computer={10} tablet={10} mobile={16}>
                                 <h1 inverted as='h1'>Данные съемки: {photo !== undefined ? photo.photo_title : name}</h1>
                                 <div><span className='second-color'>Дата обработки:</span> {(photo !== undefined ? moment(photo.photo_date).format('DD.MM.YYYY') : '---')}</div>
-                                <div><span className='second-color'>Сделано кадров:</span> {(objectExists ? objectData.statistic.shot : '---')}</div>
-                                <div><span className='second-color'>Общая выдержка:</span> {(objectExists ? getTimeFromSec(objectData.statistic.exp, true) : '---')}</div>
+                                <div><span className='second-color'>Сделано кадров:</span> {(objectExists ? objectData.stats.shot : '---')}</div>
+                                <div><span className='second-color'>Общая выдержка:</span> {(objectExists ? getTimeFromSec(objectData.stats.exp, true) : '---')}</div>
                                 <div><span className='second-color'>Накоплено данных:</span> {(objectExists ? objectData.filesize + ' Гб' : '---')}</div>
                                 <FilterList data={objectExists && objectData.stats} />
                                 <Link to='/object/'>Вернуться к списку всех объектов</Link>

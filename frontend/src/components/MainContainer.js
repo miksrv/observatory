@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { Menu, Container, Modal, Button, Form, Message, Dropdown, Label } from 'semantic-ui-react'
+import { Menu, Container, Modal, Button, Form, Message, Label } from 'semantic-ui-react'
 import { Helmet } from 'react-helmet'
 
 // import Header from '../components/Header'

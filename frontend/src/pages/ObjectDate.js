@@ -57,7 +57,7 @@ class ObjectItem extends Component {
                                 <Link key={key} to={'/object/' + obj} className='inline-link'>{obj}</Link>
                             ))}
                         </div>
-                        <FilterList data={!_.isEmpty(storeStatisticDay) && storeStatisticDay.statistic} />
+                        <FilterList data={!_.isEmpty(storeStatisticDay) && storeStatisticDay.stats} />
                         <Link to='/'>Вернуться к календарю</Link>
                     </div>
                     <br />

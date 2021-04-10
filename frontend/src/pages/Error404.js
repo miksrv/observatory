@@ -3,8 +3,6 @@ import { Container } from 'semantic-ui-react'
 import { NavLink } from 'react-router-dom'
 import MainContainer from '../components/MainContainer'
 
-import moment from 'moment'
-
 const Error404 = () => {
     return (
         <MainContainer

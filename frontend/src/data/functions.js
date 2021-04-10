@@ -1,4 +1,8 @@
-import React from "react";
+import React from 'react'
+
+const declOfNum = (number, words) => {
+    return words[(number % 100 > 4 && number % 100 < 20) ? 2 : [2, 0, 1, 1, 1, 2][(number % 10 < 5) ? number % 10 : 5]]
+}
 
 export const getTimeFromSec = (sec, full = false) => {
     if (sec <= 0)
@@ -8,7 +12,7 @@ export const getTimeFromSec = (sec, full = false) => {
     let m = (sec - h * 3600) / 60 ^ 0
 
     if (full)
-        return (h < 10 ? "0" + h : h) + ' часов ' + ( m < 10 ? "0" + m : m) + ' минут'
+        return `${h} ${declOfNum(h, ['час', 'часа', 'часов'])} ${m} ${declOfNum(m, ['минута', 'минуты', 'минут'])}`
 
     return (h < 10 ? "0" + h : h) + ':' + ( m < 10 ? "0" + m : m)
 }
@@ -39,10 +43,12 @@ export const timeAgo = sec => {
         + (s > 0 ? (s < 10 ? '0' + s : s) + ' сек.' : '')) + ' назад'
 }
 
-export const filterLabel = (sec, name) => {
+export const filterLabel = (sec, shot = 0, name) => {
     if (sec === 0) return ''
 
-    return <li><span className={'filter ' + setClassByFilter(name)}>{name}</span> {Math.round(sec / 60)} минут</li>
+    const min = Math.round(sec / 60)
+
+    return <li><span className={'filter ' + setClassByFilter(name)}>{name}</span> {min} {declOfNum(min, ['минута', 'минуты', 'минут'])} {shot !== 0 ? `(${shot} ${declOfNum(shot, ['кадр', 'кадра', 'кадров'])})` : ``}</li>
 }
 
 export const shuffle = array => {

@@ -74,7 +74,7 @@ class ObjectItem extends Component {
                                 <div><span className='second-color'>Сделано кадров:</span> {(objectExists ? objectData.statistic.shot : '---')}</div>
                                 <div><span className='second-color'>Общая выдержка:</span> {(objectExists ? getTimeFromSec(objectData.statistic.exp, true) : '---')}</div>
                                 <div><span className='second-color'>Накоплено данных:</span> {(objectExists ? objectData.filesize + ' Гб' : '---')}</div>
-                                <FilterList data={objectExists && objectData.statistic} />
+                                <FilterList data={objectExists && objectData.stats} />
                                 <Link to='/object/'>Вернуться к списку всех объектов</Link>
                             </Grid.Column>
                             <Grid.Column computer={6} tablet={6} mobile={16}>

@@ -43,9 +43,19 @@ class Main extends Component {
     updateData = () => {}
 
     handleEventPress = selected => {
-        if (selected.type === 'astro')
-        {
-            this.props.history.push('/archive/' + moment(selected.start).format('YYYY-MM-DD'))
+        let date = moment(selected.start)
+
+        switch (selected.type) {
+            case 'astro' :
+                this.props.history.push(`/archive/${date.format('YYYY-MM-DD')}`)
+                break
+
+            case 'meteo' :
+                window.open(`https://meteo.miksoft.pro/statistic/?start=${date.subtract(1,'d').format('DD-MM-YYYY')}&end=${moment(selected.start).format('DD-MM-YYYY')}`, '_blank')
+                break
+
+            default :
+                break
         }
     }
 

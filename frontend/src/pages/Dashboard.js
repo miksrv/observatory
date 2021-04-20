@@ -23,7 +23,8 @@ class Dashboard extends Component {
 
     state = {
         relayList: relay,
-        relayIndex: null
+        relayIndex: null,
+        relayDisabled: true
     }
 
     componentDidMount() {
@@ -36,7 +37,7 @@ class Dashboard extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         const { storeRelayCurrent, storeRelayStatus } = this.props
-        const { relayIndex, relayList } = this.state
+        const { relayIndex, relayList, relayDisabled } = this.state
 
         if (storeRelayCurrent !== prevProps.storeRelayCurrent) {
 
@@ -44,9 +45,12 @@ class Dashboard extends Component {
             relayList[relayIndex].value = ! relayList[relayIndex].value
             storeRelayStatus.data.relay[relayIndex][relayIndex] = (storeRelayStatus.data.relay[relayIndex][relayIndex] === 1 ? 0 : 1)
 
+            console.log('relayDisabled', relayIndex, relayDisabled)
+
             this.setState({
                 relayList: relayList,
-                relayIndex: false
+                relayIndex: false,
+                relayDisabled: false
             })
         }
     }
@@ -62,13 +66,16 @@ class Dashboard extends Component {
     handleRelaySwitch = (index) => {
         const { dispatch, token } = this.props
         const { relay } = this.props.storeRelayStatus.data
-        const { relayList } = this.state
+        const { relayList, relayDisabled } = this.state
 
         relayList[index].loader = ! relayList[index].loader
 
+        console.log('relayDisabled', index, relayDisabled)
+
         this.setState({
             relayList: relayList,
-            relayIndex: index
+            relayIndex: index,
+            relayDisabled: true
         })
 
         dispatch(relayActions.setStatus(index, ! relay[index][index], token))
@@ -76,7 +83,7 @@ class Dashboard extends Component {
 
     render() {
         const { sensorData, storeRelayStatus, storeMeteoSummary, authData, sensorStat } = this.props
-        const { relayList } = this.state
+        const { relayList, relayDisabled } = this.state
 
         return (
             <MainContainer
@@ -93,6 +100,7 @@ class Dashboard extends Component {
                                     data={item}
                                     index={key}
                                     auth={(!_.isEmpty(authData) && authData.status === true)}
+                                    disabled={relayDisabled}
                                     state={! _.isEmpty(storeRelayStatus) ? storeRelayStatus.data.relay[key][key] : false}
                                     handleSwitch={(k) => this.handleRelaySwitch(k)}
                                 />

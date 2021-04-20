@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid, Icon, Checkbox, Dimmer, Loader } from 'semantic-ui-react'
 
 const Relay = (props) => {
-    const { data, state, auth, index } = props
+    const { data, state, auth, index, disabled } = props
 
     const handleSwitch = (index) => {
         props.handleSwitch(index)
@@ -30,7 +30,7 @@ const Relay = (props) => {
                                 toggle
                                 checked={checked ? true : false}
                                 className='checkbox'
-                                disabled={!auth}
+                                disabled={!auth && !disabled}
                                 onChange={() => handleSwitch(index)}
                             />
                             <div className='title'><span className='state'></span>{data.name}</div>

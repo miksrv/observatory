@@ -30,7 +30,7 @@ const Relay = (props) => {
                                 toggle
                                 checked={checked ? true : false}
                                 className='checkbox'
-                                disabled={!auth && !disabled}
+                                disabled={!auth || disabled}
                                 onChange={() => handleSwitch(index)}
                             />
                             <div className='title'><span className='state'></span>{data.name}</div>

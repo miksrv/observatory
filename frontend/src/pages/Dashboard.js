@@ -24,28 +24,29 @@ class Dashboard extends Component {
     state = {
         relayList: relay,
         relayIndex: null,
-        relayDisabled: true
+        relayDisabled: false,
+        intervalId: null
     }
 
     componentDidMount() {
-        const { dispatch } = this.props
-
         this.updateData()
 
-        dispatch(astroActions.getSensorStat())
+        const intervalId = setInterval(() => {
+            this.updateData()
+        }, 30000)
+
+        this.setState({intervalId})
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         const { storeRelayCurrent, storeRelayStatus } = this.props
-        const { relayIndex, relayList, relayDisabled } = this.state
+        const { relayIndex, relayList } = this.state
 
         if (storeRelayCurrent !== prevProps.storeRelayCurrent) {
 
             relayList[relayIndex].loader = ! relayList[relayIndex].loader
             relayList[relayIndex].value = ! relayList[relayIndex].value
             storeRelayStatus.data.relay[relayIndex][relayIndex] = (storeRelayStatus.data.relay[relayIndex][relayIndex] === 1 ? 0 : 1)
-
-            console.log('relayDisabled', relayIndex, relayDisabled)
 
             this.setState({
                 relayList: relayList,
@@ -55,9 +56,20 @@ class Dashboard extends Component {
         }
     }
 
+    componentWillUnmount() {
+        const { intervalId } = this.state
+
+        clearInterval(intervalId)
+    }
+
+    onUpdateData = () => {
+
+    }
+
     updateData = () => {
         const { dispatch } = this.props
 
+        dispatch(astroActions.getSensorStat())
         dispatch(astroActions.getSensorData())
         dispatch(relayActions.getStatus())
         dispatch(meteoActions.getSummary())
@@ -66,11 +78,9 @@ class Dashboard extends Component {
     handleRelaySwitch = (index) => {
         const { dispatch, token } = this.props
         const { relay } = this.props.storeRelayStatus.data
-        const { relayList, relayDisabled } = this.state
+        const { relayList } = this.state
 
         relayList[index].loader = ! relayList[index].loader
-
-        console.log('relayDisabled', index, relayDisabled)
 
         this.setState({
             relayList: relayList,
@@ -132,25 +142,25 @@ class Dashboard extends Component {
                             <Grid.Column computer={4} tablet={8} mobile={16}>
                                 <div className='card sensor astro'>
                                     <div className='title'>Монтировка HEQ5 Pro</div>
-                                    <div>Напряжение: <b>{sensorData.data.v1.value}В</b></div>
-                                    <div>Сила тока: <b>{sensorData.data.i1.value}А</b></div>
-                                    <div>Мощность: <b>{sensorData.data.p1.value}мВт</b></div>
+                                    <div>Напряжение: <b>{sensorData.data.v1.value} В</b></div>
+                                    <div>Сила тока: <b>{sensorData.data.v1.value > 0 ? ((sensorData.data.p1.value / 1000) / sensorData.data.v1.value).toFixed(2): 0} А</b></div>
+                                    <div>Мощность: <b>{sensorData.data.p1.value / 1000} Вт</b></div>
                                 </div>
                             </Grid.Column>
                             <Grid.Column computer={4} tablet={8} mobile={16}>
                                 <div className={'card sensor'}>
                                     <div className='title'>Камера ZWO ASI 1600mm</div>
-                                    <div>Напряжение: <b>{sensorData.data.v2.value}В</b></div>
-                                    <div>Сила тока: <b>{sensorData.data.i2.value}А</b></div>
-                                    <div>Мощность: <b>{sensorData.data.p2.value}мВт</b></div>
+                                    <div>Напряжение: <b>{sensorData.data.v2.value} В</b></div>
+                                    <div>Сила тока: <b>{sensorData.data.v2.value > 0 ? ((sensorData.data.p2.value / 1000) / sensorData.data.v2.value).toFixed(2) : 0} А</b></div>
+                                    <div>Мощность: <b>{sensorData.data.p2.value / 1000} Вт</b></div>
                                 </div>
                             </Grid.Column>
                             <Grid.Column computer={4} tablet={8} mobile={16}>
                                 <div className={'card sensor'}>
                                     <div className='title'>Фокусер ZWO EAF</div>
-                                    <div>Напряжение: <b>{sensorData.data.v3.value}В</b></div>
-                                    <div>Сила тока: <b>{sensorData.data.i3.value}А</b></div>
-                                    <div>Мощность: <b>{sensorData.data.p3.value}мВт</b></div>
+                                    <div>Напряжение: <b>{sensorData.data.v3.value} В</b></div>
+                                    <div>Сила тока: <b>{sensorData.data.v3.value > 0 ? ((sensorData.data.p3.value / 1000) / sensorData.data.v3.value).toFixed(2) : 0} А</b></div>
+                                    <div>Мощность: <b>{sensorData.data.p3.value / 1000} Вт</b></div>
                                 </div>
                             </Grid.Column>
                             <Grid.Column computer={4} tablet={8} mobile={16}>

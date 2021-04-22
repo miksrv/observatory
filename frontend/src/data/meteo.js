@@ -1,6 +1,6 @@
 const data = [
     {
-        source: 't1',
+        source: 't2',
         name: 'Температура на улице',
         color: 'red',
         icon: 'extemp',

@@ -28,10 +28,11 @@ export function getSensorData() {
  * Returns statistical data for generating graphs by observatory sensors (temperature, humidity, voltage, etc.).
  * @returns {GET_SENSOR_STAT}
  */
-export function getSensorStat() {
+export function getSensorStat(dataset = '') {
     return async(dispatch) => {
         try {
-            const url = `${process.env.REACT_APP_API_HOST}astro/get/statistic`
+            dataset = dataset ? `?dataset=${dataset}` : ''
+            const url = `${process.env.REACT_APP_API_HOST}astro/get/statistic${dataset}`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {

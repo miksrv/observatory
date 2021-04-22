@@ -8,6 +8,7 @@ import Sensors from '../layouts/Sensors'
 import Relay from '../layouts/Relay'
 import Camera from '../layouts/Camera'
 import TempGraphic from '../components/TempGraphic'
+import VoltageGraphic from '../components/VoltageGraphic'
 
 import * as astroActions from '../store/astro/actions'
 import * as meteoActions from '../store/meteo/actions'
@@ -69,7 +70,7 @@ class Dashboard extends Component {
     updateData = () => {
         const { dispatch } = this.props
 
-        dispatch(astroActions.getSensorStat())
+        dispatch(astroActions.getSensorStat('t,h,t1,t2,t3,p1,p2,p3'))
         dispatch(astroActions.getSensorData())
         dispatch(relayActions.getStatus())
         dispatch(meteoActions.getSummary())
@@ -180,6 +181,21 @@ class Dashboard extends Component {
                         <Grid.Column computer={10} tablet={16} mobile={16}>
                             {! _.isEmpty(sensorStat) ? (
                                 <TempGraphic
+                                    sensorStat={sensorStat}
+                                />
+                            ) : (
+                                <div className='card' style={{height: 305}}>
+                                    <Dimmer active>
+                                        <Loader />
+                                    </Dimmer>
+                                </div>
+                            )}
+                        </Grid.Column>
+                    </Grid>
+                    <Grid>
+                        <Grid.Column computer={16} tablet={16} mobile={16}>
+                            {! _.isEmpty(sensorStat) ? (
+                                <VoltageGraphic
                                     sensorStat={sensorStat}
                                 />
                             ) : (

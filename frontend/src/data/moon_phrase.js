@@ -1,20 +1,9 @@
 import moment from 'moment'
 import SunCalc from 'suncalc'
+import phases from '../data/moon_phase'
 
 const lon = 55.121607,
       lat = 51.774374
-
-const phases = {
-    '1'    : '🌑', // new moon
-    '0'    : '🌒',
-    '0.125': '🌒',
-    '0.25' : '🌓',
-    '0.375': '🌔',
-    '0.5'  : '🌕', // full moon
-    '0.625': '🌖',
-    '0.75' : '🌗',
-    '0.875': '🌘',
-}
 
 export const moonPhrase = (monthStart, monthEnd) => {
     monthStart = moment(monthStart, 'DD-MM-YYYY').clone().startOf('month')

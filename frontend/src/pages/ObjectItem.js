@@ -6,13 +6,15 @@ import { getTimeFromSec, setClassByFilter } from '../data/functions'
 
 import * as astroActions from '../store/astro/actions'
 
+import FilterList from '../layouts/FilterList'
 import MainContainer from '../components/MainContainer'
 import defaultPhoto from '../static/images/default-photo.png'
 
+import SunCalc from 'suncalc'
 import moment from 'moment'
+import phases from '../data/moon_phase'
 
 import _ from 'lodash'
-import FilterList from "../layouts/FilterList";
 
 const PHOTO_URL = 'https://api.miksoft.pro/photo/'
 
@@ -124,7 +126,9 @@ class ObjectItem extends Component {
                                             <Table.Cell>{item.item_ccd_temp}</Table.Cell>
                                             <Table.Cell>{item.item_gain}</Table.Cell>
                                             <Table.Cell>{item.item_offset}</Table.Cell>
-                                            <Table.Cell>{moment.utc(item.item_date_obs).utcOffset('GMT+05:00').format("D.MM.Y, H:mm")}</Table.Cell>
+                                            <Table.Cell>
+                                                {phases[(Math.round(SunCalc.getMoonIllumination(moment.utc(item.item_date_obs).utcOffset('GMT+05:00')).phase * 8) / 8)]} {moment.utc(item.item_date_obs).utcOffset('GMT+05:00').format("D.MM.Y, H:mm")}
+                                            </Table.Cell>
                                         </Table.Row>
                                     ))}
                                 </Table.Body>

@@ -9,7 +9,9 @@ import * as astroActions from '../store/astro/actions'
 import MainContainer from '../components/MainContainer'
 import FilterList from '../layouts/FilterList'
 
+import SunCalc from 'suncalc'
 import moment from 'moment'
+import phases from '../data/moon_phase'
 
 import _ from 'lodash'
 
@@ -40,6 +42,8 @@ class ObjectItem extends Component {
         const { storeStatisticDay } = this.props
         const { date } = this.props.match.params
 
+        let _moonTimes = SunCalc.getMoonTimes(moment(date), process.env.REACT_APP_LAT, process.env.REACT_APP_LON)
+
         return (
             <MainContainer
                 title={'Данные за ' + moment(date).format('DD.MM.YYYY')}
@@ -49,6 +53,7 @@ class ObjectItem extends Component {
                 <Container>
                     <div className='card container'>
                         <h1 inverted as='h1'>Дата съемки: {moment(date).format('dddd, DD.MM.YYYY')}</h1>
+                        <div><span className='second-color'>Положение Луны:</span> {phases[(Math.round(SunCalc.getMoonIllumination(moment(date)).phase * 8) / 8)]} ↑ {moment(_moonTimes.rise).format('H:mm')} ↓ {moment(_moonTimes.set).format('H:mm')}</div>
                         <div><span className='second-color'>Сделано кадров:</span> {(!_.isEmpty(storeStatisticDay) ? storeStatisticDay.frames : '---')}</div>
                         <div><span className='second-color'>Общая выдержка:</span> {(!_.isEmpty(storeStatisticDay) ? getTimeFromSec(storeStatisticDay.exposure, true) : '---')}</div>
                         <div><span className='second-color'>Накоплено данных:</span> {(!_.isEmpty(storeStatisticDay) ? storeStatisticDay.filesize + ' Гб' : '---')}</div>

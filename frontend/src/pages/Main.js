@@ -14,7 +14,6 @@ import EventCalendar from '../layouts/EventCalendar'
 // import Moon from '../informers/Moon'
 // import TempGraphic from "../components/TempGraphic";
 
-
 import * as astroActions from '../store/astro/actions'
 import * as meteoActions from '../store/meteo/actions'
 

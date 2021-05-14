@@ -10,8 +10,6 @@ import PhotoGrid from '../layouts/PhotoGrid'
 import EventCalendar from '../layouts/EventCalendar'
 
 // import ExpChart from '../informers/ExpChart'
-// import Sun from '../informers/Sun'
-// import Moon from '../informers/Moon'
 // import TempGraphic from "../components/TempGraphic";
 
 import * as astroActions from '../store/astro/actions'

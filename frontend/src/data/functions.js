@@ -1,6 +1,6 @@
 import React from 'react'
 
-const declOfNum = (number, words) => {
+export const declOfNum = (number, words) => {
     return words[(number % 100 > 4 && number % 100 < 20) ? 2 : [2, 0, 1, 1, 1, 2][(number % 10 < 5) ? number % 10 : 5]]
 }
 
@@ -66,4 +66,4 @@ export const shuffle = array => {
     return array
 }
 
-export default (getTimeFromSec, setClassByFilter, timeAgo, filterLabel, shuffle)
+export default (declOfNum, getTimeFromSec, setClassByFilter, timeAgo, filterLabel, shuffle)

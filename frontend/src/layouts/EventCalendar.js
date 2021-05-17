@@ -2,6 +2,7 @@ import React from 'react'
 import { Dimmer, Grid, Loader } from 'semantic-ui-react'
 
 import { Calendar, momentLocalizer } from 'react-big-calendar'
+import { declOfNum } from '../data/functions'
 import moment from 'moment'
 
 import _ from 'lodash'
@@ -35,7 +36,7 @@ const EventCalendar = (params) => {
 
         Object.keys(data).map((key) => {
             return result.push({
-                'title': data[key].frames + ' кадров, ' + data[key].exposure + ' мин',
+                'title': `${data[key].frames} ${declOfNum(data[key].frames, ['кадр', 'кадра', 'кадров'])}, ${data[key].exposure} мин`,
                 'start': moment(key, 'DD-MM-YYYY').toDate(),
                 'end'  : moment(key, 'DD-MM-YYYY').toDate(),
                 'type' :'astro'
@@ -62,7 +63,7 @@ const EventCalendar = (params) => {
                         endAccessor="end"
                         popup={true}
                         views={['month']}
-                        style={{ height: 570 }}
+                        style={{ height: 800 }}
                         messages={{
                             today: 'сегодня',
                             previous: '<',

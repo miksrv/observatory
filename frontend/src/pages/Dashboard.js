@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Grid, Dimmer, Loader } from 'semantic-ui-react'
+import { Container, Grid, Dimmer, Loader, Message } from 'semantic-ui-react'
 
 import MainContainer from '../components/MainContainer'
 
@@ -96,6 +96,8 @@ class Dashboard extends Component {
         const { sensorData, storeRelayStatus, storeMeteoSummary, authData, sensorStat } = this.props
         const { relayList, relayDisabled } = this.state
 
+        console.log('relayList', relayList)
+
         return (
             <MainContainer
                 title='Статус'
@@ -103,21 +105,29 @@ class Dashboard extends Component {
                 onUpdateData={this.updateData}
             >
                 <Container>
-                    <Grid columns={(window.innerWidth < 500 ? 1 : relayList.length)}>
-                        {relayList.map((item, key) => {
-                            return (
-                                <Relay
-                                    key={key}
-                                    data={item}
-                                    index={key}
-                                    auth={(!_.isEmpty(authData) && authData.status === true)}
-                                    disabled={relayDisabled}
-                                    state={! _.isEmpty(storeRelayStatus) ? storeRelayStatus.data.relay[key][key] : false}
-                                    handleSwitch={(k) => this.handleRelaySwitch(k)}
-                                />
-                            )
-                        })}
-                    </Grid>
+                    {! _.isEmpty(relayList) ?
+                        (<Grid columns={(window.innerWidth < 500 ? 1 : relayList.length)}>
+                            {relayList.map((item, key) => {
+                                return (
+                                    <Relay
+                                        key={key}
+                                        data={item}
+                                        index={key}
+                                        auth={(!_.isEmpty(authData) && authData.status === true)}
+                                        disabled={relayDisabled}
+                                        state={!_.isEmpty(storeRelayStatus) ? storeRelayStatus.data.relay[key][key] : false}
+                                        handleSwitch={(k) => this.handleRelaySwitch(k)}
+                                    />
+                                )
+                            })}
+                        </Grid>)
+                        :
+                        (<Message negative>
+                                <Message.Header>Ошибка получения данных реле</Message.Header>
+                                <p>Возникла проблема получения данных с удаленного сервера. Возможно сервер не отвечает или сеть не доступна.</p>
+                            </Message>
+                        )
+                    }
                     <Grid>
                         {meteo.map((item, key) => {
                             return (

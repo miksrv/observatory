@@ -13,13 +13,14 @@ export const moonPhrase = (monthStart, monthEnd) => {
         let _tmpDate  = dayIterator.toDate()
         let _tmpTimes = SunCalc.getMoonTimes(_tmpDate, process.env.REACT_APP_LAT, process.env.REACT_APP_LON)
 
-        calendar.push({
-            'title': phases[(Math.round(SunCalc.getMoonIllumination(_tmpDate).phase * 8) / 8)] + ' ↑'
+        calendar.push({ // phases[(Math.round(SunCalc.getMoonIllumination(_tmpDate).phase * 8) / 8)]
+            'title': ' ↑'
                     + moment(_tmpTimes.rise).format('H:mm') + ' ↓'
                     + moment(_tmpTimes.set).format('H:mm'),
             'start': _tmpDate,
             'end': _tmpDate,
-            'type': 'moon'
+            'type': 'moon',
+            'class': phases[(Math.round(SunCalc.getMoonIllumination(_tmpDate).phase * 8) / 8)]
         })
 
         dayIterator = dayIterator.clone().add(1, 'd')

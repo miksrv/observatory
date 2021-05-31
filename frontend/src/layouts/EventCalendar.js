@@ -76,7 +76,7 @@ const EventCalendar = (params) => {
                         onNavigate={params.fNavigate}
                         eventPropGetter={(event, start, end, isSelected) => {
                             return {
-                                className: event.type
+                                className: event.type + (!_.isEmpty(event.class) ? ' ' + event.class : '')
                             }
                         }
                         }

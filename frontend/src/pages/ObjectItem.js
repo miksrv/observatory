@@ -127,7 +127,9 @@ class ObjectItem extends Component {
                                             <Table.Cell>{item.item_gain}</Table.Cell>
                                             <Table.Cell>{item.item_offset}</Table.Cell>
                                             <Table.Cell>
-                                                {phases[(Math.round(SunCalc.getMoonIllumination(moment.utc(item.item_date_obs).utcOffset('GMT+05:00')).phase * 8) / 8)]} {moment.utc(item.item_date_obs).utcOffset('GMT+05:00').format("D.MM.Y, H:mm")}
+                                                <span className={'moon ' + phases[(Math.round(SunCalc.getMoonIllumination(moment.utc(item.item_date_obs).utcOffset('GMT+05:00')).phase * 8) / 8)]}>
+                                                    {moment.utc(item.item_date_obs).utcOffset('GMT+05:00').format("D.MM.Y, H:mm")}
+                                                </span>
                                             </Table.Cell>
                                         </Table.Row>
                                     ))}

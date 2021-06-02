@@ -10,9 +10,15 @@ $moon-phase-9: "../images/moon-phase-9.png"
 
 .moon[class*="phase-"]
 	background-repeat: no-repeat
-	background-size: 19px
+	background-size: 16px 16px
 	background-position: 3px 2px
-	padding-left: 23px
+	padding-left: 26px
+	display: inline-block
+	line-height: 18px
+
+.rbc-calendar
+	.moon[class*="phase-"]
+		line-height: 16px
 
 .moon.phase-1
 	background-image: url($moon-phase-1)

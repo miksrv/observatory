@@ -96,8 +96,6 @@ class Dashboard extends Component {
         const { sensorData, storeRelayStatus, storeMeteoSummary, authData, sensorStat } = this.props
         const { relayList, relayDisabled } = this.state
 
-        console.log('relayList', relayList)
-
         return (
             <MainContainer
                 title='Статус'

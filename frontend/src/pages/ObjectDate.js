@@ -53,7 +53,11 @@ class ObjectItem extends Component {
                 <Container>
                     <div className='card container'>
                         <h1 inverted as='h1'>Дата съемки: {moment(date).format('dddd, DD.MM.YYYY')}</h1>
-                        <div><span className='second-color'>Положение Луны:</span> {phases[(Math.round(SunCalc.getMoonIllumination(moment(date)).phase * 8) / 8)]} ↑ {moment(_moonTimes.rise).format('H:mm')} ↓ {moment(_moonTimes.set).format('H:mm')}</div>
+                        <div><span className='second-color'>Положение Луны:</span>
+                            <span className={'moon ' + phases[(Math.round(SunCalc.getMoonIllumination(moment(date)).phase * 8) / 8)]}>
+                                ↑ {moment(_moonTimes.rise).format('H:mm')} ↓ {moment(_moonTimes.set).format('H:mm')}
+                            </span>
+                        </div>
                         <div><span className='second-color'>Сделано кадров:</span> {(!_.isEmpty(storeStatisticDay) ? storeStatisticDay.frames : '---')}</div>
                         <div><span className='second-color'>Общая выдержка:</span> {(!_.isEmpty(storeStatisticDay) ? getTimeFromSec(storeStatisticDay.exposure, true) : '---')}</div>
                         <div><span className='second-color'>Накоплено данных:</span> {(!_.isEmpty(storeStatisticDay) ? storeStatisticDay.filesize + ' Гб' : '---')}</div>

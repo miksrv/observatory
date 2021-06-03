@@ -113,7 +113,7 @@ class Dashboard extends Component {
                                         index={key}
                                         auth={(!_.isEmpty(authData) && authData.status === true)}
                                         disabled={relayDisabled}
-                                        state={!_.isEmpty(storeRelayStatus) ? storeRelayStatus.data.relay[key][key] : false}
+                                        state={!_.isEmpty(storeRelayStatus) && typeof storeRelayStatus.data !== 'undefined' ? storeRelayStatus.data.relay[key][key] : false}
                                         handleSwitch={(k) => this.handleRelaySwitch(k)}
                                     />
                                 )

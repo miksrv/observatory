@@ -39,6 +39,8 @@ class VoltageGraphic extends Component {
           }
         },
         opposite: false,
+        min: 0,
+        max: 15
       }],
       series: [{
         name: 'HEQ5 Pro',

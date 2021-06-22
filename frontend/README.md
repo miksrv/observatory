@@ -6,6 +6,8 @@ An example of her work is here: https://observatory.miksoft.pro/
 
 The service interacts with the API: https://github.com/miksrv/api-backend
 
+![General view of the interface](./../documentation/ui-screen-1.png)
+
 ## Application launch
 
 The application is written in ReactJS + Redux. To run the application for the first time, you need to install all dependencies (modules) using NPM. To do this, you need to run the command: 

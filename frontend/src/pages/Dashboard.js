@@ -7,6 +7,7 @@ import MainContainer from '../components/MainContainer'
 import Sensors from '../layouts/Sensors'
 import Relay from '../layouts/Relay'
 import Camera from '../layouts/Camera'
+import Voltage from '../layouts/Voltage'
 import TempGraphic from '../components/TempGraphic'
 import VoltageGraphic from '../components/VoltageGraphic'
 
@@ -146,32 +147,23 @@ class Dashboard extends Component {
                             )
                         })}
                     </Grid>
-                    {! _.isEmpty(sensorData) && (
-                        <Grid>
-                            <Grid.Column computer={4} tablet={8} mobile={16}>
-                                <div className='card sensor astro'>
-                                    <div className='title'>Монтировка HEQ5 Pro</div>
-                                    <div>Напряжение: <b>{sensorData.data.v1.value} В</b></div>
-                                    <div>Сила тока: <b>{sensorData.data.v1.value > 0 ? ((sensorData.data.p1.value / 1000) / sensorData.data.v1.value).toFixed(2): 0} А</b></div>
-                                    <div>Мощность: <b>{sensorData.data.p1.value / 1000} Вт</b></div>
-                                </div>
-                            </Grid.Column>
-                            <Grid.Column computer={4} tablet={8} mobile={16}>
-                                <div className={'card sensor'}>
-                                    <div className='title'>Камера ZWO ASI 1600mm</div>
-                                    <div>Напряжение: <b>{sensorData.data.v2.value} В</b></div>
-                                    <div>Сила тока: <b>{sensorData.data.v2.value > 0 ? ((sensorData.data.p2.value / 1000) / sensorData.data.v2.value).toFixed(2) : 0} А</b></div>
-                                    <div>Мощность: <b>{sensorData.data.p2.value / 1000} Вт</b></div>
-                                </div>
-                            </Grid.Column>
-                            <Grid.Column computer={4} tablet={8} mobile={16}>
-                                <div className={'card sensor'}>
-                                    <div className='title'>Фокусер ZWO EAF</div>
-                                    <div>Напряжение: <b>{sensorData.data.v3.value} В</b></div>
-                                    <div>Сила тока: <b>{sensorData.data.v3.value > 0 ? ((sensorData.data.p3.value / 1000) / sensorData.data.v3.value).toFixed(2) : 0} А</b></div>
-                                    <div>Мощность: <b>{sensorData.data.p3.value / 1000} Вт</b></div>
-                                </div>
-                            </Grid.Column>
+                    <Grid>
+                        <Voltage
+                            title='Монтировка HEQ5 Pro'
+                            data={typeof sensorData.data !== "undefined" && sensorData.data}
+                            index={1}
+                        />
+                        <Voltage
+                            title='Камера ZWO ASI 1600mm'
+                            data={typeof sensorData.data !== "undefined" && sensorData.data}
+                            index={2}
+                        />
+                        <Voltage
+                            title='Фокусер ZWO EAF'
+                            data={typeof sensorData.data !== "undefined" && sensorData.data}
+                            index={3}
+                        />
+                        {! _.isEmpty(sensorData) && (
                             <Grid.Column computer={4} tablet={8} mobile={16}>
                                 <div className={'card sensor'}>
                                     <div className='title'>Температуры</div>
@@ -180,8 +172,8 @@ class Dashboard extends Component {
                                     <div>Серверный шкаф <b>{sensorData.data.t3.value}℃</b></div>
                                 </div>
                             </Grid.Column>
-                        </Grid>
-                    )}
+                        )}
+                    </Grid>
                     <Grid>
                         <Grid.Column computer={6} tablet={16} mobile={16}>
                             <Camera />

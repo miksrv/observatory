@@ -24,6 +24,26 @@ export function getSensorData() {
     }
 }
 
+export function getGraphData() {
+    return async(dispatch) => {
+        try {
+            const url = `${process.env.REACT_APP_API_HOST}astro/get/period_statistic`
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json'
+                }
+            });
+
+            const payload = await response.json()
+
+            dispatch({ type: types.GET_GRAPH_DATA, payload })
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}
+
 /**
  * Returns statistical data for generating graphs by observatory sensors (temperature, humidity, voltage, etc.).
  * @returns {GET_SENSOR_STAT}

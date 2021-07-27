@@ -9,7 +9,9 @@ import Statistic from '../layouts/Statistic'
 import PhotoGrid from '../layouts/PhotoGrid'
 import EventCalendar from '../layouts/EventCalendar'
 
-// import ExpChart from '../informers/ExpChart'
+// import ExpChart from '../layouts/ExpChart'
+import Chart from '../layouts/Chart'
+import chart_monthfitstat from '../data/chart_monthfitstat'
 // import TempGraphic from "../components/TempGraphic";
 
 import * as astroActions from '../store/astro/actions'
@@ -27,12 +29,13 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        const { dispatch, storeMeteoArchive, storePhotoArchive } = this.props
+        const { dispatch, storeMeteoArchive, storePhotoArchive, graphic } = this.props
         const monthStart = moment().clone().startOf('month').format('DD-MM-YYYY')
         const monthEnd   = moment().clone().endOf('month').format('DD-MM-YYYY')
 
         _.isEmpty(storeMeteoArchive) && dispatch(meteoActions.getArchive(monthStart, monthEnd))
         _.isEmpty(storePhotoArchive) && dispatch(astroActions.getArchive(monthStart, monthEnd))
+        _.isEmpty(graphic) && dispatch(astroActions.getGraphData())
 
         this.setState({calendarMoonPhrases: moonPhrase(monthStart, monthEnd)})
     }
@@ -69,7 +72,7 @@ class Main extends Component {
     }
 
     render() {
-        const { storePhotoStatistic, storePhotoArchive, storeMeteoArchive, storePhotoList } = this.props // graphic
+        const { storePhotoStatistic, storePhotoArchive, storeMeteoArchive, storePhotoList, graphic } = this.props
         const { calendarMoonPhrases } = this.state
 
         return (
@@ -87,6 +90,11 @@ class Main extends Component {
                         photos={storePhotoList.slice(0, 4)}
                         props={this.props}
                     />
+                    <Chart
+                        config={chart_monthfitstat}
+                        data={graphic}
+                    />
+                    <br />
                     <EventCalendar
                         moon={calendarMoonPhrases}
                         meteo={storeMeteoArchive}
@@ -96,7 +104,6 @@ class Main extends Component {
                     />
                 </Container>
                         {/*<Grid>*/}
-                        {/*    <ExpChart data={graphic} />*/}
                         {/*    <Sun data={astroData.sun} />*/}
                         {/*    <Moon data={astroData.moon} />*/}
                         {/*</Grid>*/}
@@ -110,8 +117,8 @@ function mapStateToProps(state) {
         storePhotoStatistic: state.astro.FITStat,
         storePhotoArchive: state.astro.FITEvent,
         storeMeteoArchive: state.meteo.archiveData,
-        storePhotoList: state.photo.dataList
-        // graphic: state.astro.graphic,
+        storePhotoList: state.photo.dataList,
+        graphic: state.astro.graphic
     }
 }
 

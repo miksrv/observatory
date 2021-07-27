@@ -22,7 +22,7 @@ const chart_config = {
             // fontFamily: '\'Unica One\', sans-serif'
         },
         plotBorderColor: '#1b1c1d',
-        marginTop: 30,
+        marginTop: 15,
         height: 300,
     },
     title: {

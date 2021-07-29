@@ -218,7 +218,7 @@ class MainContainer extends Component {
                     </Modal.Content>
                     <Modal.Actions>
                         <Button
-                            size='small'
+                            size='tiny'
                             onClick={() => this.handleSubmit()}
                             color='green'
                             disabled={formLoading}

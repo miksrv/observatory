@@ -29,6 +29,10 @@ p
 .header
     margin-bottom: 2.5em !important
 
+    .menu
+        background: $card-background-color !important
+        box-shadow: $card-shadow !important
+
 .border
     border: 1px solid rgba(255, 255, 255, 0.1)
 
@@ -98,6 +102,10 @@ p
 .copyright-link:hover, .photo-link:hover
     color: #a4ffa4
 
+.vk-container
+    background: $card-background-color !important
+    box-shadow: $card-shadow !important
+
 .vk-profile
     a
         color: #FFF
@@ -131,11 +139,11 @@ p
     .value-container
         padding: 0.3em 0 .7em !important
 
-    .value
-        font-size: 17px
-        font-weight: 600
-        padding-left: 1em
-        text-shadow: 0 0 10px rgba(0, 0, 0, 0.5)
+    //.value
+    //    font-size: 17px
+    //    font-weight: 600
+    //    padding-left: 1em
+    //    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5)
 
         .sign
             font-size: 13px
@@ -352,21 +360,19 @@ p
     border-radius: 0.25rem
     background-clip: border-box
     padding: .5em
-    //box-shadow: 0 0 10px rgba(0,0,0,0.5)
+    box-shadow: $card-shadow
 
-    .value, .statistic-value
-        font-size: 1.6em
-        line-height: 1em
-        font-weight: 600
+    &.padding
+        padding: 10px 15px
 
-    .statistic-value
-        margin-top: 7px
+    //.value, .statistic-value
+    //    font-size: 1.6em
+    //    line-height: 1em
+    //    font-weight: 600
 
-    .icon
-        //position: absolute
-        //left: 20%
-        //font-size: 3em
-        //top: -11px
+    //.statistic-value
+    //    margin: 7px 0 2px
+    //    color: #e1a82d
 
     .row > div, .grid-info .row
         padding: 0 !important
@@ -377,18 +383,32 @@ p
     .grid-info
         margin-top: 0 !important
 
-    .statistic-image
+.statistic
+    display: flex
+    justify-content: flex-start
+
+    .image
         text-align: center
-        background: green
+        background: $bg-gradient-warning
+        border: 1px solid $border-warning
         color: #FFF
-        max-width: 50px
-        padding: 0 0 9px 0
-        margin-left: 20px
+        width: 44px
+        height: 44px
+        margin: 6px 20px 6px 10px
 
         .icon
             position: inherit
-            font-size: 2.6em
+            font-size: 20px
             margin: 0
+            line-height: 44px
+
+    .value
+        font-weight: 900
+        font-size: 20px
+        margin-top: 3px
+
+    .info
+        color: $second-color
 
 .card.container
     padding: .5em 1em
@@ -399,10 +419,11 @@ p
 .cameraPhoto
     > img
         width: 100%
+        height: 350px
         margin-bottom: -3px
         border-radius: inherit
         cursor: pointer
-        height: 288px
+        object-fit: cover
 
     .progress
         margin: 2px 0 0 0 !important
@@ -453,54 +474,6 @@ p
 .filter-s
     background-color: #572e06
 
-//.sun
-//    .icon
-//        font-size: 9em
-//        float: left
-//        color: $orange
-//
-//    .title
-//        margin-bottom: 5px
-//        text-transform: uppercase
-//
-//    .value
-//        font-size: 1em
-//        color: $main-color
-
-//.moon
-//    color: $second-color
-//
-//    b
-//        color: $main-color
-//
-//    .icon-holder
-//        position: relative
-//
-//    .icon
-//        position: absolute
-//        font-size: 86px
-//        left: -20%
-//        top: -5px
-//        color: $darkblue
-//
-//    .icon-info
-//        position: absolute
-//        right: 5px
-//        font-size: 26px
-//        top: -5px
-//        color: $darkblue
-//
-//    .icon-info-container
-//        position: relative
-//        padding-right: 30px !important
-//
-//    .left > div
-//        padding-left: 10px
-//
-//    .right > div
-//        padding-right: 10px
-
-
 .ui.modal > .content
     color: #333
     font-weight: 100
@@ -520,6 +493,16 @@ p
     max-height: 656px
     overflow: hidden
 
+.rbc-toolbar-label
+    color: #FFF
+    text-transform: uppercase
+
+.rbc-event
+    margin: 0 3px 2px
+
+.rbc-header
+    background: rgba(0,0,0,.15)
+
 .rbc-month-row
     height: 100px
 
@@ -529,3 +512,54 @@ p
 .message
     .header
         margin-bottom: 0px !important
+
+.devices-control
+    .button
+        background: transparent
+        color: $second-color
+        border: 1px solid $main-color
+        padding: 5px 10px
+
+    .item
+        color: $main-color
+        display: flex
+        justify-content: space-between
+        margin: 10px 0
+        font-weight: 100
+        line-height: 22px
+
+        &:last-of-type
+            margin-bottom: 0
+
+        &.switch-off
+            //color: #dd9124
+
+            .button
+                color: #dd9124
+                border: 1px solid #dd9124
+
+                &:hover, &:active, &:focus
+                    background: rgba(221, 145, 36, 0.18)
+
+        &.switch-on
+            color: #2e8c47
+
+            .button
+                color: #2e8c47
+                border: 1px solid #2e8c47
+
+                &:hover, &:active, &:focus
+                    background: rgba(46, 140, 71, 0.18)
+
+.devices-sensor
+    .item
+        color: $main-color
+        display: flex
+        justify-content: space-between
+        margin: 10px 0
+        font-weight: 100
+
+        &:last-of-type
+            margin-bottom: 0
+
+        .value

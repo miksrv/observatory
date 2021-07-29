@@ -94,7 +94,7 @@ class Main extends Component {
                         config={chart_monthfitstat}
                         data={graphic}
                     />
-                    <br />
+                    <br /><br />
                     <EventCalendar
                         moon={calendarMoonPhrases}
                         meteo={storeMeteoArchive}

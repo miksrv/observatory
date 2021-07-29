@@ -24,9 +24,6 @@ const chart_monthfitstat = {
         {
             title: {
                 text: '', // Выдержка
-                style: {
-                    color: Highcharts.theme.colors[0]
-                }
             },
             labels: {
                 format: '{value}',
@@ -38,15 +35,24 @@ const chart_monthfitstat = {
         },
         {
             title: {
-                text: '', // Кадров
-                style: {
-                    color: Highcharts.theme.colors[2]
-                }
+                text: '', // Выдержка
             },
             labels: {
                 format: '{value}',
                 style: {
                     color: Highcharts.theme.colors[2]
+                }
+            },
+            opposite: true
+        },
+        {
+            title: {
+                text: '', // Выдержка
+            },
+            labels: {
+                format: '{value}',
+                style: {
+                    color: Highcharts.theme.colors[5]
                 }
             },
             opposite: true
@@ -67,6 +73,15 @@ const chart_monthfitstat = {
             type: 'line',
             yAxis: 1,
             color: Highcharts.theme.colors[2],
+            tooltip: {
+                valueSuffix: ''
+            },
+        },
+        {
+            name: 'Объектов',
+            type: 'line',
+            yAxis: 2,
+            color: Highcharts.theme.colors[5],
             tooltip: {
                 valueSuffix: ''
             },

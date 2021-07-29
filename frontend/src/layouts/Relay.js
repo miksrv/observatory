@@ -1,44 +1,35 @@
 import React from 'react'
-import { Grid, Icon, Checkbox, Dimmer, Loader } from 'semantic-ui-react'
+import { Dimmer, Loader, Button } from 'semantic-ui-react'
+
+import relayList from '../data/relay'
 
 const Relay = (props) => {
-    const { data, state, auth, index, disabled } = props
-
-    const handleSwitch = (index) => {
-        props.handleSwitch(index)
-    }
-
-    const checked = (state !== false && state !== 0)
+    const { store, disabled, auth } = props
 
     return (
-        <Grid.Column>
-            <div className={'card relay ' + (checked ? 'switch-on' : 'switch-off')}>
-                {
-                    (state === false || data.loader) && (
-                        <Dimmer active>
-                            <Loader />
-                        </Dimmer>
-                    )
-                }
-                <Grid>
-                    <Grid.Row>
-                        <Grid.Column width={5}>
-                            <Icon name='plug' className='control-icon' />
-                        </Grid.Column>
-                        <Grid.Column width={11}>
-                            <Checkbox
-                                toggle
-                                checked={checked ? true : false}
-                                className='checkbox'
-                                disabled={!auth || disabled}
-                                onChange={() => handleSwitch(index)}
-                            />
-                            <div className='title'><span className='state'></span>{data.name}</div>
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
-            </div>
-        </Grid.Column>
+        <div className='card padding devices-control'>
+            {(store === false) && (
+                <Dimmer active>
+                    <Loader />
+                </Dimmer>
+            )}
+            {relayList.map((item, index) => {
+                let status = store ? store[index][index] : false;
+
+                return (
+                    <div className={'item switch-' + (status ? 'on' : 'off')}>
+                        <div className='name'>{item.name}</div>
+                        <div className='switch'>
+                            <Button
+                                disabled={(disabled || ! auth)}
+                                onClick={() => props.handleSwitch(index, status)}
+                                size='tiny'
+                            >{status ? 'On' : 'Off'}</Button>
+                        </div>
+                    </div>
+                )
+            })}
+        </div>
     )
 }
 

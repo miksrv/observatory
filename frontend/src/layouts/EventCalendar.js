@@ -50,7 +50,7 @@ const EventCalendar = (params) => {
         <Grid>
             <Grid.Column computer={16} tablet={16} mobile={16}>
                 <div className='card'>
-                    {_.isNull(params.meteo) && (
+                    {params.meteo === null && (
                         <Dimmer active>
                             <Loader />
                         </Dimmer>
@@ -63,7 +63,7 @@ const EventCalendar = (params) => {
                         endAccessor="end"
                         popup={true}
                         views={['month']}
-                        style={{ height: 800 }}
+                        style={{ height: 570 }}
                         messages={{
                             today: 'сегодня',
                             previous: '<',

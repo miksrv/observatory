@@ -109,7 +109,7 @@ class News extends Component {
                     { ! _.isEmpty(postsData) ? (
                         <>
                             {postsData.map((item, key) => (
-                                <Segment key={key} inverted>
+                                <Segment key={key} className='vk-container' inverted>
                                     <div className='vk-profile'>
                                         <Image src={avatar} avatar />
                                         <div>

@@ -33,14 +33,14 @@ class VoltageGraphic extends Component {
           }
         },
         title: {
-          text: 'Потребляемая мощность',
+          text: '', // Потребляемая мощность
           style: {
             color: Highcharts.theme.colors[0]
           }
         },
         opposite: false,
         min: 0,
-        max: 15
+        max: 12
       }],
       series: [{
         name: 'HEQ5 Pro',

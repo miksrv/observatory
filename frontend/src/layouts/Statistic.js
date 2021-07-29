@@ -36,7 +36,7 @@ const Statistic = (props) => {
             {informers.map((item, key) => {
                 return (
                     <Grid.Column computer={4} tablet={8} mobile={16} key={key}>
-                        <div className='card'>
+                        <div className='card statistic'>
                             {
                                 _.isEmpty(data) && (
                                     <Dimmer active>
@@ -44,19 +44,13 @@ const Statistic = (props) => {
                                     </Dimmer>
                                 )
                             }
-                            <Grid>
-                                <Grid.Row>
-                                    <Grid.Column width={5} className='icon-container'>
-                                        <div className='statistic-image'>
-                                            <Icon name={item.icon} />
-                                        </div>
-                                    </Grid.Column>
-                                    <Grid.Column width={11}>
-                                        <div className='statistic-value'>{item.value}</div>
-                                        <div className='info'>{item.name}</div>
-                                    </Grid.Column>
-                                </Grid.Row>
-                            </Grid>
+                            <div className='image'>
+                                <Icon name={item.icon} />
+                            </div>
+                            <div>
+                                <div className='value'>{item.value}</div>
+                                <div className='info'>{item.name}</div>
+                            </div>
                         </div>
                     </Grid.Column>
                 )

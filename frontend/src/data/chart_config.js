@@ -17,11 +17,11 @@ const chart_config = {
     chart: {
         borderRadius: '5',
         shadow: false,
-        backgroundColor: '#1b1c1d',
+        backgroundColor: '#2e2f37',
         style: {
             // fontFamily: '\'Unica One\', sans-serif'
         },
-        plotBorderColor: '#1b1c1d',
+        plotBorderColor: '#2e2f37',
         marginTop: 15,
         height: 300,
     },

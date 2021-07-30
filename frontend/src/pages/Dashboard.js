@@ -39,24 +39,6 @@ class Dashboard extends Component {
         this.setState({intervalId})
     }
 
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     const { storeRelayCurrent, storeRelayStatus } = this.props
-    //     // const { relayIndex, relayList } = this.state
-    //
-    //     if (storeRelayCurrent !== prevProps.storeRelayCurrent) {
-    //
-    //         // relayList[relayIndex].loader = ! relayList[relayIndex].loader
-    //         // relayList[relayIndex].value = ! relayList[relayIndex].value
-    //         // storeRelayStatus.data.relay[relayIndex][relayIndex] = (storeRelayStatus.data.relay[relayIndex][relayIndex] === 1 ? 0 : 1)
-    //
-    //         this.setState({
-    //             // relayList: relayList,
-    //             // relayIndex: false,
-    //             relayDisabled: false
-    //         })
-    //     }
-    // }
-
     componentWillUnmount() {
         const { intervalId } = this.state
 
@@ -108,28 +90,10 @@ class Dashboard extends Component {
                                 handleSwitch={(index, status) => this.handleSwitch(index, status)}
                             />
                             <br />
-                            <div className='card padding devices-sensor'>
-                                <div className='item'>
-                                    <div className='name'>Температура на улице \ в обсерватории</div>
-                                    <div className='value'>26.6℃ (+2.1) \ 23.1℃ (+3.9)</div>
-                                </div>
-                                <div className='item'>
-                                    <div className='name'>Влажность на улице \ в обсерватории</div>
-                                    <div className='value'>15.8% (+2.4) \ 43.2℃ (+0.3)</div>
-                                </div>
-                                <div className='item'>
-                                    <div className='name'>Температура главного зеркала</div>
-                                    <div className='value'>15.8% (+2.4)</div>
-                                </div>
-                                <div className='item'>
-                                    <div className='name'>Температура блока питания</div>
-                                    <div className='value'>15.8% (+2.4)</div>
-                                </div>
-                                <div className='item'>
-                                    <div className='name'>Температура серверного шкафа</div>
-                                    <div className='value'>43.2℃</div>
-                                </div>
-                            </div>
+                            <Sensors
+                                astro={! _.isEmpty(sensorData) ? sensorData.data : []}
+                                meteo={! _.isEmpty(storeMeteoSummary) ? storeMeteoSummary.data : []}
+                            />
                         </Grid.Column>
                         <Grid.Column computer={8} tablet={8} mobile={16}>
                             <Camera />
@@ -180,33 +144,33 @@ class Dashboard extends Component {
                     {/*        )*/}
                     {/*    })}*/}
                     {/*</Grid>*/}
-                    <Grid>
-                        <Voltage
-                            title='Монтировка HEQ5 Pro'
-                            data={typeof sensorData.data !== "undefined" && sensorData.data}
-                            index={1}
-                        />
-                        <Voltage
-                            title='Камера ZWO ASI 1600mm'
-                            data={typeof sensorData.data !== "undefined" && sensorData.data}
-                            index={2}
-                        />
-                        <Voltage
-                            title='Фокусер ZWO EAF'
-                            data={typeof sensorData.data !== "undefined" && sensorData.data}
-                            index={3}
-                        />
-                        {! _.isEmpty(sensorData) && (
-                            <Grid.Column computer={4} tablet={8} mobile={16}>
-                                <div className={'card sensor'}>
-                                    <div className='title'>Температуры</div>
-                                    <div>Главное зеркало <b>{sensorData.data.t2.value}℃</b></div>
-                                    <div>AC/DC Блок питания <b>{sensorData.data.t1.value}℃</b></div>
-                                    <div>Серверный шкаф <b>{sensorData.data.t3.value}℃</b></div>
-                                </div>
-                            </Grid.Column>
-                        )}
-                    </Grid>
+                    {/*<Grid>*/}
+                    {/*    <Voltage*/}
+                    {/*        title='Монтировка HEQ5 Pro'*/}
+                    {/*        data={typeof sensorData.data !== "undefined" && sensorData.data}*/}
+                    {/*        index={1}*/}
+                    {/*    />*/}
+                    {/*    <Voltage*/}
+                    {/*        title='Камера ZWO ASI 1600mm'*/}
+                    {/*        data={typeof sensorData.data !== "undefined" && sensorData.data}*/}
+                    {/*        index={2}*/}
+                    {/*    />*/}
+                    {/*    <Voltage*/}
+                    {/*        title='Фокусер ZWO EAF'*/}
+                    {/*        data={typeof sensorData.data !== "undefined" && sensorData.data}*/}
+                    {/*        index={3}*/}
+                    {/*    />*/}
+                    {/*    {! _.isEmpty(sensorData) && (*/}
+                    {/*        <Grid.Column computer={4} tablet={8} mobile={16}>*/}
+                    {/*            <div className={'card sensor'}>*/}
+                    {/*                <div className='title'>Температуры</div>*/}
+                    {/*                <div>Главное зеркало <b>{sensorData.data.t2.value}℃</b></div>*/}
+                    {/*                <div>AC/DC Блок питания <b>{sensorData.data.t1.value}℃</b></div>*/}
+                    {/*                <div>Серверный шкаф <b>{sensorData.data.t3.value}℃</b></div>*/}
+                    {/*            </div>*/}
+                    {/*        </Grid.Column>*/}
+                    {/*    )}*/}
+                    {/*</Grid>*/}
                     <Grid>
                         <Grid.Column computer={8} tablet={16} mobile={16}>
                             {! _.isEmpty(sensorStat) ? (

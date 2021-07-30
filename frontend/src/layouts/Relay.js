@@ -3,7 +3,13 @@ import { Dimmer, Loader, Button } from 'semantic-ui-react'
 
 import relayList from '../data/relay'
 
-const Relay = (props) => {
+/**
+ * Device control power switches component
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
+const Relay = props => {
     const { store, disabled, auth } = props
 
     return (
@@ -17,7 +23,7 @@ const Relay = (props) => {
                 let status = store ? store[index][index] : false;
 
                 return (
-                    <div className={'item switch-' + (status ? 'on' : 'off')}>
+                    <div className={'item switch-' + (status ? 'on' : 'off')} key={index}>
                         <div className='name'>{item.name}</div>
                         <div className='switch'>
                             <Button

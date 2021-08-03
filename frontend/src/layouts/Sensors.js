@@ -1,59 +1,28 @@
 import React  from 'react'
 
-import { Grid, Dimmer, Loader } from 'semantic-ui-react'
+import { Dimmer, Loader } from 'semantic-ui-react'
 import { WiThermometer, WiThermometerExterior, WiHumidity } from 'react-icons/wi'
-import { IoIosArrowRoundUp, IoIosArrowRoundDown } from 'react-icons/io'
-import { GiElectric } from 'react-icons/gi'
-import { HiOutlineLightBulb } from 'react-icons/hi'
-import { RiLightbulbFlashLine } from 'react-icons/ri'
+// import { IoIosArrowRoundUp, IoIosArrowRoundDown } from 'react-icons/io'
 
 import _ from 'lodash'
 
 const Sensor = (params) => {
     const { astro, meteo } = params
 
-    const icons = {
-        temp: WiThermometer,
-        extemp: WiThermometerExterior,
-        humd: WiHumidity,
-        volt: GiElectric,
-        strength: HiOutlineLightBulb,
-        power: RiLightbulbFlashLine
-    };
-
-    const trend = {
-        up: IoIosArrowRoundUp,
-        down: IoIosArrowRoundDown
-    }
+    // const trend = {
+    //     up: IoIosArrowRoundUp,
+    //     down: IoIosArrowRoundDown
+    // }
 
     // const WeatherIcon = icons[params.widget.icon]
     // const TrendIcon  = params.data.trend > 0 ? trend['up'] : trend['down']
-
-    console.log('params', meteo)
-
-    let tempOut = !_.isEmpty(meteo) ? meteo.t2.value : 0,
-        tempOutTrend = !_.isEmpty(meteo) ? meteo.t2.trend : 0,
-        tempIn = !_.isEmpty(astro) ? astro.t.value : 0,
-        tempInTrend = !_.isEmpty(astro) ? astro.t.trend : 0
-
-    let humdOut = !_.isEmpty(meteo) ? meteo.h.value : 0,
-        humdOutTrend = !_.isEmpty(meteo) ? meteo.h.trend : 0,
-        humdIn = !_.isEmpty(astro) ? astro.h.value : 0,
-        humdInTrend = !_.isEmpty(astro) ? astro.h.trend : 0
-
-    let temp1 = !_.isEmpty(astro) ? astro.t1.value : 0,
-        temp1Trend = !_.isEmpty(astro) ? astro.t1.trend : 0,
-        temp2 = !_.isEmpty(astro) ? astro.t2.value : 0,
-        temp2Trend = !_.isEmpty(astro) ? astro.t2.trend : 0,
-        temp3 = !_.isEmpty(astro) ? astro.t3.value : 0,
-        temp3Trend = !_.isEmpty(astro) ? astro.t3.trend : 0
 
     const getSensorVal = (array, scope) => !_.isEmpty(array) ? array[scope].value : 0
     const getSensorTrend = (array, scope) => {
         if (_.isEmpty(array)) return ''
 
         let trendVal = array[scope].trend
-        let TrendIcon  = trendVal > 0 ? trend['up'] : trend['down']
+        // let TrendIcon  = trendVal > 0 ? trend['up'] : trend['down']
 
         return (<>({trendVal > 0 && '+'}{trendVal})</>)
     }

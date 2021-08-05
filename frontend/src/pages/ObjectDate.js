@@ -60,9 +60,9 @@ class ObjectItem extends Component {
                         </div>
                         <div><span className='second-color'>Сделано кадров:</span> {(!_.isEmpty(storeStatisticDay) ? storeStatisticDay.frames : '---')}</div>
                         <div><span className='second-color'>Общая выдержка:</span> {(!_.isEmpty(storeStatisticDay) ? getTimeFromSec(storeStatisticDay.exposure, true) : '---')}</div>
-                        <div><span className='second-color'>Накоплено данных:</span> {(!_.isEmpty(storeStatisticDay) ? storeStatisticDay.filesize + ' Гб' : '---')}</div>
+                        <div><span className='second-color'>Накоплено данных:</span> {(!_.isEmpty(storeStatisticDay) ? _.round(storeStatisticDay.filesize / 1024, 1) + ' Гб' : '---')}</div>
                         <div><span className='second-color'>Объекты съемки:</span>
-                            {!_.isEmpty(storeStatisticDay) && this.getObjectList(storeStatisticDay.data).map((obj, key) => (
+                            {!_.isEmpty(storeStatisticDay) && this.getObjectList(storeStatisticDay.files).map((obj, key) => (
                                 <Link key={key} to={'/object/' + obj} className='inline-link'>{obj}</Link>
                             ))}
                         </div>
@@ -86,7 +86,7 @@ class ObjectItem extends Component {
                                     </Table.Row>
                                 </Table.Header>
                                 <Table.Body>
-                                    {storeStatisticDay.data.map((obj, key) => (
+                                    {storeStatisticDay.files.map((obj, key) => (
                                         <Table.Row key={key}>
                                             <Table.Cell><Link to={'/object/' + obj.item_object}>{obj.item_object}</Link></Table.Cell>
                                             <Table.Cell>{obj.item_file_name}</Table.Cell>

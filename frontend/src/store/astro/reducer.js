@@ -74,7 +74,7 @@ export default function reduce(state = initialState, action = {}) {
                 ...state,
                 objectData: {
                     ...state.objectData,
-                    'data': state.objectData.data.filter(item => item.file_id !== action.itemID)
+                    'data': state.objectData.files.filter(item => item.file_id !== action.itemID)
                 }
             }
 

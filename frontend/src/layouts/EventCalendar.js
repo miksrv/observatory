@@ -63,7 +63,7 @@ const EventCalendar = (params) => {
                         endAccessor="end"
                         popup={true}
                         views={['month']}
-                        style={{ height: 570 }}
+                        style={{ height: 700 }}
                         messages={{
                             today: 'сегодня',
                             previous: '<',

@@ -75,7 +75,7 @@ class ObjectItem extends Component {
                                 <div><span className='second-color'>Дата обработки:</span> {(photo !== undefined ? moment(photo.photo_date).format('DD.MM.YYYY') : '---')}</div>
                                 <div><span className='second-color'>Сделано кадров:</span> {(objectExists ? objectData.stats.shot : '---')}</div>
                                 <div><span className='second-color'>Общая выдержка:</span> {(objectExists ? getTimeFromSec(objectData.stats.exp, true) : '---')}</div>
-                                <div><span className='second-color'>Накоплено данных:</span> {(objectExists ? objectData.filesize + ' Гб' : '---')}</div>
+                                <div><span className='second-color'>Накоплено данных:</span> {(objectExists ? _.round(objectData.filesize / 1024, 1) + ' Гб' : '---')}</div>
                                 <FilterList data={objectExists && objectData.stats} />
                                 <Link to='/object/'>Вернуться к списку всех объектов</Link>
                             </Grid.Column>
@@ -107,7 +107,7 @@ class ObjectItem extends Component {
                                     </Table.Row>
                                 </Table.Header>
                                 <Table.Body>
-                                    {objectData.data.map((item, key) => (
+                                    {objectData.files.map((item, key) => (
                                         <Table.Row key={key}>
                                             {isAuth &&
                                                 <Table.Cell collapsing>

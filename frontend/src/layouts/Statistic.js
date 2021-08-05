@@ -27,7 +27,7 @@ const Statistic = (props) => {
         {
             name: 'Данных (Гб)',
             icon: 'disk',
-            value: ! _.isEmpty(data) ? data.filesize : 0
+            value: ! _.isEmpty(data) ? _.round(data.filesize / 1024, 1) : 0
         }
     ]
 

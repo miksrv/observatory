@@ -1,9 +1,9 @@
 import Highcharts from 'highcharts'
-import chart_config from './chart_config'
+import config from './config'
 
-Highcharts.setOptions(Highcharts.theme = chart_config)
+Highcharts.setOptions(Highcharts.theme = config)
 
-const chart_monthfitstat = {
+const monthfitstat = {
     chart: {
         height: 250
     },
@@ -89,4 +89,4 @@ const chart_monthfitstat = {
     ]
 }
 
-export default chart_monthfitstat
+export default monthfitstat

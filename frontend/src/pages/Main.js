@@ -9,10 +9,8 @@ import Statistic from '../layouts/Statistic'
 import PhotoGrid from '../layouts/PhotoGrid'
 import EventCalendar from '../layouts/EventCalendar'
 
-// import ExpChart from '../layouts/ExpChart'
 import Chart from '../layouts/Chart'
-import chart_monthfitstat from '../data/chart_monthfitstat'
-// import TempGraphic from "../components/TempGraphic";
+import monthfitstat from '../charts/monthfitstat'
 
 import * as astroActions from '../store/astro/actions'
 import * as meteoActions from '../store/meteo/actions'
@@ -91,7 +89,7 @@ class Main extends Component {
                         props={this.props}
                     />
                     <Chart
-                        config={chart_monthfitstat}
+                        config={monthfitstat}
                         data={graphic}
                     />
                     <br /><br />

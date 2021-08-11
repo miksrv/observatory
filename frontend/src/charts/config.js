@@ -1,4 +1,4 @@
-const chart_config = {
+const config = {
     colors: [
         '#b8bc18',
         '#8bbc2e',
@@ -235,4 +235,4 @@ const chart_config = {
     }
 }
 
-export default chart_config
+export default config

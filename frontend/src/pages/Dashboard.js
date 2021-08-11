@@ -1,20 +1,22 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Container, Grid, Dimmer, Loader } from 'semantic-ui-react'
+import { Container, Grid } from 'semantic-ui-react'
 
 import MainContainer from '../components/MainContainer'
 
 import Sensors from '../layouts/Sensors'
 import Relay from '../layouts/Relay'
 import Camera from '../layouts/Camera'
-import TempGraphic from '../components/TempGraphic'
-import VoltageGraphic from '../components/VoltageGraphic'
+import Chart from '../layouts/Chart'
 
 import * as astroActions from '../store/astro/actions'
 import * as meteoActions from '../store/meteo/actions'
 import * as relayActions from '../store/relay/actions'
 
 import _ from 'lodash'
+
+import voltage from '../charts/voltage'
+import temphumd from '../charts/temphumd'
 
 class Dashboard extends Component {
 
@@ -96,30 +98,26 @@ class Dashboard extends Component {
                     </Grid>
                     <Grid>
                         <Grid.Column computer={8} tablet={16} mobile={16}>
-                            {! _.isEmpty(sensorStat) ? (
-                                <VoltageGraphic
-                                    sensorStat={sensorStat}
-                                />
-                            ) : (
-                                <div className='card' style={{height: 305}}>
-                                    <Dimmer active>
-                                        <Loader />
-                                    </Dimmer>
-                                </div>
-                            )}
+                            <Chart
+                                config={voltage}
+                                data={{
+                                    p1: !_.isEmpty(sensorStat) ? sensorStat.data.p1 : [],
+                                    p2: !_.isEmpty(sensorStat) ? sensorStat.data.p2 : [],
+                                    p3: !_.isEmpty(sensorStat) ? sensorStat.data.p3 : []
+                                }}
+                            />
                         </Grid.Column>
                         <Grid.Column computer={8} tablet={16} mobile={16}>
-                            {! _.isEmpty(sensorStat) ? (
-                                <TempGraphic
-                                    sensorStat={sensorStat}
-                                />
-                            ) : (
-                                <div className='card' style={{height: 305}}>
-                                    <Dimmer active>
-                                        <Loader />
-                                    </Dimmer>
-                                </div>
-                            )}
+                            <Chart
+                                config={temphumd}
+                                data={{
+                                    h: !_.isEmpty(sensorStat) ? sensorStat.data.h : [],
+                                    t: !_.isEmpty(sensorStat) ? sensorStat.data.t : [],
+                                    t1: !_.isEmpty(sensorStat) ? sensorStat.data.t1 : [],
+                                    t2: !_.isEmpty(sensorStat) ? sensorStat.data.t2 : [],
+                                    t3: !_.isEmpty(sensorStat) ? sensorStat.data.t3 : []
+                                }}
+                            />
                         </Grid.Column>
                     </Grid>
                 </Container>

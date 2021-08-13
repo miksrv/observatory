@@ -74,7 +74,7 @@ const EventCalendar = (params) => {
                         }}
                         onSelectEvent={params.fGetEvent}
                         onNavigate={params.fNavigate}
-                        eventPropGetter={(event, start, end, isSelected) => {
+                        eventPropGetter={(event) => {
                             return {
                                 className: event.type + (!_.isEmpty(event.class) ? ' ' + event.class : '')
                             }

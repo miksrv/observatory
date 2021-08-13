@@ -88,9 +88,7 @@ class News extends Component {
         }
     }
 
-    clickHandler = (event, { photo, index }) => {
-        this.setState({isOpen: true, photoIndex: photo.src})
-    }
+    clickHandler = (event, { photo }) => this.setState({isOpen: true, photoIndex: photo.src})
 
     updateData = () => {}
 

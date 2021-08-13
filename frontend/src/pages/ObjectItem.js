@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Container, Dimmer, Loader, Table, Grid, Button, Image } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
-import { getTimeFromSec, setClassByFilter } from '../data/functions'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {Button, Container, Dimmer, Grid, Image, Loader, Table} from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
+import {getTimeFromSec, setClassByFilter} from '../data/functions'
 
 import * as astroActions from '../store/astro/actions'
 
@@ -47,13 +47,7 @@ class ObjectItem extends Component {
 
     updateData = () => {}
 
-    findPhoto = (name, array) => {
-        let dataFIT = array.find(function (o) {
-            return o.photo_obj === name
-        })
-
-        return dataFIT
-    }
+    findPhoto = (name, array) => array.find((o) => o.photo_obj === name)
 
     render() {
         const { objectData, isAuth, storePhotoList } = this.props

@@ -114,8 +114,8 @@ class Dashboard extends Component {
                                     h: !_.isEmpty(sensorStat) ? sensorStat.data.h : [],
                                     t: !_.isEmpty(sensorStat) ? sensorStat.data.t : [],
                                     t1: !_.isEmpty(sensorStat) ? sensorStat.data.t1 : [],
-                                    t2: !_.isEmpty(sensorStat) ? sensorStat.data.t2 : [],
-                                    t3: !_.isEmpty(sensorStat) ? sensorStat.data.t3 : []
+                                    t3: !_.isEmpty(sensorStat) ? sensorStat.data.t3 : [],
+                                    t2: !_.isEmpty(sensorStat) ? sensorStat.data.t2 : []
                                 }}
                             />
                         </Grid.Column>

@@ -7,6 +7,7 @@ import 'moment/locale/ru'
 import { getTimeFromSec } from '../data/functions'
 
 import _ from 'lodash'
+import moment from "moment";
 
 const exampleReducer = (state, action) => {
     switch (action.type) {
@@ -38,11 +39,15 @@ const FullTable = (props) => {
     })
 
     const findPhoto = (name) => {
-        let dataFIT = props.photo.find(function (o) {
-            return o.photo_obj === name
+        let dataFIT = props.photo.find(function (object) {
+            return (object.photo_obj === name) && object
         })
 
-        return dataFIT !== undefined
+        return dataFIT
+    }
+
+    const dateDiff = (date1, date2) => {
+        return (moment(date1).diff(moment(date2)) < 0) ? ' new' : ''
     }
 
     const { column, data, direction } = state
@@ -99,7 +104,15 @@ const FullTable = (props) => {
                 {data.map((item, key) => (
                     <Table.Row key={key}>
                         <Table.Cell><Link to={'/object/' + item.name}>{item.name}</Link></Table.Cell>
-                        <Table.Cell textAlign='center'>{findPhoto(item.name) && (<Link to={'/photo/' + item.name} className='photo-link'><Icon name='check square' size='large' /></Link>)}</Table.Cell>
+                        <Table.Cell textAlign='center'>
+                            {
+                                findPhoto(item.name) && (
+                                    <Link to={'/photo/' + item.name} className={'photo-link' + dateDiff(findPhoto(item.name).photo_date, item.date)}>
+                                        <Icon name='check square' size='large' />
+                                    </Link>
+                                )
+                            }
+                        </Table.Cell>
                         <Table.Cell>{item.frame}</Table.Cell>
                         <Table.Cell>{getTimeFromSec(item.total)}</Table.Cell>
                         <Table.Cell className={(item.l > 0) ? 'filter-l' : ''}>{getTimeFromSec(item.l)}</Table.Cell>

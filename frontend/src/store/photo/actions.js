@@ -5,7 +5,7 @@ export function getList() {
         try {
             const url = `${process.env.REACT_APP_API_HOST}photo/get/list`
             const response = await fetch(url, {
-                method: 'POST',
+                method: 'GET',
                 headers: {
                     Accept: 'application/json'
                 }
@@ -25,7 +25,7 @@ export function getItem(name) {
         try {
             const url = `${process.env.REACT_APP_API_HOST}photo/get/item?name=${name}`
             const response = await fetch(url, {
-                method: 'POST',
+                method: 'GET',
                 headers: {
                     Accept: 'application/json'
                 }

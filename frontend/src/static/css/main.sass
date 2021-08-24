@@ -99,8 +99,14 @@ p
         vertical-align: middle
         margin-top: -3px
 
-.copyright-link:hover, .photo-link:hover
-    color: #a4ffa4
+    &:hover
+        color: #a4ffa4
+
+    &.new
+        color: #ef421e
+
+        &:hover
+            color: #f58671
 
 .vk-container
     background: $card-background-color !important
@@ -138,16 +144,6 @@ p
 
     .value-container
         padding: 0.3em 0 .7em !important
-
-    //.value
-    //    font-size: 17px
-    //    font-weight: 600
-    //    padding-left: 1em
-    //    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5)
-
-        .sign
-            font-size: 13px
-            padding-left: 5px
 
     .icon
         position: absolute
@@ -365,15 +361,6 @@ p
     &.padding
         padding: 10px 15px
 
-    //.value, .statistic-value
-    //    font-size: 1.6em
-    //    line-height: 1em
-    //    font-weight: 600
-
-    //.statistic-value
-    //    margin: 7px 0 2px
-    //    color: #e1a82d
-
     .row > div, .grid-info .row
         padding: 0 !important
 
@@ -529,8 +516,6 @@ p
             margin-bottom: 0
 
         &.switch-off
-            //color: #dd9124
-
             .button
                 color: #dd9124
                 border: 1px solid #dd9124

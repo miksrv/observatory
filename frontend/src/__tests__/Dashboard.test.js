@@ -9,28 +9,9 @@ import thunk from 'redux-thunk'
 
 import * as reducers from '../store/reducers'
 
-import Main from '../pages/Main'
 import Dashboard from '../pages/Dashboard'
 
 const store = createStore(combineReducers(reducers), applyMiddleware(thunk))
-
-describe('Test Main', function () {
-    beforeEach(() => {
-        render(
-            <Provider store={store}>
-                <BrowserRouter>
-                    <Switch>
-                        <Main />
-                    </Switch>
-                </BrowserRouter>
-            </Provider>
-        )
-    })
-
-    it('Hello', () => {
-        expect(screen.getByText(/Кадров/i)).toBeInTheDocument();
-    })
-});
 
 describe('Test Dashboard', function () {
     beforeEach(() => {
@@ -46,8 +27,6 @@ describe('Test Dashboard', function () {
     })
 
     it('Hello', () => {
-        // console.log('store.getState()', store.getState())
-
         expect(screen.getByText(/Блок питания/i)).toBeInTheDocument()
         expect(screen.getByText(/Монтировка HEQ5 Pro/i)).toBeInTheDocument()
         expect(screen.getByText(/Камера ZWO ASI 1600MM/i)).toBeInTheDocument()

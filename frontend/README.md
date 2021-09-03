@@ -1,4 +1,5 @@
 ## Description of the project 
+[![Node.js CI](https://github.com/miksrv/observatory/actions/workflows/node.js.yml/badge.svg)](https://github.com/miksrv/observatory/actions/workflows/node.js.yml)
 
 Web interface for a homemade astronomical observatory. The service is designed to inform about the operation of the telescope and equipment. The interface displays a calendar of the telescope, a list of footage by groups, allows you to control the parameters of temperature, voltages of the main units and control the power supply. 
 

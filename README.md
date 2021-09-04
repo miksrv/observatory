@@ -1,5 +1,7 @@
 Observatory control panel
 ===============
+[![Node.js CI](https://github.com/miksrv/arduino-weather-station/actions/workflows/node.js.yml/badge.svg)](https://github.com/miksrv/arduino-weather-station/actions/workflows/node.js.yml)
+
 An interface project for the management of an amateur astronomical observatory. The WEB-interface provides the ability to control the power supply of devices through a relay system, to receive data on temperatures at various points, humidity and voltage of various devices. The interface displays images from cameras, builds graphs for viewing archive statistics. The main function is to display statistics of the observatory's work: a calendar of filming with statistics of a filming night, display of captured objects with the number of frames in various filters, a photo gallery of the final results. 
 
 [ [DEMO](https://observatory.miksoft.pro/) ]

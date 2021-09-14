@@ -86,14 +86,17 @@ class Dashboard extends Component {
                                 store={!_.isEmpty(storeRelayStatus) && typeof storeRelayStatus.data !== 'undefined' ? storeRelayStatus.data.relay : false}
                                 handleSwitch={(index, status) => this.handleSwitch(index, status)}
                             />
-                            <br />
+                        </Grid.Column>
+                        <Grid.Column computer={8} tablet={8} mobile={16}>
+                            <Camera />
+                        </Grid.Column>
+                    </Grid>
+                    <Grid>
+                        <Grid.Column computer={16} tablet={16} mobile={16}>
                             <Sensors
                                 astro={! _.isEmpty(sensorData) ? sensorData.data : []}
                                 meteo={! _.isEmpty(storeMeteoSummary) ? storeMeteoSummary.data : []}
                             />
-                        </Grid.Column>
-                        <Grid.Column computer={8} tablet={8} mobile={16}>
-                            <Camera />
                         </Grid.Column>
                     </Grid>
                     <Grid>

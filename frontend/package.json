@@ -1,7 +1,7 @@
 {
   "name": "frontend",
-  "version": "1.2.15",
-  "update": "23.08.2021",
+  "version": "1.2.16",
+  "update": "14.09.2021",
   "private": true,
   "dependencies": {
     "highcharts": "^8.2.2",

@@ -4,25 +4,25 @@
   "update": "14.09.2021",
   "private": true,
   "dependencies": {
-    "highcharts": "^8.2.2",
+    "highcharts": "^9.2.2",
     "highcharts-react-official": "^3.0.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "node-sass": "^4.14.1",
-    "react": "^16.14.0",
+    "react": "^17.0.2",
     "react-big-calendar": "^0.28.6",
-    "react-dom": "^16.14.0",
+    "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
-    "react-icons": "^3.11.0",
+    "react-icons": "^4.2.0",
     "react-image-lightbox": "^5.1.4",
     "react-photo-gallery": "^8.0.0",
-    "react-redux": "^7.2.4",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.4",
+    "react-redux": "^7.2.5",
+    "react-router-dom": "^5.3.0",
+    "react-scripts": "^4.0.3",
     "redux": "^4.1.1",
     "redux-thunk": "^2.3.0",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.88.2",
+    "semantic-ui-react": "^2.0.4",
     "suncalc": "^1.8.0"
   },
   "scripts": {
@@ -48,8 +48,8 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1"
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.1.0",
+    "@testing-library/user-event": "^13.2.1"
   }
 }

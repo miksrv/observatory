@@ -1,5 +1,6 @@
 import React from 'react'
 import { Image, Reveal, Dimmer, Loader } from 'semantic-ui-react'
+import lang from '../locale/detect'
 
 import _ from 'lodash'
 
@@ -40,7 +41,7 @@ const PhotoGrid = params => {
         ) : (
             <div className='photos-list card loader'>
                 <Dimmer active>
-                    <Loader>Загрузка</Loader>
+                    <Loader>{lang.general.loading}</Loader>
                 </Dimmer>
             </div>
         )

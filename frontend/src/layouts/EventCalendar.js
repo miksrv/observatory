@@ -3,6 +3,7 @@ import { Dimmer, Grid, Loader } from 'semantic-ui-react'
 
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import { declOfNum } from '../data/functions'
+import lang from '../locale/detect'
 import moment from 'moment'
 
 import _ from 'lodash'
@@ -36,7 +37,7 @@ const EventCalendar = (params) => {
 
         Object.keys(data).map((key) => {
             return result.push({
-                'title': `${data[key].frames} ${declOfNum(data[key].frames, ['кадр', 'кадра', 'кадров'])}, ${data[key].exposure} мин`,
+                'title': `${data[key].frames} ${declOfNum(data[key].frames, lang.general.declNumFrames)}, ${data[key].exposure} ${lang.general.shortMin}`,
                 'start': moment(key, 'DD-MM-YYYY').toDate(),
                 'end'  : moment(key, 'DD-MM-YYYY').toDate(),
                 'type' :'astro'
@@ -65,11 +66,11 @@ const EventCalendar = (params) => {
                         views={['month']}
                         style={{ height: 700 }}
                         messages={{
-                            today: 'сегодня',
+                            today: lang.calendar.today,
                             previous: '<',
                             next: '>',
                             showMore: function showMore(total) {
-                                return '+ Еще ' + total
+                                return lang.calendar.more + total
                             }
                         }}
                         onSelectEvent={params.fGetEvent}

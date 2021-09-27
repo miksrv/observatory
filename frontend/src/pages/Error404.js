@@ -2,6 +2,7 @@ import React from 'react'
 import { Container } from 'semantic-ui-react'
 import { NavLink } from 'react-router-dom'
 import MainContainer from '../components/MainContainer'
+import lang from '../locale/detect'
 
 const Error404 = () => {
     return (
@@ -11,9 +12,9 @@ const Error404 = () => {
             <Container>
                 <div className='card photo-info error404'>
                     <h1>404</h1>
-                    <h2>УПС, ЧТО-ТО ПОШЛО НЕ ТАК</h2>
-                    <p>Страница, которую вы искали, могла быть удалена,<br />она изменила ссылку или просто временно недоступен.</p>
-                    <NavLink exact to='/'>Вернуться на главную страницу</NavLink>
+                    <h2>{lang.error404.header}</h2>
+                    <p>{lang.error404.description}</p>
+                    <NavLink exact to='/'>{lang.error404.linkBack}</NavLink>
                 </div>
             </Container>
         </MainContainer>

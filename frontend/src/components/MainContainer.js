@@ -12,7 +12,7 @@ import * as astroActions from '../store/astro/actions'
 import * as photoActions from '../store/photo/actions'
 import * as types from '../store/auth/actionTypes'
 
-import languageRU from '../locate/ru/translate.json'
+import lang from '../locale/detect'
 
 import _ from 'lodash'
 
@@ -139,21 +139,21 @@ class MainContainer extends Component {
                             <img src='/images/logo-w.svg' alt='' />
                         </Menu.Item>
                         <Menu.Item as={NavLink} exact to='/'>
-                            {languageRU.menu.summary}
+                            {lang.menu.summary}
                         </Menu.Item>
                         <Menu.Item as={NavLink} exact to='/news/'>
-                            {languageRU.menu.news}
+                            {lang.menu.news}
                         </Menu.Item>
                         <Menu.Item as={NavLink} exact to='/photo/'>
-                            {languageRU.menu.photo}
+                            {lang.menu.photo}
                             <Label color='yellow'>{(!_.isEmpty(storePhotoList) ? storePhotoList.length : 0)}</Label>
                         </Menu.Item>
                         <Menu.Item as={NavLink} exact to='/object/'>
-                            {languageRU.menu.objects}
+                            {lang.menu.objects}
                             <Label color='yellow'>{(!_.isEmpty(storePhotoStatistic) ? storePhotoStatistic.objects : 0)}</Label>
                         </Menu.Item>
                         <Menu.Item as={NavLink} to='/dashboard' activeclassname='active'>
-                            {languageRU.menu.control}
+                            {lang.menu.control}
                         </Menu.Item>
                         <Menu.Menu position='right'>
                             {/*<Dropdown item text='Language'>*/}
@@ -164,11 +164,11 @@ class MainContainer extends Component {
                             {/*</Dropdown>*/}
                             {(token === null) ? (
                                 <Menu.Item>
-                                    <Button primary onClick={() => {this.setModal(true)}}>{languageRU.menu.login}</Button>
+                                    <Button primary onClick={() => {this.setModal(true)}}>{lang.menu.login}</Button>
                                 </Menu.Item>
                             ) : (
                                 <Menu.Item>
-                                    <Button onClick={() => {this.handleLogout()}}>{languageRU.menu.logout}</Button>
+                                    <Button onClick={() => {this.handleLogout()}}>{lang.menu.logout}</Button>
                                 </Menu.Item>
                             )}
                         </Menu.Menu>
@@ -181,12 +181,12 @@ class MainContainer extends Component {
                     open={showModal}
                     onClose={() => this.setModal(false)}
                 >
-                    <Modal.Header>{languageRU.modalAuth.header}</Modal.Header>
+                    <Modal.Header>{lang.modalAuth.header}</Modal.Header>
                     <Modal.Content>
                         {(!_.isEmpty(authData) && authData.status === false) && (
                             <Message
                                 error
-                                content={languageRU.modalAuth.error}
+                                content={lang.modalAuth.error}
                             />
                         )}
                         <Form
@@ -198,7 +198,7 @@ class MainContainer extends Component {
                                 icon='user'
                                 name='userLogin'
                                 iconPosition='left'
-                                placeholder={languageRU.modalAuth.form.login}
+                                placeholder={lang.modalAuth.form.login}
                                 onChange={this.handleChange}
                                 onKeyDown={this._handleKeyDown}
                                 disabled={formLoading}
@@ -208,7 +208,7 @@ class MainContainer extends Component {
                                 icon='lock'
                                 name='userPassw'
                                 iconPosition='left'
-                                placeholder={languageRU.modalAuth.form.password}
+                                placeholder={lang.modalAuth.form.password}
                                 type='password'
                                 onChange={this.handleChange}
                                 onKeyDown={this._handleKeyDown}
@@ -224,14 +224,14 @@ class MainContainer extends Component {
                             disabled={formLoading}
                             loading={formLoading}
                         >
-                            Войти
+                            {lang.modalAuth.form.submit}
                         </Button>
                         <Button
                             size='small'
                             onClick={() => this.setModal(false)}
                             color='grey'
                         >
-                            Отмена
+                            {lang.modalAuth.form.cancel}
                         </Button>
                     </Modal.Actions>
                 </Modal>

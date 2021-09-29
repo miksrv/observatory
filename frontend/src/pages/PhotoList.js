@@ -33,9 +33,9 @@ class PhotoList extends Component {
         const { storePhotoList } = this.props
         const { filterActive } = this.state
 
-        const filteredPhotos  = storePhotoList.filter(({ photo_category }) => {
-            return ! this.state.filterActive || photo_category === this.state.filterActive
-        })
+        const filteredPhotos  = !_.isEmpty(storePhotoList) ? storePhotoList.photos.filter(({ category }) => {
+            return ! this.state.filterActive || category === this.state.filterActive
+        }) : null
 
         return (
             <MainContainer

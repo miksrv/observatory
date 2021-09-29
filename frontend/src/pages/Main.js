@@ -85,7 +85,7 @@ class Main extends Component {
                     />
                     <PhotoGrid
                         // photos={shuffle(storePhotoList).slice(0, 4)}
-                        photos={storePhotoList.slice(0, 4)}
+                        photos={(!_.isEmpty(storePhotoList) ? storePhotoList.photos.slice(0, 4) : [])}
                         props={this.props}
                     />
                     <Chart

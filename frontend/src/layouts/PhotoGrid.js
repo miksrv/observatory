@@ -4,11 +4,11 @@ import lang from '../locale/detect'
 
 import _ from 'lodash'
 
-const PHOTO_URL = 'https://api.miksoft.pro/photo/'
+const PHOTO_URL = 'https://api.miksoft.pro/astro/'
 
 const PhotoGrid = params => {
-    const clickHandler = object => {
-        params.props.history.push('/photo/' + object)
+    const clickHandler = (object, date) => {
+        params.props.history.push(`/photo/${object}?date=${date}`)
     }
 
     const sliceText = text => {
@@ -23,15 +23,15 @@ const PhotoGrid = params => {
         ! _.isEmpty(params.photos) ? (
         <div className={'photos-list card' + (params.full ? ' full' : '')}>
             {params.photos.map((item, key) => (
-                <div key={key} className='item' onClick={() => clickHandler(item.photo_obj)}>
+                <div key={key} className='item' onClick={() => clickHandler(item.object, item.date)}>
                     <Reveal animated='small fade'>
                         <Reveal.Content visible>
-                            <Image src={PHOTO_URL + item.photo_obj + '_thumb.jpg'} />
+                            <Image src={PHOTO_URL + item.file + '_thumb.jpg'} />
                         </Reveal.Content>
                         <Reveal.Content hidden>
                             <div className='info'>
-                                <h4>{item.photo_title}</h4>
-                                <p>{sliceText(item.photo_text)}</p>
+                                <h4>{item.title}</h4>
+                                <p>{sliceText(item.text)}</p>
                             </div>
                         </Reveal.Content>
                     </Reveal>

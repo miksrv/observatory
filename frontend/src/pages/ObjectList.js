@@ -29,7 +29,7 @@ class ObjectList extends Component {
                     { ! _.isEmpty(storePhotoStatistic) && ! _.isEmpty(storePhotoList) ? (
                         <FullTable
                             data={storePhotoStatistic}
-                            photo={storePhotoList}
+                            photo={storePhotoList.photos}
                         />
                     ) : (
                         <Dimmer active>

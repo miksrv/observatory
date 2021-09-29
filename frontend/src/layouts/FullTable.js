@@ -40,7 +40,7 @@ const FullTable = (props) => {
 
     const findPhoto = (name) => {
         let dataFIT = props.photo.find(function (object) {
-            return (object.photo_obj === name) && object
+            return (object.object === name) && object
         })
 
         return dataFIT
@@ -107,7 +107,7 @@ const FullTable = (props) => {
                         <Table.Cell textAlign='center'>
                             {
                                 findPhoto(item.name) && (
-                                    <Link to={'/photo/' + item.name} className={'photo-link' + dateDiff(findPhoto(item.name).photo_date, item.date)}>
+                                    <Link to={'/photo/' + item.name} className={'photo-link' + dateDiff(findPhoto(item.name).date, item.date)}>
                                         <Icon name='check square' size='large' />
                                     </Link>
                                 )

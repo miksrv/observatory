@@ -10,6 +10,7 @@ import defaultPhoto from '../static/images/default-photo.png'
 import { getTimeFromSec } from '../data/functions'
 
 import MainContainer from '../components/MainContainer'
+import PhotoArchive from '../layouts/PhotoArchive'
 import PhotoGrid from '../layouts/PhotoGrid'
 import FilterList from '../layouts/FilterList'
 
@@ -17,7 +18,7 @@ import * as photoActions from '../store/photo/actions'
 
 import _ from 'lodash'
 
-const PHOTO_URL = 'https://api.miksoft.pro/photo/'
+const PHOTO_URL = 'https://api.miksoft.pro/astro/'
 
 class PhotoItem extends Component {
     state = {
@@ -66,7 +67,7 @@ class PhotoItem extends Component {
 
         return (
             <MainContainer
-                title={!_.isEmpty(storePhotoItem) ? storePhotoItem.photo_title : 'Фотография'}
+                title={!_.isEmpty(storePhotoItem) ? storePhotoItem.title : 'Фотография'}
                 updateTime={moment().unix()}
                 onUpdateData={this.updateData}
             >
@@ -76,8 +77,8 @@ class PhotoItem extends Component {
                             <Grid.Column computer={9} tablet={8} mobile={16}>
                                 <Image
                                     className='border'
-                                    src={(objectExists ? PHOTO_URL + storePhotoItem.photo_obj + '_thumb.jpg' : defaultPhoto)}
-                                    onClick={() => this.clickHandler(PHOTO_URL + storePhotoItem.photo_obj + '.jpg')}
+                                    src={(objectExists ? PHOTO_URL + storePhotoItem.photo.file + '_thumb.jpg' : defaultPhoto)}
+                                    onClick={() => this.clickHandler(PHOTO_URL + storePhotoItem.photo.file + '.jpg')}
                                 />
                                 {(_.isEmpty(storePhotoItem) && (
                                     <Dimmer active>
@@ -87,22 +88,27 @@ class PhotoItem extends Component {
                             </Grid.Column>
                             <Grid.Column computer={7} tablet={8} mobile={16} className='description'>
                                 <div>
-                                    <h1>{(!_.isEmpty(storePhotoItem) ? storePhotoItem.photo_title : '')}</h1>
-                                    <div><span className='second-color'>Дата обработки:</span> {(objectExists ? moment(storePhotoItem.photo_date).format('DD.MM.YYYY') : '---')}</div>
-                                    <div><span className='second-color'>Общая выдержка:</span> {(objectExists && storePhotoItem.stats.exp !== 0 ? getTimeFromSec(storePhotoItem.stats.exp, true) : '---')}</div>
-                                    <div><span className='second-color'>Количество кадров:</span> {(objectExists && storePhotoItem.stats.shot !== 0 ? <Link to={'/object/' + storePhotoItem.photo_obj}>{storePhotoItem.stats.shot}</Link> : '---')}</div>
-                                    <FilterList data={objectExists && storePhotoItem.stats} />
-                                    <p>{(objectExists ? storePhotoItem.photo_text : '')}</p>
+                                    <h1>{(!_.isEmpty(storePhotoItem) ? storePhotoItem.title : '')}</h1>
+                                    <div><span className='second-color'>Дата обработки:</span> {(objectExists ? moment(storePhotoItem.photo.date).format('DD.MM.YYYY') : '---')}</div>
+                                    <div><span className='second-color'>Общая выдержка:</span> {(objectExists && storePhotoItem.photo.statistic.exp !== 0 ? getTimeFromSec(storePhotoItem.photo.statistic.exp, true) : '---')}</div>
+                                    <div><span className='second-color'>Количество кадров:</span> {(objectExists && storePhotoItem.photo.statistic.shot !== 0 ? <Link to={'/object/' + storePhotoItem.name}>{storePhotoItem.photo.statistic.shot}</Link> : '---')}</div>
+                                    <FilterList data={objectExists && storePhotoItem.photo.statistic} />
+                                    <p>{(objectExists ? storePhotoItem.text : '')}</p>
                                 </div>
                                 <div>
-                                    <Link to='/photo/'><Button size='mini' icon='grid layout' color='blue' content='Фотографии' /></Link> <Button size='mini' icon='download' color='green' content='Скачать' href={`https://api.miksoft.pro/photo/get/download?name=${storePhotoItem.photo_obj}`} />
+                                    <Link to='/photo/'><Button size='mini' icon='grid layout' color='blue' content='Фотографии' /></Link> <Button size='mini' icon='download' color='green' content='Скачать' href={`https://api.miksoft.pro/photo/get/download?name=${storePhotoItem.name}`} />
                                 </div>
                             </Grid.Column>
                         </Grid>
                     </div>
+                    {!_.isEmpty(storePhotoItem.archive) && (
+                        <PhotoArchive
+                            photos={storePhotoItem.archive}
+                        />
+                    )}
                     <PhotoGrid
                         // photos={shuffle(storePhotoList).slice(0, 4)}
-                        photos={storePhotoList.slice(0, 4)}
+                        photos={(!_.isEmpty(storePhotoList) ? storePhotoList.photos.slice(0, 4) : [])}
                         props={this.props}
                     />
                     {isOpen && (

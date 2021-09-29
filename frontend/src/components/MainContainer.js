@@ -146,7 +146,7 @@ class MainContainer extends Component {
                         </Menu.Item>
                         <Menu.Item as={NavLink} exact to='/photo/'>
                             {lang.menu.photo}
-                            <Label color='yellow'>{(!_.isEmpty(storePhotoList) ? storePhotoList.length : 0)}</Label>
+                            <Label color='yellow'>{(!_.isEmpty(storePhotoList) ? storePhotoList.photos.length : 0)}</Label>
                         </Menu.Item>
                         <Menu.Item as={NavLink} exact to='/object/'>
                             {lang.menu.objects}

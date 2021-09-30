@@ -4,8 +4,6 @@ import lang from '../locale/detect'
 
 import _ from 'lodash'
 
-const PHOTO_URL = 'https://api.miksoft.pro/astro/'
-
 const PhotoGrid = params => {
     const clickHandler = (object, date) => {
         params.props.history.push(`/photo/${object}?date=${date}`)
@@ -26,7 +24,7 @@ const PhotoGrid = params => {
                 <div key={key} className='item' onClick={() => clickHandler(item.object, item.date)}>
                     <Reveal animated='small fade'>
                         <Reveal.Content visible>
-                            <Image src={PHOTO_URL + item.file + '_thumb.jpg'} />
+                            <Image src={process.env.REACT_APP_PHOTOS + item.file + '_thumb.jpg'} />
                         </Reveal.Content>
                         <Reveal.Content hidden>
                             <div className='info'>

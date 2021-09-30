@@ -16,8 +16,6 @@ import phases from '../data/moon_phase'
 
 import _ from 'lodash'
 
-const PHOTO_URL = 'https://api.miksoft.pro/photo/'
-
 class ObjectItem extends Component {
 
     componentDidMount() {
@@ -47,12 +45,12 @@ class ObjectItem extends Component {
 
     updateData = () => {}
 
-    findPhoto = (name, array) => array.find((o) => o.photo_obj === name)
+    findPhoto = (name, array) => array.find((o) => o.object === name)
 
     render() {
         const { objectData, isAuth, storePhotoList } = this.props
         const { name } = this.props.match.params
-        const photo = this.findPhoto(name, storePhotoList)
+        const photo = !_.isEmpty(storePhotoList) ? this.findPhoto(name, storePhotoList.photos) : {}
         const objectExists = !_.isEmpty(objectData) && objectData.status === true
 
         return (
@@ -64,22 +62,36 @@ class ObjectItem extends Component {
                 <Container>
                     <div className='card container'>
                         <Grid>
-                            <Grid.Column computer={10} tablet={10} mobile={16}>
-                                <h1 inverted as='h1'>Данные съемки: {photo !== undefined ? photo.photo_title : name}</h1>
-                                <div><span className='second-color'>Дата обработки:</span> {(photo !== undefined ? moment(photo.photo_date).format('DD.MM.YYYY') : '---')}</div>
+                            <Grid.Column computer={7} tablet={7} mobile={16}>
+                                <h1 inverted as='h1'>Объект: {photo !== undefined ? photo.title : name}</h1>
+                                <div><span className='second-color'>Дата обработки:</span> {(photo !== undefined ? moment(photo.date).format('DD.MM.YYYY') : '---')}</div>
+                                <div><span className='second-color'>Категория:</span> {(photo !== undefined ? photo.category : '---')}</div>
                                 <div><span className='second-color'>Сделано кадров:</span> {(objectExists ? objectData.stats.shot : '---')}</div>
                                 <div><span className='second-color'>Общая выдержка:</span> {(objectExists ? getTimeFromSec(objectData.stats.exp, true) : '---')}</div>
                                 <div><span className='second-color'>Накоплено данных:</span> {(objectExists ? _.round(objectData.filesize / 1024, 1) + ' Гб' : '---')}</div>
-                                <FilterList data={objectExists && objectData.stats} />
+                                <br />
                                 <Link to='/object/'>Вернуться к списку всех объектов</Link>
                             </Grid.Column>
-                            <Grid.Column computer={6} tablet={6} mobile={16}>
+                            <Grid.Column computer={4} tablet={4} mobile={16}>
+                                <FilterList data={objectExists && objectData.stats} />
+                            </Grid.Column>
+                            <Grid.Column computer={5} tablet={5} mobile={16}>
                                 {(photo !== undefined) ? (
-                                    <Link to={'/photo/' + photo.photo_obj}>
-                                        <Image src={PHOTO_URL + photo.photo_obj + '_thumb.jpg'} size='medium' className='border' floated='right' />
+                                    <Link to={'/photo/' + photo.object}>
+                                        <Image
+                                            size='medium'
+                                            src={process.env.REACT_APP_PHOTOS + photo.file + '_thumb.jpg'}
+                                            className='border object-info'
+                                            floated='right'
+                                        />
                                     </Link>
                                 ) : (
-                                    <Image src={defaultPhoto} size='medium' className='border' floated='right' />
+                                    <Image
+                                        src={defaultPhoto}
+                                        size='medium'
+                                        className='border object-info'
+                                        floated='right'
+                                    />
                                 )}
                             </Grid.Column>
                         </Grid>

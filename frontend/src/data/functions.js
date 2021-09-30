@@ -1,5 +1,18 @@
 import React from 'react'
 
+/**
+ * Returns the value of the parameter by key from the address bar of the browser
+ * @example `?date=24.06.2021`
+ * @param name
+ * @returns {string|string}
+ */
+export const getUrlParameter = name => {
+    name = name.replace(/[\\[]/, '\\[').replace(/[\]]/, '\\]')
+    let regex = new RegExp('[\\?&]' + name + '=([^&#]*)')
+    let results = regex.exec(window.location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '))
+}
+
 export const declOfNum = (number, words) => {
     return words[(number % 100 > 4 && number % 100 < 20) ? 2 : [2, 0, 1, 1, 1, 2][(number % 10 < 5) ? number % 10 : 5]]
 }
@@ -66,4 +79,4 @@ export const shuffle = array => {
     return array
 }
 
-export default (declOfNum, getTimeFromSec, setClassByFilter, timeAgo, filterLabel, shuffle)
+export default (declOfNum, getTimeFromSec, setClassByFilter, timeAgo, filterLabel, shuffle, getUrlParameter)

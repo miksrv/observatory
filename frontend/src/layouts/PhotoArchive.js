@@ -1,40 +1,61 @@
 import React from 'react'
-import { Image, Grid, Dimmer, Loader } from 'semantic-ui-react'
-
-import FilterList from './FilterList'
+import { Image, Dimmer, Loader, Table } from 'semantic-ui-react'
+import { getTimeFromSec } from '../data/functions'
 import lang from '../locale/detect'
 
 import _ from 'lodash'
 import moment from "moment";
-import {getTimeFromSec} from "../data/functions";
-import {Link} from "react-router-dom";
 
-
-const PHOTO_URL = 'https://api.miksoft.pro/astro/'
+const renderTableCell = (item, filter) => {
+    return <Table.Cell className={(item.shot > 0) ? `filter-${filter}` : ''}>
+        {getTimeFromSec(item.exp)} ({item.shot})
+    </Table.Cell>
+}
 
 const PhotoArchive = params => {
     return (
         ! _.isEmpty(params.photos) ? (
         <div className='card photos-archive'>
-            {params.photos.map((item, key) => (
-                <Grid>
-                    <Grid.Column computer={3} tablet={8} mobile={16}>
-                        <Image
-                            size='small'
-                            className='border'
-                            src={PHOTO_URL + item.file + '_thumb.jpg'}
-                        />
-                    </Grid.Column>
-                    <Grid.Column computer={4} tablet={8} mobile={16}>
-                        <div><span className='second-color'>Дата обработки:</span> {moment(item.date).format('DD.MM.YYYY')}</div>
-                        <div><span className='second-color'>Общая выдержка:</span> {getTimeFromSec(item.statistic.exp, true)}</div>
-                        <div><span className='second-color'>Количество кадров:</span> {item.statistic.shot}</div>
-                    </Grid.Column>
-                    <Grid.Column computer={4} tablet={8} mobile={16}>
-                        <FilterList data={item.statistic} />
-                    </Grid.Column>
-                </Grid>
-            ))}
+            <Table celled inverted selectable compact>
+                <Table.Header>
+                    <Table.Row>
+                        <Table.HeaderCell width='one'>Фото</Table.HeaderCell>
+                        <Table.HeaderCell>Дата</Table.HeaderCell>
+                        <Table.HeaderCell>Кадров</Table.HeaderCell>
+                        <Table.HeaderCell>Выдержка</Table.HeaderCell>
+                        <Table.HeaderCell>L</Table.HeaderCell>
+                        <Table.HeaderCell>R</Table.HeaderCell>
+                        <Table.HeaderCell>G</Table.HeaderCell>
+                        <Table.HeaderCell>B</Table.HeaderCell>
+                        <Table.HeaderCell>H</Table.HeaderCell>
+                        <Table.HeaderCell>O</Table.HeaderCell>
+                        <Table.HeaderCell>S</Table.HeaderCell>
+                    </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                    {params.photos.map((item, key) => (
+                        <Table.Row key={key}>
+                            <Table.Cell textAlign='center'>
+                                <Image
+                                    size='tiny'
+                                    src={process.env.REACT_APP_PHOTOS + item.file + '_thumb.jpg'}
+                                    onClick={() => params.lightbox(item.file)}
+                                />
+                            </Table.Cell>
+                            <Table.Cell>{moment(item.date).format('DD.MM.YYYY')}</Table.Cell>
+                            <Table.Cell>{item.statistic.shot}</Table.Cell>
+                            <Table.Cell>{getTimeFromSec(item.statistic.exp, true)}</Table.Cell>
+                            {renderTableCell(item.statistic.filters.Luminance, 'l')}
+                            {renderTableCell(item.statistic.filters.Red, 'r')}
+                            {renderTableCell(item.statistic.filters.Green, 'g')}
+                            {renderTableCell(item.statistic.filters.Blue, 'b')}
+                            {renderTableCell(item.statistic.filters.Ha, 'h')}
+                            {renderTableCell(item.statistic.filters.OIII, 'o')}
+                            {renderTableCell(item.statistic.filters.SII, 's')}
+                        </Table.Row>
+                    ))}
+                </Table.Body>
+            </Table>
         </div>
         ) : (
             <div className='photos-list card loader'>

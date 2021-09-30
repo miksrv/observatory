@@ -7,7 +7,7 @@ import Lightbox from 'react-image-lightbox'
 import moment from 'moment'
 import defaultPhoto from '../static/images/default-photo.png'
 
-import { getTimeFromSec } from '../data/functions'
+import { getTimeFromSec, getUrlParameter } from '../data/functions'
 
 import MainContainer from '../components/MainContainer'
 import PhotoArchive from '../layouts/PhotoArchive'
@@ -17,8 +17,6 @@ import FilterList from '../layouts/FilterList'
 import * as photoActions from '../store/photo/actions'
 
 import _ from 'lodash'
-
-const PHOTO_URL = 'https://api.miksoft.pro/astro/'
 
 class PhotoItem extends Component {
     state = {
@@ -51,7 +49,7 @@ class PhotoItem extends Component {
     loadItem = name => {
         const { dispatch } = this.props
 
-        dispatch(photoActions.getItem(name))
+        dispatch(photoActions.getItem(name, getUrlParameter('date')))
     }
 
     updateData = () => {}
@@ -77,8 +75,8 @@ class PhotoItem extends Component {
                             <Grid.Column computer={9} tablet={8} mobile={16}>
                                 <Image
                                     className='border'
-                                    src={(objectExists ? PHOTO_URL + storePhotoItem.photo.file + '_thumb.jpg' : defaultPhoto)}
-                                    onClick={() => this.clickHandler(PHOTO_URL + storePhotoItem.photo.file + '.jpg')}
+                                    src={(objectExists ? process.env.REACT_APP_PHOTOS + storePhotoItem.photo.file + '_thumb.jpg' : defaultPhoto)}
+                                    onClick={() => this.clickHandler(process.env.REACT_APP_PHOTOS + storePhotoItem.photo.file + '.jpg')}
                                 />
                                 {(_.isEmpty(storePhotoItem) && (
                                     <Dimmer active>
@@ -92,6 +90,7 @@ class PhotoItem extends Component {
                                     <div><span className='second-color'>Дата обработки:</span> {(objectExists ? moment(storePhotoItem.photo.date).format('DD.MM.YYYY') : '---')}</div>
                                     <div><span className='second-color'>Общая выдержка:</span> {(objectExists && storePhotoItem.photo.statistic.exp !== 0 ? getTimeFromSec(storePhotoItem.photo.statistic.exp, true) : '---')}</div>
                                     <div><span className='second-color'>Количество кадров:</span> {(objectExists && storePhotoItem.photo.statistic.shot !== 0 ? <Link to={'/object/' + storePhotoItem.name}>{storePhotoItem.photo.statistic.shot}</Link> : '---')}</div>
+                                    <div><span className='second-color'>Накоплено данных:</span> {(objectExists ? _.round(storePhotoItem.photo.statistic.size / 1024, 1) : 0)} Гб</div>
                                     <FilterList data={objectExists && storePhotoItem.photo.statistic} />
                                     <p>{(objectExists ? storePhotoItem.text : '')}</p>
                                 </div>
@@ -104,6 +103,7 @@ class PhotoItem extends Component {
                     {!_.isEmpty(storePhotoItem.archive) && (
                         <PhotoArchive
                             photos={storePhotoItem.archive}
+                            lightbox={(file) => this.clickHandler(process.env.REACT_APP_PHOTOS + file + '.jpg')}
                         />
                     )}
                     <PhotoGrid

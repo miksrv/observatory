@@ -20,10 +20,11 @@ export function getList() {
     }
 }
 
-export function getItem(name) {
+export function getItem(name, date = null) {
     return async(dispatch) => {
         try {
-            const url = `${process.env.REACT_APP_API_HOST}photo/get/item_new?name=${name}`
+            const param = (date ? `&date=${date}` : '')
+            const url   = `${process.env.REACT_APP_API_HOST}photo/get/item_new?name=${name}${param}`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {

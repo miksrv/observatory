@@ -3,7 +3,7 @@ import * as types from './actionTypes'
 export function getList() {
     return async(dispatch) => {
         try {
-            const url = `${process.env.REACT_APP_API_HOST}photo/get/list_new`
+            const url = `${process.env.REACT_APP_API_HOST}photo/get/list`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {
@@ -24,7 +24,7 @@ export function getItem(name, date = null) {
     return async(dispatch) => {
         try {
             const param = (date ? `&date=${date}` : '')
-            const url   = `${process.env.REACT_APP_API_HOST}photo/get/item_new?name=${name}${param}`
+            const url   = `${process.env.REACT_APP_API_HOST}photo/get/item?name=${name}${param}`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: {

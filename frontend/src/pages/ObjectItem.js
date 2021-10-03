@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Button, Container, Dimmer, Grid, Image, Loader, Table} from 'semantic-ui-react'
-import {Link} from 'react-router-dom'
-import {getTimeFromSec, setClassByFilter} from '../data/functions'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Button, Container, Dimmer, Grid, Image, Loader, Table } from 'semantic-ui-react'
+import { Link} from 'react-router-dom'
+import { getTimeFromSec, setClassByFilter } from '../data/functions'
 
 import * as astroActions from '../store/astro/actions'
 

@@ -13,10 +13,22 @@ export const getUrlParameter = name => {
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '))
 }
 
+/**
+ * Depending on the number, selects a word from the array for the set
+ * @param number {number}
+ * @param words {array}
+ * @returns {*}
+ */
 export const declOfNum = (number, words) => {
     return words[(number % 100 > 4 && number % 100 < 20) ? 2 : [2, 0, 1, 1, 1, 2][(number % 10 < 5) ? number % 10 : 5]]
 }
 
+/**
+ * Returns the formatted time elapsed since the beginning of the event
+ * @param sec {string}
+ * @param full {boolean}
+ * @returns {string}
+ */
 export const getTimeFromSec = (sec, full = false) => {
     if (sec <= 0)
         return ''
@@ -30,6 +42,11 @@ export const getTimeFromSec = (sec, full = false) => {
     return (h < 10 ? "0" + h : h) + ':' + ( m < 10 ? "0" + m : m)
 }
 
+/**
+ * Maps filter names from API to style class names
+ * @param filter
+ * @returns {string}
+ */
 export const setClassByFilter = filter => {
     switch (filter) {
         case 'Red'       : return 'filter-r'
@@ -44,6 +61,11 @@ export const setClassByFilter = filter => {
     }
 }
 
+/**
+ * Formats seconds into a familiar format (hours, minutes)
+ * @param sec {number}
+ * @returns {string}
+ */
 export const timeAgo = sec => {
     if (sec === null || sec <= 0)
         return ''
@@ -56,6 +78,13 @@ export const timeAgo = sec => {
         + (s > 0 ? (s < 10 ? '0' + s : s) + ' сек.' : '')) + ' назад'
 }
 
+/**
+ * Creates a JSX element for visualizing filter information (excerpt, frames and filter name)
+ * @param sec {number}
+ * @param shot {number}
+ * @param name {string}
+ * @returns {JSX.Element|string}
+ */
 export const filterLabel = (sec, shot = 0, name) => {
     if (sec === 0) return ''
 
@@ -64,6 +93,11 @@ export const filterLabel = (sec, shot = 0, name) => {
     return <li><span className={'filter ' + setClassByFilter(name)}>{name}</span> {min} {declOfNum(min, ['минута', 'минуты', 'минут'])} {shot !== 0 ? `(${shot} ${declOfNum(shot, ['кадр', 'кадра', 'кадров'])})` : ``}</li>
 }
 
+/**
+ * Shuffles the array randomly
+ * @param array
+ * @returns {array}
+ */
 export const shuffle = array => {
     let currentIndex = array.length, temporaryValue, randomIndex
 

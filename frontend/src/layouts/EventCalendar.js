@@ -17,14 +17,14 @@ const EventCalendar = (params) => {
         const { data } = params.meteo
         let result = []
 
-        Object.keys(data).map((key) => {
-            return result.push({
+        Object.keys(data).map((key) =>
+            result.push({
                 'title': data[key].t2 + '°C, ' + data[key].h + '%, ' + data[key].lux + ' lux',
                 'start': moment(key, 'DD-MM-YYYY').toDate(),
                 'end'  : moment(key, 'DD-MM-YYYY').toDate(),
                 'type' :'meteo'
             })
-        })
+        )
 
         return result
     }
@@ -35,14 +35,14 @@ const EventCalendar = (params) => {
         const { data } = params.astro
         let result = []
 
-        Object.keys(data).map((key) => {
-            return result.push({
+        Object.keys(data).map((key) =>
+            result.push({
                 'title': `${data[key].frames} ${declOfNum(data[key].frames, lang.general.declNumFrames)}, ${data[key].exposure} ${lang.general.shortMin}`,
                 'start': moment(key, 'DD-MM-YYYY').toDate(),
                 'end'  : moment(key, 'DD-MM-YYYY').toDate(),
                 'type' :'astro'
             })
-        })
+        )
 
         return result
     }

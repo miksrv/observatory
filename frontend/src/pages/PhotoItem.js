@@ -95,7 +95,10 @@ class PhotoItem extends Component {
                                     <p>{(objectExists ? storePhotoItem.text : '')}</p>
                                 </div>
                                 <div>
-                                    <Link to='/photo/'><Button size='mini' icon='grid layout' color='blue' content='Фотографии' /></Link> <Button size='mini' icon='download' color='green' content='Скачать' href={`https://api.miksoft.pro/photo/get/download?name=${storePhotoItem.name}`} />
+                                    <Link to='/photo/'><Button size='mini' icon='grid layout' color='blue' content='Фотографии' /></Link>&nbsp;
+                                    {(!_.isEmpty(storePhotoItem) && (
+                                        <Button size='mini' icon='download' color='green' content='Скачать' href={`https://api.miksoft.pro/photo/get/download?name=${storePhotoItem.name}&date=${storePhotoItem.photo.date}`} />
+                                    ))}
                                 </div>
                             </Grid.Column>
                         </Grid>

@@ -17,13 +17,13 @@ class Map extends Component {
             projectionRatio: null,   // Optional override for default projection ratio
             transform: "equatorial", // Coordinate transformation: equatorial (default),
                                      // ecliptic, galactic, supergalactic
-            center:null,       // Initial center coordinates in set transform
+            center:[10.68,41.267, 0],       // Initial center coordinates in set transform
                                 // [longitude, latitude, orientation] all in degrees
                                 // null = default center [0,0,0]
             orientationfixed: true,  // Keep orientation angle the same as center[2]
-            geopos: [51,55],       // optional initial geographic position [lat,lon] in degrees,
+            // geopos: [51,55],       // optional initial geographic position [lat,lon] in degrees,
                                 // overrides center
-            follow: null,   // on which coordinates to center the map, default: zenith, if location enabled,
+            follow: [10.68,41.267],   // on which coordinates to center the map, default: zenith, if location enabled,
                                 // otherwise center
             datapath: "https://ofrohn.github.io/data/",
             zoomlevel: 5,    // initial zoom level 0...zoomextend; 0|null = default, 1 = 100%, 0 < x <= zoomextend
@@ -44,12 +44,12 @@ class Map extends Component {
                 designation: true, // Show star names (Bayer, Flamsteed, Variable star, Gliese or designation,
                                    // i.e. whichever of the previous applies first); may vary with culture setting
                 designationType: "desig",  // Which kind of name is displayed as designation (fieldname in starnames.json)
-                designationStyle: { fill: "#ddddbb", font: "11px 'Palatino Linotype', Georgia, Times, 'Times Roman', serif", align: "left", baseline: "top" },
+                designationStyle: { fill: "#ddddbb", font: "11px sans-serif", align: "left", baseline: "top" },
                 designationLimit: 4,  // Show only names for stars brighter than nameLimit
                 propername: true,   // Show proper name (if present)
                 propernameType: "name", // Languge for proper name, default IAU name; may vary with culture setting
                                         // (see list below of languages codes available for stars)
-                propernameStyle: { fill: "#ddddbb", font: "13px 'Palatino Linotype', Georgia, Times, 'Times Roman', serif", align: "right", baseline: "bottom" },
+                propernameStyle: { fill: "#ddddbb", font: "13px sans-serif", align: "right", baseline: "bottom" },
                 propernameLimit: 3,  // Show proper names for stars brighter than propernameLimit
                 size: 7,       // Maximum size (radius) of star circle in pixels
                 exponent: -0.28, // Scale exponent for star size, larger = more linear
@@ -62,11 +62,11 @@ class Map extends Component {
                 colors: true,  // // Show DSOs in symbol colors if true, use style setting below if false
                 style: { fill: "#cccccc", stroke: "#cccccc", width: 2, opacity: 1 }, // Default style for dsos
                 names: true,   // Show DSO names
-                namesType: "name",  // Type of DSO ('desig' or language) name shown
+                namesType: 'desig',  // Type of DSO ('desig' or language) name shown
                                     // (see list below for languages codes available for dsos)
-                nameStyle: { fill: "#cccccc", font: "11px Helvetica, Arial, serif",
-                    align: "left", baseline: "top" }, // Style for DSO names
-                nameLimit: 3,  // Show only names for DSOs brighter than namelimit
+                nameStyle: { fill: "#cccccc", font: "11px sans-serif",
+                    align: "left", baseline: "alphabetic" }, // Style for DSO names
+                nameLimit: 6,  // Show only names for DSOs brighter than namelimit
                 size: null,    // Optional seperate scale size for DSOs, null = stars.size
                 exponent: 2.4, // Scale exponent for DSO size, larger = more non-linear
                 data: 'dsos.bright.json', // Data source for DSOs,
@@ -117,12 +117,12 @@ class Map extends Component {
                     "plu": {symbol: "\u2647", letter:"P", fill: "#aaaaaa"},
                     "eri": {symbol: "\u26aa", letter:"E", fill: "#eeeeee"}
                 },
-                symbolStyle: { fill: "#00ccff", font: "bold 17px 'Lucida Sans Unicode', Consolas, sans-serif",
+                symbolStyle: { fill: "#00ccff", font: "bold 17px sans-serif",
                     align: "center", baseline: "middle" },
                 symbolType: "symbol",  // Type of planet symbol: 'symbol' graphic planet sign, 'disk' filled circle scaled by magnitude
                                        // 'letter': 1 or 2 letters S Me V L Ma J S U N
                 names: true,          // Show name in nameType language next to symbol
-                nameStyle: { fill: "#00ccff", font: "14px 'Lucida Sans Unicode', Consolas, sans-serif", align: "right", baseline: "top" },
+                nameStyle: { fill: "#00ccff", font: "14px sans-serif", align: "right", baseline: "top" },
                 namesType: "desig"     // Language of planet name (see list below of language codes available for planets),
                                        // or desig = 3-letter designation
             },
@@ -130,24 +130,24 @@ class Map extends Component {
                 names: true,      // Show constellation names
                 namesType: "iau", // Type of name Latin (iau, default), 3 letter designation (desig) or other language (see list below)
                 nameStyle: { fill:"#cccc99", align: "center", baseline: "middle",
-                    font: ["14px Helvetica, Arial, sans-serif",  // Style for constellations
-                        "12px Helvetica, Arial, sans-serif",  // Different fonts for diff.
-                        "11px Helvetica, Arial, sans-serif"]},// ranked constellations
+                    font: ["14px sans-serif",  // Style for constellations
+                        "12px sans-serif",  // Different fonts for diff.
+                        "11px sans-serif"]},// ranked constellations
                 lines: true,   // Show constellation lines, style below
                 lineStyle: { stroke: "#cccccc", width: 1, opacity: 0.6 },
-                bounds: false, // Show constellation boundaries, style below
+                bounds: true, // Show constellation boundaries, style below
                 boundStyle: { stroke: "#cccc00", width: 0.5, opacity: 0.8, dash: [2, 4] }
             },
             mw: {
-                show: false,     // Show Milky Way as filled multi-polygon outlines
+                show: true,     // Show Milky Way as filled multi-polygon outlines
                 style: { fill: "#ffffff", opacity: 0.15 }  // Style for MW layers
             },
             lines: {  // Display & styles for graticule & some planes
                 graticule: { show: true, stroke: "#cccccc", width: 0.6, opacity: 0.8,
                     // grid values: "outline", "center", or [lat,...] specific position
-                    lon: {pos: [""], fill: "#eee", font: "10px Helvetica, Arial, sans-serif"},
+                    lon: {pos: [""], fill: "#eee", font: "10px sans-serif"},
                     // grid values: "outline", "center", or [lon,...] specific position
-                    lat: {pos: [""], fill: "#eee", font: "10px Helvetica, Arial, sans-serif"}},
+                    lat: {pos: [""], fill: "#eee", font: "10px sans-serif"}},
                 equatorial: { show: false, stroke: "#aaaaaa", width: 1.3, opacity: 0.7 },
                 ecliptic: { show: false, stroke: "#66cc66", width: 1.3, opacity: 0.7 },
                 galactic: { show: false, stroke: "#cc6666", width: 1.3, opacity: 0.7 },
@@ -173,7 +173,24 @@ class Map extends Component {
         let test = celestial.Celestial();
         test.display(config);
 
-        test.rotate({center:[10.68,41.267,0]})
+        // test.rotate({center:[10.68,41.267,0]})
+
+        /**
+         * Get coordinates by click
+         * @param e
+         * @returns {*}
+         */
+        // function getPosition(e) {
+        //     var p = document.getElementById ('celestial-map').getBoundingClientRect(),
+        //         x = e.offsetX,
+        //         y = e.offsetY,
+        //         inv = test.mapProjection.invert([x, y]);
+        //     console.log('inv', inv)
+        //
+        //     return inv; // [right ascension -180...180 degrees, declination -90...90 degrees]
+        // }
+        //
+        // document.getElementById('celestial-map').addEventListener('click', getPosition, false);
 
     }
 
@@ -187,7 +204,9 @@ class Map extends Component {
                 onUpdateData={this.updateData}
             >
                 <Container>
-                    <div id="celestial-map"></div>
+                    <div className='informer'>
+                        <div id='celestial-map'></div>
+                    </div>
                 </Container>
             </MainContainer>
         )

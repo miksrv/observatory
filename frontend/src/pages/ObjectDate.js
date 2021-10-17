@@ -58,9 +58,9 @@ class ObjectItem extends Component {
                                 ↑ {moment(_moonTimes.rise).format('H:mm')} ↓ {moment(_moonTimes.set).format('H:mm')}
                             </span>
                         </div>
-                        <div><span className='second-color'>Сделано кадров:</span> {(!_.isEmpty(storeStatisticDay) ? storeStatisticDay.frames : '---')}</div>
-                        <div><span className='second-color'>Общая выдержка:</span> {(!_.isEmpty(storeStatisticDay) ? getTimeFromSec(storeStatisticDay.exposure, true) : '---')}</div>
-                        <div><span className='second-color'>Накоплено данных:</span> {(!_.isEmpty(storeStatisticDay) ? _.round(storeStatisticDay.filesize / 1024, 1) + ' Гб' : '---')}</div>
+                        <div><span className='second-color'>Сделано кадров:</span> {(!_.isEmpty(storeStatisticDay) ? storeStatisticDay.stats.shot : '---')}</div>
+                        <div><span className='second-color'>Общая выдержка:</span> {(!_.isEmpty(storeStatisticDay) ? getTimeFromSec(storeStatisticDay.stats.exp, true) : '---')}</div>
+                        <div><span className='second-color'>Накоплено данных:</span> {(!_.isEmpty(storeStatisticDay) ? _.round(storeStatisticDay.stats.size / 1024, 1) + ' Гб' : '---')}</div>
                         <div><span className='second-color'>Объекты съемки:</span>
                             {!_.isEmpty(storeStatisticDay) && this.getObjectList(storeStatisticDay.files).map((obj, key) => (
                                 <Link key={key} to={'/object/' + obj} className='inline-link'>{obj}</Link>

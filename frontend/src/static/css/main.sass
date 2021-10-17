@@ -195,6 +195,14 @@ p
     padding: 1em
     box-shadow: 0 0 10px rgba(0,0,0,0.5)
 
+#celestial-map
+    //overflow: hidden
+    height: auto !important
+    margin-bottom: -5px
+
+    canvas
+        width: 100% !important
+
 .relay
     position: relative
     padding: 1em
@@ -250,7 +258,6 @@ p
 
     img
         height: 100%
-        max-height: 500px
         width: 100%
         object-fit: cover
         cursor: pointer
@@ -261,7 +268,12 @@ p
         justify-content: space-between
 
     p
-        margin-bottom: 1.5em
+        text-align: justify
+
+    .button-bar
+        a, button
+            width: 100%
+            margin-bottom: 8px
 
 .photos-archive
     margin-top: 2em

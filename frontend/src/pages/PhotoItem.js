@@ -13,6 +13,7 @@ import MainContainer from '../components/MainContainer'
 import PhotoArchive from '../layouts/PhotoArchive'
 import PhotoGrid from '../layouts/PhotoGrid'
 import FilterList from '../layouts/FilterList'
+import ObjectMap from '../layouts/ObjectMap';
 
 import * as photoActions from '../store/photo/actions'
 
@@ -87,26 +88,33 @@ class PhotoItem extends Component {
                             <Grid.Column computer={7} tablet={8} mobile={16} className='description'>
                                 <div>
                                     <h1>{(!_.isEmpty(storePhotoItem) ? storePhotoItem.title : '')}</h1>
-                                    <div><span className='second-color'>Дата обработки:</span> {(objectExists ? moment(storePhotoItem.photo.date).format('DD.MM.YYYY') : '---')}</div>
-                                    <div><span className='second-color'>Общая выдержка:</span> {(objectExists && storePhotoItem.photo.statistic.exp !== 0 ? getTimeFromSec(storePhotoItem.photo.statistic.exp, true) : '---')}</div>
-                                    <div><span className='second-color'>Количество кадров:</span> {(objectExists && storePhotoItem.photo.statistic.shot !== 0 ? <Link to={'/object/' + storePhotoItem.name}>{storePhotoItem.photo.statistic.shot}</Link> : '---')}</div>
-                                    <div><span className='second-color'>Накоплено данных:</span> {(objectExists ? _.round(storePhotoItem.photo.statistic.size / 1024, 1) : 0)} Гб</div>
+                                    <Grid>
+                                        <Grid.Column computer={11} tablet={11} mobile={16}>
+                                            <div><span className='second-color'>Дата обработки:</span> {(objectExists ? moment(storePhotoItem.photo.date).format('DD.MM.YYYY') : '---')}</div>
+                                            <div><span className='second-color'>Общая выдержка:</span> {(objectExists && storePhotoItem.photo.statistic.exp !== 0 ? getTimeFromSec(storePhotoItem.photo.statistic.exp, true) : '---')}</div>
+                                            <div><span className='second-color'>Количество кадров:</span> {(objectExists && storePhotoItem.photo.statistic.shot !== 0 ? <Link to={'/object/' + storePhotoItem.name}>{storePhotoItem.photo.statistic.shot}</Link> : '---')}</div>
+                                            <div><span className='second-color'>Накоплено данных:</span> {(objectExists ? _.round(storePhotoItem.photo.statistic.size / 1024, 1) : 0)} Гб</div>
+                                        </Grid.Column>
+                                        <Grid.Column computer={5} tablet={5} mobile={16} className='button-bar'>
+                                            <Link to='/photo/'><Button size='mini' icon='grid layout' color='blue' content='Фотографии' /></Link>
+                                            {(!_.isEmpty(storePhotoItem) && (
+                                                <Button size='mini' icon='download' color='green' content='Скачать' href={`https://api.miksoft.pro/photo/get/download?name=${storePhotoItem.name}&date=${storePhotoItem.photo.date}`} />
+                                            ))}
+                                        </Grid.Column>
+                                    </Grid>
                                     <FilterList data={objectExists && storePhotoItem.photo.statistic} />
-                                    <p>{(objectExists ? storePhotoItem.text : '')}</p>
                                 </div>
                                 <div>
-                                    <Link to='/photo/'><Button size='mini' icon='grid layout' color='blue' content='Фотографии' /></Link>&nbsp;
-                                    {(!_.isEmpty(storePhotoItem) && (
-                                        <Button size='mini' icon='download' color='green' content='Скачать' href={`https://api.miksoft.pro/photo/get/download?name=${storePhotoItem.name}&date=${storePhotoItem.photo.date}`} />
-                                    ))}
+                                    <ObjectMap data={objectExists && storePhotoItem.object} name={storePhotoItem.name} />
                                 </div>
                             </Grid.Column>
                         </Grid>
+                        <p>{(objectExists ? storePhotoItem.text : '')}</p>
                     </div>
                     {!_.isEmpty(storePhotoItem.archive) && (
                         <PhotoArchive
                             photos={storePhotoItem.archive}
-                            lightbox={(file) => this.clickHandler(process.env.REACT_APP_PHOTOS + file + '.jpg')}
+                            clickHandler={(file) => this.clickHandler(process.env.REACT_APP_PHOTOS + file + '.jpg')}
                         />
                     )}
                     <PhotoGrid

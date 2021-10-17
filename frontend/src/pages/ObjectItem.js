@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Button, Container, Dimmer, Grid, Image, Loader, Table } from 'semantic-ui-react'
+import { Button, Container, Dimmer, Grid, Loader, Table } from 'semantic-ui-react'
 import { Link} from 'react-router-dom'
 import { getTimeFromSec, setClassByFilter } from '../data/functions'
 
 import * as astroActions from '../store/astro/actions'
 
-import FilterList from '../layouts/FilterList'
 import MainContainer from '../components/MainContainer'
-import defaultPhoto from '../static/images/default-photo.png'
+import FilterList from '../layouts/FilterList'
+import PhotoArchive from '../layouts/PhotoArchive'
+import ObjectMap from '../layouts/ObjectMap'
 
 import SunCalc from 'suncalc'
 import moment from 'moment'
@@ -68,7 +69,7 @@ class ObjectItem extends Component {
                                 <div><span className='second-color'>Категория:</span> {(photo !== undefined ? photo.category : '---')}</div>
                                 <div><span className='second-color'>Сделано кадров:</span> {(objectExists ? objectData.stats.shot : '---')}</div>
                                 <div><span className='second-color'>Общая выдержка:</span> {(objectExists ? getTimeFromSec(objectData.stats.exp, true) : '---')}</div>
-                                <div><span className='second-color'>Накоплено данных:</span> {(objectExists ? _.round(objectData.filesize / 1024, 1) + ' Гб' : '---')}</div>
+                                <div><span className='second-color'>Накоплено данных:</span> {(objectExists ? _.round(objectData.stats.size / 1024, 1) + ' Гб' : '---')}</div>
                                 <br />
                                 <Link to='/object/'>Вернуться к списку всех объектов</Link>
                             </Grid.Column>
@@ -76,26 +77,16 @@ class ObjectItem extends Component {
                                 <FilterList data={objectExists && objectData.stats} />
                             </Grid.Column>
                             <Grid.Column computer={5} tablet={5} mobile={16}>
-                                {(photo !== undefined) ? (
-                                    <Link to={'/photo/' + photo.object}>
-                                        <Image
-                                            size='medium'
-                                            src={process.env.REACT_APP_PHOTOS + photo.file + '_thumb.jpg'}
-                                            className='border object-info'
-                                            floated='right'
-                                        />
-                                    </Link>
-                                ) : (
-                                    <Image
-                                        src={defaultPhoto}
-                                        size='medium'
-                                        className='border object-info'
-                                        floated='right'
-                                    />
-                                )}
+                                <ObjectMap data={objectExists && objectData.object} name={name} />
                             </Grid.Column>
                         </Grid>
                     </div>
+                    {!_.isEmpty(objectData.photos) && (
+                        <PhotoArchive
+                            photos={objectData.photos}
+                            clickHandler={(file, date) => this.props.history.push(`/photo/${name}?date=${date}`)}
+                        />
+                    )}
                     <br />
                     <div className='card table-loader'>
                         {objectExists ? (

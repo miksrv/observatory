@@ -13,7 +13,6 @@ import 'semantic-ui-css/semantic.min.css'
 import './static/css/main.sass'
 
 import Main from './pages/Main'
-import Map from './pages/Map'
 import News from './pages/News'
 import PhotoList from './pages/PhotoList'
 import PhotoItem from './pages/PhotoItem'
@@ -30,7 +29,6 @@ ReactDOM.render(
         <BrowserRouter>
             <Switch>
                 <Route exact path="/" component={Main} />
-                <Route exact path="/map/" component={Map} />
                 <Route exact path="/news/" component={News} />
                 <Route exact path="/photo/" component={PhotoList} />
                 <Route exact path="/photo/:name" component={PhotoItem} />

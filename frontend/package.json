@@ -4,6 +4,7 @@
   "update": "08.10.2021",
   "private": true,
   "dependencies": {
+    "d3-celestial": "^0.7.35",
     "highcharts": "^9.2.2",
     "highcharts-react-official": "^3.0.0",
     "lodash": "^4.17.21",

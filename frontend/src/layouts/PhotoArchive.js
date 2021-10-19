@@ -4,7 +4,7 @@ import { getTimeFromSec } from '../data/functions'
 import lang from '../locale/detect'
 
 import _ from 'lodash'
-import moment from "moment";
+import moment from 'moment'
 
 const renderTableCell = (item, filter) => {
     return <Table.Cell className={(item.shot > 0) ? `filter-${filter}` : ''}>
@@ -39,7 +39,7 @@ const PhotoArchive = params => {
                                 <Image
                                     size='tiny'
                                     src={process.env.REACT_APP_PHOTOS + item.file + '_thumb.jpg'}
-                                    onClick={() => params.lightbox(item.file)}
+                                    onClick={() => params.clickHandler(item.file, item.date)}
                                 />
                             </Table.Cell>
                             <Table.Cell>{moment(item.date).format('DD.MM.YYYY')}</Table.Cell>

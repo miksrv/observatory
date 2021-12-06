@@ -1,0 +1,37 @@
+@import colors
+
+$fontStack: sans-serif
+$borderRadius: 2px
+$colorBackground: #1b1b1b
+
+body
+  font-family: $fontStack
+  font-size: 12px
+  line-height: 1.5
+  background-color: $colorBackground
+  color: $text-main
+  margin: 0
+
+#root
+  height: 100vh
+
+.ui.container
+  max-width: 1800px !important
+
+/* General */
+.box
+  position: relative
+  background: $box-background
+  border-radius: $borderRadius
+  padding: 13px
+  box-shadow: 0 0 3px rgba(0,0,0,0.5)
+
+  .dimmer
+    border-radius: $borderRadius
+
+.aright
+  text-align: right
+
+@import components/header
+@import components/footer
+@import components/sidebar

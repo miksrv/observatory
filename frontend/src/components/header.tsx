@@ -15,6 +15,9 @@ const Header: React.FC = () => {
     return (
         <Menu fixed='top' color='grey' className='menu' secondary inverted>
             <Container>
+                {!currentMobile && <Menu.Item>
+                    <img src='/logo-w.svg' alt='' />
+                </Menu.Item>}
                 {currentMobile ?
                     <Menu.Item
                         icon='bars'

@@ -12,13 +12,16 @@ body
   color: $text-main
   margin: 0
 
+h1
+  font-size: 1.6em
+
 #root
   height: 100vh
 
-.ui.container
-  max-width: 1800px !important
-
 /* General */
+.main
+  margin-top: 70px
+
 .box
   position: relative
   background: $box-background
@@ -26,8 +29,17 @@ body
   padding: 13px
   box-shadow: 0 0 3px rgba(0,0,0,0.5)
 
+  &.table
+    padding: 5px
+
   .dimmer
     border-radius: $borderRadius
+
+  &.loader
+    height: 40vh
+
+.second-color
+  color: $text-second
 
 .aright
   text-align: right
@@ -35,3 +47,11 @@ body
 @import components/header
 @import components/footer
 @import components/sidebar
+@import ../components/photoGrid/index
+@import ../components/objectTable/index
+@import ../components/skyMap/index
+@import ../components/categoryToolbar/index
+@import ../components/filterList/index
+@import ../components/photoTable/index
+@import ../components/photoItemHeader/index
+@import ../components/moonPhase/index

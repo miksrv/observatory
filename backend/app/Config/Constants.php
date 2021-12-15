@@ -1,5 +1,8 @@
 <?php
 
+// FIT file size in byte for 16 bit mask (Mb)
+defined('FITS_FILE_SIZE') || define('FITS_FILE_SIZE', 32.78592);
+
 /*
  | --------------------------------------------------------------------
  | App Namespace

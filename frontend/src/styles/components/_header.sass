@@ -1,19 +1,17 @@
 .menu
   padding: 4px 0
+  background-color: $box-background !important
+
+  .item
+    font-size: .9em !important
+    height: 32px
+
+  .active
+    &.item
+      background-color: rgba(66, 66, 66, 0.7) !important
 
   .hamburger
     padding: 0px 6px !important
 
     .icon
       font-size: 2em
-
-.ui
-  .menu
-    background-color: $box-background !important
-
-    .item
-      font-size: .9em !important
-      height: 32px
-
-.ui.inverted.grey.menu .active.item
-  background-color: rgba(66, 66, 66, 0.7) !important

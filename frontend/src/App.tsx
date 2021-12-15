@@ -8,6 +8,13 @@ import Footer from './components/footer'
 import Sidebar from './components/sidebar'
 
 import Main from './features/main'
+import News from './features/news'
+import Plan from './features/plan'
+import PhotoList from './features/photoList'
+import PhotoItem from './features/photoItem'
+import ObjectList from './features/objectList'
+import ObjectItem from './features/objectItem'
+import Dashboard from './features/dashboard'
 import Error from './features/error'
 
 const App: React.FC = () => {
@@ -18,14 +25,21 @@ const App: React.FC = () => {
             <BrowserRouter>
                 <Sidebar />
                 <SidebarMenu.Pusher dimmed={visible}>
-                    <Container>
-                        <Header />
+                    <Header />
+                    <Container className='main'>
                         <Switch>
                             <Route component={Main} path='/' exact />
+                            <Route component={News} path='/news' exact />
+                            <Route component={Plan} path='/plan' exact />
+                            <Route component={PhotoList} path='/photos' exact />
+                            <Route component={PhotoItem} path='/photo/:name' exact />
+                            <Route component={ObjectList} path='/objects' exact />
+                            <Route component={ObjectItem} path='/object/:name' exact />
+                            <Route component={Dashboard} path='/dashboard' exact />
                             <Route component={Error} />
                         </Switch>
-                        <Footer />
                     </Container>
+                    <Footer />
                 </SidebarMenu.Pusher>
             </BrowserRouter>
         </SidebarMenu.Pushable>

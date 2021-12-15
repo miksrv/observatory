@@ -1,7 +1,7 @@
 {
-  "name": "weather-frontend",
+  "name": "observatory",
   "update": "29.11.2021",
-  "version": "2.0.3",
+  "version": "2.0.0",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.2",

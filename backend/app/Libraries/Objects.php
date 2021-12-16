@@ -16,8 +16,7 @@ class Objects
     {
         $ObjectList = new ObjectList();
 
-        foreach ($this->Files->list() as $file)
-        {
+        foreach ($this->Files->list() as $file) {
             $ObjectList->add(
                 $file->item_object,
                 $file->item_filter,
@@ -27,6 +26,11 @@ class Objects
         }
 
         return $ObjectList->get();
+    }
+
+    function names(): array
+    {
+        return $this->Files->names();
     }
 
     function item(string $object): ?ObjectItem

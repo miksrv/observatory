@@ -31,20 +31,22 @@ const PhotoTable: React.FC<TPhotoTableProps> = (props) => {
     const { photos } = props
 
     return (
-        <Table sortable celled inverted selectable compact className='photo-table'>
-            <Table.Header>
-                <Table.Row>
-                    {HEADER_FIELDS.map((item, key) =>
-                        <Table.HeaderCell key={item.key}>
-                            {item.name}
-                        </Table.HeaderCell>
-                    )}
-                </Table.Row>
-            </Table.Header>
-            <Table.Body>
-                {photos?.map((photo, key) => <RenderTableRow photo={photo} key={key} />)}
-            </Table.Body>
-        </Table>
+        <div className='box table'>
+            <Table sortable celled inverted selectable compact className='photo-table'>
+                <Table.Header>
+                    <Table.Row>
+                        {HEADER_FIELDS.map((item, key) =>
+                            <Table.HeaderCell key={item.key}>
+                                {item.name}
+                            </Table.HeaderCell>
+                        )}
+                    </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                    {photos?.map((photo, key) => <RenderTableRow photo={photo} key={key} />)}
+                </Table.Body>
+            </Table>
+        </div>
     )
 }
 

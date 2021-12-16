@@ -25,6 +25,9 @@ class Get extends BaseController
             case 'list': // Получить список
                 return $this->_response($Objects->list());
 
+            case 'names': // Возвращает список имён объектов
+                return $this->_response($Objects->names());
+
             case 'item': // Получить один
                 if (! $object)
                 {

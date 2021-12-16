@@ -5,8 +5,9 @@
     "homepage": "https://codeigniter.com",
     "license": "MIT",
     "require": {
-        "php": "7.4",
-        "codeigniter4/framework": "^4.0"
+        "php": ">=7.4",
+        "codeigniter4/framework": "^4.0",
+        "vkcom/vk-php-sdk": "^5.101"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9",

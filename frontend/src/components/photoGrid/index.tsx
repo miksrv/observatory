@@ -6,10 +6,12 @@ import { TPhoto, TCatalog } from '../../app/types'
 type TPhotoGridProps = {
     loading: boolean
     photoList: any
+    loaderCount?: number
+    className?: string
 }
 
-const PhotosLoader = () => {
-    return Array(12).fill(1).map((item, key) =>
+const PhotosLoader = (count: number) => {
+    return Array(count).fill(1).map((item, key) =>
         <div key={key} className='item'>
             <div className='info'>
                 <Dimmer active>
@@ -21,7 +23,7 @@ const PhotosLoader = () => {
 }
 
 const PhotoGrid: React.FC<TPhotoGridProps> = (props) => {
-    const { photoList, loading } = props
+    const { loading, photoList, loaderCount, className } = props
 
     const sliceText = (text: string) => {
         let sliced = text.slice(0, 350)
@@ -29,10 +31,10 @@ const PhotoGrid: React.FC<TPhotoGridProps> = (props) => {
         return sliced + (sliced.length < text.length && '...')
     }
 
-    return <div className='photo-gird box'>
+    return <div className={`box photo-gird ${className ? className : ''}`}>
         {
             loading ?
-                PhotosLoader()
+                PhotosLoader(loaderCount ? loaderCount : 12)
                 :
                 photoList.map((photo: TPhoto & TCatalog, key: number) =>
                     <Link to={`/photo/${photo.object}?date=${photo.date}`} key={key} className='item'>

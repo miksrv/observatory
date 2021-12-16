@@ -1,12 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {
-    IRestStatistic,
-    IRestPhotoList,
-    IRestObjectList,
-    IRestCatalogItem,
-    IRestObjectFiles,
-    IRestObjectItem,
-    IRestCatalogList,
+    IRestStatistic, IRestPhotoList, IRestObjectList,
+    IRestCatalogItem, IRestObjectFiles, IRestObjectItem,
+    IRestCatalogList, IRestObjectNames
 } from './types'
 
 export const observatoryApi = createApi({
@@ -16,7 +12,8 @@ export const observatoryApi = createApi({
     endpoints: (builder) => ({
         // Получить общую статистику по обсерватории (кадры, выдержка, объекты, использовано места)
         getStatistic: builder.query<IRestStatistic, void>({
-            query: () => 'statistic'
+            query: () => 'statistic',
+            keepUnusedDataFor: 3600,
         }),
 
         // Список объектов каталога
@@ -31,7 +28,8 @@ export const observatoryApi = createApi({
 
         // Список фотографий без характеристик
         getPhotoList: builder.query<IRestPhotoList, void>({
-            query: () => 'photo/list'
+            query: () => 'photo/list',
+            keepUnusedDataFor: 3600,
         }),
 
         // Список фотографий объекта с характеристиками
@@ -41,7 +39,13 @@ export const observatoryApi = createApi({
 
         // Получить список объектов
         getObjectList: builder.query<IRestObjectList, void>({
-            query: () => 'object/list'
+            query: () => 'object/list',
+            keepUnusedDataFor: 3600,
+        }),
+
+        // Получить список названий объектов
+        getObjectNames: builder.query<IRestObjectNames, void>({
+            query: () => 'object/names'
         }),
 
         // Получить объект по имени
@@ -49,9 +53,10 @@ export const observatoryApi = createApi({
             query: (name) => `object/item?object=${name}`
         }),
 
-        // Получить объект по имени
+        // Список файло объекта по его имени
         getObjectFiles: builder.query<IRestObjectFiles, string>({
-            query: (name) => `file/list?object=${name}`
+            query: (name) => `file/list?object=${name}`,
+            keepUnusedDataFor: 3600,
         }),
 
     }),
@@ -61,5 +66,5 @@ export const observatoryApi = createApi({
 export const {
     useGetStatisticQuery, useGetCatalogListQuery, useGetPhotoListQuery,
     useGetObjectListQuery, useGetObjectItemQuery, useGetObjectFilesQuery,
-    useGetCatalogItemQuery, useGetPhotoListItemQuery
+    useGetCatalogItemQuery, useGetPhotoListItemQuery, useGetObjectNamesQuery
 } = observatoryApi

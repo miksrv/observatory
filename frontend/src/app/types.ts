@@ -28,6 +28,12 @@ export interface IRestObjectList extends IRestResponse {
     payload: IObjectListItem[]
 }
 
+// Список названий всех объектов
+export interface IRestObjectNames extends IRestResponse {
+    payload: string[]
+}
+
+
 // Один объект
 export interface IRestObjectItem extends IRestResponse {
     payload: TObject
@@ -41,7 +47,7 @@ export interface IRestObjectFiles extends IRestResponse {
 export interface IStatistic {
     photos: number
     objects: number
-    shots: number
+    frames: number
     exposure: number
     filesize: number
 }

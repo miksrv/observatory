@@ -17,6 +17,17 @@ class Files
         return $this->_model->get_list();
     }
 
+    function names(): array
+    {
+        $names = [];
+
+        foreach ($this->_model->get_group_names() as $file) {
+            $names[] = $file->item_object;
+        }
+
+        return $names;
+    }
+
     function list_by_object(string $object): array
     {
         return $this->_make_list($this->_model->get_by_object($object));

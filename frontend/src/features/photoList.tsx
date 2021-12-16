@@ -9,6 +9,7 @@ const PhotoList: React.FC = () => {
     const [ category, setCategory ] = useState('')
     const { data: photoData, isSuccess, isLoading, isError } = useGetPhotoListQuery();
     const { data: catalogData } = useGetCatalogListQuery();
+
     const categories: string[] = []
     const photosList: TPhoto & TCatalog | any = isSuccess && photoData?.payload.map((photo) => {
         const objectData = catalogData?.payload.filter((item) => item.name === photo.object);

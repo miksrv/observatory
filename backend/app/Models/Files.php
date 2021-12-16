@@ -62,6 +62,17 @@ class Files extends Model
             ->getRow();
     }
 
+    function get_group_names()
+    {
+        return $this->db
+            ->table($this->table)
+            ->select('item_object')
+            ->orderBy($this->key_object, 'DESC')
+            ->groupBy('item_object')
+            ->getWhere([$this->key_frame => 'Light'])
+            ->getResult();
+    }
+
     protected function _db(array $fields = [])
     {
         return $this->db

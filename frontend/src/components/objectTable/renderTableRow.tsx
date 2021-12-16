@@ -24,11 +24,13 @@ const RenderTableRow: React.FC<TTableRowProps> = (props) => {
         <Table.Cell><Link to={`/object/${item.name}`}>{item.name}</Link></Table.Cell>
         <Table.Cell width='one'>
             {photoItem &&
-                <Image
-                    className={'photo ' + (isOutdated(photoItem.date, item.date) ? 'outdated' : 'actual')}
-                    size='tiny'
-                    src={`https://api.miksoft.pro/public/photo/${photoItem.file}_thumb.${photoItem.ext}`}
-                />
+                <Link to={`/photo/${item.name}`}>
+                    <Image
+                        className={'photo ' + (isOutdated(photoItem.date, item.date) ? 'outdated' : 'actual')}
+                        size='tiny'
+                        src={`https://api.miksoft.pro/public/photo/${photoItem.file}_thumb.${photoItem.ext}`}
+                    />
+                </Link>
             }
         </Table.Cell>
         <Table.Cell>{item.frames}</Table.Cell>

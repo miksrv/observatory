@@ -1,6 +1,6 @@
 import { rest } from 'msw'
 
-import currentData from './rest/current'
+import currentData from './rest/statistic'
 
 export const handlers = [
     rest.get('**/get/statistic', (req, res, ctx) => {

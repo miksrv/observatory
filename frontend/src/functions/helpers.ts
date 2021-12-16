@@ -24,3 +24,25 @@ export const getTimeFromSec = (sec: number, full: boolean = false): string => {
 
     return (h < 10 ? "0" + h : h) + ':' + ( m < 10 ? "0" + m : m)
 }
+
+/**
+ * Shuffles the array randomly
+ * @param array
+ * @returns {array}
+ */
+export const shuffle = (array: any[]) => {
+    let currentIndex: number = array.length
+    let temporaryValue
+    let randomIndex
+
+    while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex)
+        currentIndex -= 1
+
+        temporaryValue = array[currentIndex]
+        array[currentIndex] = array[randomIndex]
+        array[randomIndex] = temporaryValue
+    }
+
+    return array
+}

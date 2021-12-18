@@ -10,6 +10,7 @@ import Sidebar from './components/sidebar'
 import Main from './features/main'
 import News from './features/news'
 import Plan from './features/plan'
+import Map from './features/map'
 import PhotoList from './features/photoList'
 import PhotoItem from './features/photoItem'
 import ObjectList from './features/objectList'
@@ -31,6 +32,7 @@ const App: React.FC = () => {
                             <Route component={Main} path='/' exact />
                             <Route component={News} path='/news' exact />
                             <Route component={Plan} path='/plan' exact />
+                            <Route component={Map} path='/map' exact />
                             <Route component={PhotoList} path='/photos' exact />
                             <Route component={PhotoItem} path='/photo/:name' exact />
                             <Route component={ObjectList} path='/objects' exact />

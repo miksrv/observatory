@@ -6,10 +6,11 @@ type TObjectCloudProps = {
     loader: boolean
     current: string
     names: string[] | undefined
+    link: string
 }
 
 const ObjectCloud: React.FC<TObjectCloudProps> = (props) => {
-    const { loader, current, names } = props
+    const { loader, current, names, link } = props
 
     return (
         <div className='box object-cloud'>
@@ -22,7 +23,7 @@ const ObjectCloud: React.FC<TObjectCloudProps> = (props) => {
                 </>
                 :
                 names?.map((item) =>
-                    <Link to={`/object/${item}`} className={current === item ? 'active' : ''}>
+                    <Link to={`/${link}/${item}`} className={current === item ? 'active' : ''}>
                         {item.replace(/_/g, ' ')}
                     </Link>
                 )

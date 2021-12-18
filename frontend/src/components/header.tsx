@@ -26,7 +26,7 @@ const Header: React.FC = () => {
                     />
                     :
                     MENU_ITEMS.map((item, key) =>
-                        <Menu.Item as={NavLink} exact to={item.link}>
+                        <Menu.Item as={NavLink} exact to={item.link} key={key}>
                             {item.name}
                             {item.label &&
                                 <Label color='green' size='tiny'>{isSuccess ? data?.payload[item.label] : 0}</Label>

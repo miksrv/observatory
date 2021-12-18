@@ -44,6 +44,13 @@ export interface IRestObjectFiles extends IRestResponse {
     payload: TFIle[]
 }
 
+export interface IRestNewsList extends IRestResponse {
+    payload: {
+        count: number
+        news: TNews[]
+    }
+}
+
 export interface IStatistic {
     photos: number
     objects: number
@@ -112,6 +119,28 @@ export type TFIle = {
     offset: number
     dec: number
     ra: number
+}
+
+export type TNews = {
+    date: number
+    text: string
+    link: string
+    comments: number
+    likes: number
+    reposts: number
+    views: number
+    photos: TNewsPhotos[] | undefined
+}
+
+export type TNewsPhotos = {
+    full: TNewsPhotosItem
+    thumb: TNewsPhotosItem
+}
+
+export type TNewsPhotosItem = {
+    height: number
+    width: number
+    src: string
 }
 
 export type TFiltersTypes = 'Luminance' | 'Red' | 'Green' | 'Blue' | 'Ha' | 'OIII' | 'SII'

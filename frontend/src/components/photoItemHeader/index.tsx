@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
-import { Button, Grid, Image, Dimmer, Loader } from 'semantic-ui-react'
+import { Grid, Image, Dimmer, Loader } from 'semantic-ui-react'
 import { TPhoto, TCatalog } from '../../app/types'
 import { getTimeFromSec } from '../../functions/helpers'
 
+import defaultPhoto from './images/default-photo.png'
 import Lightbox from 'react-image-lightbox'
 import 'react-image-lightbox/style.css'
 
 import FilterList from '../filterList'
 import SkyMap from '../skyMap'
-import defaultPhoto from './images/default-photo.png'
 
 type TPhotoItemHeaderProps = {
     loader: boolean
@@ -73,9 +73,11 @@ const PhotoItemHeader: React.FC<TPhotoItemHeaderProps> = (props) => {
                     <div className='text'>{catalog?.text}</div>
                     <div>
                         <SkyMap
-                            ra={catalog?.ra}
-                            dec={catalog?.dec}
-                            name={photo?.object}
+                            objects={catalog && photo ? [{
+                                ra: catalog.ra,
+                                dec: catalog.dec,
+                                name: photo.object
+                            }] : undefined}
                         />
                     </div>
                     {/*<Link to='/photo/'><Button size='mini' icon='grid layout' color='blue' content='Фотографии' /></Link>*/}

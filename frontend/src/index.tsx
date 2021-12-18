@@ -10,10 +10,10 @@ import 'moment/locale/ru'
 
 import App from './App'
 
-if (process.env.NODE_ENV === 'development') {
-    const { worker } = require('./__mocks__/browser')
-    worker.start()
-}
+// if (process.env.NODE_ENV === 'development') {
+//     const { worker } = require('./__mocks__/browser')
+//     worker.start()
+// }
 
 ReactDOM.render(
   <React.StrictMode>

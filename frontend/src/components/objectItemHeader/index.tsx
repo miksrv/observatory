@@ -50,9 +50,11 @@ const ObjectItemHeader: React.FC<TObjectHeaderProps> = (props) => {
                 </Grid.Column>
                 <Grid.Column computer={5} tablet={5} mobile={16} className='object-skymap'>
                     <SkyMap
-                        ra={catalog?.ra}
-                        dec={catalog?.dec}
-                        name={name}
+                        objects={catalog ? [{
+                            ra: catalog.ra,
+                            dec: catalog.dec,
+                            name: name
+                        }] : undefined}
                     />
                 </Grid.Column>
             </Grid>

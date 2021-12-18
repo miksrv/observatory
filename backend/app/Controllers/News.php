@@ -1,36 +1,43 @@
 <?php namespace App\Controllers;
 
 use VK\Client\VKApiClient;
+use VK\Exceptions\Api\VKApiBlockedException;
 use VK\OAuth\Scopes\VKOAuthGroupScope;
 use VK\OAuth\Scopes\VKOAuthUserScope;
 use VK\OAuth\VKOAuth;
 use VK\OAuth\VKOAuthDisplay;
 use VK\OAuth\VKOAuthResponseType;
+use function PHPUnit\Framework\exactly;
 
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, OPTIONS");
 
 class NewsItem
 {
-    public string $date  = '';
+    public int $date  = 0;
     public string $text  = '';
-    public array $photos = [];
+    public string $link  = '';
     public int $comments = 0;
     public int $likes    = 0;
     public int $reposts  = 0;
     public int $views    = 0;
+    public array $photos = [];
 }
 
 class News extends BaseController
 {
     /**
-     * @throws \VK\Exceptions\Api\VKApiBlockedException
+     * @throws VKApiBlockedException
      * @throws \VK\Exceptions\VKApiException
      * @throws \VK\Exceptions\VKClientException
+     * @throws \VK\Exceptions\VKOAuthException
      */
     function list()
     {
         $VK = new VKApiClient();
+
+        $limit  = $this->request->getGet('limit', FILTER_SANITIZE_NUMBER_INT);
+        $offset  = $this->request->getGet('offset', FILTER_SANITIZE_NUMBER_INT);
 
         // Нужен один раз при авторизации, хранить нет смысла
         $client_secret = '2e8FbiDie6yFwd6JR2fw';
@@ -54,14 +61,16 @@ class News extends BaseController
 
 
         // 1. Получение токена пользователя
-//        $oauth = new VKOAuth();
-//        $client_id = 8028256;
-//        $redirect_uri = 'https://observatory.miksoft.pro/api/news/list';
+        $oauth = new VKOAuth();
+        $client_id = 8028256;
+        $redirect_uri = 'https://observatory.miksoft.pro/api/news/list';
 //        $display = VKOAuthDisplay::PAGE;
-//        $scope = [VKOAuthUserScope::WALL];
+//        $scope = [VKOAuthUserScope::WALL, VKOAuthUserScope::GROUPS];
 //        $state = 'secret_state_code';
 //
 //        $browser_url = $oauth->getAuthorizeUrl(VKOAuthResponseType::CODE, $client_id, $redirect_uri, $display, $scope, $state);
+//        echo $browser_url;
+//        exit();
 
         /**
          * После успешной авторизации приложения браузер пользователя будет перенаправлен по адресу redirect_uri,
@@ -80,15 +89,23 @@ class News extends BaseController
         обязательный 	Временный код, полученный после прохождения авторизации.
          */
         // https://observatory.miksoft.pro/api/news/list?code=ac11f415ed68fa8d52&state=secret_state_code
-        // 2. $get_token = $oauth->getAccessToken($client_id, $client_secret, $redirect_uri, 'ac11f415ed68fa8d52');
+        // 2.
+//        $get_token = $oauth->getAccessToken($client_id, $client_secret, $redirect_uri, '7d83892b366b99712e');
+//        var_dump($get_token);
+//        exit();
         // Этот метод возвращает уже токен: 5bcd6cf778f71a7f7f48ca6ffc644ecc3e1b1c726faa3826283813af6b9e8ddcf77927776eb500985068c
 
-        $token = '5bcd6cf778f71a7f7f48ca6ffc644ecc3e1b1c726faa3826283813af6b9e8ddcf77927776eb500985068c';
-        $wall = $VK->wall()->get($token, ['domain' => 'openscope', 'count' => 4, 'offset' => 0]);
+        $token = '300403ae300403ae300403aef53074e5c533004300403ae6e8a0d8e3c649eb40ace3368';
+        $wall = $VK->wall()->get($token, ['domain' => 'openscope', 'count' => $limit ?? 5, 'offset' => $offset ?? 0]);
         $news = [];
 
         foreach ($wall['items'] as $item)
         {
+            if (isset($item['is_pinned']) && $item['is_pinned'])
+            {
+                continue;
+            }
+
             $_tmp = new NewsItem();
             $_tmp->date = $item['date'];
             $_tmp->text = $item['text'];
@@ -96,14 +113,46 @@ class News extends BaseController
             $_tmp->likes = $item['likes']['count'];
             $_tmp->reposts = $item['reposts']['count'];
             $_tmp->views = $item['views']['count'];
+            $_tmp->link = 'wall' . $item['owner_id'] . '_' . $item['id'];
+            $_tmp->photos = $this->_get_photos($item['attachments']);
 
             $news[] = $_tmp;
         }
 
-        echo '<pre>';
-        var_dump($news);
-        var_dump($wall);
-        exit();
+        return $this->_response(['count' => $wall['count'], 'news' => $news]);
+    }
+
+    protected function _get_photos($attach)
+    {
+        if (!is_array($attach) || empty($attach))
+        {
+            return null;
+        }
+
+        $tmp = [];
+
+        foreach ($attach as $item)
+        {
+            if ($item['type'] !== 'photo')
+            {
+                continue;
+            }
+
+            $sizes = $item['photo']['sizes'];
+            usort($sizes, fn($a, $b) => $a['width'] < $b['width']);
+
+            $sizes[0]['src'] = $sizes[0]['url'];
+            $sizes[2]['src'] = $sizes[2]['url'];
+
+            unset($sizes[0]['type'], $sizes[2]['type'], $sizes[0]['url'], $sizes[2]['url']);
+
+            $tmp[] = (object) [
+                'full' => $sizes[0],
+                'thumb' => $sizes[2]
+            ];
+        }
+
+        return $tmp;
     }
 
     protected function _response($payload)

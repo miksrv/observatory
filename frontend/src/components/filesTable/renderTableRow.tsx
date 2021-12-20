@@ -20,7 +20,7 @@ const RenderTableRow: React.FC<TTableRow> = (props) => {
         <Table.Cell>{item.gain}</Table.Cell>
         <Table.Cell>{item.offset}</Table.Cell>
         <Table.Cell>
-            <MoonPhase date={item.date} />
+            <MoonPhase date={moment.utc(item.date).utcOffset('GMT+05:00')} />
             {moment.utc(item.date).utcOffset('GMT+05:00').format('D.MM.Y, H:mm')}
         </Table.Cell>
     </Table.Row>

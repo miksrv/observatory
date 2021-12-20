@@ -36,7 +36,7 @@ const PhotoTable: React.FC<TPhotoTableProps> = (props) => {
                 <Table.Header>
                     <Table.Row>
                         {HEADER_FIELDS.map((item, key) =>
-                            <Table.HeaderCell key={item.key}>
+                            <Table.HeaderCell key={key}>
                                 {item.name}
                             </Table.HeaderCell>
                         )}

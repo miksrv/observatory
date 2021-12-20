@@ -19,7 +19,7 @@ type TCards = {
 type TStatisticItemProps = { loader: boolean } & TCards
 
 const StatisticItem = (props: TStatisticItemProps) =>
-    <Grid.Column computer={4} tablet={8} mobile={16} key={props.icon}>
+    <Grid.Column computer={4} tablet={8} mobile={16}>
         <div className='box table statistic'>
             {props.loader &&
                 <Dimmer active>
@@ -47,8 +47,8 @@ const Statistic: React.FC<TStatisticProps> = (props) => {
 
     return (
         <Grid>
-            {CARDS.map((item) =>
-                <StatisticItem loader={loader} name={item.name} icon={item.icon} value={item.value} />
+            {CARDS.map((item, key) =>
+                <StatisticItem loader={loader} name={item.name} icon={item.icon} value={item.value} key={key} />
             )}
         </Grid>
     )

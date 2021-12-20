@@ -9,7 +9,7 @@ const config = {
     // [longitude, latitude, orientation] all in degrees
     // null = default center [0,0,0]
     orientationfixed: true,  // Keep orientation angle the same as center[2]
-    // geopos: [51,55],       // optional initial geographic position [lat,lon] in degrees,
+    geopos: [51,55],       // optional initial geographic position [lat,lon] in degrees,
     // overrides center
     follow: [10.68,41.267],   // on which coordinates to center the map, default: zenith, if location enabled,
     // otherwise center
@@ -32,12 +32,12 @@ const config = {
         designation: true, // Show star names (Bayer, Flamsteed, Variable star, Gliese or designation,
                            // i.e. whichever of the previous applies first); may vary with culture setting
         designationType: "desig",  // Which kind of name is displayed as designation (fieldname in starnames.json)
-        designationStyle: { fill: "#ddddbb", font: "11px sans-serif", align: "left", baseline: "top" },
+        designationStyle: { fill: "#ddddbb", font: "11px GOST", align: "left", baseline: "top" },
         designationLimit: 4,  // Show only names for stars brighter than nameLimit
         propername: true,   // Show proper name (if present)
         propernameType: "name", // Languge for proper name, default IAU name; may vary with culture setting
                                 // (see list below of languages codes available for stars)
-        propernameStyle: { fill: "#ddddbb", font: "13px sans-serif", align: "right", baseline: "bottom" },
+        propernameStyle: { fill: "#ddddbb", font: "13px GOST", align: "right", baseline: "bottom" },
         propernameLimit: 3,  // Show proper names for stars brighter than propernameLimit
         size: 7,       // Maximum size (radius) of star circle in pixels
         exponent: -0.28, // Scale exponent for star size, larger = more linear
@@ -52,7 +52,7 @@ const config = {
         names: true,   // Show DSO names
         namesType: 'desig',  // Type of DSO ('desig' or language) name shown
         // (see list below for languages codes available for dsos)
-        nameStyle: { fill: "#cccccc", font: "11px sans-serif",
+        nameStyle: { fill: "#cccccc", font: "11px GOST",
             align: "left", baseline: "alphabetic" }, // Style for DSO names
         nameLimit: 6,  // Show only names for DSOs brighter than namelimit
         size: null,    // Optional seperate scale size for DSOs, null = stars.size
@@ -105,12 +105,12 @@ const config = {
             "plu": {symbol: "\u2647", letter:"P", fill: "#aaaaaa"},
             "eri": {symbol: "\u26aa", letter:"E", fill: "#eeeeee"}
         },
-        symbolStyle: { fill: "#00ccff", font: "bold 17px sans-serif",
+        symbolStyle: { fill: "#00ccff", font: "bold 17px GOST",
             align: "center", baseline: "middle" },
         symbolType: "symbol",  // Type of planet symbol: 'symbol' graphic planet sign, 'disk' filled circle scaled by magnitude
                                // 'letter': 1 or 2 letters S Me V L Ma J S U N
         names: true,          // Show name in nameType language next to symbol
-        nameStyle: { fill: "#00ccff", font: "14px sans-serif", align: "right", baseline: "top" },
+        nameStyle: { fill: "#00ccff", font: "14px GOST", align: "right", baseline: "top" },
         namesType: "desig"     // Language of planet name (see list below of language codes available for planets),
                                // or desig = 3-letter designation
     },
@@ -118,9 +118,9 @@ const config = {
         names: true,      // Show constellation names
         namesType: "iau", // Type of name Latin (iau, default), 3 letter designation (desig) or other language (see list below)
         nameStyle: { fill:"#cccc99", align: "center", baseline: "middle",
-            font: ["14px sans-serif",  // Style for constellations
-                "12px sans-serif",  // Different fonts for diff.
-                "11px sans-serif"]},// ranked constellations
+            font: ["14px GOST",  // Style for constellations
+                "12px GOST",  // Different fonts for diff.
+                "11px GOST"]},// ranked constellations
         lines: true,   // Show constellation lines, style below
         lineStyle: { stroke: "#cccccc", width: 1, opacity: 0.6 },
         bounds: true, // Show constellation boundaries, style below
@@ -133,9 +133,9 @@ const config = {
     lines: {  // Display & styles for graticule & some planes
         graticule: { show: true, stroke: "#cccccc", width: 0.6, opacity: 0.8,
             // grid values: "outline", "center", or [lat,...] specific position
-            lon: {pos: [""], fill: "#eee", font: "10px sans-serif"},
+            lon: {pos: [""], fill: "#eee", font: "10px GOST"},
             // grid values: "outline", "center", or [lon,...] specific position
-            lat: {pos: [""], fill: "#eee", font: "10px sans-serif"}},
+            lat: {pos: [""], fill: "#eee", font: "10px GOST"}},
         equatorial: { show: false, stroke: "#aaaaaa", width: 1.3, opacity: 0.7 },
         ecliptic: { show: false, stroke: "#66cc66", width: 1.3, opacity: 0.7 },
         galactic: { show: false, stroke: "#cc6666", width: 1.3, opacity: 0.7 },

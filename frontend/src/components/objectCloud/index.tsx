@@ -22,8 +22,8 @@ const ObjectCloud: React.FC<TObjectCloudProps> = (props) => {
                     <div>Загрузка...</div>
                 </>
                 :
-                names?.map((item) =>
-                    <Link to={`/${link}/${item}`} className={current === item ? 'active' : ''}>
+                names?.map((item , key) =>
+                    <Link to={`/${link}/${item}`} className={current === item ? 'active' : ''} key={key}>
                         {item.replace(/_/g, ' ')}
                     </Link>
                 )

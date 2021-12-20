@@ -33,8 +33,8 @@ const FilterList: React.FC<TFilterListProps> = (props) => {
 
     return (
         <ul className='filter-list'>
-            {filterList.map((item) =>
-                <FilterListItem filter={item} />
+            {filterList.map((item, key) =>
+                <FilterListItem filter={item} key={key} />
             )}
         </ul>
     )

@@ -19,6 +19,7 @@ const Map: React.FC = () => {
         <div className='box table'>
             <SkyMap
                 objects={objectsList}
+                interactive={true}
             />
         </div>
     )

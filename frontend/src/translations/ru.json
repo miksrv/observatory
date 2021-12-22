@@ -19,7 +19,7 @@
     "plan": "План",
     "photo": "Фото",
     "objects": "Объекты",
-    "dashboard": "Оборудование"
+    "dashboard": "Телескоп"
   },
   "sensors": {
     "temperature": {"name": "Температура", "sign": "℃"},

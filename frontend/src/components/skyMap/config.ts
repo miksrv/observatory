@@ -9,7 +9,7 @@ const config = {
     // [longitude, latitude, orientation] all in degrees
     // null = default center [0,0,0]
     orientationfixed: true,  // Keep orientation angle the same as center[2]
-    geopos: [51,55],       // optional initial geographic position [lat,lon] in degrees,
+    geopos: [51.82,55.17],       // optional initial geographic position [lat,lon] in degrees,
     // overrides center
     follow: [10.68,41.267],   // on which coordinates to center the map, default: zenith, if location enabled,
     // otherwise center

@@ -49,4 +49,9 @@ class Photos extends Model
             ->getWhere([$this->key_object => $name])
             ->getResult();
     }
+
+    function get_count()
+    {
+        return $this->db->table($this->table)->countAll();
+    }
 }

@@ -8,8 +8,9 @@ const object = {
     datapath: config.datapath,
     zoomlevel: 5,
     geopos: config.geopos,
-    adaptable: true,
+    adaptable: false,
     interactive: false,
+    form: false,
     lang: '',
     stars: {
         show: true,
@@ -39,17 +40,17 @@ const object = {
         bounds: true,
         boundStyle: { stroke: '#cccc00', width: 0.5, opacity: 0.8, dash: [2, 4] }
     },
-    mw: { show: true },
+    mw: { show: false },
     lines: {
         graticule: { show: true, stroke: '#cccccc', width: 0.6, opacity: 0.5,
-            lon: { pos: [''], fill: '#eee', font: '10px GOST' },
-            lat: { pos: [''], fill: '#eee', font: '10px GOST' }}
+            lon: { pos: [0], fill: '#eee', font: '10px GOST' }, // hor
+            lat: { pos: [0], fill: '#eee', font: '10px GOST' }} // vert
     },
     background: config.background,
     horizon: { show: false },
     daylight: { show: false },
     follow: [0, 0],
-    center: [0, 0, 0]
+    center: [0, 20, 0]
 }
 
 export default object

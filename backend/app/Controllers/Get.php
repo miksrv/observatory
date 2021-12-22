@@ -6,6 +6,7 @@ use App\Libraries\Objects;
 use App\Libraries\Catalog;
 use App\Libraries\Files;
 use App\Libraries\Photos;
+use App\Libraries\Statistic;
 
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, OPTIONS");
@@ -127,18 +128,18 @@ class Get extends BaseController
     /**
      * Статистика
      */
-//    function statistic($what = null)
-//    {
-//        $Statistic = new Statistic();
-//
-//        switch ($what)
-//        {
-//            case 'summary': // Общая статистика (объектов, кадров, выдержка, фотографий, данных)
-//                return $this->_response($Statistic->summary());
-//
-//            default: throw PageNotFoundException::forPageNotFound();
-//        }
-//    }
+    function statistic($what = null)
+    {
+        $Statistic = new Statistic();
+
+        switch ($what)
+        {
+            case 'summary': // Общая статистика (объектов, кадров, выдержка, фотографий, данных)
+                return $this->_response($Statistic->summary());
+
+            default: throw PageNotFoundException::forPageNotFound();
+        }
+    }
 
     protected function _response($payload)
     {

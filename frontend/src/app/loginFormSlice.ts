@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-interface ISidebarState {
+interface ILoginFormState {
     visible: boolean
 }
 
-const initialState: ISidebarState = {
+const initialState: ILoginFormState = {
     visible: false
 }
 
-export const sidebarSlice = createSlice({
-    name: 'sidebar',
+export const loginFormSlice = createSlice({
+    name: 'loginform',
     initialState,
     reducers: {
         show: (state) => {
@@ -20,10 +20,10 @@ export const sidebarSlice = createSlice({
         },
         toggle: (state) => {
             state.visible = !state.visible
-        }
+        },
     }
 })
 
-export const { show, hide, toggle } = sidebarSlice.actions
+export const { show, hide, toggle } = loginFormSlice.actions
 
-export default sidebarSlice.reducer
+export default loginFormSlice.reducer

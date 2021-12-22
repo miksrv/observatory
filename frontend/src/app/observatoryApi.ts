@@ -10,6 +10,16 @@ type TQueryNewsList = {
     offset?: number
 }
 
+export interface UserResponse {
+    status: boolean
+    token: string | null
+}
+
+export interface LoginRequest {
+    username: string
+    password: string
+}
+
 export const observatoryApi = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery(
@@ -17,7 +27,7 @@ export const observatoryApi = createApi({
     endpoints: (builder) => ({
         // Получить общую статистику по обсерватории (кадры, выдержка, объекты, использовано места)
         getStatistic: builder.query<IRestStatistic, void>({
-            query: () => 'get/statistic',
+            query: () => 'get/statistic/summary',
             keepUnusedDataFor: 3600,
         }),
 
@@ -73,6 +83,19 @@ export const observatoryApi = createApi({
                 return `news/list${limit}${offset}`
             }
         }),
+
+        getWeatherMonth: builder.query<any, void>({
+            query: () => 'weather/month',
+            keepUnusedDataFor: 3600,
+        }),
+
+        login: builder.mutation<UserResponse, LoginRequest>({
+            query: (credentials) => ({
+                url: 'auth/login',
+                method: 'POST',
+                body: credentials,
+            }),
+        }),
     }),
 })
 
@@ -81,5 +104,6 @@ export const {
     useGetStatisticQuery, useGetCatalogListQuery, useGetPhotoListQuery,
     useGetObjectListQuery, useGetObjectItemQuery, useGetObjectFilesQuery,
     useGetCatalogItemQuery, useGetPhotoListItemQuery, useGetObjectNamesQuery,
-    useGetNewsListQuery
+    useGetNewsListQuery, useGetWeatherMonthQuery,
+    useLoginMutation
 } = observatoryApi

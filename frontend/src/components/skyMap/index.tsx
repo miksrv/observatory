@@ -4,6 +4,7 @@ import RenderMap from './renderMap'
 
 type TSkyMapProps = {
     objects: TObject[] | undefined
+    interactive?: boolean
 }
 
 type TObject = {
@@ -41,16 +42,19 @@ const createObjectsJSON = (objects: TObject[]) => {
 }
 
 const SkyMap: React.FC<TSkyMapProps> = (props) => {
-    const { objects } = props
+    const { objects, interactive } = props
+    const config = {
+        interactive: interactive ?? false
+    }
 
     return (
-        <div className='sky-map'>
+        <>
             {(objects === undefined || !objects.length) ?
                 <div>Загрузка...</div>
                 :
-                <RenderMap geoJSON={createObjectsJSON(objects)} />
+                <RenderMap geoJSON={createObjectsJSON(objects)} config={config} />
             }
-        </div>
+        </>
     )
 }
 

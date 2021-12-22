@@ -18,7 +18,8 @@ type TRenderMapProps = {
                 coordinates: [number, number]
             }
         }[]
-    }
+    },
+    config: any
 }
 
 const stylePoint = {
@@ -45,7 +46,7 @@ const usePrevious: any = (value: any) => {
 }
 
 const RenderMap: React.FC<TRenderMapProps> = (props) => {
-    const { geoJSON } = props
+    const { geoJSON, config: customConfig } = props
     const prevJSON = usePrevious({geoJSON})
 
     useEffect(() => {
@@ -88,9 +89,11 @@ const RenderMap: React.FC<TRenderMapProps> = (props) => {
                 config.center = [geoJSON.features[0].geometry.coordinates[0], geoJSON.features[0].geometry.coordinates[1], 0]
             }
 
-            return SkyMap.display(config)
+            config.interactive = customConfig.interactive
+
+            SkyMap.display(config)
         }
-    }, [geoJSON])
+    }, [geoJSON, prevJSON, customConfig.interactive])
 
 
     // const canvas = document.querySelector('canvas')

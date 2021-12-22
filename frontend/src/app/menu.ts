@@ -11,7 +11,7 @@ type TMenuItems = {
 export const MENU_ITEMS:TMenuItems[] = [
     { link: '/', name: lang.summary },
     { link: '/news', name: lang.news },
-    { link: '/plan', name: lang.plan },
+    { link: '/map', name: 'Карта' },
     { link: '/photos', name: lang.photo, label: 'photos' },
     { link: '/objects', name: lang.objects, label: 'objects' },
     { link: '/dashboard', name: lang.dashboard },

@@ -23,7 +23,7 @@ const RenderCalendar: React.FC<TRenderCalendarProps> = (props) => {
         if (typeof cond === 'undefined') return ''
 
         if (cond <= 20) return 'green'
-        else if (cond >= 21 && cond <= 50) return 'orange'
+        else if (cond >= 21 && cond <= 60) return 'orange'
 
         return 'red'
     }
@@ -58,8 +58,8 @@ const RenderCalendar: React.FC<TRenderCalendarProps> = (props) => {
                 {itemWeatherEvent && (
                     <div className='event weather'>
                         <Icon name='cloud' />{itemWeatherEvent.clouds}{' '}
-                        <Icon name='thermometer' />{itemWeatherEvent.temp}{' '}
-                        <Icon name='send' />{itemWeatherEvent.wind}
+                        <Icon name='thermometer' />{itemWeatherEvent.temperature}{' '}
+                        <Icon name='send' />{itemWeatherEvent.wind_speed}
                     </div>
                 )}
                 {itemAstroEvents && (
@@ -97,7 +97,7 @@ const RenderCalendar: React.FC<TRenderCalendarProps> = (props) => {
         if (d.length < 7) {
             // console.log('daysinmonth', d)
             for (let i = d.length; i < 7; i++) {
-                d.push(<td className='calendar-day empty'></td>)
+                d.push(<td key={i} className='calendar-day empty'></td>)
             }
         }
 

@@ -13,6 +13,7 @@ const CategoryToolbar: React.FC<TToolbarProps> = (props) => {
     const CategoryButton = (category: string) => <Button
         color={active === category ? 'olive' : 'green'}
         size='mini'
+        key={category}
         onClick={() => selectCategory(category)}
     >
         {category === '' ? 'Все объекты' : category}

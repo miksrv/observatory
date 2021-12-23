@@ -3,6 +3,7 @@ import { Modal, Message, Form, Button } from 'semantic-ui-react'
 import { useAppSelector, useAppDispatch } from '../app/hooks'
 import { useLoginMutation } from '../app/observatoryApi'
 import { hide } from '../app/loginFormSlice'
+import { setCredentials } from '../app/authSlice'
 
 const LoginForm: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -59,12 +60,16 @@ const LoginForm: React.FC = () => {
                 <Button
                     size='tiny'
                     onClick={async () => {
-                        console.log('user', formState)
                         try {
                             const user = await login(formState).unwrap()
-                            console.log('user', user)
+
+                            if (user.status) {
+                                dispatch(setCredentials(user))
+                                dispatch(hide())
+                            }
                         } catch (error) {
                             console.error(error)
+                            dispatch(hide())
                         }
                     }}
                     color='green'

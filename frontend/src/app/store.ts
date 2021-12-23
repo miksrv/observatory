@@ -2,11 +2,13 @@ import { configureStore } from '@reduxjs/toolkit'
 import { observatoryApi } from './observatoryApi'
 import sidebarSlice from './sidebarSlice'
 import loginFormSlice from './loginFormSlice'
+import authSlice from './authSlice'
 
 export const store = configureStore({
     reducer: {
         sidebar: sidebarSlice,
         loginForm: loginFormSlice,
+        auth: authSlice,
 
         // Add the generated reducer as a specific top-level slice
         [observatoryApi.reducerPath]: observatoryApi.reducer

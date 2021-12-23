@@ -7,18 +7,17 @@ import { getTimeFromSec } from '../../functions/helpers'
 
 type TTableRowProps = {
     photo: TPhoto
-    key: number
 }
 
 const FILTERS: TFiltersTypes[] = ['Luminance', 'Red', 'Green', 'Blue', 'Ha', 'OIII', 'SII']
 
 const RenderTableRow: React.FC<TTableRowProps> = (props) => {
-    const { photo, key } = props
+    const { photo } = props
 
     return (
-        <Table.Row key={key}>
+        <Table.Row>
             <Table.Cell width='one'>
-                <Link to={`/photo/${photo.object}?date=${photo.date}`} key={key} className='item'>
+                <Link to={`/photo/${photo.object}?date=${photo.date}`} className='item'>
                     <Image
                         className='photo'
                         size='tiny'

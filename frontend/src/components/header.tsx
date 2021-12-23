@@ -6,14 +6,15 @@ import { useGetStatisticQuery } from '../app/observatoryApi'
 import { toggle } from '../app/sidebarSlice'
 import { show } from '../app/loginFormSlice'
 import { MENU_ITEMS } from '../app/menu'
+import { UserAuth } from './userAuth'
 
 import LoginForm from './loginForm'
 
 const Header: React.FC = () => {
     const dispatch = useAppDispatch()
-
     const currentMobile = (window.innerWidth <= 760)
     const { data, isSuccess } = useGetStatisticQuery()
+    const user = UserAuth()
 
     return (
         <Menu fixed='top' color='grey' className='menu' secondary inverted>
@@ -41,10 +42,17 @@ const Header: React.FC = () => {
                 }
                 {!currentMobile &&
                     <Menu.Menu position='right'>
-                        <Menu.Item
-                            name='Войти'
-                            onClick={() => dispatch(show())}
-                        />
+                        {!user.status ?
+                            <Menu.Item
+                                name='Войти'
+                                onClick={() => dispatch(show())}
+                            />
+                            :
+                            <Menu.Item
+                                name='Выйти'
+                                onClick={() => {console.log('Выйти')}}
+                            />
+                        }
                     </Menu.Menu>
                 }
             </Container>

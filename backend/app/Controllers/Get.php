@@ -10,6 +10,7 @@ use App\Libraries\Statistic;
 
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, OPTIONS");
+header('Access-Control-Allow-Headers: Accept, AuthToken, Content-Type');
 
 class Get extends BaseController
 {

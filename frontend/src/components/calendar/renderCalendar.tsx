@@ -30,7 +30,7 @@ const RenderCalendar: React.FC<TRenderCalendarProps> = (props) => {
 
     let blanks = []
     for (let i = 1; i < firstDayOfMonth; i++) {
-        blanks.push(<td className='calendar-day empty'></td>)
+        blanks.push(<td key={`empty${i}`} className='calendar-day empty'></td>)
     }
 
     let daysMonth = []
@@ -44,33 +44,31 @@ const RenderCalendar: React.FC<TRenderCalendarProps> = (props) => {
         const itemWeatherEvent = eventsWeather.filter((item: any) => currentDate.isSame(item.date, 'day')).pop()
         const itemAstroEvents = eventsTelescope.filter((item: any) => currentDate.isSame(item.date, 'day')).pop()
 
-        daysMonth.push(
-            <td key={d} className={`calendar-day ${currentDay}`}>
-                <div className={`day ${getWeatherClass(itemWeatherEvent?.clouds)}`} onClick={e => console.log('onDayClick', e, d)}>
-                    {(d < 10 ? `0${d}` : d)}
+        daysMonth.push(<td key={`day${d}`} className={`calendar-day ${currentDay}`}>
+            <div className={`day ${getWeatherClass(itemWeatherEvent?.clouds)}`} onClick={e => console.log('onDayClick', e, d)}>
+                {(d < 10 ? `0${d}` : d)}
+            </div>
+            <div className='event moon'>
+                <MoonPhase date={currentDate} /> ↑ {moment(moonTimes.rise).format('H:mm')} ↓ {moment(moonTimes.set).format('H:mm')}
+            </div>
+            <div className='event sun'>
+                <img src={SunIcon} className='icon' alt='' /> ↑ {moment(sunTimes.nightEnd).format('H:mm')} ↓ {moment(sunTimes.night).format('H:mm')}
+            </div>
+            {itemWeatherEvent && (
+                <div className='event weather'>
+                    <Icon name='cloud' />{itemWeatherEvent.clouds}{' '}
+                    <Icon name='thermometer' />{itemWeatherEvent.temperature}{' '}
+                    <Icon name='send' />{itemWeatherEvent.wind_speed}
                 </div>
-                <div className='event moon'>
-                    <MoonPhase date={currentDate} /> ↑ {moment(moonTimes.rise).format('H:mm')} ↓ {moment(moonTimes.set).format('H:mm')}
+            )}
+            {itemAstroEvents && (
+                <div className='event telescope'>
+                    <Icon name='star outline' />{itemAstroEvents.objects.length}{' '}
+                    <Icon name='clock outline' />{itemAstroEvents.total.exposure}{' '}
+                    <Icon name='image outline' />{itemAstroEvents.total.frames}
                 </div>
-                <div className='event sun'>
-                    <img src={SunIcon} className='icon' alt='' /> ↑ {moment(sunTimes.nightEnd).format('H:mm')} ↓ {moment(sunTimes.night).format('H:mm')}
-                </div>
-                {itemWeatherEvent && (
-                    <div className='event weather'>
-                        <Icon name='cloud' />{itemWeatherEvent.clouds}{' '}
-                        <Icon name='thermometer' />{itemWeatherEvent.temperature}{' '}
-                        <Icon name='send' />{itemWeatherEvent.wind_speed}
-                    </div>
-                )}
-                {itemAstroEvents && (
-                    <div className='event telescope'>
-                        <Icon name='star outline' />{itemAstroEvents.objects.length}{' '}
-                        <Icon name='clock outline' />{itemAstroEvents.total.exposure}{' '}
-                        <Icon name='image outline' />{itemAstroEvents.total.frames}
-                    </div>
-                )}
-            </td>
-        );
+            )}
+        </td>);
     }
 
     let totalSlots = [...blanks, ...daysMonth]
@@ -90,21 +88,18 @@ const RenderCalendar: React.FC<TRenderCalendarProps> = (props) => {
         }
     })
 
-    let daysinmonth = rows.map((d: any, i: any) => {
-        if ( ! d.length) return ''
+    return rows.map((d: any, key: number) => {
+        if ( ! d.length) return null
 
         // Добавляем пустые строки в конце месяца
         if (d.length < 7) {
-            // console.log('daysinmonth', d)
             for (let i = d.length; i < 7; i++) {
-                d.push(<td key={i} className='calendar-day empty'></td>)
+                d.push(<td key={`last${i}`} className='calendar-day empty'></td>)
             }
         }
 
-        return <tr>{d}</tr>
+        return <tr key={`row${key}`}>{d}</tr>
     })
-
-    return daysinmonth
 }
 
 export default RenderCalendar

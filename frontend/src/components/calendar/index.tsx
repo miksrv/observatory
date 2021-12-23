@@ -34,7 +34,7 @@ const Calendar: React.FC<TCalendarProps> = (props) => {
             <div className='grid'>
                 <table className='calendar-day'>
                     <thead>
-                    <tr>{weekDayShort.map((day) => (<th key={day}>{day}</th>))}</tr>
+                        <tr>{weekDayShort.map((day, key) => (<th key={key}>{day}</th>))}</tr>
                     </thead>
                     <tbody>
                         <RenderCalendar

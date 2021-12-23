@@ -1,4 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { RootState } from './store'
+
 import {
     IRestStatistic, IRestPhotoList, IRestObjectList,
     IRestCatalogItem, IRestObjectFiles, IRestObjectItem,
@@ -22,8 +24,17 @@ export interface LoginRequest {
 
 export const observatoryApi = createApi({
     reducerPath: 'api',
-    baseQuery: fetchBaseQuery(
-        { baseUrl: process.env.REACT_APP_API_HOST }),
+    baseQuery: fetchBaseQuery({
+        baseUrl: process.env.REACT_APP_API_HOST,
+        prepareHeaders: (headers, { getState }) => {
+            // By default, if we have a token in the store, let's use that for authenticated requests
+            const token = (getState() as RootState).auth.token
+            if (token) {
+                headers.set('AuthToken', token)
+            }
+            return headers
+        },
+    }),
     endpoints: (builder) => ({
         // Получить общую статистику по обсерватории (кадры, выдержка, объекты, использовано места)
         getStatistic: builder.query<IRestStatistic, void>({
@@ -84,11 +95,13 @@ export const observatoryApi = createApi({
             }
         }),
 
+        // Получить погоду за месяц (архив + прогноз)
         getWeatherMonth: builder.query<any, void>({
             query: () => 'weather/month',
             keepUnusedDataFor: 3600,
         }),
 
+        // Авторизация
         login: builder.mutation<UserResponse, LoginRequest>({
             query: (credentials) => ({
                 url: 'auth/login',
@@ -96,7 +109,12 @@ export const observatoryApi = createApi({
                 body: credentials,
             }),
         }),
-    }),
+
+        // Проверка токена авторизации
+        loginCheck: builder.mutation<UserResponse, void>({
+            query: () => 'auth/check'
+        }),
+    })
 })
 
 // Export hooks for usage in functional components
@@ -105,5 +123,5 @@ export const {
     useGetObjectListQuery, useGetObjectItemQuery, useGetObjectFilesQuery,
     useGetCatalogItemQuery, useGetPhotoListItemQuery, useGetObjectNamesQuery,
     useGetNewsListQuery, useGetWeatherMonthQuery,
-    useLoginMutation
+    useLoginMutation, useLoginCheckMutation
 } = observatoryApi

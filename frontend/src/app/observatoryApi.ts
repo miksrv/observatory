@@ -4,7 +4,8 @@ import { RootState } from './store'
 import {
     IRestStatistic, IRestPhotoList, IRestObjectList,
     IRestCatalogItem, IRestObjectFiles, IRestObjectItem,
-    IRestCatalogList, IRestObjectNames, IRestNewsList
+    IRestCatalogList, IRestObjectNames, IRestNewsList,
+    IRestAuth, ICredentials
 } from './types'
 
 type TQueryNewsList = {
@@ -12,15 +13,7 @@ type TQueryNewsList = {
     offset?: number
 }
 
-export interface UserResponse {
-    status: boolean
-    token: string | null
-}
 
-export interface LoginRequest {
-    username: string
-    password: string
-}
 
 export const observatoryApi = createApi({
     reducerPath: 'api',
@@ -102,7 +95,7 @@ export const observatoryApi = createApi({
         }),
 
         // Авторизация
-        login: builder.mutation<UserResponse, LoginRequest>({
+        login: builder.mutation<IRestAuth, ICredentials>({
             query: (credentials) => ({
                 url: 'auth/login',
                 method: 'POST',
@@ -111,7 +104,7 @@ export const observatoryApi = createApi({
         }),
 
         // Проверка токена авторизации
-        loginCheck: builder.mutation<UserResponse, void>({
+        loginCheck: builder.mutation<IRestAuth, void>({
             query: () => 'auth/check'
         }),
     })

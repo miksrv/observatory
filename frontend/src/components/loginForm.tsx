@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Modal, Message, Form, Button } from 'semantic-ui-react'
 import { useAppSelector, useAppDispatch } from '../app/hooks'
 import { useLoginMutation } from '../app/observatoryApi'
+import { ICredentials } from '../app/types'
 import { hide } from '../app/loginFormSlice'
 import { setCredentials } from '../app/authSlice'
 
@@ -9,13 +10,32 @@ const LoginForm: React.FC = () => {
     const dispatch = useAppDispatch()
     const { visible } = useAppSelector(state => state.loginForm)
     const [ login, { isLoading } ] = useLoginMutation()
-    const [ formState, setFormState ] = useState({
+    const [ loginError, setLoginError ] = useState<boolean>(false)
+    const [ formState, setFormState ] = useState<ICredentials>({
         username: '',
         password: ''
     })
 
     const handleChange = ({ target: { name, value }}: React.ChangeEvent<HTMLInputElement>) =>
         setFormState((prev) => ({ ...prev, [name]: value }))
+
+    const handleKeyDown = (e: { key: string }) => (e.key === 'Enter') && handleSubmit()
+
+    const handleSubmit = async () => {
+        try {
+            const user = await login(formState).unwrap()
+
+            if (user.status) {
+                dispatch(setCredentials(user))
+                dispatch(hide())
+            } else {
+                setLoginError(true)
+            }
+        } catch (error) {
+            setLoginError(true)
+            dispatch(hide())
+        }
+    }
 
     return (
         <Modal
@@ -25,13 +45,15 @@ const LoginForm: React.FC = () => {
         >
             <Modal.Header>Авторизация</Modal.Header>
             <Modal.Content>
-                <Message
-                    error
-                    content='Ошибка?'
-                />
+                {loginError &&
+                    <Message
+                        error
+                        content='Ошибка авторизации, неверный логин или пароль'
+                    />
+                }
                 <Form
                     size='large'
-                    onSubmit={() => console.log('submit')}
+                    onSubmit={handleSubmit}
                 >
                     <Form.Input
                         fluid
@@ -40,7 +62,7 @@ const LoginForm: React.FC = () => {
                         iconPosition='left'
                         placeholder='Логин'
                         onChange={handleChange}
-                        // onKeyDown={this._handleKeyDown}
+                        onKeyDown={handleKeyDown}
                         disabled={isLoading}
                     />
                     <Form.Input
@@ -51,7 +73,7 @@ const LoginForm: React.FC = () => {
                         placeholder='Пароль'
                         type='password'
                         onChange={handleChange}
-                        // onKeyDown={this._handleKeyDown}
+                        onKeyDown={handleKeyDown}
                         disabled={isLoading}
                     />
                 </Form>
@@ -59,19 +81,7 @@ const LoginForm: React.FC = () => {
             <Modal.Actions>
                 <Button
                     size='tiny'
-                    onClick={async () => {
-                        try {
-                            const user = await login(formState).unwrap()
-
-                            if (user.status) {
-                                dispatch(setCredentials(user))
-                                dispatch(hide())
-                            }
-                        } catch (error) {
-                            console.error(error)
-                            dispatch(hide())
-                        }
-                    }}
+                    onClick={handleSubmit}
                     color='green'
                     disabled={isLoading || (!formState.username || !formState.password)}
                     loading={isLoading}

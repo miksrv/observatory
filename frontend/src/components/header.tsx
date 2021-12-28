@@ -50,6 +50,7 @@ const Header: React.FC = () => {
                             :
                             <Menu.Item
                                 name='Выйти'
+                                color='red'
                                 onClick={() => {console.log('Выйти')}}
                             />
                         }

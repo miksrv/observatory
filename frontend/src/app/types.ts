@@ -33,7 +33,6 @@ export interface IRestObjectNames extends IRestResponse {
     payload: string[]
 }
 
-
 // Один объект
 export interface IRestObjectItem extends IRestResponse {
     payload: TObject
@@ -49,6 +48,16 @@ export interface IRestNewsList extends IRestResponse {
         count: number
         news: TNews[]
     }
+}
+
+export interface IRestAuth {
+    status: boolean
+    token: string | null
+}
+
+export interface ICredentials {
+    username: string
+    password: string
 }
 
 export interface IStatistic {

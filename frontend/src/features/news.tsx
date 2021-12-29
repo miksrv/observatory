@@ -13,7 +13,7 @@ const News: React.FC = () => {
     const { data, isLoading, isFetching } = useGetNewsListQuery({ limit, offset })
 
     useEffect(() => {
-        data?.payload.news && addNews(news.concat(data?.payload.news))
+        data?.payload.news && addNews(news => news.concat(data?.payload.news))
     }, [data])
 
     return (

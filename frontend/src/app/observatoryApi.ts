@@ -103,6 +103,10 @@ export const observatoryApi = createApi({
             }),
         }),
 
+        logout: builder.mutation<IRestAuth, void>({
+            query: () => 'auth/logout'
+        }),
+
         // Проверка токена авторизации
         loginCheck: builder.mutation<IRestAuth, void>({
             query: () => 'auth/check'
@@ -116,5 +120,5 @@ export const {
     useGetObjectListQuery, useGetObjectItemQuery, useGetObjectFilesQuery,
     useGetCatalogItemQuery, useGetPhotoListItemQuery, useGetObjectNamesQuery,
     useGetNewsListQuery, useGetWeatherMonthQuery,
-    useLoginMutation, useLoginCheckMutation
+    useLoginMutation, useLoginCheckMutation, useLogoutMutation
 } = observatoryApi

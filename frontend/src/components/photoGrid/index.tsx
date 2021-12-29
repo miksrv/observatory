@@ -38,19 +38,24 @@ const PhotoGrid: React.FC<TPhotoGridProps> = (props) => {
                 :
                 photoList.map((photo: TPhoto & TCatalog, key: number) =>
                     <Link to={`/photo/${photo.object}?date=${photo.date}`} key={key} className='item'>
-                        <Reveal animated='small fade'>
-                            <Reveal.Content visible>
-                                <Image src={`https://api.miksoft.pro/public/photo/${photo.file}_thumb.${photo.ext}`} className='photo' />
-                            </Reveal.Content>
-                            <Reveal.Content hidden>
-                                <div className='info'>
-                                    <h4>{photo.title}</h4>
-                                    <p>{photo.text && sliceText(photo.text)}</p>
-                                </div>
-                            </Reveal.Content>
-                        </Reveal>
+                        {photo.title ?
+                            <Reveal animated='small fade'>
+                                <Reveal.Content visible>
+                                    <Image src={`https://api.miksoft.pro/public/photo/${photo.file}_thumb.${photo.ext}`} className='photo' />
+                                </Reveal.Content>
+                                <Reveal.Content hidden>
+                                    <div className='info'>
+                                        <h4>{photo.title}</h4>
+                                        <p>{photo.text && sliceText(photo.text)}</p>
+                                    </div>
+                                </Reveal.Content>
+                            </Reveal>
+                        :
+                            <Image src={`https://api.miksoft.pro/public/photo/${photo.file}_thumb.${photo.ext}`} className='photo' />
+                        }
                     </Link>
-                )}
+                )
+        }
     </div>
 }
 

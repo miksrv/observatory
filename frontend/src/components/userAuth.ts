@@ -3,6 +3,8 @@ import { useAppSelector, useAppDispatch } from '../app/hooks'
 import { useLoginCheckMutation } from '../app/observatoryApi'
 import { setCredentials } from '../app/authSlice'
 
+const TIMEOUT = 30000
+
 export const UserAuth = () => {
     const dispatch = useAppDispatch()
     const user = useAppSelector(state => state.auth)
@@ -10,26 +12,29 @@ export const UserAuth = () => {
     const [ kepAlive, setKeepAlive ] = useState<any>()
     const [ loginCheck ] = useLoginCheckMutation()
 
-    const doCheckToken = async () => {
-        try {
-            const check = await loginCheck().unwrap()
+    const doCheckToken = useCallback(
+        async () => {
+            try {
+                const check = await loginCheck().unwrap()
 
-            if (check.status === false) {
-                sessionStorage.setItem('token', '')
+                if (check.status === false) {
+                    sessionStorage.setItem('token', '')
+                }
+
+                dispatch(setCredentials(check))
+            } catch (error) {
+                console.error(error)
             }
-
-            dispatch(setCredentials(check))
-        } catch (error) {
-            console.error(error)
-        }
-    }
+        },
+        [dispatch, loginCheck]
+    )
 
     const startPingTimer = useCallback(
         () => {
-            const kepAlive = setInterval(() => doCheckToken(), 5000)
+            const kepAlive = setInterval(() => doCheckToken(), TIMEOUT)
             setKeepAlive(kepAlive)
         },
-        [kepAlive, doCheckToken]
+        [doCheckToken]
     )
 
     // Если нет токена в хранилие - ставим
@@ -46,11 +51,8 @@ export const UserAuth = () => {
         // Если пользователь авторизован, но пинг не запущен
         if (user.token && user.status && !kepAlive) {
             startPingTimer()
-
-            console.log('startPingTimer')
-        } else if (!user.token && !user.status && !kepAlive) {
+        } else if (!user.token && !user.status && kepAlive) {
             clearInterval(kepAlive)
-            console.log('clearInterval')
         }
     }, [user, kepAlive, startPingTimer])
 

@@ -35,47 +35,47 @@ class Auth extends BaseController
 
         if (!$username || !$password)
         {
-            $this->response->setStatusCode(400)->setJSON(['status' => false])->send();
-            exit();
+            $this->_response();
         }
 
         if ($username != getenv('app.user_username') ||
             $password != getenv('app.user_password'))
         {
             log_message('error', '[' . __METHOD__ . '] Wrong login or password (' . $username . ':' . $password . ')');
-            $this->response->setStatusCode(200)->setJSON(['status' => false])->send();
-            exit();
+            $this->_response();
         }
 
         $this->_token = $this->_lib->do_login($username, $this->request->getIPAddress());
 
         log_message('info', '[' . __METHOD__ . '] New session (' . $username . ':' . $this->_token . ')');
-        $this->response->setStatusCode(200)->setJSON(['status' => true, 'token' => $this->_token])->send();
-        exit();
+        $this->_response();
     }
 
     function logout()
     {
         $this->_lib->do_logout($this->request->getHeaderLine('AuthToken'));
-        $this->response->setStatusCode(200)->setJSON(['status' => true, 'token' => null])->send();
-        exit();
+        $this->_token = '';
+        $this->_response();
     }
 
     function check()
     {
-        if (empty($this->_token))
+        if (empty($this->_token) || ! $this->_lib->do_check_token($this->_token, $this->request->getIPAddress()))
         {
-            $this->response->setStatusCode(200)->setJSON(['status' => false, 'token' => null])->send();
-            exit();
+            $this->_token = '';
+            $this->_response();
         }
 
-        if ( ! $this->_lib->do_check_token($this->_token, $this->request->getIPAddress()))
-        {
-            $this->response->setStatusCode(200)->setJSON(['status' => false, 'token' => null])->send();
-            exit();
-        }
+        $this->_response();
+    }
 
-        $this->response->setStatusCode(200)->setJSON(['status' => true, 'token' => $this->_token])->send();
+    function _response()
+    {
+        $this->response->setStatusCode(200)->setJSON([
+            'status' => (bool) $this->_token,
+            'token'  => $this->_token
+        ])->send();
+
         exit();
     }
 }

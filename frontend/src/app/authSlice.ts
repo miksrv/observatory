@@ -4,7 +4,7 @@ import { IRestAuth } from './types'
 
 export const authSlice = createSlice({
     name: 'auth',
-    initialState: { status: false, token: null } as IRestAuth,
+    initialState: { status: false, token: '' } as IRestAuth,
     reducers: {
         setCredentials: (
             state,

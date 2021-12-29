@@ -52,7 +52,7 @@ export interface IRestNewsList extends IRestResponse {
 
 export interface IRestAuth {
     status: boolean
-    token: string | null
+    token: string
 }
 
 export interface ICredentials {

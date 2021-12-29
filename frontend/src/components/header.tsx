@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Menu, Container, Label } from 'semantic-ui-react'
 import { NavLink } from 'react-router-dom'
 import { useAppDispatch } from '../app/hooks'
-import { useGetStatisticQuery } from '../app/observatoryApi'
+import { useGetStatisticQuery, useLogoutMutation } from '../app/observatoryApi'
 import { toggle } from '../app/sidebarSlice'
 import { show } from '../app/loginFormSlice'
+import { setCredentials } from '../app/authSlice'
 import { MENU_ITEMS } from '../app/menu'
 import { UserAuth } from './userAuth'
 
@@ -14,7 +15,24 @@ const Header: React.FC = () => {
     const dispatch = useAppDispatch()
     const currentMobile = (window.innerWidth <= 760)
     const { data, isSuccess } = useGetStatisticQuery()
+    const [ logout ] = useLogoutMutation()
+    const [ auth, setAuth ] = useState<boolean>(false)
+
     const user = UserAuth()
+
+    const doLogout = async () => {
+        try {
+            const user = await logout().unwrap()
+            setCredentials(user)
+            setAuth(user.status)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    useEffect(() => {
+        setAuth(user.status)
+    }, [user])
 
     return (
         <Menu fixed='top' color='grey' className='menu' secondary inverted>
@@ -40,22 +58,20 @@ const Header: React.FC = () => {
                         </Menu.Item>
                     )
                 }
-                {!currentMobile &&
-                    <Menu.Menu position='right'>
-                        {!user.status ?
-                            <Menu.Item
-                                name='Войти'
-                                onClick={() => dispatch(show())}
-                            />
-                            :
-                            <Menu.Item
-                                name='Выйти'
-                                color='red'
-                                onClick={() => {console.log('Выйти')}}
-                            />
-                        }
-                    </Menu.Menu>
-                }
+                <Menu.Menu position='right'>
+                    {!auth ?
+                        <Menu.Item
+                            name='Войти'
+                            onClick={() => dispatch(show())}
+                        />
+                        :
+                        <Menu.Item
+                            name='Выйти'
+                            color='red'
+                            onClick={() => doLogout()}
+                        />
+                    }
+                </Menu.Menu>
             </Container>
             <LoginForm />
         </Menu>

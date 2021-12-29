@@ -95,7 +95,6 @@ const RenderMap: React.FC<TRenderMapProps> = (props) => {
         }
     }, [geoJSON, prevJSON, customConfig.interactive])
 
-
     // const canvas = document.querySelector('canvas')
     // const ctx = canvas?.getContext("2d")
     //

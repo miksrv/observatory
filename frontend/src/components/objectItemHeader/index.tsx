@@ -30,7 +30,7 @@ const ObjectItemHeader: React.FC<TObjectHeaderProps> = (props) => {
         <div className='box'>
             {loader && <Dimmer active><Loader /></Dimmer>}
             <Grid>
-                <Grid.Column computer={11} tablet={11} mobile={16}>
+                <Grid.Column computer={10} tablet={10} mobile={16}>
                     <h1>Объект: {title}</h1>
                     <Grid>
                         <Grid.Column computer={8} tablet={8} mobile={16}>
@@ -48,7 +48,7 @@ const ObjectItemHeader: React.FC<TObjectHeaderProps> = (props) => {
                         </Grid.Column>
                     </Grid>
                 </Grid.Column>
-                <Grid.Column computer={5} tablet={5} mobile={16} className='object-skymap'>
+                <Grid.Column computer={6} tablet={6} mobile={16}>
                     <SkyMap
                         objects={catalog ? [{
                             ra: catalog.ra,

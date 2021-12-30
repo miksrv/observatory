@@ -15,7 +15,7 @@ header('Access-Control-Allow-Headers: Accept, AuthToken, Content-Type');
 class Get extends BaseController
 {
     /**
-     * Объекты (виртуальные, из файлов беруться)
+     * Объекты (виртуальные, из файлов берутся)
      */
     function object($what = null)
     {

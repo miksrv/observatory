@@ -1,5 +1,7 @@
 <?php namespace App\Controllers;
 
+use function PHPUnit\Framework\exactly;
+
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, OPTIONS");
 header('Access-Control-Allow-Headers: Accept, AuthToken, Content-Type');
@@ -13,6 +15,7 @@ class Weather extends BaseController
 
         $response = $client->request('GET', 'https://meteo.miksoft.pro/api/get/sensors_period?date_start=2021-12-01&date_end=2021-12-31&sensors=clouds,temperature,wind_speed');
         $weather  = json_decode($response->getBody());
+        $period = $this->request->getGet('date', FILTER_SANITIZE_STRING);
         $days = [];
 
         foreach ($weather->payload as $item)
@@ -71,7 +74,7 @@ class Weather extends BaseController
             $result[] = array_merge(['date' => $date], (array) $item);
         }
 
-        $this->_response($result);
+        $this->_response(['date' => $period, 'weather' => $result]);
     }
 
     protected function _response($payload)

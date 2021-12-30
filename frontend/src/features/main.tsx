@@ -1,18 +1,32 @@
-import React from 'react'
-import { useGetStatisticQuery, useGetPhotoListQuery, useGetWeatherMonthQuery } from '../app/observatoryApi'
+import React, { useState, useEffect } from 'react'
+import { useGetStatisticQuery, useGetPhotoListQuery, useGetWeatherMonthMutation } from '../app/observatoryApi'
 import { shuffle } from '../functions/helpers'
+import moment, { Moment } from 'moment'
 
 import Statistic from '../components/statistic'
 import PhotoGrid from '../components/photoGrid'
 import Calendar from '../components/calendar'
 
 const Main: React.FC = () => {
+    const [ date, setDate ] = useState<Moment>(moment())
     const { data: statisticData, isLoading: statisticLoading } = useGetStatisticQuery()
     const { data: photoData, isLoading: photosLoading } = useGetPhotoListQuery()
-
-    const { data: weatherData } = useGetWeatherMonthQuery()
+    const [ getWeatherMonth, { data: weatherData } ] = useGetWeatherMonthMutation()
 
     const randomPhotos = photoData?.payload ? shuffle(photoData.payload.slice()).slice(0, 4) : undefined
+
+    useEffect(() => {
+        const getWeather = async () => {
+            try {
+                const monthYear = moment(date).format('Y-M')
+                await getWeatherMonth(monthYear).unwrap()
+            } catch (error) {
+
+            }
+        }
+
+        getWeather().finally()
+    }, [getWeatherMonth, date])
 
     const astroEvents = [
         {
@@ -55,8 +69,9 @@ const Main: React.FC = () => {
             />
             <br />
             <Calendar
-                eventsWeather={(weatherData?.payload ? weatherData?.payload : [])}
+                eventsWeather={(weatherData?.payload ? weatherData?.payload.weather : [])}
                 eventsTelescope={astroEvents}
+                changeDate={(date) => setDate(date)}
             />
         </>
     )

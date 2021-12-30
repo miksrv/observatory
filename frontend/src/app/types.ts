@@ -50,6 +50,13 @@ export interface IRestNewsList extends IRestResponse {
     }
 }
 
+export interface IRestWeatherMonth extends IRestResponse {
+    payload: {
+        date: string
+        weather: TWeatherMonth[]
+    }
+}
+
 export interface IRestAuth {
     status: boolean
     token: string
@@ -139,6 +146,13 @@ export type TNews = {
     reposts: number
     views: number
     photos: TNewsPhotos[] | undefined
+}
+
+export type TWeatherMonth = {
+    date: string
+    clouds: number
+    temperature: number
+    wind_speed: number
 }
 
 export type TNewsPhotos = {

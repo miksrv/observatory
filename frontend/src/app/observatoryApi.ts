@@ -5,15 +5,13 @@ import {
     IRestStatistic, IRestPhotoList, IRestObjectList,
     IRestCatalogItem, IRestObjectFiles, IRestObjectItem,
     IRestCatalogList, IRestObjectNames, IRestNewsList,
-    IRestAuth, ICredentials
+    IRestAuth, ICredentials, IRestWeatherMonth
 } from './types'
 
 type TQueryNewsList = {
     limit?: number
     offset?: number
 }
-
-
 
 export const observatoryApi = createApi({
     reducerPath: 'api',
@@ -89,9 +87,8 @@ export const observatoryApi = createApi({
         }),
 
         // Получить погоду за месяц (архив + прогноз)
-        getWeatherMonth: builder.query<any, void>({
-            query: () => 'weather/month',
-            keepUnusedDataFor: 3600,
+        getWeatherMonth: builder.mutation<IRestWeatherMonth, string>({
+            query: (date) => `weather/month?date=${date}`
         }),
 
         // Авторизация
@@ -119,6 +116,6 @@ export const {
     useGetStatisticQuery, useGetCatalogListQuery, useGetPhotoListQuery,
     useGetObjectListQuery, useGetObjectItemQuery, useGetObjectFilesQuery,
     useGetCatalogItemQuery, useGetPhotoListItemQuery, useGetObjectNamesQuery,
-    useGetNewsListQuery, useGetWeatherMonthQuery,
+    useGetNewsListQuery, useGetWeatherMonthMutation,
     useLoginMutation, useLoginCheckMutation, useLogoutMutation
 } = observatoryApi

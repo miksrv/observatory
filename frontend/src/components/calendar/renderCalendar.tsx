@@ -1,6 +1,7 @@
 import React from 'react'
 import moment, { Moment } from 'moment'
 import { Icon } from 'semantic-ui-react'
+import { TWeatherMonth } from '../../app/types'
 import SunCalc from 'suncalc'
 
 import MoonPhase from '../moonPhase'
@@ -8,7 +9,7 @@ import SunIcon from '../moonPhase/images/sun.png'
 
 type TRenderCalendarProps = {
     dateObject: Moment
-    eventsWeather: any
+    eventsWeather: TWeatherMonth[]
     eventsTelescope: any
 }
 
@@ -41,7 +42,7 @@ const RenderCalendar: React.FC<TRenderCalendarProps> = (props) => {
         const moonTimes = SunCalc.getMoonTimes(currentDate, 51.7, 55.2)
         const sunTimes = SunCalc.getTimes(currentDate, 51.7, 55.2)
 
-        const itemWeatherEvent = eventsWeather.filter((item: any) => currentDate.isSame(item.date, 'day')).pop()
+        const itemWeatherEvent = eventsWeather.filter((item) => currentDate.isSame(item.date, 'day')).pop()
         const itemAstroEvents = eventsTelescope.filter((item: any) => currentDate.isSame(item.date, 'day')).pop()
 
         daysMonth.push(<td key={`day${d}`} className={`calendar-day ${currentDay}`}>

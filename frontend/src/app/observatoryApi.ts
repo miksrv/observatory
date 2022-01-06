@@ -5,7 +5,8 @@ import {
     IRestStatistic, IRestPhotoList, IRestObjectList,
     IRestCatalogItem, IRestObjectFiles, IRestObjectItem,
     IRestCatalogList, IRestObjectNames, IRestNewsList,
-    IRestAuth, ICredentials, IRestWeatherMonth
+    IRestAuth, ICredentials, IRestWeatherMonth,
+    IRelayList, IRelaySet, IRestWeatherCurrent
 } from './types'
 
 type TQueryNewsList = {
@@ -15,6 +16,7 @@ type TQueryNewsList = {
 
 export const observatoryApi = createApi({
     reducerPath: 'api',
+    tagTypes: ['Relay'],
     baseQuery: fetchBaseQuery({
         baseUrl: process.env.REACT_APP_API_HOST,
         prepareHeaders: (headers, { getState }) => {
@@ -24,13 +26,13 @@ export const observatoryApi = createApi({
                 headers.set('AuthToken', token)
             }
             return headers
-        },
+        }
     }),
     endpoints: (builder) => ({
         // Получить общую статистику по обсерватории (кадры, выдержка, объекты, использовано места)
         getStatistic: builder.query<IRestStatistic, void>({
             query: () => 'get/statistic/summary',
-            keepUnusedDataFor: 3600,
+            keepUnusedDataFor: 3600
         }),
 
         // Список объектов каталога
@@ -46,7 +48,7 @@ export const observatoryApi = createApi({
         // Список фотографий без характеристик
         getPhotoList: builder.query<IRestPhotoList, void>({
             query: () => 'get/photo/list',
-            keepUnusedDataFor: 3600,
+            keepUnusedDataFor: 3600
         }),
 
         // Список фотографий объекта с характеристиками
@@ -57,7 +59,7 @@ export const observatoryApi = createApi({
         // Получить список объектов
         getObjectList: builder.query<IRestObjectList, void>({
             query: () => 'get/object/list',
-            keepUnusedDataFor: 3600,
+            keepUnusedDataFor: 3600
         }),
 
         // Получить список названий объектов
@@ -73,7 +75,7 @@ export const observatoryApi = createApi({
         // Список файлов объекта по его имени
         getObjectFiles: builder.query<IRestObjectFiles, string>({
             query: (name) => `get/file/list?object=${name}`,
-            keepUnusedDataFor: 3600,
+            keepUnusedDataFor: 3600
         }),
 
         // Список файлов объекта по его имени
@@ -91,12 +93,17 @@ export const observatoryApi = createApi({
             query: (date) => `weather/month?date=${date}`
         }),
 
+        // Текущая погода
+        getWeatherCurrent: builder.query<IRestWeatherCurrent, void>({
+            query: (name) => `weather/current`
+        }),
+
         // Авторизация
         login: builder.mutation<IRestAuth, ICredentials>({
             query: (credentials) => ({
                 url: 'auth/login',
                 method: 'POST',
-                body: credentials,
+                body: credentials
             }),
         }),
 
@@ -108,6 +115,26 @@ export const observatoryApi = createApi({
         loginCheck: builder.mutation<IRestAuth, void>({
             query: () => 'auth/check'
         }),
+
+        // Список реле
+        getRelayList: builder.query<IRelayList, void>({
+            query: (name) => `relay/list`,
+            keepUnusedDataFor: 3600
+        }),
+
+        getRelayState: builder.query<any, void>({
+            query: () => `relay/state`,
+            providesTags: () => [{ type: 'Relay', id: 'LIST' }]
+        }),
+
+        setRelayStatus: builder.mutation<IRelayList, IRelaySet>({
+            query: (data) => ({
+                url: 'relay/set',
+                method: 'POST',
+                body: data
+            }),
+            invalidatesTags: [{ type: 'Relay', id: 'LIST' }],
+        }),
     })
 })
 
@@ -117,5 +144,7 @@ export const {
     useGetObjectListQuery, useGetObjectItemQuery, useGetObjectFilesQuery,
     useGetCatalogItemQuery, useGetPhotoListItemQuery, useGetObjectNamesQuery,
     useGetNewsListQuery, useGetWeatherMonthMutation,
-    useLoginMutation, useLoginCheckMutation, useLogoutMutation
+    useLoginMutation, useLoginCheckMutation, useLogoutMutation,
+    useGetRelayListQuery, useGetRelayStateQuery, useSetRelayStatusMutation,
+    useGetWeatherCurrentQuery
 } = observatoryApi

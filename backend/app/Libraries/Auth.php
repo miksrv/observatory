@@ -39,12 +39,14 @@ class Auth
 
     /**
      * Check current user token
-     * @param string $token
-     * @param string $userIP
      * @return bool
      */
-    function do_check_token(string $token, string $userIP): bool
+    function check(): bool
     {
+        $Request = \Config\Services::request();
+        $userIP  = $Request->getIPAddress();
+        $token   = $Request->getHeaderLine('AuthToken');
+
         $tokenData = $this->_model->get_by_token($token);
 
         if (empty($tokenData))

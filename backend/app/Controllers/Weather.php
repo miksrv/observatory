@@ -1,13 +1,25 @@
 <?php namespace App\Controllers;
 
-use function PHPUnit\Framework\exactly;
-
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, OPTIONS");
 header('Access-Control-Allow-Headers: Accept, AuthToken, Content-Type');
 
 class Weather extends BaseController
 {
+
+    function current()
+    {
+        $client = \Config\Services::curlrequest();
+
+        try {
+            $response = $client->request('GET', 'https://meteo.miksoft.pro/api/get/current');
+            $weather  = json_decode($response->getBody());
+
+            $this->_response($weather->payload);
+        } catch (\Exception $e) {
+            $this->_response(null);
+        }
+    }
 
     function month()
     {

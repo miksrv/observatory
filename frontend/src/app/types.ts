@@ -50,11 +50,19 @@ export interface IRestNewsList extends IRestResponse {
     }
 }
 
+export interface IRelayList extends IRestResponse {
+    payload: string[]
+}
+
 export interface IRestWeatherMonth extends IRestResponse {
     payload: {
         date: string
         weather: TWeatherMonth[]
     }
+}
+
+export interface IRestWeatherCurrent extends IRestResponse {
+    payload: TWeatherCurrent
 }
 
 export interface IRestAuth {
@@ -65,6 +73,11 @@ export interface IRestAuth {
 export interface ICredentials {
     username: string
     password: string
+}
+
+export interface IRelaySet {
+    index: number
+    state: number
 }
 
 export interface IStatistic {
@@ -153,6 +166,21 @@ export type TWeatherMonth = {
     clouds: number
     temperature: number
     wind_speed: number
+}
+
+export type TWeatherCurrent = {
+    condition_id: number
+    temperature: number
+    temperature_feels: number
+    humidity: number
+    pressure: number
+    wind_speed: number
+    wind_gust: number
+    wind_degree: number
+    clouds: number
+    precipitation: number
+    illumination: number
+    uvindex: number
 }
 
 export type TNewsPhotos = {

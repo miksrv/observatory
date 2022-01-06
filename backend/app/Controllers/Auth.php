@@ -60,7 +60,7 @@ class Auth extends BaseController
 
     function check()
     {
-        if (empty($this->_token) || ! $this->_lib->do_check_token($this->_token, $this->request->getIPAddress()))
+        if (empty($this->_token) || ! $this->_lib->check())
         {
             $this->_token = '';
             $this->_response();

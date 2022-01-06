@@ -2,12 +2,7 @@
 
 use VK\Client\VKApiClient;
 use VK\Exceptions\Api\VKApiBlockedException;
-use VK\OAuth\Scopes\VKOAuthGroupScope;
-use VK\OAuth\Scopes\VKOAuthUserScope;
 use VK\OAuth\VKOAuth;
-use VK\OAuth\VKOAuthDisplay;
-use VK\OAuth\VKOAuthResponseType;
-use function PHPUnit\Framework\exactly;
 
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, OPTIONS");

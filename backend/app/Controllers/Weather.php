@@ -23,11 +23,15 @@ class Weather extends BaseController
 
     function month()
     {
+        $period = $this->request->getGet('date', FILTER_SANITIZE_STRING);
         $client = \Config\Services::curlrequest();
 
-        $response = $client->request('GET', 'https://meteo.miksoft.pro/api/get/sensors_period?date_start=2021-12-01&date_end=2021-12-31&sensors=clouds,temperature,wind_speed');
+        $start = $period . '-01';
+        $end = date('Y-m-t', strtotime($period));
+
+        $response = $client->request('GET', 'https://meteo.miksoft.pro/api/get/sensors_period?date_start='. $start . '&date_end=' . $end .'&sensors=clouds,temperature,wind_speed');
         $weather  = json_decode($response->getBody());
-        $period = $this->request->getGet('date', FILTER_SANITIZE_STRING);
+
         $days = [];
 
         foreach ($weather->payload as $item)

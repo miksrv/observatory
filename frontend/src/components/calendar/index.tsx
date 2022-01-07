@@ -1,18 +1,19 @@
 import React, { useState } from 'react'
 import moment, { Moment } from 'moment'
-import { Button } from 'semantic-ui-react'
+import { Button, Dimmer, Loader } from 'semantic-ui-react'
 import { TWeatherMonth } from '../../app/types'
 
 import RenderCalendar from './renderCalendar'
 
 type TCalendarProps = {
+    loading: boolean
     eventsWeather: TWeatherMonth[]
     eventsTelescope: any
     changeDate: (date: Moment) => void
 }
 
 const Calendar: React.FC<TCalendarProps> = (props) => {
-    const { eventsWeather, eventsTelescope, changeDate } = props
+    const { loading, eventsWeather, eventsTelescope, changeDate } = props
     const [ dateObject, setDateObject ] = useState<Moment>(moment())
     const weekDayShort = moment.weekdaysShort(true)
 
@@ -23,6 +24,11 @@ const Calendar: React.FC<TCalendarProps> = (props) => {
 
     return (
         <div className='box table calendar'>
+            {loading &&
+                <Dimmer active>
+                    <Loader />
+                </Dimmer>
+            }
             <div className='calendar-toolbar'>
                 <Button
                     size='mini'

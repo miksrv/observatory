@@ -11,14 +11,14 @@ const Main: React.FC = () => {
     const [ date, setDate ] = useState<Moment>(moment())
     const { data: statisticData, isLoading: statisticLoading } = useGetStatisticQuery()
     const { data: photoData, isLoading: photosLoading } = useGetPhotoListQuery()
-    const [ getWeatherMonth, { data: weatherData } ] = useGetWeatherMonthMutation()
+    const [ getWeatherMonth, { data: weatherData, isLoading } ] = useGetWeatherMonthMutation()
 
     const randomPhotos = photoData?.payload ? shuffle(photoData.payload.slice()).slice(0, 4) : undefined
 
     useEffect(() => {
         const getWeather = async () => {
             try {
-                const monthYear = moment(date).format('Y-M')
+                const monthYear = moment(date).format('Y-MM')
                 await getWeatherMonth(monthYear).unwrap()
             } catch (error) {
 
@@ -69,6 +69,7 @@ const Main: React.FC = () => {
             />
             <br />
             <Calendar
+                loading={isLoading}
                 eventsWeather={(weatherData?.payload ? weatherData?.payload.weather : [])}
                 eventsTelescope={astroEvents}
                 changeDate={(date) => setDate(date)}

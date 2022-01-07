@@ -2,27 +2,32 @@ import React from 'react'
 import { Dimmer, Loader } from 'semantic-ui-react'
 import { useGetWeatherCurrentQuery } from '../app/observatoryApi'
 
-const getRange = (value: number, min: number, max: number): number => {
+const getRange = (value: number | null, min: number, max: number): number => {
+    if (value === null)
+        return 3
+
     const percent = 15
     const calcVal = value * (1 + percent / 100)
 
-    if (value > max || value < min) {
+    if (value === 0) {
+        return 0
+    } else if (value > max || value < min) {
         return 2
     } else if (calcVal > max || calcVal < min) {
         return 1
-    } else {
-        return 0
     }
+
+    return 0
 }
 
 const WeatherCurrent: React.FC = () => {
     const { data, isFetching } = useGetWeatherCurrentQuery()
 
-    const rangeTemp = data?.payload.temperature ? getRange(data.payload.temperature, -20, 20) : 3
-    const rangeHumd = data?.payload.humidity ? getRange(data.payload.humidity, 80, 99) : 3
-    const rangeCloud = data?.payload.clouds ? getRange(data.payload.clouds, 0, 50) : 3
-    const rangeWind = data?.payload.wind_speed ? getRange(data.payload.wind_speed, 5, 10) : 3
-    const rangeRain = data?.payload.precipitation ? getRange(data.payload.precipitation, .1, .1) : 3
+    const rangeTemp = data && getRange(data.payload.temperature, -20, 20)
+    const rangeHumd = data && getRange(data.payload.humidity, 80, 99)
+    const rangeCloud = data && getRange(data.payload.clouds, 0, 50)
+    const rangeWind = data && getRange(data.payload.wind_speed, 5, 10)
+    const rangeRain = data && getRange(data.payload.precipitation, .1, .1)
 
     let weatherState: number = 3
     let weatherCondition: string = 'Неизвестно'

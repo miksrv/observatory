@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import moment, { Moment } from 'moment'
 import { Button, Dimmer, Loader } from 'semantic-ui-react'
-import { TWeatherMonth } from '../../app/types'
+import { TWeatherMonth, TFilesMonth } from '../../app/types'
 
 import RenderCalendar from './renderCalendar'
 
 type TCalendarProps = {
     loading: boolean
     eventsWeather: TWeatherMonth[]
-    eventsTelescope: any
+    eventsTelescope: TFilesMonth[]
     changeDate: (date: Moment) => void
 }
 

@@ -11,6 +11,7 @@ class Files extends Model
     protected string $key_id     = 'file_id';
     protected string $key_object = 'item_object';
     protected string $key_frame  = 'item_frame';
+    protected string $key_date   = 'item_date_obs';
     protected array $fields = ['item_object', 'item_filter', 'item_date_obs', 'item_exptime'];
 
     protected $db;
@@ -44,6 +45,14 @@ class Files extends Model
         return $this->_db(['file_id', 'item_file_name', 'item_ccd_temp', 'item_offset', 'item_gain', 'item_dec', 'item_ra'])
             ->orderBy($this->key_id, 'DESC')
             ->getWhere([$this->key_frame => 'Light', $this->key_object => $name])
+            ->getResult();
+    }
+
+    function get_by_month(string $month, string $year)
+    {
+         return $this->_db()
+            ->orderBy($this->key_id, 'DESC')
+            ->getWhere(['MONTH(item_date_obs)' => $month, 'YEAR(item_date_obs)' => $year])
             ->getResult();
     }
 

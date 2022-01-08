@@ -60,11 +60,16 @@ class Weather extends BaseController
                     continue;
                 }
 
-                if (!isset($days[$day]->$var))
+                if ($val === null)
                 {
-                    $days[$day]->$var = (float) $val;
+                    $days[$day]->$var = null;
                 } else {
-                    $days[$day]->$var += (float) $val;
+                    if (!isset($days[$day]->$var))
+                    {
+                        $days[$day]->$var = (float) $val;
+                    } else {
+                        $days[$day]->$var += (float) $val;
+                    }
                 }
             }
 
@@ -82,7 +87,10 @@ class Weather extends BaseController
                     continue;
                 }
 
-                $item->$var = round($value / $item->count, 1);
+                if ($value !== null)
+                {
+                    $item->$var = round($value / $item->count, 1);
+                }
             }
 
             unset($item->count);

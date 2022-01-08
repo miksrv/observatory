@@ -6,7 +6,7 @@ import {
     IRestCatalogItem, IRestObjectFiles, IRestObjectItem,
     IRestCatalogList, IRestObjectNames, IRestNewsList,
     IRestAuth, ICredentials, IRestWeatherMonth,
-    IRelayList, IRelaySet, IRestWeatherCurrent
+    IRelayList, IRelaySet, IRestWeatherCurrent, IRestFilesMonth
 } from './types'
 
 type TQueryNewsList = {
@@ -88,6 +88,11 @@ export const observatoryApi = createApi({
             }
         }),
 
+        // Получить работу обсерватории за месяц с группировкой по дням
+        getFilesMonth: builder.mutation<IRestFilesMonth, string>({
+            query: (date) => `get/statistic/month?date=${date}`
+        }),
+
         // Получить погоду за месяц (архив + прогноз)
         getWeatherMonth: builder.mutation<IRestWeatherMonth, string>({
             query: (date) => `weather/month?date=${date}`
@@ -146,5 +151,5 @@ export const {
     useGetNewsListQuery, useGetWeatherMonthMutation,
     useLoginMutation, useLoginCheckMutation, useLogoutMutation,
     useGetRelayListQuery, useGetRelayStateQuery, useSetRelayStatusMutation,
-    useGetWeatherCurrentQuery
+    useGetWeatherCurrentQuery, useGetFilesMonthMutation
 } = observatoryApi

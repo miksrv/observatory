@@ -61,6 +61,10 @@ export interface IRestWeatherMonth extends IRestResponse {
     }
 }
 
+export interface IRestFilesMonth extends IRestResponse {
+    payload: TFilesMonth[]
+}
+
 export interface IRestWeatherCurrent extends IRestResponse {
     payload: TWeatherCurrent
 }
@@ -159,6 +163,13 @@ export type TNews = {
     reposts: number
     views: number
     photos: TNewsPhotos[] | undefined
+}
+
+export type TFilesMonth = {
+    date: string
+    exposure: number
+    frames: number
+    objects: string[]
 }
 
 export type TWeatherMonth = {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useGetStatisticQuery, useGetPhotoListQuery, useGetWeatherMonthMutation } from '../app/observatoryApi'
+import { useGetStatisticQuery, useGetPhotoListQuery, useGetWeatherMonthMutation, useGetFilesMonthMutation } from '../app/observatoryApi'
 import { shuffle } from '../functions/helpers'
 import moment, { Moment } from 'moment'
 
@@ -11,7 +11,8 @@ const Main: React.FC = () => {
     const [ date, setDate ] = useState<Moment>(moment())
     const { data: statisticData, isLoading: statisticLoading } = useGetStatisticQuery()
     const { data: photoData, isLoading: photosLoading } = useGetPhotoListQuery()
-    const [ getWeatherMonth, { data: weatherData, isLoading } ] = useGetWeatherMonthMutation()
+    const [ getWeatherMonth, { data: weatherData, isLoading: weatherLoading } ] = useGetWeatherMonthMutation()
+    const [ getFilesMonth, { data: filesData, isLoading: filesLoading } ] = useGetFilesMonthMutation()
 
     const randomPhotos = photoData?.payload ? shuffle(photoData.payload.slice()).slice(0, 4) : undefined
 
@@ -20,36 +21,14 @@ const Main: React.FC = () => {
             try {
                 const monthYear = moment(date).format('Y-MM')
                 await getWeatherMonth(monthYear).unwrap()
+                await getFilesMonth(monthYear).unwrap()
             } catch (error) {
 
             }
         }
 
         getWeather().finally()
-    }, [getWeatherMonth, date])
-
-    const astroEvents = [
-        {
-            date: '2021-12-11',
-            objects: [
-                'IC_1396', 'IC_434'
-            ],
-            total: {
-                exposure: 600,
-                frames: 10
-            }
-        },
-        {
-            date: '2021-12-24',
-            objects: [
-                'IC_1396', 'IC_434', 'M 1'
-            ],
-            total: {
-                exposure: 823,
-                frames: 23
-            }
-        }
-    ]
+    }, [getWeatherMonth, getFilesMonth, date])
 
     return (
         <>
@@ -69,9 +48,9 @@ const Main: React.FC = () => {
             />
             <br />
             <Calendar
-                loading={isLoading}
+                loading={weatherLoading || filesLoading}
                 eventsWeather={(weatherData?.payload ? weatherData?.payload.weather : [])}
-                eventsTelescope={astroEvents}
+                eventsTelescope={(filesData?.payload ? filesData.payload : [])}
                 changeDate={(date) => setDate(date)}
             />
         </>

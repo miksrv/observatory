@@ -1,7 +1,7 @@
 import React from 'react'
 import moment, { Moment } from 'moment'
 import { Icon } from 'semantic-ui-react'
-import { TWeatherMonth } from '../../app/types'
+import { TWeatherMonth, TFilesMonth } from '../../app/types'
 import SunCalc from 'suncalc'
 
 import MoonPhase from '../moonPhase'
@@ -10,7 +10,7 @@ import SunIcon from '../moonPhase/images/sun.png'
 type TRenderCalendarProps = {
     dateObject: Moment
     eventsWeather: TWeatherMonth[]
-    eventsTelescope: any
+    eventsTelescope: TFilesMonth[]
 }
 
 const RenderCalendar: React.FC<TRenderCalendarProps> = (props) => {
@@ -21,7 +21,7 @@ const RenderCalendar: React.FC<TRenderCalendarProps> = (props) => {
     const isCurrentMonth = moment(dateObject).isSame(new Date(), 'month')
 
     const getWeatherClass = (cond: number | undefined) => {
-        if (typeof cond === 'undefined') return ''
+        if (typeof cond === 'undefined' || cond === null) return ''
 
         if (cond <= 20) return 'green'
         else if (cond >= 21 && cond <= 60) return 'orange'
@@ -57,7 +57,7 @@ const RenderCalendar: React.FC<TRenderCalendarProps> = (props) => {
             </div>
             {itemWeatherEvent && (
                 <div className='event weather'>
-                    <Icon name='cloud' />{itemWeatherEvent.clouds}{' '}
+                    {itemWeatherEvent.clouds !== null && <><Icon name='cloud' />{itemWeatherEvent.clouds}{' '}</>}
                     <Icon name='thermometer' />{itemWeatherEvent.temperature}{' '}
                     <Icon name='send' />{itemWeatherEvent.wind_speed}
                 </div>
@@ -65,8 +65,8 @@ const RenderCalendar: React.FC<TRenderCalendarProps> = (props) => {
             {itemAstroEvents && (
                 <div className='event telescope'>
                     <Icon name='star outline' />{itemAstroEvents.objects.length}{' '}
-                    <Icon name='clock outline' />{itemAstroEvents.total.exposure}{' '}
-                    <Icon name='image outline' />{itemAstroEvents.total.frames}
+                    <Icon name='clock outline' />{(itemAstroEvents.exposure / 60)}{' '}
+                    <Icon name='image outline' />{itemAstroEvents.frames}
                 </div>
             )}
         </td>);

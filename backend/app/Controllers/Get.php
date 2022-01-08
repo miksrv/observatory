@@ -108,35 +108,24 @@ class Get extends BaseController
     }
 
     /**
-     * Релюшки
-     */
-//    function relay($what = null)
-//    {
-//        $Relay = new Relay();
-//
-//        switch ($what)
-//        {
-//            case 'get': // Получить статус
-//                return $this->_response($Relay->get());
-//
-//            case 'set': // Установить статус
-//                return $this->_response($Relay->set());
-//
-//            default: throw PageNotFoundException::forPageNotFound();
-//        }
-//    }
-
-    /**
      * Статистика
      */
     function statistic($what = null)
     {
         $Statistic = new Statistic();
+        $period = $this->request->getGet('date', FILTER_SANITIZE_STRING);
 
         switch ($what)
         {
             case 'summary': // Общая статистика (объектов, кадров, выдержка, фотографий, данных)
                 return $this->_response($Statistic->summary());
+
+            case 'month':
+                if (! $period)
+                {
+                    throw PageNotFoundException::forPageNotFound();
+                }
+                return $this->_response($Statistic->month($period));
 
             default: throw PageNotFoundException::forPageNotFound();
         }

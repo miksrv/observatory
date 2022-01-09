@@ -23,8 +23,8 @@ const getRange = (value: number | null, min: number, max: number): number => {
 const WeatherCurrent: React.FC = () => {
     const { data, isFetching } = useGetWeatherCurrentQuery()
 
-    const rangeTemp = data && getRange(data.payload.temperature, -20, 20)
-    const rangeHumd = data && getRange(data.payload.humidity, 80, 99)
+    const rangeTemp = data && getRange(data.payload.temperature, -24, 24)
+    const rangeHumd = data && getRange(data.payload.humidity, 0, 75)
     const rangeCloud = data && getRange(data.payload.clouds, 0, 50)
     const rangeWind = data && getRange(data.payload.wind_speed, 5, 10)
     const rangeRain = data && getRange(data.payload.precipitation, .1, .1)

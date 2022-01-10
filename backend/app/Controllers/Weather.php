@@ -15,7 +15,7 @@ class Weather extends BaseController
             $response = $client->request('GET', 'https://meteo.miksoft.pro/api/get/current');
             $weather  = json_decode($response->getBody());
 
-            $this->_response($weather->payload);
+            $this->_response(['timestamp' => $weather->timestamp, 'conditions' => $weather->payload]);
         } catch (\Exception $e) {
             $this->_response(null);
         }

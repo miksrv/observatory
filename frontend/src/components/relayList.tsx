@@ -22,6 +22,7 @@ const RelayListItem: React.FC<TRelayListItemProps> = (props) => {
             <span className={`led-${switchClass}`} />{name}
         </div>
         <Button
+            loading={loading}
             className={`switch-${switchClass}`}
             disabled={(loading || ! auth)}
             onClick={() => handleClick({index: index, state: (status ? 0 : 1)})}
@@ -31,9 +32,9 @@ const RelayListItem: React.FC<TRelayListItemProps> = (props) => {
 }
 
 const RelayList: React.FC = () => {
-    const { data: relayList, isError, isFetching } = useGetRelayListQuery()
-    const { data: relayState } = useGetRelayStateQuery()
-    const [ setRelayStatus, { isSuccess } ] = useSetRelayStatusMutation()
+    const { data: relayList, isError, isLoading } = useGetRelayListQuery()
+    const { data: relayState, isFetching: loaderState } = useGetRelayStateQuery()
+    const [ setRelayStatus, { isLoading: loaderSet } ] = useSetRelayStatusMutation()
     const [ isAuth, setIsAuth ] = useState<boolean>(false)
     const user = useAppSelector(state => state.auth)
 
@@ -41,8 +42,8 @@ const RelayList: React.FC = () => {
         if (isAuth !== user.status) setIsAuth(user.status)
     }, [user, isAuth])
 
-    return isFetching ?
-        <div className='box relay-list'>
+    return isLoading ?
+        <div className='box relay-list loader'>
             <Dimmer active>
                 <Loader />
             </Dimmer>
@@ -71,7 +72,8 @@ const RelayList: React.FC = () => {
                         index={key}
                         name={item}
                         status={relayState?.status === true ? relayState?.payload[key] : false}
-                        loading={isSuccess || isFetching || (relayState?.status === true && typeof relayState?.payload[key] === 'undefined')}
+                        // loading={(!isSuccess && isFetching) || (relayState?.status === true && typeof relayState?.payload[key] === 'undefined')}
+                        loading={loaderState || loaderSet}
                         auth={isAuth && relayState?.status === true}
                         handleClick={async (relay) => await setRelayStatus(relay)}
                     />

@@ -39,7 +39,7 @@ class Statistic
         ];
     }
 
-    function month(string $period)
+    function month(string $period): ?array
     {
         $month = date('m');
         $year = date('Y');
@@ -62,7 +62,7 @@ class Statistic
 
         foreach ($filesData as $file)
         {
-            $day = date('Y-m-d', strtotime($file->item_date_obs));
+            $day = date('Y-m-d', strtotime($file->item_date_obs . ' +5 hours'));
 
             if (!isset($days[$day]))
             {
@@ -75,7 +75,7 @@ class Statistic
             }
 
             $days[$day]->exposure += $file->item_exptime;
-            $days[$day]->frames += 1;
+            $days[$day]->frames   += 1;
 
             if (!in_array($file->item_object, $days[$day]->objects))
             {

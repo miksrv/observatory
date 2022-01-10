@@ -6,6 +6,8 @@ type TCameraProps = {
     cameraURL: string
 }
 
+const CAMERA_INTERVAL = 15
+
 const Camera: React.FC<TCameraProps> = (props) => {
     const { cameraURL } = props
 
@@ -16,13 +18,13 @@ const Camera: React.FC<TCameraProps> = (props) => {
     useEffect(() => {
         if (cameraURL) {
             const interval = setInterval(() => {
-                if (seconds < 50) {
+                if (seconds < CAMERA_INTERVAL) {
                     setSeconds(seconds => seconds + 1)
                 } else {
                     setCameraSrc(cameraURL + '?r=' + Math.random())
                     setSeconds(0)
                 }
-            }, 300)
+            }, 1000)
 
             return () => clearInterval(interval)
         }
@@ -38,7 +40,7 @@ const Camera: React.FC<TCameraProps> = (props) => {
         {cameraURL ?
             <>
                 <img onClick={() => setLightbox(true)} src={cameraSrc} alt='' />
-                <Progress percent={seconds} success size='tiny' />
+                <Progress percent={Math.round((seconds / CAMERA_INTERVAL) * 100)} success size='tiny' />
             </>
         :
             <Dimmer active>

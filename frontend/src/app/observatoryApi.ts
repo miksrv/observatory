@@ -99,7 +99,7 @@ export const observatoryApi = createApi({
         }),
 
         // Текущая погода
-        getWeatherCurrent: builder.query<IRestWeatherCurrent, void>({
+        getWeatherCurrent: builder.query<IRestWeatherCurrent, null>({
             query: (name) => `weather/current`
         }),
 

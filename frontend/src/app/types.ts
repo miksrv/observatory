@@ -66,7 +66,13 @@ export interface IRestFilesMonth extends IRestResponse {
 }
 
 export interface IRestWeatherCurrent extends IRestResponse {
-    payload: TWeatherCurrent
+    payload: {
+        timestamp: {
+            server: number
+            update: number
+        }
+        conditions: TWeatherCurrent
+    }
 }
 
 export interface IRestAuth {

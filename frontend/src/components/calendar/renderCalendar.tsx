@@ -1,6 +1,6 @@
 import React from 'react'
 import moment, { Moment } from 'moment'
-import { Icon } from 'semantic-ui-react'
+import { Popup, Icon } from 'semantic-ui-react'
 import { TWeatherMonth, TFilesMonth } from '../../app/types'
 import SunCalc from 'suncalc'
 
@@ -23,8 +23,8 @@ const RenderCalendar: React.FC<TRenderCalendarProps> = (props) => {
     const getWeatherClass = (cond: number | undefined) => {
         if (typeof cond === 'undefined' || cond === null) return ''
 
-        if (cond <= 20) return 'green'
-        else if (cond >= 21 && cond <= 60) return 'orange'
+        if (cond <= 35) return 'green'
+        else if (cond >= 36 && cond <= 60) return 'orange'
 
         return 'red'
     }
@@ -63,11 +63,17 @@ const RenderCalendar: React.FC<TRenderCalendarProps> = (props) => {
                 </div>
             )}
             {itemAstroEvents && (
-                <div className='event telescope'>
-                    <Icon name='star outline' />{itemAstroEvents.objects.length}{' '}
-                    <Icon name='clock outline' />{(itemAstroEvents.exposure / 60)}{' '}
-                    <Icon name='image outline' />{itemAstroEvents.frames}
-                </div>
+                <Popup
+                    content={itemAstroEvents.objects.join(', ')}
+                    size='mini'
+                    trigger={
+                        <div className='event telescope'>
+                            <Icon name='star outline' />{itemAstroEvents.objects.length}{' '}
+                            <Icon name='clock outline' />{Math.round(itemAstroEvents.exposure / 60)}{' '}
+                            <Icon name='image outline' />{itemAstroEvents.frames}
+                        </div>
+                    }
+                />
             )}
         </td>);
     }

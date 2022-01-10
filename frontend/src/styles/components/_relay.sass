@@ -7,18 +7,22 @@
   text-transform: uppercase
 
 .relay-list
-  height: 282px
+  padding: 6px
+
+  &.loader
+    height: 300px
 
   .item
     display: flex
     justify-content: space-between
-    margin: 5px 0
+    margin: 0
+    padding: 4px 2px 4px 6px
 
-    &:first-of-type
-      margin-top: 0
+    &:hover
+      background-color: #373737
 
-    &:last-of-type
-      margin-bottom: 0
+  .name
+    line-height: 24px
 
   span[class^='led']
     margin-right: 5px

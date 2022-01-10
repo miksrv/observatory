@@ -11,13 +11,12 @@ const Dashboard: React.FC = () => {
     return (
         <Grid>
             <Grid.Column computer={8} tablet={8} mobile={16}>
+                <WeatherCurrent />
+                <br />
                 <RelayList />
             </Grid.Column>
             <Grid.Column computer={8} tablet={8} mobile={16}>
                 <Camera cameraURL={IP_CAMERA} />
-            </Grid.Column>
-            <Grid.Column width={8}>
-                <WeatherCurrent />
             </Grid.Column>
             {/*<div>Состояние крыши, парковки, сервера</div>*/}
             {/*<div>Картинка с Allsky</div>*/}

@@ -15,6 +15,8 @@ const ObjectList: React.FC = () => {
     const { data, isSuccess, isLoading, isError } = useGetObjectListQuery();
     const { data: photoData } = useGetPhotoListQuery();
 
+    document.title = `Список астрономических объектов - Обсерватория`
+
     return (
         <div className='box table'>
             {isError && <TableError />}

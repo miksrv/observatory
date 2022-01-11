@@ -34,6 +34,8 @@ const ObjectItem: React.FC = () => {
     let deviationRa: number = 0;
     let deviationDec: number = 0;
 
+    document.title = `${dataCatalog ? dataCatalog?.payload.title : ''} - Обсерватория`
+
     if (isError) {
         return <div>Возникла ошибка на сервер</div>
     }

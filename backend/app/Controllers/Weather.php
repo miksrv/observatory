@@ -46,7 +46,7 @@ class Weather extends BaseController
                 continue;
             }
 
-            $day = gmdate('Y-m-d', $item->date);
+            $day = date('Y-m-d', $item->date);
 
             if (!isset($days[$day]))
             {

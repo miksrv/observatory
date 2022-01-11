@@ -1,60 +1,46 @@
-import React from 'react'
+import React, { useRef, useEffect, useState } from 'react'
+import { Dimmer, Loader } from 'semantic-ui-react'
+import { TObject } from './types'
 
 import RenderMap from './renderMap'
 
 type TSkyMapProps = {
     objects: TObject[] | undefined
     interactive?: boolean
-}
+    goto?: [number, number]
 
-type TObject = {
-    ra: number
-    dec: number
-    name: string
-}
-
-const createObjectsJSON = (objects: TObject[]) => {
-    const JSON: any = {
-        type: 'FeatureCollection',
-        features: []
-    }
-
-    objects.map((item) => {
-        const objectName = item.name.replace(/_/g, ' ')
-        const objectJSON = {
-            type: 'Feature',
-            id: objectName,
-            properties: {
-                name: objectName,
-                mag: 10,
-                dim: 30
-            },
-            geometry: {
-                type: 'Point',
-                coordinates: [item.ra, item.dec]
-            }
-        }
-
-        return JSON.features.push(objectJSON)
-    })
-
-    return JSON
 }
 
 const SkyMap: React.FC<TSkyMapProps> = (props) => {
-    const { objects, interactive } = props
+    const { objects, interactive, goto } = props
+    const [ width, setWidth ] = useState<number>(0)
+
+    const ref = useRef<HTMLDivElement>(null)
     const config = {
         interactive: interactive ?? false
     }
 
+    useEffect(() => {
+        setWidth(ref.current ? ref.current.offsetWidth : 0)
+    }, [ref])
+
     return (
-        <>
-            {(objects === undefined || !objects.length) ?
-                <div>Загрузка...</div>
+        <div ref={ref}>
+            {objects === undefined || !objects.length || width === 0 ?
+                <div className='map-loader'>
+                    <Dimmer active>
+                        <Loader>Загрузка</Loader>
+                    </Dimmer>
+                </div>
                 :
-                <RenderMap geoJSON={createObjectsJSON(objects)} config={config} />
+                <RenderMap
+                    objects={objects}
+                    config={config}
+                    width={width}
+                    goto={goto}
+                />
             }
-        </>
+        </div>
     )
 }
 

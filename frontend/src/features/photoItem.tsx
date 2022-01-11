@@ -33,6 +33,8 @@ const PhotoItem: React.FC = () => {
         !photosNames.includes(item.object) && photosNames.push(item.object)
     )
 
+    document.title = `${dataCatalog ? dataCatalog?.payload.title : ''} Фото - Обсерватория`
+
     return (
         <>
             <PhotoItemHeader

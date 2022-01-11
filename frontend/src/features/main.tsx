@@ -16,6 +16,8 @@ const Main: React.FC = () => {
 
     const randomPhotos = photoData?.payload ? shuffle(photoData.payload.slice()).slice(0, 4) : undefined
 
+    document.title = 'Главная страница - Обсерватория'
+
     useEffect(() => {
         const getWeather = async () => {
             try {

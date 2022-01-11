@@ -8,6 +8,8 @@ import WeatherCurrent from '../components/weatherCurrent'
 const IP_CAMERA = typeof process.env.REACT_APP_WEBCAM1 === 'string' ? process.env.REACT_APP_WEBCAM1 : ''
 
 const Dashboard: React.FC = () => {
+    document.title = 'Статус телескопа - Обсерватория'
+
     return (
         <Grid>
             <Grid.Column computer={8} tablet={8} mobile={16}>

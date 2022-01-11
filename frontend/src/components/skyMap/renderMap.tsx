@@ -1,25 +1,13 @@
 import React, { useEffect, useRef } from 'react'
+import { TObject, geoJSON } from './types'
 import celestial from 'd3-celestial'
 import config from './object'
 
 type TRenderMapProps = {
-    geoJSON: {
-        type: 'FeatureCollection'
-        features: {
-            type: 'Feature'
-            id: string
-            properties: {
-                name: string
-                mag: number
-                dim: number
-            }
-            geometry: {
-                type: string,
-                coordinates: [number, number]
-            }
-        }[]
-    },
     config: any
+    objects: TObject[]
+    width: number
+    goto?: [number, number]
 }
 
 const stylePoint = {
@@ -45,13 +33,51 @@ const usePrevious: any = (value: any) => {
     return ref.current
 }
 
+const createObjectsJSON = (objects: TObject[]) => {
+    const JSON: any = {
+        type: 'FeatureCollection',
+        features: []
+    }
+
+    objects.map((item) => {
+        const objectName = item.name.replace(/_/g, ' ')
+        const objectJSON = {
+            type: 'Feature',
+            id: objectName,
+            properties: {
+                name: objectName,
+                mag: 10,
+                dim: 30
+            },
+            geometry: {
+                type: 'Point',
+                coordinates: [item.ra, item.dec]
+            }
+        }
+
+        return JSON.features.push(objectJSON)
+    })
+
+    return JSON
+}
+
 const RenderMap: React.FC<TRenderMapProps> = (props) => {
-    const { geoJSON, config: customConfig } = props
-    const prevJSON = usePrevious({geoJSON})
+    const { objects, width, config: customConfig, goto } = props
+    const prevJSON = usePrevious({objects})
+    const SkyMap = celestial.Celestial()
+
+    // const box = document.createElement('div')
+
+    // box.style.width='200px'
+    // box.style.height='100px'
+    // box.style.background='gray'
+
+    // document.body.appendChild(box);
 
     useEffect(() => {
-        if (prevJSON === undefined || JSON.stringify(prevJSON.geoJSON) !== JSON.stringify(geoJSON)) {
-            const SkyMap = celestial.Celestial()
+        if (prevJSON === undefined || JSON.stringify(prevJSON.objects) !== JSON.stringify(objects)) {
+
+            const geoJSON: geoJSON = createObjectsJSON(objects)
 
             SkyMap.clear()
             SkyMap.add({
@@ -89,39 +115,53 @@ const RenderMap: React.FC<TRenderMapProps> = (props) => {
                 config.center = [geoJSON.features[0].geometry.coordinates[0], geoJSON.features[0].geometry.coordinates[1], 0]
             }
 
+            config.width = width
             config.interactive = customConfig.interactive
 
             SkyMap.display(config)
-        }
-    }, [geoJSON, prevJSON, customConfig.interactive])
 
-    // const canvas = document.querySelector('canvas')
-    // const ctx = canvas?.getContext("2d")
-    //
-    // canvas?.addEventListener('click', (e) => {
-    //     const rect = canvas.getBoundingClientRect()
-    //     const x = e.clientX - rect.left
-    //     const y = e.clientY - rect.top
-    //
-    //     const pt2 = SkyMap.mapProjection([299.908, 22.7231])
-    //
-    //     // работает
-    //     // ctx?.beginPath();
-    //     // ctx?.arc(x,y,5,0,10*Math.PI);
-    //     // ctx?.arc(pt2[0],pt2[1],5,0,2*Math.PI);
-    //     // ctx?.fill();
-    //
-    //     const findObjects: any[] = objects.filter((item) => {
-    //         const obj_cord = SkyMap.mapProjection([item.ra, item.dec])
-    //
-    //         if (Math.abs(x-obj_cord[0]) <= 15 && Math.abs(y-obj_cord[1]) <= 15) return true
-    //         return false
-    //     })
-    //
-    //     if (findObjects.length) {
-    //         console.log('findObjects', findObjects.length, findObjects.pop().name)
-    //     }
-    // })
+            // if (customConfig.interactive) {
+            //     const canvas = document.querySelector('canvas')
+            //     // const ctx = canvas?.getContext("2d")
+            //
+            //     canvas?.addEventListener('click', (e) => {
+            //         const rect = canvas.getBoundingClientRect()
+            //         const x = e.clientX - rect.left
+            //         const y = e.clientY - rect.top
+            //
+            //         // Добавить точку в месте клика
+            //         // ctx?.beginPath();
+            //         // ctx?.arc(x,y,5,0,2*Math.PI);
+            //         // ctx?.fill();
+            //
+            //         const findObjects: any[] = objects.filter((item: { ra: any; dec: any }) => {
+            //             const obj_cord = SkyMap.mapProjection([item.ra, item.dec])
+            //
+            //             if (Math.abs(x-obj_cord[0]) <= 15 && Math.abs(y-obj_cord[1]) <= 15) return true
+            //             return false
+            //         })
+            //
+            //         if (findObjects.length) {
+            //             const objectParam = findObjects.pop()
+            //
+            //             // box.style.left = e.clientX + 'px'
+            //             // box.style.top = e.clientY + 'px'
+            //             // box.innerHTML = objectParam.name
+            //
+            //             // SkyMap.rotate({ center: [ objectParam.ra, objectParam.dec, 1 ]})
+            //
+            //             console.log('findObjects', objectParam)
+            //         }
+            //     })
+            // }
+        }
+    }, [SkyMap, objects, prevJSON, width, customConfig.interactive])
+
+    useEffect(() => {
+        if (goto !== undefined && goto[0] !== 0 && goto[1] !== 0) {
+            SkyMap.rotate({ center: [ goto[0], goto[1], 1 ]})
+        }
+    }, [SkyMap, goto])
 
     // const canvas = document.querySelector('canvas')
     // const ctx = canvas?.getContext("2d")

@@ -29,6 +29,8 @@ const PhotoList: React.FC = () => {
 
     const filteredPhotos = photosList && photosList.filter((photo: TPhoto & TCatalog) => category === '' || photo.category === category)
 
+    document.title = 'Список фотографий - Обсерватория'
+
     if (catalogData) {
         catalogData.payload.forEach((item) => {
             if (! categories.includes(item.category) && item.category !== '') {

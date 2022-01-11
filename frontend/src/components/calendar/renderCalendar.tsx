@@ -24,7 +24,7 @@ const RenderCalendar: React.FC<TRenderCalendarProps> = (props) => {
         if (typeof cond === 'undefined' || cond === null) return ''
 
         if (cond <= 35) return 'green'
-        else if (cond >= 36 && cond <= 60) return 'orange'
+        else if (cond >= 36 && cond <= 65) return 'orange'
 
         return 'red'
     }

@@ -1,0 +1,12 @@
+Header add Access-Control-Allow-Origin '*'
+Header add Access-Control-Allow-Methods: 'GET,POST,OPTIONS,DELETE,PUT'
+
+<FilesMatch "\.json$">
+  FileETag None
+  <IfModule mod_headers.c>
+    Header unset ETag
+    Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+  </IfModule>
+</FilesMatch>

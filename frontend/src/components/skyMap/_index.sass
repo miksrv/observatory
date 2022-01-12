@@ -1,0 +1,48 @@
+.map-loader
+  min-height: inherit
+
+.sky-map
+  position: relative
+  border: 1px solid rgba(255, 255, 255, 0.1)
+  overflow: hidden
+
+  #celestial-zoomin, #celestial-zoomout
+    position: absolute
+    left: 5px
+    top: 5px
+    color: $text-main
+    background: $box-background
+    border: 1px solid rgba(255, 255, 255, 0.04)
+    cursor: pointer
+    font-weight: 900
+
+    &:hover
+      background: #484848
+
+  #celestial-zoomout
+    top: 27px
+
+.object-cloud-map
+  word-wrap: break-word
+  text-align: justify
+
+  .item
+    margin: 1px
+    color: $text-second
+    cursor: pointer
+
+    &.active
+      font-weight: bold
+      color: $text-main
+
+    &:after
+      content: '•'
+      color: $text-main
+      margin: 0 5px 0 7px
+
+    &:hover
+      color: $text-main
+
+    &:last-of-type
+      &:after
+        display: none

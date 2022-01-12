@@ -1,0 +1,46 @@
+.photo-gird
+  display: flex
+  flex-wrap: wrap
+  padding: 1em .5em
+  padding-bottom: 0 !important
+
+  &.photoRow-4
+    .item
+      flex-basis: calc(20%) !important
+
+  .item
+    color: $text-main
+    object-fit: cover
+    border: 1px solid hsla(0,0%,100%,.1)
+    margin: 0 .5em
+    cursor: pointer
+    overflow: hidden
+    flex-grow: 1
+    flex-shrink: 0
+    flex-basis: calc(25% - 10px)
+    margin-bottom: 1em
+
+    .content
+      width: 100%
+
+  @media only screen and (max-width: 768px)
+    flex-wrap: wrap
+
+    &.photoRow-4
+      .item
+        flex-basis: calc(100%) !important
+
+    .item
+      flex: 100%
+
+  .photo
+    object-fit: cover
+    height: 200px
+    width: 100%
+
+  .info
+    position: relative
+    padding: 1em
+    height: 200px
+    background: #1d1d1e
+    font-size: .8em

@@ -19,11 +19,22 @@
       .moon
         margin-left: -2px
 
+      &.mobile
+        background-color: transparent
+
+        .moon
+          margin: 0
+          display: block
+          float: none
+
     &.telescope
       background-color: #4d4343
       cursor: pointer
       .icon
         color: $orange
+
+      &.mobile
+        text-align: center
 
     &.weather
       background-color: #495654
@@ -83,6 +94,7 @@
           border: 1px solid #565656
           vertical-align: top
           padding: 3px
+          width: 14.2%
 
         &.empty, &.disable
           cursor: not-allowed

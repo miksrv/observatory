@@ -13,6 +13,8 @@ type TNewsItemProps = {
 const NewsItem: React.FC<TNewsItemProps> = (props) => {
     const { news } = props
 
+    const currentMobile: boolean = (window.innerWidth <= 760)
+
     // #TODO Use this
     // const urlify = (text: string) =>
     //     text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1">$1</a>')
@@ -25,14 +27,18 @@ const NewsItem: React.FC<TNewsItemProps> = (props) => {
                     <a href={`//vk.com/${news.link}`} title='Обсерватория' rel='noopener noreferrer' target='_blank'>Обсерватория</a>
                     <div className='info'>
                         {moment.unix(news.date).format('DD MMMM Y в H:mm')}
-                        <span className='divider'></span>
-                        <Icon name='eye' /> {news.views}
-                        <span className='divider'></span>
-                        <Icon name='like' /> {news.likes}
-                        <span className='divider'></span>
-                        <Icon name='reply' /> {news.reposts}
-                        <span className='divider'></span>
-                        <Icon name='comment' /> {news.comments}
+                        {!currentMobile &&
+                            <>
+                                <span className='divider'></span>
+                                <Icon name='eye'/> {news.views}
+                                <span className='divider'></span>
+                                <Icon name='like'/> {news.likes}
+                                <span className='divider'></span>
+                                <Icon name='reply'/> {news.reposts}
+                                <span className='divider'></span>
+                                <Icon name='comment'/> {news.comments}
+                            </>
+                        }
                     </div>
                 </div>
             </div>

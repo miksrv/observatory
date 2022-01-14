@@ -1,7 +1,7 @@
 {
   "name": "observatory",
-  "update": "12.01.2022",
-  "version": "2.0.0",
+  "update": "14.01.2022",
+  "version": "2.0.1",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.2",

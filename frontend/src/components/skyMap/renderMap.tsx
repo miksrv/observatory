@@ -118,42 +118,46 @@ const RenderMap: React.FC<TRenderMapProps> = (props) => {
             config.width = width
             config.interactive = customConfig.interactive
 
+            if (customConfig.interactive && window.innerWidth <= 760) {
+                config.projection = 'orthographic'
+            }
+
             SkyMap.display(config)
 
-            // if (customConfig.interactive) {
-            //     const canvas = document.querySelector('canvas')
-            //     // const ctx = canvas?.getContext("2d")
-            //
-            //     canvas?.addEventListener('click', (e) => {
-            //         const rect = canvas.getBoundingClientRect()
-            //         const x = e.clientX - rect.left
-            //         const y = e.clientY - rect.top
-            //
-            //         // Добавить точку в месте клика
-            //         // ctx?.beginPath();
-            //         // ctx?.arc(x,y,5,0,2*Math.PI);
-            //         // ctx?.fill();
-            //
-            //         const findObjects: any[] = objects.filter((item: { ra: any; dec: any }) => {
-            //             const obj_cord = SkyMap.mapProjection([item.ra, item.dec])
-            //
-            //             if (Math.abs(x-obj_cord[0]) <= 15 && Math.abs(y-obj_cord[1]) <= 15) return true
-            //             return false
-            //         })
-            //
-            //         if (findObjects.length) {
-            //             const objectParam = findObjects.pop()
-            //
-            //             // box.style.left = e.clientX + 'px'
-            //             // box.style.top = e.clientY + 'px'
-            //             // box.innerHTML = objectParam.name
-            //
-            //             // SkyMap.rotate({ center: [ objectParam.ra, objectParam.dec, 1 ]})
-            //
-            //             console.log('findObjects', objectParam)
-            //         }
-            //     })
-            // }
+            if (customConfig.interactive) {
+                // const canvas = document.querySelector('canvas')
+                // // const ctx = canvas?.getContext("2d")
+                //
+                // canvas?.addEventListener('click', (e) => {
+                //     const rect = canvas.getBoundingClientRect()
+                //     const x = e.clientX - rect.left
+                //     const y = e.clientY - rect.top
+                //
+                //     // Добавить точку в месте клика
+                //     // ctx?.beginPath();
+                //     // ctx?.arc(x,y,5,0,2*Math.PI);
+                //     // ctx?.fill();
+                //
+                //     const findObjects: any[] = objects.filter((item: { ra: any; dec: any }) => {
+                //         const obj_cord = SkyMap.mapProjection([item.ra, item.dec])
+                //
+                //         if (Math.abs(x-obj_cord[0]) <= 15 && Math.abs(y-obj_cord[1]) <= 15) return true
+                //         return false
+                //     })
+                //
+                //     if (findObjects.length) {
+                //         const objectParam = findObjects.pop()
+                //
+                //         // box.style.left = e.clientX + 'px'
+                //         // box.style.top = e.clientY + 'px'
+                //         // box.innerHTML = objectParam.name
+                //
+                //         // SkyMap.rotate({ center: [ objectParam.ra, objectParam.dec, 1 ]})
+                //
+                //         console.log('findObjects', objectParam)
+                //     }
+                // })
+            }
         }
     }, [SkyMap, objects, prevJSON, width, customConfig.interactive])
 

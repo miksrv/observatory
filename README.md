@@ -1,6 +1,6 @@
 Observatory control panel
 ===============
-[![Node.js CI](https://github.com/miksrv/observatory/actions/workflows/node.js.yml/badge.svg)](https://github.com/miksrv/observatory/actions/workflows/node.js.yml)
+[![Release](https://github.com/miksrv/observatory/actions/workflows/nodejs-pr-master.yml/badge.svg?branch=master)](https://github.com/miksrv/observatory/actions/workflows/nodejs-pr-master.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=miksrv_observatory&metric=alert_status)](https://sonarcloud.io/dashboard?id=miksrv_observatory)
 
 An interface project for the management of an amateur astronomical observatory. The WEB-interface provides the ability to control the power supply of devices through a relay system, to receive data on temperatures at various points, humidity and voltage of various devices. The interface displays images from cameras, builds graphs for viewing archive statistics. The main function is to display statistics of the observatory's work: a calendar of filming with statistics of a filming night, display of captured objects with the number of frames in various filters, a photo gallery of the final results. 

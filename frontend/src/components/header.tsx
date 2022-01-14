@@ -13,7 +13,7 @@ import LoginForm from './loginForm'
 
 const Header: React.FC = () => {
     const dispatch = useAppDispatch()
-    const currentMobile = (window.innerWidth <= 760)
+    const currentMobile: boolean = (window.innerWidth <= 760)
     const { data, isSuccess } = useGetStatisticQuery()
     const [ logout ] = useLogoutMutation()
     const [ auth, setAuth ] = useState<boolean>(false)

@@ -130,6 +130,10 @@ h1
   &.global-map
     min-height: 560px
 
+  @media only screen and (max-width: 768px)
+    &.global-map
+      min-height: 260px
+
   .dimmer
     border-radius: $borderRadius
 
@@ -147,6 +151,12 @@ h1
 
 .aright
   text-align: right
+
+@media only screen and (max-width: 768px)
+  .ui.grid
+    .column
+      padding-top: 5px !important
+      padding-bottom: 5px !important
 
 @import components/header
 @import components/footer

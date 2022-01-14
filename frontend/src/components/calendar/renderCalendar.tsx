@@ -16,6 +16,7 @@ type TRenderCalendarProps = {
 const RenderCalendar: React.FC<TRenderCalendarProps> = (props) => {
     const { dateObject, eventsWeather, eventsTelescope } = props
 
+    const currentMobile: boolean = (window.innerWidth <= 760)
     const daysInMonth: number = dateObject.daysInMonth()
     const firstDayOfMonth: number = parseInt(moment(dateObject).startOf('month').format('d'))
     const isCurrentMonth = moment(dateObject).isSame(new Date(), 'month')
@@ -49,32 +50,48 @@ const RenderCalendar: React.FC<TRenderCalendarProps> = (props) => {
             <div className={`day ${getWeatherClass(itemWeatherEvent?.clouds)}`} onClick={e => console.log('onDayClick', e, d)}>
                 {(d < 10 ? `0${d}` : d)}
             </div>
-            <div className='event moon'>
-                <MoonPhase date={currentDate} /> ↑ {moment(moonTimes.rise).format('H:mm')} ↓ {moment(moonTimes.set).format('H:mm')}
-            </div>
-            <div className='event sun'>
-                <img src={SunIcon} className='icon' alt='' /> ↑ {moment(sunTimes.nightEnd).format('H:mm')} ↓ {moment(sunTimes.night).format('H:mm')}
-            </div>
-            {itemWeatherEvent && (
-                <div className='event weather'>
-                    {itemWeatherEvent.clouds !== null && <><Icon name='cloud' />{itemWeatherEvent.clouds}{' '}</>}
-                    <Icon name='thermometer' />{itemWeatherEvent.temperature}{' '}
-                    <Icon name='send' />{itemWeatherEvent.wind_speed}
+            {!currentMobile ?
+                <div className='event moon'>
+                    <MoonPhase
+                        date={currentDate}/> ↑ {moment(moonTimes.rise).format('H:mm')} ↓ {moment(moonTimes.set).format('H:mm')}
                 </div>
-            )}
-            {itemAstroEvents && (
-                <Popup
-                    content={itemAstroEvents.objects.join(', ')}
-                    size='mini'
-                    trigger={
-                        <div className='event telescope'>
-                            <Icon name='star outline' />{itemAstroEvents.objects.length}{' '}
-                            <Icon name='clock outline' />{Math.round(itemAstroEvents.exposure / 60)}{' '}
-                            <Icon name='image outline' />{itemAstroEvents.frames}
-                        </div>
-                    }
-                />
-            )}
+                :
+                <div className='event moon mobile'>
+                    <MoonPhase date={currentDate}/>
+                </div>
+            }
+            {!currentMobile &&
+                <div className='event sun'>
+                    <img src={SunIcon} className='icon' alt=''/> ↑ {moment(sunTimes.nightEnd).format('H:mm')} ↓ {moment(sunTimes.night).format('H:mm')}
+                </div>
+            }
+            {itemWeatherEvent &&
+                !currentMobile &&
+                    <div className='event weather'>
+                        {itemWeatherEvent.clouds !== null && <><Icon name='cloud'/>{itemWeatherEvent.clouds}{' '}</>}
+                        <Icon name='thermometer'/>{itemWeatherEvent.temperature}{' '}
+                        <Icon name='send'/>{itemWeatherEvent.wind_speed}
+                    </div>
+            }
+            {itemAstroEvents &&
+                (!currentMobile ?
+                    <Popup
+                        content={itemAstroEvents.objects.join(', ')}
+                        size='mini'
+                        trigger={
+                            <div className='event telescope'>
+                                <Icon name='star outline' />{itemAstroEvents.objects.length}{' '}
+                                <Icon name='clock outline' />{Math.round(itemAstroEvents.exposure / 60)}{' '}
+                                <Icon name='image outline' />{itemAstroEvents.frames}
+                            </div>
+                        }
+                    />
+                    :
+                    <div className='event telescope mobile'>
+                       {Math.round(itemAstroEvents.exposure / 60)}
+                    </div>
+                )
+            }
         </td>);
     }
 

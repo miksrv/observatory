@@ -21,7 +21,7 @@ const RenderTableRow: React.FC<TTableRowProps> = (props) => {
                     <Image
                         className='photo'
                         size='tiny'
-                        src={`https://api.miksoft.pro/public/photo/${photo.file}_thumb.${photo.ext}`}
+                        src={`${process.env.REACT_APP_API_HOST}public/photo/${photo.file}_thumb.${photo.ext}`}
                     />
                 </Link>
             </Table.Cell>

@@ -41,7 +41,7 @@ const PhotoGrid: React.FC<TPhotoGridProps> = (props) => {
                         {photo.title ?
                             <Reveal animated='small fade'>
                                 <Reveal.Content visible>
-                                    <Image src={`https://api.miksoft.pro/public/photo/${photo.file}_thumb.${photo.ext}`} className='photo' />
+                                    <Image src={`${process.env.REACT_APP_API_HOST}public/photo/${photo.file}_thumb.${photo.ext}`} className='photo' />
                                 </Reveal.Content>
                                 <Reveal.Content hidden>
                                     <div className='info'>
@@ -51,7 +51,7 @@ const PhotoGrid: React.FC<TPhotoGridProps> = (props) => {
                                 </Reveal.Content>
                             </Reveal>
                         :
-                            <Image src={`https://api.miksoft.pro/public/photo/${photo.file}_thumb.${photo.ext}`} className='photo' />
+                            <Image src={`${process.env.REACT_APP_API_HOST}public/photo/${photo.file}_thumb.${photo.ext}`} className='photo' />
                         }
                     </Link>
                 )

@@ -27,7 +27,7 @@ const RenderTableRow: React.FC<TTableRowProps> = (props) => {
                     <Image
                         className={'photo ' + (isOutdated(photoItem.date, item.date) ? 'outdated' : 'actual')}
                         size='tiny'
-                        src={`https://api.miksoft.pro/public/photo/${photoItem.file}_thumb.${photoItem.ext}`}
+                        src={`${process.env.REACT_APP_API_HOST}public/photo/${photoItem.file}_thumb.${photoItem.ext}`}
                     />
                 </Link>
             }

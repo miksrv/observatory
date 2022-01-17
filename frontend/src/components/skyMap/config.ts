@@ -13,7 +13,7 @@ const config = {
     // overrides center
     follow: [10.68,41.267],   // on which coordinates to center the map, default: zenith, if location enabled,
     // otherwise center
-    datapath: "https://api.miksoft.pro/skymap/",
+    datapath: `${process.env.REACT_APP_API_HOST}public/skymap`,
     zoomlevel: 5,    // initial zoom level 0...zoomextend; 0|null = default, 1 = 100%, 0 < x <= zoomextend
     zoomextend: 10,     // maximum zoom level
     adaptable: true,    // Sizes are increased with higher zoom-levels

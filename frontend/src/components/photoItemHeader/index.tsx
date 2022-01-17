@@ -41,7 +41,7 @@ const PhotoItemHeader: React.FC<TPhotoItemHeaderProps> = (props) => {
                 <Grid.Column computer={9} tablet={8} mobile={16}>
                     <Image
                         className='photo'
-                        src={(photo ? `https://api.miksoft.pro/public/photo/${photo.file}_thumb.${photo.ext}` : defaultPhoto)}
+                        src={(photo ? `${process.env.REACT_APP_API_HOST}public/photo/${photo.file}_thumb.${photo.ext}` : defaultPhoto)}
                         onClick={() => {
                             if (photo) {
                                 setPhotoLightbox(`${photo.file}.${photo.ext}`)
@@ -88,7 +88,7 @@ const PhotoItemHeader: React.FC<TPhotoItemHeaderProps> = (props) => {
             </Grid>
             {showLightbox &&
                 <Lightbox
-                    mainSrc={`https://api.miksoft.pro/public/photo/${photoLightbox}`}
+                    mainSrc={`${process.env.REACT_APP_API_HOST}public/photo/${photoLightbox}`}
                     onCloseRequest={() => setShowLightbox(false)}
                 />
             }

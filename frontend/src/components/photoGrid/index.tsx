@@ -33,7 +33,7 @@ const PhotoGrid: React.FC<TPhotoGridProps> = (props) => {
 
     return <div className={`box photo-gird ${className ? className : ''}`}>
         {
-            loading ?
+            loading || !photoList ?
                 PhotosLoader(loaderCount ? loaderCount : 12)
                 :
                 photoList.map((photo: TPhoto & TCatalog, key: number) =>

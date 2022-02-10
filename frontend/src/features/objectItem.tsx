@@ -27,6 +27,8 @@ const ObjectItem: React.FC = () => {
     const { data: dataFiles, isFetching: fileLoading } = useGetObjectFilesQuery(params.name)
     const { data: dataNames, isFetching: namesLoading } = useGetObjectNamesQuery()
 
+    const title = dataCatalog && dataCatalog?.payload.title ? dataCatalog?.payload.title : params.name
+
     const chartData: any[] = []
     const chartRa: any[] = []
     const chartDec: any[] = []
@@ -34,7 +36,7 @@ const ObjectItem: React.FC = () => {
     let deviationRa: number = 0;
     let deviationDec: number = 0;
 
-    document.title = `${dataCatalog ? dataCatalog?.payload.title : ''} - Обсерватория`
+    document.title = `${title} - Обсерватория`
 
     if (isError) {
         return <div>Возникла ошибка на сервер</div>

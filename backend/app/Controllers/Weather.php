@@ -26,6 +26,8 @@ class Weather extends BaseController
         $period = $this->request->getGet('date', FILTER_SANITIZE_STRING);
         $client = \Config\Services::curlrequest();
 
+        if (!$period) { $period = date('Y-m'); }
+
         $start = $period . '-01';
         $end = date('Y-m-t', strtotime($period));
 
@@ -41,24 +43,15 @@ class Weather extends BaseController
             $sunrise = $sunData['astronomical_twilight_end'];
             $sunset  = $sunData['astronomical_twilight_begin'];
 
-            if ($item->date > $sunset && $item->date < $sunrise)
-            {
-                continue;
-            }
+            if ($item->date > $sunset && $item->date < $sunrise) { continue; }
 
             $day = date('Y-m-d', $item->date);
 
-            if (!isset($days[$day]))
-            {
-                $days[$day] = (object) ['count' => 0];
-            }
+            if (!isset($days[$day])) { $days[$day] = (object) ['count' => 0]; }
 
             foreach ($item as $var => $val)
             {
-                if ($var === 'date')
-                {
-                    continue;
-                }
+                if ($var === 'date') { continue; }
 
                 if ($val === null)
                 {
@@ -82,10 +75,7 @@ class Weather extends BaseController
 
             foreach ($item as $var => $value)
             {
-                if ($var === 'count')
-                {
-                    continue;
-                }
+                if ($var === 'count') { continue; }
 
                 if ($value !== null)
                 {

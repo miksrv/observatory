@@ -67,11 +67,18 @@ class Photos
 
         foreach ($data as $item)
         {
+            $author = isset($item->author_name) ?
+                [
+                    'name' => $item->author_name,
+                    'link' => $item->author_link,
+                ] : null;
+
             $photos[] = new PhotoListItem(
                 $item->photo_obj,
                 $item->photo_date,
                 $item->photo_file,
                 $item->photo_file_ext,
+                $author,
             );
         }
 

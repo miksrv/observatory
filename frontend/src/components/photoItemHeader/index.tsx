@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { Grid, Image, Dimmer, Loader } from 'semantic-ui-react'
-import { TPhoto, TCatalog } from '../../app/types'
+import { TPhoto, TPhotoAuthor, TCatalog } from '../../app/types'
 import { getTimeFromSec } from '../../functions/helpers'
 
 import defaultPhoto from './images/default-photo.png'
@@ -17,6 +17,10 @@ type TPhotoItemHeaderProps = {
     photo: TPhoto | undefined
     catalog: TCatalog | null | undefined
 }
+
+const Author = (data: TPhotoAuthor) =>
+    data.link ?
+        <a href={data.link} title={data.name} target='_blank' rel='noreferrer'>{data.name}</a> : data.name
 
 const PhotoItemHeader: React.FC<TPhotoItemHeaderProps> = (props) => {
     const { loader, photo, catalog } = props
@@ -41,7 +45,7 @@ const PhotoItemHeader: React.FC<TPhotoItemHeaderProps> = (props) => {
                 <Grid.Column computer={9} tablet={8} mobile={16}>
                     <Image
                         className='photo'
-                        src={(photo ? `https://api.miksoft.pro/public/photo/${photo.file}_thumb.${photo.ext}` : defaultPhoto)}
+                        src={(photo ? `${process.env.REACT_APP_API_HOST}public/photo/${photo.file}_thumb.${photo.ext}` : defaultPhoto)}
                         onClick={() => {
                             if (photo) {
                                 setPhotoLightbox(`${photo.file}.${photo.ext}`)
@@ -64,6 +68,7 @@ const PhotoItemHeader: React.FC<TPhotoItemHeaderProps> = (props) => {
                                 </div>
                                 <div><span className='second-color'>Размер файлов:</span> {filesize} Гб</div>
                                 <div><span className='second-color'>Категория:</span> {category}</div>
+                                {photo?.author && <div><span className='second-color'>Обработка:</span> {Author(photo.author)}</div>}
                             </Grid.Column>
                             <Grid.Column computer={9} tablet={9} mobile={16}>
                                 {(! loader && photo?.parameters?.filters) && <FilterList filters={photo.parameters?.filters} />}
@@ -88,7 +93,7 @@ const PhotoItemHeader: React.FC<TPhotoItemHeaderProps> = (props) => {
             </Grid>
             {showLightbox &&
                 <Lightbox
-                    mainSrc={`https://api.miksoft.pro/public/photo/${photoLightbox}`}
+                    mainSrc={`${process.env.REACT_APP_API_HOST}public/photo/${photoLightbox}`}
                     onCloseRequest={() => setShowLightbox(false)}
                 />
             }

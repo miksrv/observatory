@@ -6,13 +6,15 @@ use CodeIgniter\Validation\ValidationInterface;
 
 class Photos extends Model
 {
-    protected $table = '';
+    protected $table  = '';
+    protected $author = '';
 
     protected string $key_id     = 'photo_id';
     protected string $key_object = 'photo_obj';
     protected string $key_date   = 'photo_date';
     protected string $key_file   = 'photo_file';
     protected string $key_ext    = 'photo_file_ext';
+    protected string $key_author = 'photo_author';
 
     protected $db;
 
@@ -20,7 +22,8 @@ class Photos extends Model
     {
         parent::__construct($db, $validation);
 
-        $this->table = getenv('database.table.astro_photos');
+        $this->table  = getenv('database.table.astro_photos');
+        $this->author = getenv('database.table.astro_authors');
     }
 
     /**
@@ -31,6 +34,7 @@ class Photos extends Model
     {
         return $this->db
             ->table($this->table)
+            ->join($this->author, "$this->author.author_id = $this->table.$this->key_author", 'left')
             ->orderBy($this->key_date, 'DESC')
             ->get()
             ->getResult();
@@ -45,6 +49,7 @@ class Photos extends Model
     {
         return $this->db
             ->table($this->table)
+            ->join($this->author, "$this->author.author_id = $this->table.$this->key_author", 'left')
             ->orderBy($this->key_date, 'DESC')
             ->getWhere([$this->key_object => $name])
             ->getResult();

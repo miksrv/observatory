@@ -117,7 +117,13 @@ export type TPhoto = {
     date: string
     file: string
     ext: string
+    author: TPhotoAuthor | null
     parameters?: TObject
+}
+
+export type TPhotoAuthor = {
+    name: string
+    link: string
 }
 
 export type TCatalog = {

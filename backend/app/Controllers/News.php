@@ -108,9 +108,9 @@ class News extends BaseController
             $_tmp->comments = $item['comments']['count'];
             $_tmp->likes = $item['likes']['count'];
             $_tmp->reposts = $item['reposts']['count'];
-            $_tmp->views = $item['views']['count'];
+            $_tmp->views = isset($item['views']) ? $item['views']['count'] : 0;
             $_tmp->link = 'wall' . $item['owner_id'] . '_' . $item['id'];
-            $_tmp->photos = $this->_get_photos($item['attachments']);
+            $_tmp->photos = isset($item['attachments']) ? $this->_get_photos($item['attachments']) : [];
 
             $news[] = $_tmp;
         }

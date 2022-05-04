@@ -115,10 +115,10 @@ class News extends BaseController
             $news[] = $_tmp;
         }
 
-        return $this->_response(['count' => $wall['count'], 'news' => $news]);
+        $this->_response(['count' => $wall['count'], 'news' => $news]);
     }
 
-    protected function _get_photos($attach)
+    protected function _get_photos($attach): ?array
     {
         if (!is_array($attach) || empty($attach))
         {

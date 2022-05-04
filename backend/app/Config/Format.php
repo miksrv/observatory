@@ -5,6 +5,10 @@ namespace Config;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Format\FormatterInterface;
 
+define('APP_JSON', 'application/json');
+define('APP_XML', 'application/xml');
+define('APP_TEXT', 'text/xml');
+
 class Format extends BaseConfig
 {
 	/**
@@ -22,10 +26,10 @@ class Format extends BaseConfig
 	 *
 	 * @var string[]
 	 */
-	public $supportedResponseFormats = [
-		'application/json',
-		'application/xml', // machine-readable XML
-		'text/xml', // human-readable XML
+	public array $supportedResponseFormats = [
+        APP_JSON,
+        APP_XML, // machine-readable XML
+        APP_TEXT, // human-readable XML
 	];
 
 	/**
@@ -40,9 +44,9 @@ class Format extends BaseConfig
 	 * @var array<string, string>
 	 */
 	public $formatters = [
-		'application/json' => 'CodeIgniter\Format\JSONFormatter',
-		'application/xml'  => 'CodeIgniter\Format\XMLFormatter',
-		'text/xml'         => 'CodeIgniter\Format\XMLFormatter',
+        APP_JSON => 'CodeIgniter\Format\JSONFormatter',
+        APP_XML  => 'CodeIgniter\Format\XMLFormatter',
+        APP_TEXT => 'CodeIgniter\Format\XMLFormatter',
 	];
 
 	/**
@@ -56,9 +60,9 @@ class Format extends BaseConfig
 	 * @var array<string, int>
 	 */
 	public $formatterOptions = [
-		'application/json' => JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES,
-		'application/xml'  => 0,
-		'text/xml'         => 0,
+        APP_JSON => JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES,
+        APP_XML  => 0,
+        APP_TEXT => 0,
 	];
 
 	//--------------------------------------------------------------------
@@ -72,8 +76,8 @@ class Format extends BaseConfig
 	 *
 	 * @deprecated This is an alias of `\CodeIgniter\Format\Format::getFormatter`. Use that instead.
 	 */
-	public function getFormatter(string $mime)
-	{
+	public function getFormatter(string $mime): FormatterInterface
+    {
 		return Services::format()->getFormatter($mime);
 	}
 }

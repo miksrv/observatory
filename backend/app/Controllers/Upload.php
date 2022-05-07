@@ -1,6 +1,7 @@
 <?php namespace App\Controllers;
 
 use CodeIgniter\Exceptions\PageNotFoundException;
+use App\Libraries\Files;
 
 define('IMAGE_PATH', FCPATH . 'uploads/');
 
@@ -39,6 +40,30 @@ class Upload extends BaseController
             } else {
                 $this->response->setStatusCode(200)->setJSON(['status' => false])->send();
             }
+        }
+
+        exit();
+    }
+
+    function fit_data()
+    {
+        $request = \Config\Services::request();
+        $RAWData = json_decode($request->getJSON());
+
+        if (empty($RAWData) || ! isset($RAWData->OBJECT) || ! isset($RAWData->FILE_NAME))
+        {
+            log_message('error', '[' . __METHOD__ . '] Empty RAW data (' . json_encode($RAWData) . ')');
+            $this->response->setStatusCode(400)->setJSON(['status' => false])->send();
+
+            exit();
+        }
+
+        $Files  = new Files();
+
+        if ($Files->save_data($RAWData)) {
+            $this->response->setStatusCode(200)->setJSON(['status' => true])->send();
+        } else {
+            $this->response->setStatusCode(200)->setJSON(['status' => false])->send();
         }
 
         exit();

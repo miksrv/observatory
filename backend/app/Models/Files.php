@@ -82,6 +82,11 @@ class Files extends Model
             ->getResult();
     }
 
+    function add_new_file_data(array $data)
+    {
+        return $this->db->table('astro_fits_new')->insert($data);
+    }
+
     protected function _db(array $fields = [])
     {
         return $this->db

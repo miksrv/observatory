@@ -3,6 +3,8 @@ import { declOfNum } from '../../functions/helpers'
 import { TObjectFilters } from '../../app/types'
 import translate from '../../functions/translate'
 
+import './styles.sass'
+
 type TFilterListProps = {
     filters: TObjectFilters
 }

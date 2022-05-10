@@ -1,0 +1,54 @@
+@import 'src/styles/variables'
+
+.weather
+  padding: 9px 13px
+
+  h4
+    margin-bottom: 0
+
+  .update
+    margin: 2px 0 5px 0
+
+  &.loader
+    height: 120px
+
+  .grid
+    margin: 0
+
+    .column
+      padding: 1px 0 !important
+
+  .key
+    color: $text-second
+
+  .val
+    color: $text-main
+
+  [class^='weather']
+    display: inline-block
+    width: 8px
+    height: 8px
+    background-color: $brown
+    margin-right: 5px
+
+    &.weather-0
+      background-color: $green
+
+    &.weather-1
+      background-color: $orange
+
+    &.weather-2
+      background-color: $red
+
+  [class^='state']
+    color: $brown
+    text-transform: lowercase
+
+    &.state-0
+      color: $green
+
+    &.state-1
+      color: $orange
+
+    &.state-2
+      color: $red

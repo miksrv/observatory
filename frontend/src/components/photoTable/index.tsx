@@ -4,6 +4,8 @@ import { TPhoto } from '../../app/types'
 
 import RenderTableRow from './renderTableRow'
 
+import './styles.sass'
+
 type TPhotoTableProps = {
     photos: TPhoto[]
 }

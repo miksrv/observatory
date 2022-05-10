@@ -5,6 +5,8 @@ import { TObjectSortable, TSortOrdering } from './types'
 import RenderTableHeader from './renderTableHeader'
 import RenderTableRow from './renderTableRow'
 
+import './styles.sass'
+
 type TObjectTable = {
     objects: IObjectListItem[] //(IObjectListItem & {photo: string})[]
     photos: TPhoto[] | undefined

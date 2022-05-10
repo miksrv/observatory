@@ -65,7 +65,7 @@ const chart_sensors = {
             valueSuffix: ' °C'
         }
     }, {
-        name: 'Температура 1',
+        name: 'Апертура',
         type: 'spline',
         yAxis: 0,
         data: [],
@@ -74,7 +74,7 @@ const chart_sensors = {
             valueSuffix: ' °C'
         }
     }, {
-        name: 'Температура 2',
+        name: 'Блок питания',
         type: 'spline',
         yAxis: 0,
         data: [],
@@ -83,7 +83,7 @@ const chart_sensors = {
             valueSuffix: ' °C'
         }
     }, {
-        name: 'Температура 3',
+        name: 'Шкаф управления',
         type: 'spline',
         yAxis: 0,
         data: [],

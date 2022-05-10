@@ -1,0 +1,24 @@
+@import '../../styles/variables'
+
+.object-cloud
+  text-align: justify
+
+  a
+    margin: 1px
+    color: $text-second
+
+    &.active
+      font-weight: bold
+      color: $text-main
+
+    &:after
+      content: '•'
+      color: $text-main
+      margin: 0 5px 0 7px
+
+    &:hover
+      color: $text-main
+
+    &:last-of-type
+      &:after
+        display: none

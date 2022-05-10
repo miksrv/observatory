@@ -128,7 +128,7 @@ export const observatoryApi = createApi({
             keepUnusedDataFor: 3600
         }),
 
-        getRelayState: builder.query<any, void>({
+        getRelayState: builder.query<any, null>({
             query: () => `relay/state`,
             providesTags: () => [{ type: 'Relay', id: 'LIST' }]
         }),

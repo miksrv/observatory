@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Dimmer, Loader } from 'semantic-ui-react'
 
+import './styles.sass'
+
 type TObjectCloudProps = {
     loader: boolean
     current: string

@@ -62,7 +62,7 @@ const RenderCalendar: React.FC<TRenderCalendarProps> = (props) => {
             }
             {!currentMobile &&
                 <div className='event sun'>
-                    <img src={SunIcon} className='icon' alt=''/> ↑ {moment(sunTimes.nightEnd).format('H:mm')} ↓ {moment(sunTimes.night).format('H:mm')}
+                    <img src={SunIcon} className='icon' alt=''/> ↑ {moment(sunTimes.dawn).format('H:mm')} ↓ {moment(sunTimes.dusk).format('H:mm')}
                 </div>
             }
             {itemWeatherEvent &&

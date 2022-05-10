@@ -1,6 +1,6 @@
 <?php $error_id = uniqid('error', true); ?>
 <!doctype html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="robots" content="noindex">
@@ -30,7 +30,7 @@
 
 	<!-- Source -->
 	<div class="container">
-		<p><b><?= static::cleanPath($file, $line) ?></b> at line <b><?= $line ?></b></p>
+		<p><strong><?= static::cleanPath($file, $line) ?></strong> at line <strong><?= $line ?></strong></p>
 
 		<?php if (is_file($file)) : ?>
 			<div class="source">

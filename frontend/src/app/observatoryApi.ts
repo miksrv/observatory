@@ -6,7 +6,8 @@ import {
     IRestCatalogItem, IRestObjectFiles, IRestObjectItem,
     IRestCatalogList, IRestObjectNames, IRestNewsList,
     IRestAuth, ICredentials, IRestWeatherMonth,
-    IRelayList, IRelaySet, IRestWeatherCurrent, IRestFilesMonth
+    IRelayList, IRelaySet, IRestWeatherCurrent, IRestFilesMonth,
+    IRestSensorStatistic
 } from './types'
 
 type TQueryNewsList = {
@@ -127,7 +128,7 @@ export const observatoryApi = createApi({
             keepUnusedDataFor: 3600
         }),
 
-        getRelayState: builder.query<any, void>({
+        getRelayState: builder.query<any, null>({
             query: () => `relay/state`,
             providesTags: () => [{ type: 'Relay', id: 'LIST' }]
         }),
@@ -140,6 +141,10 @@ export const observatoryApi = createApi({
             }),
             invalidatesTags: [{ type: 'Relay', id: 'LIST' }],
         }),
+
+        getSensorStatistic: builder.query<IRestSensorStatistic, void>({
+            query: () => 'get/sensors/statistic'
+        }),
     })
 })
 
@@ -151,5 +156,5 @@ export const {
     useGetNewsListQuery, useGetWeatherMonthMutation,
     useLoginMutation, useLoginCheckMutation, useLogoutMutation,
     useGetRelayListQuery, useGetRelayStateQuery, useSetRelayStatusMutation,
-    useGetWeatherCurrentQuery, useGetFilesMonthMutation
+    useGetWeatherCurrentQuery, useGetFilesMonthMutation, useGetSensorStatisticQuery
 } = observatoryApi

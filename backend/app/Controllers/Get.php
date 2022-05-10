@@ -7,6 +7,7 @@ use App\Libraries\Catalog;
 use App\Libraries\Files;
 use App\Libraries\Photos;
 use App\Libraries\Statistic;
+use App\Libraries\Sensors;
 
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, OPTIONS");
@@ -25,10 +26,12 @@ class Get extends BaseController
         switch ($what)
         {
             case 'list': // Получить список
-                return $this->_response($Objects->list());
+                $this->_response($Objects->list());
+                break;
 
             case 'names': // Возвращает список имён объектов
-                return $this->_response($Objects->names());
+                $this->_response($Objects->names());
+                break;
 
             case 'item': // Получить один
                 if (! $object)
@@ -36,7 +39,8 @@ class Get extends BaseController
                     throw PageNotFoundException::forPageNotFound();
                 }
 
-                return $this->_response($Objects->item($object));
+                $this->_response($Objects->item($object));
+                break;
 
             default: throw PageNotFoundException::forPageNotFound();
         }
@@ -54,7 +58,8 @@ class Get extends BaseController
         switch ($what)
         {
             case 'list': // Получить список
-                return $this->_response($Catalog->list());
+                $this->_response($Catalog->list());
+                break;
 
             case 'item': // Получить один
                 if (! $object)
@@ -62,7 +67,8 @@ class Get extends BaseController
                     throw PageNotFoundException::forPageNotFound();
                 }
 
-                return $this->_response($Catalog->item($object));
+                $this->_response($Catalog->item($object));
+                break;
 
             default: throw PageNotFoundException::forPageNotFound();
         }
@@ -84,7 +90,8 @@ class Get extends BaseController
                 {
                     throw PageNotFoundException::forPageNotFound();
                 }
-                return $this->_response($Files->list_by_object($object));
+                $this->_response($Files->list_by_object($object));
+                break;
 
             default: throw PageNotFoundException::forPageNotFound();
         }
@@ -101,7 +108,8 @@ class Get extends BaseController
         switch ($what)
         {
             case 'list': // Список всех фото
-                return $this->_response(! $object ? $Photos->list() : $Photos->list_by_object($object));
+                $this->_response(! $object ? $Photos->list() : $Photos->list_by_object($object));
+                break;
 
             default: throw PageNotFoundException::forPageNotFound();
         }
@@ -118,14 +126,35 @@ class Get extends BaseController
         switch ($what)
         {
             case 'summary': // Общая статистика (объектов, кадров, выдержка, фотографий, данных)
-                return $this->_response($Statistic->summary());
+                $this->_response($Statistic->summary());
+                break;
 
             case 'month':
                 if (! $period)
                 {
                     throw PageNotFoundException::forPageNotFound();
                 }
-                return $this->_response($Statistic->month($period));
+                $this->_response($Statistic->month($period));
+                break;
+
+            default: throw PageNotFoundException::forPageNotFound();
+        }
+    }
+
+    /**
+     * Данные сенсоров с контроллера
+     * @param $what
+     * @return void
+     */
+    function sensors($what = null)
+    {
+        $Sensors = new Sensors();
+
+        switch ($what)
+        {
+            case 'statistic': // Сводная статистика за несколько часов
+                $this->_response($Sensors->statistic());
+                break;
 
             default: throw PageNotFoundException::forPageNotFound();
         }
@@ -134,7 +163,7 @@ class Get extends BaseController
     protected function _response($payload)
     {
         $data = (object) [
-            'status'  => (bool)$payload,
+            'status'  => (bool) $payload,
             'payload' => $payload
         ];
 

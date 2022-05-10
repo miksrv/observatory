@@ -42,7 +42,11 @@ class Files extends Model
      */
     function get_by_object(string $name)
     {
-        return $this->_db(['file_id', 'item_file_name', 'item_ccd_temp', 'item_offset', 'item_gain', 'item_dec', 'item_ra'])
+        return $this->_db([
+                'file_id', 'item_file_name', 'item_ccd_temp', 'item_object',
+                'item_offset', 'item_gain', 'item_dec', 'item_ra',
+                'item_star_count', 'item_sky_background', 'item_hfr'
+            ])
             ->orderBy($this->key_id, 'DESC')
             ->getWhere([$this->key_frame => 'Light', $this->key_object => $name])
             ->getResult();
@@ -80,6 +84,11 @@ class Files extends Model
             ->groupBy('item_object')
             ->getWhere([$this->key_frame => 'Light'])
             ->getResult();
+    }
+
+    function add_new_file_data(array $data)
+    {
+        return $this->db->table('astro_fits_new')->insert($data);
     }
 
     protected function _db(array $fields = [])

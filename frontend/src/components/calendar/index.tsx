@@ -5,6 +5,8 @@ import { TWeatherMonth, TFilesMonth } from '../../app/types'
 
 import RenderCalendar from './renderCalendar'
 
+import './styles.sass'
+
 type TCalendarProps = {
     loading: boolean
     eventsWeather: TWeatherMonth[]

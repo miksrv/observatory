@@ -6,6 +6,8 @@ header('Access-Control-Allow-Headers: Accept, AuthToken, Content-Type');
 
 use App\Libraries\Auth as libAuth;
 
+define('LABEL_NOT_USED', '[Не задействовано]');
+
 class Relay extends BaseController
 {
 
@@ -18,13 +20,13 @@ class Relay extends BaseController
 
     protected array $relayList = [
         'Блок питания 12В',
-        '[Не задействовано]',
+        LABEL_NOT_USED,
         'Монтировка (EQ6 Pro)',
         'Контроллер грелок',
         'Фокусер ZWO EAF',
         'Камера (ZWO ASI 1600mm)',
-        '[Не задействовано]',
-        '[Не задействовано]',
+        LABEL_NOT_USED,
+        LABEL_NOT_USED,
         'LED Flat панель'
     ];
 

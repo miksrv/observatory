@@ -4,6 +4,8 @@ import { TObject } from './types'
 
 import RenderMap from './renderMap'
 
+import './styles.sass'
+
 type TSkyMapProps = {
     objects: TObject[] | undefined
     interactive?: boolean

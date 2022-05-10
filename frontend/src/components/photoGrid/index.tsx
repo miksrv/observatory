@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { Image, Reveal, Dimmer, Loader } from 'semantic-ui-react'
 import { TPhoto, TCatalog } from '../../app/types'
 
+import './styles.sass'
+
 type TPhotoGridProps = {
     loading: boolean
     photoList: any
@@ -41,7 +43,10 @@ const PhotoGrid: React.FC<TPhotoGridProps> = (props) => {
                         {photo.title ?
                             <Reveal animated='small fade'>
                                 <Reveal.Content visible>
-                                    <Image src={`${process.env.REACT_APP_API_HOST}public/photo/${photo.file}_thumb.${photo.ext}`} className='photo' />
+                                    <Image
+                                        src={`${process.env.REACT_APP_API_HOST}public/photo/${photo.file}_thumb.${photo.ext}`}
+                                        className='photo'
+                                    />
                                 </Reveal.Content>
                                 <Reveal.Content hidden>
                                     <div className='info'>
@@ -51,7 +56,10 @@ const PhotoGrid: React.FC<TPhotoGridProps> = (props) => {
                                 </Reveal.Content>
                             </Reveal>
                         :
-                            <Image src={`${process.env.REACT_APP_API_HOST}public/photo/${photo.file}_thumb.${photo.ext}`} className='photo' />
+                            <Image
+                                src={`${process.env.REACT_APP_API_HOST}public/photo/${photo.file}_thumb.${photo.ext}`}
+                                className='photo'
+                            />
                         }
                     </Link>
                 )

@@ -75,6 +75,27 @@ export interface IRestWeatherCurrent extends IRestResponse {
     }
 }
 
+export interface IRestSensorStatistic extends IRestResponse {
+    payload: TSensorsPayload[]
+}
+
+export type TSensorsPayload = {
+    time: number
+    sensors: TSensors
+}
+
+export type TSensors = {
+    t?: number
+    h?: number
+    t1?: number
+    t2?: number
+    t3?: number
+    v1?: number
+    p1?: number
+    p2?: number
+    p3?: number
+}
+
 export interface IRestAuth {
     status: boolean
     token: string
@@ -164,6 +185,10 @@ export type TFIle = {
     offset: number
     dec: number
     ra: number
+    stars: number
+    hfr: number
+    sky: number
+    image: boolean
 }
 
 export type TNews = {

@@ -4,6 +4,8 @@ import { Dimmer, Loader } from 'semantic-ui-react'
 
 import NewsItem from './newsItem'
 
+import './styles.sass'
+
 type TNewsListProps = {
     loader: boolean
     news: TNews[] | undefined
@@ -20,8 +22,8 @@ const NewsList: React.FC<TNewsListProps> = (props) => {
 
     return (
         <>
-            {loader ?
-                <NewsLoader />
+            {loader
+                ? <NewsLoader />
                 :
                 <div className='news-list'>
                     {news && news.map((item, key) =>

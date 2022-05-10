@@ -20,6 +20,9 @@ const HEADER_FIELDS: THeaderFields[] = [
     { key: 'temp', name: '℃' },
     { key: 'gain', name: 'Gain' },
     { key: 'offset', name: 'Offset' },
+    { key: 'stars', name: 'Звезд' },
+    { key: 'sky', name: 'SNR' },
+    { key: 'hfr', name: 'HFR' },
     { key: 'date', name: 'Дата съемки' }
 ]
 

@@ -109,6 +109,12 @@ class Files
                 $file->item_gain,
                 $file->item_dec,
                 $file->item_ra,
+
+                $file->item_star_count ?? 0,
+                $file->item_hfr ?? 0,
+                $file->item_sky_background ?? 0,
+
+                file_exists(FCPATH . 'uploads/' . $file->item_object . '/' . $file->item_file_name . '.jpg')
             );
         }
 

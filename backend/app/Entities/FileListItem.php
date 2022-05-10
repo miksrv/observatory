@@ -12,6 +12,10 @@ interface IFileListItem
     const gain     = 0;
     const dec      = 0;
     const ra       = 0;
+    const stars    = 0;
+    const hfr      = 0;
+    const sky      = 0;
+    const image    = false;
 }
 
 class FileListItem implements IFileListItem
@@ -26,4 +30,8 @@ class FileListItem implements IFileListItem
     public int $gain      = 0;
     public float $dec     = 0;
     public float $ra      = 0;
+    public int $stars     = 0;
+    public float $hfr     = 0;
+    public float $sky     = 0;
+    public bool $image    = false;
 }

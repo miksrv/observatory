@@ -14,6 +14,7 @@ import ObjectCloud from '../components/objectCloud'
 
 import chart_coordinates from '../components/chart/chart_coordinates'
 import chart_coordlines from '../components/chart/chart_coordlines'
+import chart_statistic from '../components/chart/chart_statistic'
 
 type TParamsURL = {
     name: string
@@ -29,9 +30,11 @@ const ObjectItem: React.FC = () => {
 
     const title = dataCatalog && dataCatalog?.payload.title ? dataCatalog?.payload.title : params.name
 
-    const chartData: any[] = []
-    const chartRa: any[] = []
-    const chartDec: any[] = []
+    const chartData: [number, number][] = []
+    const chartRa: number[] = []
+    const chartDec: number[] = []
+    const chartHFR: number[] = []
+    const chartSNR: number[] = []
 
     let deviationRa: number = 0;
     let deviationDec: number = 0;
@@ -59,6 +62,14 @@ const ObjectItem: React.FC = () => {
             chartData.push([item.ra, item.dec])
             chartRa.push(item.ra)
             chartDec.push(item.dec)
+
+            if (item.hfr !== 0) {
+                chartHFR.push(item.hfr)
+            }
+
+            if (item.sky !== 0) {
+                chartSNR.push(item.sky)
+            }
         })
 
         deviationRa = Math.max(...chartRa) - Math.min(...chartRa)
@@ -100,10 +111,23 @@ const ObjectItem: React.FC = () => {
                         data={[chartRa, chartDec]}
                     />
                 </Grid.Column>
+                {chartHFR.length && chartSNR.length
+                    ? (
+                        <Grid.Column width={16}>
+                            <Chart
+                                loader={fileLoading}
+                                config={chart_statistic}
+                                data={[chartHFR, chartSNR]}
+                            />
+                        </Grid.Column>
+                    )
+                    : ''
+                }
             </Grid>
             <br />
             <FilesTable
                 loader={fileLoading}
+                object={params.name}
                 files={dataFiles?.payload}
             />
             <br />

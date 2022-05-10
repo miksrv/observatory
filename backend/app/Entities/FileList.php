@@ -14,7 +14,11 @@ interface IFileList
         int $offset,
         int $gain,
         float $dec,
-        float $ra
+        float $ra,
+        int $stars,
+        float $hfr,
+        float $sky,
+        bool $image
     );
 }
 
@@ -32,7 +36,11 @@ class FileList implements IFileList
         int $offset,
         int $gain,
         float $dec,
-        float $ra
+        float $ra,
+        int $stars = 0,
+        float $hfr = 0,
+        float $sky = 0,
+        bool $image = false
     )
     {
         $file =  new FileListItem();
@@ -47,6 +55,12 @@ class FileList implements IFileList
         $file->gain     = $gain;
         $file->dec      = $dec;
         $file->ra       = $ra;
+
+        $file->stars    = $stars;
+        $file->hfr      = $hfr;
+        $file->sky      = $sky;
+
+        $file->image    = $image;
 
         $this->list[] = $file;
     }

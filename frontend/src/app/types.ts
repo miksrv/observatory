@@ -185,6 +185,10 @@ export type TFIle = {
     offset: number
     dec: number
     ra: number
+    stars: number
+    hfr: number
+    sky: number
+    image: boolean
 }
 
 export type TNews = {

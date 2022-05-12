@@ -103,12 +103,32 @@ class Get extends BaseController
     function photo($what = null)
     {
         $Photos = new Photos();
-        $object = $this->request->getGet('object', FILTER_SANITIZE_STRING);
+        $name = $this->request->getGet('object', FILTER_SANITIZE_STRING);
+        $date = $this->request->getGet('date', FILTER_SANITIZE_STRING);
 
         switch ($what)
         {
             case 'list': // Список всех фото
-                $this->_response(! $object ? $Photos->list() : $Photos->list_by_object($object));
+                $this->_response(! $name ? $Photos->list() : $Photos->list_by_object($name));
+                break;
+
+            case 'download': // Скачать фото по названию объекта и дате
+                if (!$name || !$date)
+                {
+                    throw PageNotFoundException::forPageNotFound();
+                }
+
+                $filePath = $Photos->get_photo_path($name, $date);
+
+                if (!$filePath)
+                {
+                    throw PageNotFoundException::forPageNotFound();
+                }
+
+                header('Content-Type: application/octet-stream');
+                header('Content-Transfer-Encoding: Binary');
+                header('Content-disposition: attachment; filename="' . basename($filePath) . '"');
+                readfile($filePath);
                 break;
 
             default: throw PageNotFoundException::forPageNotFound();

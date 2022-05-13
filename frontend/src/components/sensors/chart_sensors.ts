@@ -65,20 +65,10 @@ const chart_sensors = {
             valueSuffix: ' °C'
         }
     }, {
-        name: 'Апертура',
-        type: 'spline',
-        yAxis: 0,
-        data: [],
-        color: colors[2],
-        tooltip: {
-            valueSuffix: ' °C'
-        }
-    }, {
         name: 'Блок питания',
         type: 'spline',
         yAxis: 0,
-        data: [],
-        color: colors[3],
+        color: colors[2],
         tooltip: {
             valueSuffix: ' °C'
         }
@@ -86,7 +76,14 @@ const chart_sensors = {
         name: 'Шкаф управления',
         type: 'spline',
         yAxis: 0,
-        data: [],
+        color: colors[3],
+        tooltip: {
+            valueSuffix: ' °C'
+        }
+    }, {
+        name: 'Апертура',
+        type: 'spline',
+        yAxis: 0,
         color: colors[4],
         tooltip: {
             valueSuffix: ' °C'

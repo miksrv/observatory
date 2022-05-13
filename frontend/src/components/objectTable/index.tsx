@@ -1,53 +1,76 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { Table } from 'semantic-ui-react'
-import { IObjectListItem, TPhoto } from '../../app/types'
+import { IObjectListItem, TPhoto, TCatalog } from '../../app/types'
 import { TObjectSortable, TSortOrdering } from './types'
-import RenderTableHeader from './renderTableHeader'
+import RenderTableHeader, { HEADER_FIELDS } from './renderTableHeader'
 import RenderTableRow from './renderTableRow'
 
 import './styles.sass'
 
 type TObjectTable = {
-    objects: IObjectListItem[] //(IObjectListItem & {photo: string})[]
+    objects: (IObjectListItem & TCatalog)[]
     photos: TPhoto[] | undefined
 }
 
-type TObjectPhotoCount = (IObjectListItem & {photo: number})[]
+const RowNoData: React.FC = () => (
+    <Table.Row>
+        <Table.Cell
+            textAlign='center'
+            colSpan={HEADER_FIELDS.length}
+            content='Ничего не найдено, попробуйте изменить условия поиска'
+        />
+    </Table.Row>
+)
 
 const ObjectTable: React.FC<TObjectTable> = (props) => {
     const { objects, photos } = props
     const [ sortField, setSortField ] = useState<TObjectSortable>('name')
     const [ sortOrder, setSortOrder ] = useState<TSortOrdering>('descending')
 
-    const shotObjects: TObjectPhotoCount = objects.map((item) => {
-        const objectPhotos = photos?.filter((photo) => photo.object === item.name)
-        return {
-            ...item,
-            photo: objectPhotos ? objectPhotos.length : 0
-        }
-    })
+    const doShotObjects = useCallback(() => {
+        return objects.map((item) => {
+            const objectPhotos = photos?.filter((photo) => photo.object === item.name)
+            return {
+                ...item,
+                photo: objectPhotos ? objectPhotos.length : 0
+            }
+        })
+    }, [objects, photos])
 
-    const sortObjects = shotObjects.slice().sort((first, second) =>
-        (sortOrder === 'descending' ? ((first[sortField] > second[sortField]) ? 1 : -1) : (first[sortField] < second[sortField]) ? 1 : -1)
-    )
+    const doSortObjects = useCallback(() => {
+        return doShotObjects().sort((first, second) =>
+            (sortOrder === 'descending' ? ((first[sortField] > second[sortField]) ? 1 : -1) : (first[sortField] < second[sortField]) ? 1 : -1)
+        )
+    }, [doShotObjects, sortOrder, sortField])
 
     const handlerSortClick = (field: TObjectSortable) => {
         if (sortField !== field) setSortField(field)
         else setSortOrder((sortOrder === 'ascending' ? 'descending' : 'ascending'))
     }
 
-    return <Table sortable celled inverted selectable compact className='object-table'>
-        <RenderTableHeader
-            sort={sortField}
-            order={sortOrder}
-            handlerSortClick={(field: TObjectSortable) => handlerSortClick(field)}
-        />
-        <Table.Body>
-            {sortObjects.map((item, key) =>
-                <RenderTableRow item={item} photos={photos} key={key} />
-            )}
-        </Table.Body>
-    </Table>
+    return (
+        <div className='box table'>
+            <Table sortable celled inverted selectable compact className='object-table'>
+                <RenderTableHeader
+                    sort={sortField}
+                    order={sortOrder}
+                    handlerSortClick={(field: TObjectSortable) => handlerSortClick(field)}
+                />
+                <Table.Body>
+                    {doSortObjects().length
+                        ? doSortObjects().map((item) =>
+                            <RenderTableRow
+                                item={item}
+                                photos={photos}
+                                key={item.name}
+                            />
+                        )
+                        : <RowNoData/>
+                    }
+                </Table.Body>
+            </Table>
+        </div>
+    )
 }
 
 export default ObjectTable

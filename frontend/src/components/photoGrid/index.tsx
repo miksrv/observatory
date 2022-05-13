@@ -33,13 +33,17 @@ const PhotoGrid: React.FC<TPhotoGridProps> = (props) => {
         return sliced + (sliced.length < text.length && '...')
     }
 
-    return <div className={`box photo-gird ${className ? className : ''}`}>
-        {
-            loading || !photoList ?
+    return (
+        <div className={`box photo-gird ${className ? className : ''}`}>
+            {loading || !photoList ?
                 PhotosLoader(loaderCount ? loaderCount : 12)
                 :
-                photoList.map((photo: TPhoto & TCatalog, key: number) =>
-                    <Link to={`/photo/${photo.object}?date=${photo.date}`} key={key} className='item'>
+                photoList.map((photo: TPhoto & TCatalog) =>
+                    <Link
+                        key={photo.object}
+                        to={`/photo/${photo.object}?date=${photo.date}`}
+                        className='item'
+                    >
                         {photo.title ?
                             <Reveal animated='small fade'>
                                 <Reveal.Content visible>
@@ -55,7 +59,7 @@ const PhotoGrid: React.FC<TPhotoGridProps> = (props) => {
                                     </div>
                                 </Reveal.Content>
                             </Reveal>
-                        :
+                            :
                             <Image
                                 src={`${process.env.REACT_APP_API_HOST}public/photo/${photo.file}_thumb.${photo.ext}`}
                                 className='photo'
@@ -63,8 +67,9 @@ const PhotoGrid: React.FC<TPhotoGridProps> = (props) => {
                         }
                     </Link>
                 )
-        }
-    </div>
+            }
+        </div>
+    )
 }
 
 export default PhotoGrid

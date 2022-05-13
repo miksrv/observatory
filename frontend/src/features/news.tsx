@@ -12,17 +12,21 @@ const News: React.FC = () => {
 
     const { data, isLoading, isFetching } = useGetNewsListQuery({ limit, offset })
 
-    document.title = 'Новости проекта - Обсерватория'
+    useEffect(() => {
+        document.title = 'Новости проекта - Обсерватория'
+    })
 
     useEffect(() => {
-        data?.payload.news && addNews(news => news.concat(data?.payload.news))
+        if (data?.payload.news) {
+            addNews(news => news.concat(data?.payload.news))
+        }
     }, [data])
 
     return (
         <>
             <NewsList
                 loader={isLoading}
-                news={news}
+                news={offset > 0 ? news : data?.payload.news}
             />
             <br />
             <Button

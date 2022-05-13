@@ -81,7 +81,6 @@ const chart_coordinates = {
     series: [{
         name: 'Координаты объекта',
         color: colors[3],
-        data: []
     }]
 }
 

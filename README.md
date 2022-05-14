@@ -1,24 +1,23 @@
-Observatory control panel
+Amateur astronomical observatory portal
 ===============
-[![Release](https://github.com/miksrv/observatory/actions/workflows/nodejs-pr-master.yml/badge.svg?branch=master)](https://github.com/miksrv/observatory/actions/workflows/nodejs-pr-master.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=miksrv_observatory&metric=alert_status)](https://sonarcloud.io/dashboard?id=miksrv_observatory)
+[![Build & Test](https://github.com/miksrv/observatory/actions/workflows/build.yml/badge.svg)](https://github.com/miksrv/observatory/actions/workflows/build.yml)
 
 An interface project for the management of an amateur astronomical observatory. The WEB-interface provides the ability to control the power supply of devices through a relay system, to receive data on temperatures at various points, humidity and voltage of various devices. The interface displays images from cameras, builds graphs for viewing archive statistics. The main function is to display statistics of the observatory's work: a calendar of filming with statistics of a filming night, display of captured objects with the number of frames in various filters, a photo gallery of the final results. 
 
 [ [DEMO](https://observatory.miksoft.pro/) ]
 
-![General view of the interface](./documentation/ui-screen-1.png)
+![General view of the interface](./docs/ui-screen-1.png)
 
 ----------------------
 ### Observatory 
 
 This is an amateur and completely homemade astronomical observatory project. The goal of the project is to teach the skills of building objects offline, writing drivers in C++, scripts in Python to automate the process of equipment operation. In addition, obtaining good astrophotography of deep-sky objects, observing comets, asteroids and searching for supernovae and variable stars. 
 
-![General view of the observatory](./documentation/photo-1.jpg)
+![General view of the observatory](./docs/photo-1.jpg)
 
 The observatory controller is based on Ardunio (AVR) and connects to the observatory network. The controller is controlled by means of HTTP requests, which send commands to switch the state of the relay and other elements of the power load. The controller's WEB client sends statistics to a remote server ([API](https://github.com/miksrv/api-backend)) at a specified time interval. The web interface in this repository displays statistics from the backend server and sends commands to the observatory controller through it. 
 
-![General view of the observatory](./documentation/photo-2.jpg)
+![General view of the observatory](./docs/photo-2.jpg)
 
 ##### Controller components 
 - Arduino Mega 2560
@@ -233,7 +232,7 @@ The response format is JSON, the response structure is always the same, only pay
 This project consists of 3 main sections: 
 
 1. [ **firmware** ] Firmware for Arduino microcontroller (AVR), observatory controller control unit.
-2. [ **backend** ] Backend server (repository [here](https://github.com/miksrv/api-backend)). 
+2. [ **backend** ] Backend server. 
 3. [ **frontend** ] Observatory control interface. Written in ReactJS + Redux (use Node and NPM). To debug an application on a local server, you must first install the required dependencies:
   * `npm install` Installing dependencies.
   * `npm update` Update all dependencies.

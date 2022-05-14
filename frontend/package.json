@@ -1,6 +1,6 @@
 {
   "name": "observatory",
-  "update": "13.05.2022",
+  "update": "14.05.2022",
   "version": "2.1.0",
   "private": true,
   "dependencies": {
@@ -34,6 +34,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test src/__tests__",
+    "test:coverage": "react-scripts test --coverage src/__tests__",
     "eject": "react-scripts eject",
     "mswinit": "npx msw init public"
   },

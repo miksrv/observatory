@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import { TNewsPhotos } from '../../app/types'
 
 import Gallery from 'react-photo-gallery'
@@ -13,20 +13,22 @@ const NewsPhotos: React.FC<TNewsPhotosProps> = (props) => {
     const [ showLightbox , setShowLightbox ] = useState<boolean>(false)
     const [ photoIndex , setCurrentIndex ] = useState<number>(0)
 
-    const galleryList = galleryPhotos.map((item) => {
-        return {
-            src: item.thumb.src,
-            width: item.thumb.width,
-            height: item.thumb.height
-        }
-    })
+    const listGallery = useMemo(() => {
+        return galleryPhotos.length
+        ? galleryPhotos.map((item) => ({
+                src: item.thumb.src,
+                width: item.thumb.width,
+                height: item.thumb.height
+            }))
+        : []
+    }, [galleryPhotos])
 
     const getPhotoSrc = (index: number) => galleryPhotos[index].full.src
 
     return (
         <div className='photos'>
             <Gallery
-                photos={galleryList}
+                photos={listGallery}
                 onClick={(event, photos) => {
                     setCurrentIndex(photos.index)
                     setShowLightbox(true)

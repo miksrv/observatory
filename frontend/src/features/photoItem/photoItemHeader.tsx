@@ -77,7 +77,7 @@ const PhotoItemHeader: React.FC<TPhotoItemHeaderProps> = (props) => {
                                         <span className='second-color'> (<Link to={`/object/${photo?.object}`}>список</Link>)</span>
                                     }
                                 </div>
-                                <div><span className='second-color'>Размер файлов:</span> {filesize} Гб</div>
+                                <div><span className='second-color'>Накоплено данных:</span> {filesize} Гб</div>
                                 <div><span className='second-color'>Категория:</span> {category}</div>
                                 {photo?.author && <div><span className='second-color'>Обработка:</span> {Author(photo.author)}</div>}
                             </Grid.Column>

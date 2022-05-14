@@ -19,18 +19,20 @@ const RelayListItem: React.FC<TRelayListItemProps> = (props) => {
     const { index, name, status, loading, auth, handleClick } = props
     const switchClass: string = status ? 'on' : 'off'
 
-    return <div className='item'>
-        <div className='name'>
-            <span className={`led-${switchClass}`} />{name}
+    return (
+        <div className='item'>
+            <div className='name'>
+                <span className={`led-${switchClass}`} />{name}
+            </div>
+            <Button
+                loading={loading}
+                className={`switch-${switchClass}`}
+                disabled={(loading || ! auth)}
+                onClick={() => handleClick({index: index, state: (status ? 0 : 1)})}
+                size='tiny'
+            >{switchClass}</Button>
         </div>
-        <Button
-            loading={loading}
-            className={`switch-${switchClass}`}
-            disabled={(loading || ! auth)}
-            onClick={() => handleClick({index: index, state: (status ? 0 : 1)})}
-            size='tiny'
-        >{switchClass}</Button>
-    </div>
+    )
 }
 
 const RelayList: React.FC = () => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { Dimmer, Loader, Message } from 'semantic-ui-react'
 import { useGetCatalogListQuery, useGetObjectListQuery, useGetPhotoListQuery } from '../../app/observatoryApi'
 import { IObjectListItem, TCatalog } from '../../app/types'
@@ -23,7 +23,7 @@ const ObjectList: React.FC = () => {
     const { data: photoData } = useGetPhotoListQuery();
     const { data: catalogData } = useGetCatalogListQuery()
 
-    const doObjects = useCallback(() => {
+    const listObjects = useMemo(() => {
         if (objectData?.payload.length) {
             return objectData.payload.map((item) => ({
                 ...item,
@@ -34,9 +34,9 @@ const ObjectList: React.FC = () => {
         return []
     }, [objectData, catalogData])
 
-    const doFilterObjects = useCallback((): (IObjectListItem & TCatalog)[] | any => {
-        return doObjects().length
-            ? doObjects().filter((item) =>
+    const listFilteredObjects = useMemo((): (IObjectListItem & TCatalog)[] | any => {
+        return listObjects.length
+            ? listObjects.filter((item) =>
                 (search === '' || (
                     item.name.toLowerCase().includes(search.toLowerCase()) ||
                     item.title?.toLowerCase().includes(search.toLowerCase())
@@ -44,9 +44,9 @@ const ObjectList: React.FC = () => {
                 &&
                 (!categories.length || categories.includes(item?.category ? item?.category : ''))
             ) : []
-    }, [search, categories, doObjects])
+    }, [search, categories, listObjects])
 
-    const doCategoriesList = useCallback(() => {
+    const listCategories = useMemo(() => {
         return catalogData && catalogData.payload.length
             ? catalogData.payload
                 .map((item) => item.category)
@@ -68,14 +68,14 @@ const ObjectList: React.FC = () => {
             }
             <ObjectsTableToolbar
                 search={search}
-                categories={doCategoriesList()}
+                categories={listCategories}
                 onChangeSearch={setSearch}
                 onChangeCategories={setCategories}
             />
             {isLoading && <TableLoader />}
             {(isSuccess && objectData?.payload.length) &&
                 <ObjectTable
-                    objects={doFilterObjects()}
+                    objects={listFilteredObjects}
                     photos={photoData?.payload}
                 />
             }

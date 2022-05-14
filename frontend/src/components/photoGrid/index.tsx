@@ -12,8 +12,8 @@ type TPhotoGridProps = {
     className?: string
 }
 
-const PhotosLoader = (count: number) => {
-    return Array(count).fill(1).map((item, key) =>
+const PhotosLoader = (count: number) => (
+    Array(count).fill(1).map((item, key) =>
         <div key={key} className='item'>
             <div className='info'>
                 <Dimmer active>
@@ -22,7 +22,7 @@ const PhotosLoader = (count: number) => {
             </div>
         </div>
     )
-}
+)
 
 const PhotoGrid: React.FC<TPhotoGridProps> = (props) => {
     const { loading, photoList, loaderCount, className } = props

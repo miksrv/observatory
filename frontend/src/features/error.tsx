@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const Error: React.FC = () => {
-    document.title = 'Ошибка - Обсерватория'
+    useEffect(() => {
+        document.title = 'Ошибка - Обсерватория'
+    })
 
     return (
         <div>Error Page</div>

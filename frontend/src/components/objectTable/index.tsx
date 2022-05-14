@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useMemo } from 'react'
 import { Table } from 'semantic-ui-react'
 import { IObjectListItem, TPhoto, TCatalog } from '../../app/types'
 import { TObjectSortable, TSortOrdering } from './types'
@@ -27,7 +27,7 @@ const ObjectTable: React.FC<TObjectTable> = (props) => {
     const [ sortField, setSortField ] = useState<TObjectSortable>('name')
     const [ sortOrder, setSortOrder ] = useState<TSortOrdering>('descending')
 
-    const doShotObjects = useCallback(() => {
+    const listObjectsPhotos = useMemo(() => {
         return objects.map((item) => {
             const objectPhotos = photos?.filter((photo) => photo.object === item.name)
             return {
@@ -37,11 +37,11 @@ const ObjectTable: React.FC<TObjectTable> = (props) => {
         })
     }, [objects, photos])
 
-    const doSortObjects = useCallback(() => {
-        return doShotObjects().sort((first, second) =>
+    const listSortedObjects = useMemo(() => {
+        return listObjectsPhotos.sort((first, second) =>
             (sortOrder === 'descending' ? ((first[sortField] > second[sortField]) ? 1 : -1) : (first[sortField] < second[sortField]) ? 1 : -1)
         )
-    }, [doShotObjects, sortOrder, sortField])
+    }, [listObjectsPhotos, sortOrder, sortField])
 
     const handlerSortClick = (field: TObjectSortable) => {
         if (sortField !== field) setSortField(field)
@@ -57,8 +57,8 @@ const ObjectTable: React.FC<TObjectTable> = (props) => {
                     handlerSortClick={(field: TObjectSortable) => handlerSortClick(field)}
                 />
                 <Table.Body>
-                    {doSortObjects().length
-                        ? doSortObjects().map((item) =>
+                    {listSortedObjects.length
+                        ? listSortedObjects.map((item) =>
                             <RenderTableRow
                                 item={item}
                                 photos={photos}

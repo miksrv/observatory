@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useMemo } from 'react'
 import { Input, Dropdown } from 'semantic-ui-react'
 
 type TToolbarProps = {
@@ -14,7 +14,7 @@ const ObjectsTableToolbar: React.FC<TToolbarProps> = (props) => {
     const handleChange = ({ target: { value }}: React.ChangeEvent<HTMLInputElement>) =>
         onChangeSearch(value)
 
-    const doCategoriesOptions = useCallback(() =>
+    const listCategoriesOptions = useMemo(() =>
         categories.map((item) => (
             { value: item, text: item }
         ))
@@ -37,7 +37,7 @@ const ObjectsTableToolbar: React.FC<TToolbarProps> = (props) => {
                 clearable
                 fluid
                 className='category-dropdown'
-                options={doCategoriesOptions()}
+                options={listCategoriesOptions}
                 onChange={(target, el) => {
                     if (el.value) {
                         onChangeCategories(el.value)

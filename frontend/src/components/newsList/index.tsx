@@ -11,11 +11,13 @@ type TNewsListProps = {
     news: TNews[] | undefined
 }
 
-const NewsLoader = () => <div className='box loader'>
-    <Dimmer active>
-        <Loader>Загрузка</Loader>
-    </Dimmer>
-</div>
+const NewsLoader = () => (
+    <div className='box loader'>
+        <Dimmer active>
+            <Loader>Загрузка</Loader>
+        </Dimmer>
+    </div>
+)
 
 const NewsList: React.FC<TNewsListProps> = (props) => {
     const { loader, news } = props

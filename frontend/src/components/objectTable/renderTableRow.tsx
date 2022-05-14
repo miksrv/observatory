@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { Icon, Image, Table, Popup } from 'semantic-ui-react'
@@ -20,6 +20,14 @@ const RenderTableRow: React.FC<TTableRowProps> = (props) => {
     const photoItem = photoList && photoList.pop()
     const textMaxLength = 200
 
+    const doTextTruncate = useMemo(() => {
+        if (item?.text) {
+            return item.text.length > textMaxLength ? item.text.slice(0, textMaxLength) + '...' : item.text
+        }
+
+        return ''
+    }, [item])
+
     return (
         <Table.Row>
             <Table.Cell>
@@ -28,7 +36,7 @@ const RenderTableRow: React.FC<TTableRowProps> = (props) => {
                     size='mini'
                     wide
                     header={item.title}
-                    content={item.text.length > textMaxLength ? item.text.slice(0, textMaxLength) + '...' : item.text}
+                    content={doTextTruncate}
                     trigger={
                         <Link to={`/object/${item.name}`}>
                             {item.name}

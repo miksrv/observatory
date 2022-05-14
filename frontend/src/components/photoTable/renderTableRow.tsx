@@ -25,11 +25,11 @@ const RenderTableRow: React.FC<TTableRowProps> = (props) => {
                     />
                 </Link>
             </Table.Cell>
-            <Table.Cell>{moment(photo.date).format('DD.MM.Y')}</Table.Cell>
-            <Table.Cell>{photo.parameters?.frames}</Table.Cell>
-            <Table.Cell>{photo.parameters ? getTimeFromSec(photo.parameters?.exposure, true) : '---'}</Table.Cell>
-            {FILTERS.map((filter, key) =>
-                <Table.Cell className={photo.parameters?.filters[filter] && photo.parameters?.filters[filter].frames > 0 ? `filter-${filter}` : ''} key={key}>
+            <Table.Cell content={moment(photo.date).format('DD.MM.Y')}/>
+            <Table.Cell content={photo.parameters?.frames}/>
+            <Table.Cell content={photo.parameters ? getTimeFromSec(photo.parameters?.exposure, true) : '---'}/>
+            {FILTERS.map((filter) =>
+                <Table.Cell className={photo.parameters?.filters[filter] && photo.parameters?.filters[filter].frames > 0 ? `filter-${filter}` : ''} key={filter}>
                     {photo.parameters?.filters[filter].exposure && getTimeFromSec((photo.parameters?.filters[filter].exposure))}
                 </Table.Cell>
             )}

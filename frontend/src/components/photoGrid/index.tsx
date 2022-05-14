@@ -12,8 +12,8 @@ type TPhotoGridProps = {
     className?: string
 }
 
-const PhotosLoader = (count: number) => {
-    return Array(count).fill(1).map((item, key) =>
+const PhotosLoader = (count: number) => (
+    Array(count).fill(1).map((item, key) =>
         <div key={key} className='item'>
             <div className='info'>
                 <Dimmer active>
@@ -22,7 +22,7 @@ const PhotosLoader = (count: number) => {
             </div>
         </div>
     )
-}
+)
 
 const PhotoGrid: React.FC<TPhotoGridProps> = (props) => {
     const { loading, photoList, loaderCount, className } = props
@@ -33,13 +33,17 @@ const PhotoGrid: React.FC<TPhotoGridProps> = (props) => {
         return sliced + (sliced.length < text.length && '...')
     }
 
-    return <div className={`box photo-gird ${className ? className : ''}`}>
-        {
-            loading || !photoList ?
+    return (
+        <div className={`box photo-gird ${className ? className : ''}`}>
+            {loading || !photoList ?
                 PhotosLoader(loaderCount ? loaderCount : 12)
                 :
-                photoList.map((photo: TPhoto & TCatalog, key: number) =>
-                    <Link to={`/photo/${photo.object}?date=${photo.date}`} key={key} className='item'>
+                photoList.map((photo: TPhoto & TCatalog) =>
+                    <Link
+                        key={photo.file}
+                        to={`/photo/${photo.object}?date=${photo.date}`}
+                        className='item'
+                    >
                         {photo.title ?
                             <Reveal animated='small fade'>
                                 <Reveal.Content visible>
@@ -55,7 +59,7 @@ const PhotoGrid: React.FC<TPhotoGridProps> = (props) => {
                                     </div>
                                 </Reveal.Content>
                             </Reveal>
-                        :
+                            :
                             <Image
                                 src={`${process.env.REACT_APP_API_HOST}public/photo/${photo.file}_thumb.${photo.ext}`}
                                 className='photo'
@@ -63,8 +67,9 @@ const PhotoGrid: React.FC<TPhotoGridProps> = (props) => {
                         }
                     </Link>
                 )
-        }
-    </div>
+            }
+        </div>
+    )
 }
 
 export default PhotoGrid

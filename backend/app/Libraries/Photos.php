@@ -61,6 +61,25 @@ class Photos
         return $photos;
     }
 
+    function get_photo_path(string $name, string $date): ?string
+    {
+        $photo = $this->_model->get_by_object($name, $date);
+
+        if (empty($photo) || !$photo[0] || !$photo[0]->photo_file)
+        {
+            return null;
+        }
+
+        $path = $_SERVER['DOCUMENT_ROOT'] . '/api/public/photo/' . $photo[0]->photo_file . '.' . $photo[0]->photo_file_ext;
+
+        if (!file_exists($path))
+        {
+            return null;
+        }
+
+        return $path;
+    }
+
     protected function _make_list($data): array
     {
         $photos = [];

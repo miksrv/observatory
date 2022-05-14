@@ -47,7 +47,6 @@ const chart_coordlines = {
         yAxis: 0,
         name: 'RA',
         color: colors[6],
-        data: [],
         tooltip: {
             valueSuffix: ' °'
         }
@@ -55,7 +54,6 @@ const chart_coordlines = {
         yAxis: 1,
         name: 'DEC',
         color: colors[9],
-        data: [],
         tooltip: {
             valueSuffix: ' °'
         }

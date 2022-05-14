@@ -152,6 +152,28 @@ h1
 .aright
   text-align: right
 
+.ui.input > input, .ui.multiple.search.dropdown
+  background-color: #4e4e4e
+  color: $text-main !important
+  border-color: transparent !important
+
+.ui.multiple.search.dropdown > input.search
+  color: $text-main !important
+
+.ui.selection.active.dropdown .menu
+  border-color: transparent !important
+  background-color: #4e4e4e !important
+
+  > .item
+    border-top-color: #464646 !important
+    color: $text-main
+
+.ui.selection.dropdown .menu > .message
+  color: $text-second !important
+
+.ui.input.focus > input, .ui.input > input:focus
+  background-color: #565656
+
 @media only screen and (max-width: 768px)
   .ui.grid
     .column

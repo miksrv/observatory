@@ -6,17 +6,17 @@ import './styles.sass'
 type TToolbarProps = {
     active: string
     categories?: string[]
-    selectCategory: any
+    onSelectCategory: (category: string) => void
 }
 
 const PhotoCategorySwitcher: React.FC<TToolbarProps> = (props) => {
-    const { active, categories, selectCategory } = props
+    const { active, categories, onSelectCategory } = props
 
     const CategoryButton = (category: string) => <Button
         color={active === category ? 'olive' : 'green'}
         size='mini'
         key={category}
-        onClick={() => selectCategory(category)}
+        onClick={() => onSelectCategory(category)}
     >
         {category === '' ? 'Все объекты' : category}
     </Button>

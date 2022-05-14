@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
-import { Grid, Image, Dimmer, Loader } from 'semantic-ui-react'
+import { Grid, Image, Dimmer, Loader, Button } from 'semantic-ui-react'
 import { TPhoto, TPhotoAuthor, TCatalog } from '../../app/types'
 import { getTimeFromSec } from '../../functions/helpers'
 
@@ -44,7 +44,7 @@ const PhotoItemHeader: React.FC<TPhotoItemHeaderProps> = (props) => {
                 </Dimmer>
             }
             <Grid>
-                <Grid.Column computer={9} tablet={8} mobile={16}>
+                <Grid.Column computer={9} tablet={8} mobile={16} className='photo-container'>
                     <Image
                         className='photo'
                         src={(photo ? `${process.env.REACT_APP_API_HOST}public/photo/${photo.file}_thumb.${photo.ext}` : defaultPhoto)}
@@ -58,8 +58,17 @@ const PhotoItemHeader: React.FC<TPhotoItemHeaderProps> = (props) => {
                 </Grid.Column>
                 <Grid.Column computer={7} tablet={8} mobile={16} className='description'>
                     <div>
-                        <h1>{name}</h1>
-                        <Grid>
+                        <h1>
+                            {name}
+                            <Button
+                                size='mini'
+                                icon='download'
+                                color='green'
+                                className='download'
+                                href={`${process.env.REACT_APP_API_HOST}get/photo/download?object=${photo?.object}&date=${photo?.date}`}
+                            />
+                        </h1>
+                        <Grid className='describe'>
                             <Grid.Column computer={7} tablet={7} mobile={16}>
                                 <div><span className='second-color'>Дата обработки:</span> {photoDate}</div>
                                 <div><span className='second-color'>Экспозиция:</span> {exposure}</div>
@@ -68,7 +77,7 @@ const PhotoItemHeader: React.FC<TPhotoItemHeaderProps> = (props) => {
                                         <span className='second-color'> (<Link to={`/object/${photo?.object}`}>список</Link>)</span>
                                     }
                                 </div>
-                                <div><span className='second-color'>Размер файлов:</span> {filesize} Гб</div>
+                                <div><span className='second-color'>Накоплено данных:</span> {filesize} Гб</div>
                                 <div><span className='second-color'>Категория:</span> {category}</div>
                                 {photo?.author && <div><span className='second-color'>Обработка:</span> {Author(photo.author)}</div>}
                             </Grid.Column>
@@ -87,10 +96,6 @@ const PhotoItemHeader: React.FC<TPhotoItemHeaderProps> = (props) => {
                             }] : undefined}
                         />
                     </div>
-                    {/*<Link to='/photo/'><Button size='mini' icon='grid layout' color='blue' content='Фотографии' /></Link>*/}
-                    {/*{(!_.isEmpty(storePhotoItem) && (*/}
-                    {/*    <Button size='mini' icon='download' color='green' content='Скачать' href={`https://api.miksoft.pro/photo/get/download?name=${storePhotoItem.name}&date=${storePhotoItem.photo.date}`} />*/}
-                    {/*))}*/}
                 </Grid.Column>
             </Grid>
             {showLightbox &&

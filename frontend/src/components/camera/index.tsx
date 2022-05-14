@@ -32,29 +32,31 @@ const Camera: React.FC<TCameraProps> = (props) => {
         }
     })
 
-    return <div className='box camera'>
-        {cameraURL && lightbox && (
-            <Lightbox
-                mainSrc={cameraSrc}
-                onCloseRequest={() => setLightbox(false)}
-            />
-        )}
-        {cameraURL ?
-            <>
-                <img onClick={() => setLightbox(true)} src={cameraSrc} alt='' />
-                <Progress percent={Math.round((seconds / CAMERA_INTERVAL) * 100)} success size='tiny' />
-            </>
-        :
-            <Dimmer active>
-                <Message
-                    error
-                    icon='photo'
-                    header='Камера не доступна'
-                    content='Изображение камеры не доступно'
+    return (
+        <div className='box camera'>
+            {cameraURL && lightbox && (
+                <Lightbox
+                    mainSrc={cameraSrc}
+                    onCloseRequest={() => setLightbox(false)}
                 />
-            </Dimmer>
-        }
-    </div>
+            )}
+            {cameraURL ?
+                <>
+                    <img onClick={() => setLightbox(true)} src={cameraSrc} alt='' />
+                    <Progress percent={Math.round((seconds / CAMERA_INTERVAL) * 100)} success size='tiny' />
+                </>
+                :
+                <Dimmer active>
+                    <Message
+                        error
+                        icon='photo'
+                        header='Камера не доступна'
+                        content='Изображение камеры не доступно'
+                    />
+                </Dimmer>
+            }
+        </div>
+    )
 }
 
 export default Camera

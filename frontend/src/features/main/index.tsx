@@ -19,13 +19,15 @@ const Index: React.FC = () => {
     const [ getWeatherMonth, { data: weatherData, isLoading: weatherLoading } ] = useGetWeatherMonthMutation()
     const [ getFilesMonth, { data: filesData, isLoading: filesLoading } ] = useGetFilesMonthMutation()
 
-    document.title = 'Главная страница - Обсерватория'
-
     if (photoData?.payload && photos === undefined) {
         const randomPhotos = shuffle(photoData.payload.slice()).slice(0, 4)
 
         setPhotos(randomPhotos);
     }
+
+    useEffect(() => {
+        document.title = 'Главная страница - Обсерватория'
+    })
 
     useEffect(() => {
         const getWeather = async () => {

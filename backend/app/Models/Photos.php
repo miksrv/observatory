@@ -43,15 +43,23 @@ class Photos extends Model
     /**
      * Return photos array by astronomy object name
      * @param string $name
+     * @param string $date
      * @return mixed
      */
-    function get_by_object(string $name)
+    function get_by_object(string $name, string $date = '')
     {
+        $where = [$this->key_object => $name];
+
+        if ($date)
+        {
+            $where[$this->key_date] = $date;
+        }
+
         return $this->db
             ->table($this->table)
             ->join($this->author, "$this->author.author_id = $this->table.$this->key_author", 'left')
             ->orderBy($this->key_date, 'DESC')
-            ->getWhere([$this->key_object => $name])
+            ->getWhere($where)
             ->getResult();
     }
 

@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
+import { Message } from 'semantic-ui-react'
 import { useGetPhotoListQuery, useGetCatalogListQuery } from '../../app/observatoryApi'
 import { TPhoto, TCatalog } from '../../app/types'
 
@@ -10,46 +11,60 @@ const PhotoList: React.FC = () => {
     const { data: photoData, isSuccess, isLoading, isError } = useGetPhotoListQuery()
     const { data: catalogData } = useGetCatalogListQuery()
 
-    const categories: string[] = []
-    const photosList: TPhoto & TCatalog | any = isSuccess && photoData?.payload.map((photo) => {
-        const objectData = catalogData?.payload.filter((item) => item.name === photo.object)
-        const objectInfo = objectData && objectData.length ? objectData.pop() : null
+    const listCategories = useMemo(() => {
+        return catalogData && catalogData.payload.length
+            ? catalogData.payload
+                .map((item) => item.category)
+                .filter((item, index, self) => item !== '' && self.indexOf(item) === index)
+            : []
+    }, [catalogData])
 
-        if (objectInfo) {
-            return {
-                ...photo,
-                title: objectInfo.title,
-                text: objectInfo.text,
-                category: objectInfo.category
-            }
-        }
+    const listPhotos: (TPhoto & TCatalog)[] | any = useMemo(() => {
+        return photoData?.payload.length
+            ? photoData?.payload.map((photo) => {
+                const objectData = catalogData?.payload.filter((item) => item.name === photo.object)
+                const objectInfo = objectData && objectData.length ? objectData.pop() : null
 
-        return photo
+                if (objectInfo) {
+                    return {
+                        ...photo,
+                        title: objectInfo.title,
+                        text: objectInfo.text,
+                        category: objectInfo.category
+                    }
+                }
+
+                return photo
+            }) : []
+    }, [photoData, catalogData])
+
+    const listFilteredPhotos = useMemo(() =>
+            listPhotos.length && listPhotos.filter((photo: TPhoto & TCatalog) => category === '' || photo.category === category),
+        [category, listPhotos]
+    )
+
+    useEffect(() => {
+        document.title = 'Список фотографий - Обсерватория'
     })
-
-    const filteredPhotos = photosList && photosList.filter((photo: TPhoto & TCatalog) => category === '' || photo.category === category)
-
-    document.title = 'Список фотографий - Обсерватория'
-
-    if (catalogData) {
-        catalogData.payload.forEach((item) => {
-            if (! categories.includes(item.category) && item.category !== '') {
-                categories.push(item.category)
-            }
-        })
-    }
 
     return (
         <>
-            {isError && <div>ОШИБКА!</div>}
-            {isSuccess && <PhotoCategorySwitcher
-                active={category}
-                categories={categories}
-                selectCategory={(category: string) => setCategory(category)}
-            />}
+            {isError &&
+                <Message
+                    error
+                    content='Возникла ошибка при получении списка отснятых объектов'
+                />
+            }
+            {isSuccess &&
+                <PhotoCategorySwitcher
+                    active={category}
+                    categories={listCategories}
+                    onSelectCategory={(category) => setCategory(category)}
+                />
+            }
             <PhotoGrid
                 loading={isLoading}
-                photoList={filteredPhotos}
+                photoList={listFilteredPhotos}
             />
         </>
     )

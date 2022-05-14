@@ -13,7 +13,7 @@ type THeaderFields = {
     name: string
 }
 
-const HEADER_FIELDS: THeaderFields[] = [
+export const HEADER_FIELDS: THeaderFields[] = [
     { key: 'name', name: 'Объект' },
     { key: 'photo', name: 'Фото' },
     { key: 'frames', name: 'Кадров' },
@@ -30,19 +30,21 @@ const HEADER_FIELDS: THeaderFields[] = [
 const RenderTableHeader: React.FC<TTableHeaderProps> = (props) => {
     const { sort, order, handlerSortClick } = props
 
-    return <Table.Header>
-        <Table.Row>
-            {HEADER_FIELDS.map((item, key) =>
-                <Table.HeaderCell
-                    key={key}
-                    sorted={sort === item.key ? order : undefined}
-                    onClick={() => handlerSortClick(item.key)}
-                >
-                    {item.name}
-                </Table.HeaderCell>
-            )}
-        </Table.Row>
-    </Table.Header>
+    return (
+        <Table.Header>
+            <Table.Row>
+                {HEADER_FIELDS.map((item) =>
+                    <Table.HeaderCell
+                        key={item.key}
+                        sorted={sort === item.key ? order : undefined}
+                        onClick={() => handlerSortClick(item.key)}
+                    >
+                        {item.name}
+                    </Table.HeaderCell>
+                )}
+            </Table.Row>
+        </Table.Header>
+    )
 }
 
 export default RenderTableHeader

@@ -38,6 +38,19 @@
     "eject": "react-scripts eject",
     "mswinit": "npx msw init public"
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!<rootDir>/node_modules/",
+      "!**/src/*.{js,jsx,ts,tsx}",
+
+      "!**/src/features/photoItem/*.{js,jsx,ts,tsx}",
+      "!**/src/features/objectItem/*.{js,jsx,ts,tsx}",
+      "!**/src/components/skyMap/*.{js,jsx,ts,tsx}"
+    ],
+    "transformIgnorePatterns": ["/node_modules/(?!d3|d3-array|internmap|delaunator|robust-predicates)"],
+    "coverageReporters": ["lcov"]
+  },
   "eslintConfig": {
     "extends": [
       "react-app",

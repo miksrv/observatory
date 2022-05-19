@@ -327,7 +327,8 @@ app.longitude = 55.0988
 The URL of the Arduino controller (relay control) and a link to a static image from the observatory's camera (the section will be described later).
 ```
 app.observatory.controller = http://observatory.local/
-app.observatory.webcam = http://observatory.local/webcamphoto/image.jpg
+app.observatory.webcam_1 = http://observatory.local:8010/webcamphoto/image.jpg
+app.observatory.webcam_2 = http://observatory.local:8020/webcamphoto/image.jpg
 ```
 For the news section, integration with the social network VK is used. For it to work, you need to generate an application key, a token.
 ```
@@ -357,7 +358,7 @@ REACT_APP_METRIKA  = ''
 ```
 The `REACT_APP_API_HOST` parameter is responsible for determining the URL to the backend server API. If, following the instructions above, you placed the source code in the `api` directory on the server, then the value of this parameter will be: `https://your_domain.com/api/`. For example, you can use my API to test your portal.
 
-The second `REACT_APP_WEBCAM1` parameter is needed to update the image from the observatory's webcam. The third `REACT_APP_METRIKA` is the code of any analytics service Yandex.Metrika, Google Analytics, etc...
+The second `REACT_APP_METRIKA` parameter is the code of any analytics service Yandex.Metrika, Google Analytics, etc...
 6. Now we need to copy the interface. To do this, you must have **nodeJS** installed. In the `frontend` directory run the following commands (after exiting the previous one)
 ```bash
 npm install

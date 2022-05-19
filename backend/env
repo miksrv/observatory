@@ -54,7 +54,8 @@ app.latitude  = 31.0
 app.longitude = 32.0
 
 app.observatory.controller = http://observatory.local/
-app.observatory.webcam = http://observatory.local/webcamphoto/image.jpg
+app.observatory.webcam_1 = http://observatory.local:8010/webcamphoto/image.jpg
+app.observatory.webcam_2 = http://observatory.local:8020/webcamphoto/image.jpg
 
 app.vkapi.token   =
 app.vkapi.domain  =

@@ -123,7 +123,6 @@ export const observatoryApi = createApi({
 
 
         // AUTH
-        // Авторизация
         login: builder.mutation<IRestAuth, ICredentials>({
             query: (credentials) => ({
                 url: 'auth/login',

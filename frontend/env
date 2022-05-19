@@ -1,5 +1,4 @@
 REACT_APP_VERSION  = $npm_package_version
 REACT_APP_UPDATE   = $npm_package_update
 REACT_APP_API_HOST = 'https://observatory.miksoft.pro/api/'
-REACT_APP_WEBCAM1  = 'https://observatory.miksoft.pro/api/camera/get'
 REACT_APP_METRIKA  = ''

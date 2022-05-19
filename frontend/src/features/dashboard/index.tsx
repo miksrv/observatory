@@ -4,11 +4,10 @@ import { Grid } from 'semantic-ui-react'
 import RelayList from '../../components/relayList'
 import Camera from '../../components/camera'
 import WeatherCurrent from './weatherCurrent'
+import AstronomyCalc from './AstronomyCalc'
 import Sensors from '../../components/sensors'
 
 import './styles.sass'
-
-const IP_CAMERA = typeof process.env.REACT_APP_WEBCAM1 === 'string' ? process.env.REACT_APP_WEBCAM1 : ''
 
 const Dashboard: React.FC = () => {
     useEffect(() => {
@@ -23,13 +22,21 @@ const Dashboard: React.FC = () => {
                 <RelayList/>
             </Grid.Column>
             <Grid.Column computer={8} tablet={8} mobile={16}>
-                <Camera cameraURL={IP_CAMERA} />
+                <Camera
+                    cameraURL={`${process.env.REACT_APP_API_HOST}camera/get/2`}
+                />
             </Grid.Column>
-            <Grid.Column width={16}>
+            <Grid.Column computer={8} tablet={8} mobile={16}>
+                <AstronomyCalc/>
+                <br/>
                 <Sensors/>
             </Grid.Column>
-            {/*<div>Состояние крыши, парковки, сервера</div>*/}
-            {/*<div>Картинка с Allsky</div>*/}
+            <Grid.Column computer={8} tablet={8} mobile={16}>
+                <Camera
+                    cameraURL={`${process.env.REACT_APP_API_HOST}camera/get/1`}
+                    interval={30}
+                />
+            </Grid.Column>
         </Grid>
     )
 }

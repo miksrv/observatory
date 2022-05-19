@@ -6,12 +6,15 @@ import './styles.sass'
 
 type TCameraProps = {
     cameraURL: string
+    interval?: number
 }
 
-const CAMERA_INTERVAL = 15
+const DEFAULT_INTERVAL = 15
 
 const Camera: React.FC<TCameraProps> = (props) => {
-    const { cameraURL } = props
+    const { cameraURL, interval } = props
+
+    const timeoutInt = interval || DEFAULT_INTERVAL
 
     const [ cameraSrc, setCameraSrc ] = useState<string>(cameraURL)
     const [ seconds, setSeconds ] = useState<number>(0)
@@ -20,7 +23,7 @@ const Camera: React.FC<TCameraProps> = (props) => {
     useEffect(() => {
         if (cameraURL) {
             const interval = setInterval(() => {
-                if (seconds < CAMERA_INTERVAL) {
+                if (seconds < timeoutInt) {
                     setSeconds(seconds => seconds + 1)
                 } else {
                     setCameraSrc(cameraURL + '?r=' + Math.random())
@@ -42,8 +45,16 @@ const Camera: React.FC<TCameraProps> = (props) => {
             )}
             {cameraURL ?
                 <>
-                    <img onClick={() => setLightbox(true)} src={cameraSrc} alt='' />
-                    <Progress percent={Math.round((seconds / CAMERA_INTERVAL) * 100)} success size='tiny' />
+                    <img
+                        src={cameraSrc}
+                        alt=''
+                        onClick={() => setLightbox(true)}
+                    />
+                    <Progress
+                        percent={Math.round((seconds / timeoutInt) * 100)}
+                        success
+                        size='tiny'
+                    />
                 </>
                 :
                 <Dimmer active>

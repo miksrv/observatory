@@ -4,45 +4,48 @@ export interface IRestResponse {
     errorText?: string
 }
 
+// STATISTIC
 export interface IRestStatistic extends IRestResponse {
     payload: IStatistic
 }
 
-// Спсок всех объектов каталога
+export interface IRestFilesMonth extends IRestResponse {
+    payload: TFilesMonth[]
+}
+
+// CATALOG
 export interface IRestCatalogList extends IRestResponse {
     payload: TCatalog[]
 }
 
-// Объект каталога
 export interface IRestCatalogItem extends IRestResponse {
     payload: TCatalog
 }
 
-// Спсок всех фотографий
+// PHOTO
 export interface IRestPhotoList extends IRestResponse {
     payload: TPhoto[]
 }
 
-// Список всех объектов
+// OBJECT
 export interface IRestObjectList extends IRestResponse {
     payload: IObjectListItem[]
 }
 
-// Список названий всех объектов
 export interface IRestObjectNames extends IRestResponse {
     payload: string[]
 }
 
-// Один объект
 export interface IRestObjectItem extends IRestResponse {
     payload: TObject
 }
 
-// Список файлов по объекту
+// FILES
 export interface IRestObjectFiles extends IRestResponse {
     payload: TFIle[]
 }
 
+// NEWS
 export interface IRestNewsList extends IRestResponse {
     payload: {
         count: number
@@ -50,19 +53,12 @@ export interface IRestNewsList extends IRestResponse {
     }
 }
 
-export interface IRelayList extends IRestResponse {
-    payload: string[]
-}
-
+// WEATHER
 export interface IRestWeatherMonth extends IRestResponse {
     payload: {
         date: string
         weather: TWeatherMonth[]
     }
-}
-
-export interface IRestFilesMonth extends IRestResponse {
-    payload: TFilesMonth[]
 }
 
 export interface IRestWeatherCurrent extends IRestResponse {
@@ -75,6 +71,29 @@ export interface IRestWeatherCurrent extends IRestResponse {
     }
 }
 
+// AUTH
+export interface IRestAuth {
+    status: boolean
+    token: string
+}
+
+export interface ICredentials {
+    username: string
+    password: string
+}
+
+// RELAY
+
+export interface IRelayList extends IRestResponse {
+    payload: string[]
+}
+
+export interface IRelaySet {
+    index: number
+    state: number
+}
+
+// SENSOR
 export interface IRestSensorStatistic extends IRestResponse {
     payload: TSensorsPayload[]
 }
@@ -94,21 +113,6 @@ export type TSensors = {
     p1?: number
     p2?: number
     p3?: number
-}
-
-export interface IRestAuth {
-    status: boolean
-    token: string
-}
-
-export interface ICredentials {
-    username: string
-    password: string
-}
-
-export interface IRelaySet {
-    index: number
-    state: number
 }
 
 export interface IStatistic {

@@ -1,29 +1,31 @@
 import React from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { render } from '@testing-library/react'
-// import { fireEvent } from '@testing-library/react'
+import { BrowserRouter } from 'react-router-dom'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import { store } from '../app/store'
 import '@testing-library/jest-dom/extend-expect'
 
 import Header from '../components/header'
 
-describe('Test Header', function () {
+describe('Test Header component', () => {
     beforeEach(() => {
         render(
             <Provider store={store}>
                 <BrowserRouter>
-                    <Header />
+                    <Header/>
                 </BrowserRouter>
             </Provider>
         )
     })
 
-    it('Check correct show sidebar on page', async () => {
+    it('Checked correct show sidebar on page', async () => {
         // expect(screen.queryByText(/Сводка/i)).not.toBeInTheDocument()
         // expect(screen.queryByText(/Датчики/i)).not.toBeInTheDocument()
         // expect(screen.queryByText(/Статистика/i)).not.toBeInTheDocument()
         //
-        // fireEvent.click(await screen.findByTestId(/open-menu/))
+        fireEvent.click(await screen.findByText(/Войти/))
+
+        fireEvent.change(await screen.findByPlaceholderText('Логин'), {target: {value: 'login'}})
+        fireEvent.change(await screen.findByPlaceholderText('Пароль'), {target: {value: 'password'}})
     })
-});
+})

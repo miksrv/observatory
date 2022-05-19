@@ -53,7 +53,8 @@ const RenderCalendar: React.FC<TRenderCalendarProps> = (props) => {
             {!currentMobile ?
                 <div className='event moon'>
                     <MoonPhase
-                        date={currentDate}/> ↑ {moment(moonTimes.rise).format('H:mm')} ↓ {moment(moonTimes.set).format('H:mm')}
+                        date={currentDate}
+                    /> ↑ {moment(moonTimes.rise).format('H:mm')} ↓ {moment(moonTimes.set).format('H:mm')}
                 </div>
                 :
                 <div className='event moon mobile'>

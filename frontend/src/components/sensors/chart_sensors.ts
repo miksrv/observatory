@@ -3,14 +3,23 @@ import colors from '../chart/colors'
 const chart_sensors = {
     chart: {
         marginTop: 15,
-        marginBottom: 30,
-        height: 300
+        marginBottom: 70,
+        height: 264
     },
     title: {
         text: ''
     },
     subtitle: {
         text: ''
+    },
+    legend: {
+        floating: false,
+        layout: 'horizontal',
+        verticalAlign: 'bottom',
+        x: 0,
+        y: 5,
+        width: '100%',
+        align: 'center',
     },
     xAxis: [{
         type: 'datetime',
@@ -65,7 +74,7 @@ const chart_sensors = {
             valueSuffix: ' °C'
         }
     }, {
-        name: 'Блок питания',
+        name: 'БП',
         type: 'spline',
         yAxis: 0,
         color: colors[2],
@@ -73,7 +82,7 @@ const chart_sensors = {
             valueSuffix: ' °C'
         }
     }, {
-        name: 'Шкаф управления',
+        name: 'Серверная',
         type: 'spline',
         yAxis: 0,
         color: colors[3],

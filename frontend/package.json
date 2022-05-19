@@ -1,7 +1,7 @@
 {
   "name": "observatory",
-  "update": "14.05.2022",
-  "version": "2.1.1",
+  "update": "19.05.2022",
+  "version": "2.1.2",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.2",
@@ -37,6 +37,19 @@
     "test:coverage": "react-scripts test --coverage src/__tests__",
     "eject": "react-scripts eject",
     "mswinit": "npx msw init public"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!<rootDir>/node_modules/",
+      "!**/src/*.{js,jsx,ts,tsx}",
+
+      "!**/src/features/photoItem/*.{js,jsx,ts,tsx}",
+      "!**/src/features/objectItem/*.{js,jsx,ts,tsx}",
+      "!**/src/components/skyMap/*.{js,jsx,ts,tsx}"
+    ],
+    "transformIgnorePatterns": ["/node_modules/(?!d3|d3-array|internmap|delaunator|robust-predicates)"],
+    "coverageReporters": ["lcov"]
   },
   "eslintConfig": {
     "extends": [

@@ -2,11 +2,15 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RootState } from './store'
 
 import {
-    IRestStatistic, IRestPhotoList, IRestObjectList,
-    IRestCatalogItem, IRestObjectFiles, IRestObjectItem,
-    IRestCatalogList, IRestObjectNames, IRestNewsList,
-    IRestAuth, ICredentials, IRestWeatherMonth,
-    IRelayList, IRelaySet, IRestWeatherCurrent, IRestFilesMonth,
+    IRestStatistic, IRestFilesMonth,
+    IRestCatalogList, IRestCatalogItem,
+    IRestPhotoList,
+    IRestObjectList, IRestObjectNames, IRestObjectItem,
+    IRestObjectFiles,
+    IRestNewsList,
+    IRestWeatherMonth, IRestWeatherCurrent,
+    IRestAuth, ICredentials,
+    IRelayList, IRelaySet,
     IRestSensorStatistic
 } from './types'
 
@@ -30,12 +34,20 @@ export const observatoryApi = createApi({
         }
     }),
     endpoints: (builder) => ({
+        // STATISTIC
         // Получить общую статистику по обсерватории (кадры, выдержка, объекты, использовано места)
         getStatistic: builder.query<IRestStatistic, void>({
             query: () => 'get/statistic/summary',
             keepUnusedDataFor: 3600
         }),
 
+        // Коллекция дней за месяц, в которые работала обсерватория (exp, frames, objects)
+        getFilesMonth: builder.mutation<IRestFilesMonth, string>({
+            query: (date) => `get/statistic/month?date=${date}`
+        }),
+
+
+        // CATALOG
         // Список объектов каталога
         getCatalogList: builder.query<IRestCatalogList, void>({
             query: () => 'get/catalog/list'
@@ -46,6 +58,8 @@ export const observatoryApi = createApi({
             query: (name) => `get/catalog/item?object=${name}`
         }),
 
+
+        // PHOTO
         // Список фотографий без характеристик
         getPhotoList: builder.query<IRestPhotoList, void>({
             query: () => 'get/photo/list',
@@ -57,6 +71,8 @@ export const observatoryApi = createApi({
             query: (name) => `get/photo/list?object=${name}`
         }),
 
+
+        // OBJECTS
         // Получить список объектов
         getObjectList: builder.query<IRestObjectList, void>({
             query: () => 'get/object/list',
@@ -73,13 +89,17 @@ export const observatoryApi = createApi({
             query: (name) => `get/object/item?object=${name}`
         }),
 
+
+        // FILES
         // Список файлов объекта по его имени
         getObjectFiles: builder.query<IRestObjectFiles, string>({
             query: (name) => `get/file/list?object=${name}`,
             keepUnusedDataFor: 3600
         }),
 
-        // Список файлов объекта по его имени
+
+        // NEWS
+        // Список новостей
         getNewsList: builder.query<IRestNewsList, TQueryNewsList>({
             query: (props) => {
                 const limit = props.limit ? `?limit=${props.limit}` : ''
@@ -89,11 +109,8 @@ export const observatoryApi = createApi({
             }
         }),
 
-        // Получить работу обсерватории за месяц с группировкой по дням
-        getFilesMonth: builder.mutation<IRestFilesMonth, string>({
-            query: (date) => `get/statistic/month?date=${date}`
-        }),
 
+        // WEATHER
         // Получить погоду за месяц (архив + прогноз)
         getWeatherMonth: builder.mutation<IRestWeatherMonth, string>({
             query: (date) => `weather/month?date=${date}`
@@ -104,6 +121,8 @@ export const observatoryApi = createApi({
             query: (name) => `weather/current`
         }),
 
+
+        // AUTH
         // Авторизация
         login: builder.mutation<IRestAuth, ICredentials>({
             query: (credentials) => ({
@@ -122,6 +141,8 @@ export const observatoryApi = createApi({
             query: () => 'auth/check'
         }),
 
+
+        // RELAY
         // Список реле
         getRelayList: builder.query<IRelayList, void>({
             query: (name) => `relay/list`,
@@ -142,6 +163,8 @@ export const observatoryApi = createApi({
             invalidatesTags: [{ type: 'Relay', id: 'LIST' }],
         }),
 
+
+        // SENSOR
         getSensorStatistic: builder.query<IRestSensorStatistic, void>({
             query: () => 'get/sensors/statistic'
         }),
@@ -150,11 +173,14 @@ export const observatoryApi = createApi({
 
 // Export hooks for usage in functional components
 export const {
-    useGetStatisticQuery, useGetCatalogListQuery, useGetPhotoListQuery,
-    useGetObjectListQuery, useGetObjectItemQuery, useGetObjectFilesQuery,
-    useGetCatalogItemQuery, useGetPhotoListItemQuery, useGetObjectNamesQuery,
-    useGetNewsListQuery, useGetWeatherMonthMutation,
-    useLoginMutation, useLoginCheckMutation, useLogoutMutation,
+    useGetStatisticQuery, useGetFilesMonthMutation,
+    useGetCatalogListQuery, useGetCatalogItemQuery,
+    useGetPhotoListQuery, useGetPhotoListItemQuery,
+    useGetObjectListQuery, useGetObjectNamesQuery, useGetObjectItemQuery,
+    useGetObjectFilesQuery,
+    useGetNewsListQuery,
+    useGetWeatherMonthMutation, useGetWeatherCurrentQuery,
+    useLoginMutation, useLogoutMutation, useLoginCheckMutation,
     useGetRelayListQuery, useGetRelayStateQuery, useSetRelayStatusMutation,
-    useGetWeatherCurrentQuery, useGetFilesMonthMutation, useGetSensorStatisticQuery
+    useGetSensorStatisticQuery
 } = observatoryApi

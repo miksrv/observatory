@@ -53,24 +53,16 @@ app.timezone  = 5
 app.latitude  = 31.0
 app.longitude = 32.0
 
-app.openweather.key  = KEY_EXAMPLE
-app.openweather.city = CITY_ID
-
-app.narodmon.mac = EXAMPLE
-app.narodmon.lat = 31.0
-app.narodmon.lon = 32.0
-app.narodmon.alt = 80
-
-app.observatory.url = http://observatory.local/
-app.observatory.webcam = http://observatory.local/webcamphoto
+app.observatory.controller = http://observatory.local/
+app.observatory.webcam = http://observatory.local/webcamphoto/image.jpg
 
 app.vkapi.token   =
 app.vkapi.domain  =
 app.vkapi.version = 5.145
 
-app.user_login = user
-app.user_passw = password
-app.user_session_time = 60
+app.user_username = login
+app.user_password = password
+app.user_session_time = 120
 
 #--------------------------------------------------------------------
 # DATABASE

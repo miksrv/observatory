@@ -1,4 +1,4 @@
-import translate from '../functions/translate'
+import translate from 'functions/translate'
 
 const lang = translate().menu
 

@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
 import '@testing-library/jest-dom/extend-expect'
 
-import ObjectTable from '../components/objectTable'
+import ObjectTable from 'components/objectTable'
 
 describe('Test ObjectTable component', () => {
     it('Checked correct render', async () => {

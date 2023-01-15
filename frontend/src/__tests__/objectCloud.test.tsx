@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 
-import ObjectCloud from '../components/objectCloud'
+import ObjectCloud from 'components/objectCloud'
 
 describe('Test ObjectCloud component', () => {
     it('Checked correct render', () => {

@@ -3,14 +3,12 @@ import { render, screen, fireEvent } from '@testing-library/react'
 
 import '@testing-library/jest-dom/extend-expect'
 
-import Camera from '../components/camera'
+import Camera from 'components/camera'
 
 describe('Test Camera component', () => {
     it('Checked correct render', async () => {
         render(
-            <Camera
-                cameraURL='http://localhost/camera'
-            />
+            <Camera cameraURL='http://localhost/camera' />
         )
 
         fireEvent.click(await screen.getByRole('img'))
@@ -18,9 +16,7 @@ describe('Test Camera component', () => {
 
     it('Checked correct error message', async () => {
         render(
-            <Camera
-                cameraURL=''
-            />
+            <Camera cameraURL='' />
         )
 
         expect(await screen.findByText('Камера не доступна')).toBeInTheDocument()

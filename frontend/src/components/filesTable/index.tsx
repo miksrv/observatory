@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Dimmer, Loader, Table, Accordion, Icon } from 'semantic-ui-react'
-import { TFIle } from '../../app/types'
+import { TFIle } from 'app/types'
 import { TObjectSortable, TSortOrdering } from './types'
 import Lightbox from 'react-image-lightbox'
 import RenderTableHeader from './renderTableHeader'

@@ -3,8 +3,8 @@ import moment from 'moment'
 import SunCalc from 'suncalc'
 import { Grid } from 'semantic-ui-react'
 
-import MoonPhase from '../../components/moonPhase'
-import SunIcon from '../../components/moonPhase/images/sun.png'
+import MoonPhase from 'components/moonPhase'
+import SunIcon from 'components/moonPhase/images/sun.png'
 
 const LAT = 51.7
 const LON =  55.2

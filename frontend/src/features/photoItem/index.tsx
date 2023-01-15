@@ -3,11 +3,11 @@ import { useParams } from 'react-router-dom'
 import { Message } from 'semantic-ui-react'
 import {
     useGetPhotoListItemQuery, useGetCatalogItemQuery, useGetPhotoListQuery
-} from '../../app/observatoryApi'
+} from 'app/observatoryApi'
 
 import PhotoItemHeader from './photoItemHeader'
-import PhotoTable from '../../components/photoTable'
-import ObjectCloud from '../../components/objectCloud'
+import PhotoTable from 'components/photoTable'
+import ObjectCloud from 'components/objectCloud'
 
 const PhotoItem: React.FC = () => {
     const params: { name: string } = useParams()

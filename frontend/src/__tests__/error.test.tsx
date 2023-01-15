@@ -2,10 +2,10 @@ import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { render, screen } from '@testing-library/react'
 import { Provider } from 'react-redux'
-import { store } from '../app/store'
+import { store } from 'app/store'
 import '@testing-library/jest-dom/extend-expect'
 
-import Error from '../features/error'
+import Error from 'features/error'
 
 describe('Test Error feature', () => {
     beforeEach(() => {

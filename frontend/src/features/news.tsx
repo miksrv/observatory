@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Button } from 'semantic-ui-react'
-import { TNews } from '../app/types'
-import { useGetNewsListQuery } from '../app/observatoryApi'
+import { TNews } from 'app/types'
+import { useGetNewsListQuery } from 'app/observatoryApi'
 
-import NewsList from '../components/newsList'
+import NewsList from 'components/newsList'
 
 const News: React.FC = () => {
     const [ offset, setOffset ] = useState<number>(0)

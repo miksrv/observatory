@@ -2,11 +2,11 @@ import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { Provider } from 'react-redux'
-import { store } from '../app/store'
+import { store } from 'app/store'
 import '@testing-library/jest-dom/extend-expect'
 
-import News from '../features/news'
-import NewsItem from '../components/newsList/newsItem'
+import News from 'features/news'
+import NewsItem from 'components/newsList/newsItem'
 
 describe('Test News feature', () => {
     it('Checked correct render', () => {

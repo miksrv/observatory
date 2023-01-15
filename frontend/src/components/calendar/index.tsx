@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import moment, { Moment } from 'moment'
 import { Button, Dimmer, Loader } from 'semantic-ui-react'
-import { TWeatherMonth, TFilesMonth } from '../../app/types'
+import { TWeatherMonth, TFilesMonth } from 'app/types'
 
 import RenderCalendar from './renderCalendar'
 

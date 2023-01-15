@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Dimmer, Loader, Message } from 'semantic-ui-react'
-import { useGetRelayListQuery, useGetRelayStateQuery, useSetRelayStatusMutation } from '../../app/observatoryApi'
-import { useAppSelector } from '../../app/hooks'
-import { IRelaySet } from '../../app/types'
+import { useGetRelayListQuery, useGetRelayStateQuery, useSetRelayStatusMutation } from 'app/observatoryApi'
+import { useAppSelector } from 'app/hooks'
+import { IRelaySet } from 'app/types'
 
 import './styles.sass'
 

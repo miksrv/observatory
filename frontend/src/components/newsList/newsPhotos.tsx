@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react'
-import { TNewsPhotos } from '../../app/types'
+import { TNewsPhotos } from 'app/types'
 
 import Gallery from 'react-photo-gallery'
 import Lightbox from 'react-image-lightbox'

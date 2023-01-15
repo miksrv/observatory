@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Image, Reveal, Dimmer, Loader } from 'semantic-ui-react'
-import { TPhoto, TCatalog } from '../../app/types'
+import { TPhoto, TCatalog } from 'app/types'
 
 import './styles.sass'
 

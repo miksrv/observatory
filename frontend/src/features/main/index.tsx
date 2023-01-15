@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react'
 import {
     useGetStatisticQuery, useGetPhotoListQuery,
     useGetWeatherMonthMutation, useGetFilesMonthMutation
-} from '../../app/observatoryApi'
-import { TPhoto, TCatalog } from '../../app/types'
-import { shuffle } from '../../functions/helpers'
+} from 'app/observatoryApi'
+import { TPhoto, TCatalog } from 'app/types'
+import { shuffle } from 'functions/helpers'
 import moment, { Moment } from 'moment'
 
 import Statistic from './statistic'
-import PhotoGrid from '../../components/photoGrid'
-import Calendar from '../../components/calendar'
+import PhotoGrid from 'components/photoGrid'
+import Calendar from 'components/calendar'
 
 const Index: React.FC = () => {
     const [ date, setDate ] = useState<Moment>(moment())

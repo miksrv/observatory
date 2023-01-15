@@ -1,8 +1,8 @@
 import React from 'react'
 import moment from 'moment'
 import { Grid, Dimmer, Loader } from 'semantic-ui-react'
-import { useGetWeatherCurrentQuery } from '../../app/observatoryApi'
-import { timeAgo } from '../../functions/helpers'
+import { useGetWeatherCurrentQuery } from 'app/observatoryApi'
+import { timeAgo } from 'functions/helpers'
 
 const getRange = (value: number | null, min: number, max: number): number => {
     if (value === null)

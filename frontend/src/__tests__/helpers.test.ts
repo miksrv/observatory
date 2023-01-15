@@ -1,4 +1,4 @@
-import { declOfNum, timeAgo, getTimeFromSec } from '../functions/helpers'
+import { declOfNum, timeAgo, getTimeFromSec } from 'functions/helpers'
 
 describe('Test helper functions', () => {
     it('declOfNum', () => {

@@ -4,17 +4,17 @@ import {
     useGetObjectItemQuery, useGetObjectFilesQuery,
     useGetCatalogItemQuery, useGetPhotoListItemQuery,
     useGetObjectNamesQuery
-} from '../../app/observatoryApi'
+} from 'app/observatoryApi'
 import { Grid } from 'semantic-ui-react'
 import ObjectItemHeader from './objectItemHeader'
-import PhotoTable from '../../components/photoTable'
-import FilesTable from '../../components/filesTable'
-import Chart from '../../components/chart'
-import ObjectCloud from '../../components/objectCloud'
+import PhotoTable from 'components/photoTable'
+import FilesTable from 'components/filesTable'
+import Chart from 'components/chart'
+import ObjectCloud from 'components/objectCloud'
 
-import chart_coordinates from '../../components/chart/chart_coordinates'
-import chart_coordlines from '../../components/chart/chart_coordlines'
-import chart_statistic from '../../components/chart/chart_statistic'
+import chart_coordinates from 'components/chart/chart_coordinates'
+import chart_coordlines from 'components/chart/chart_coordlines'
+import chart_statistic from 'components/chart/chart_statistic'
 
 type TParamsURL = {
     name: string

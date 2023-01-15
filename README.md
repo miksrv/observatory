@@ -353,7 +353,6 @@ database.default.DBDriver = MySQLi
 5. Installation and configuration of the Portal API is now complete. Now you need to configure and install the interface. On your local computer, in the frontend directory of the repository, rename the `env` file to `.env`. Edit it:
 ```
 REACT_APP_API_HOST = 'https://observatory.miksoft.pro/api/'
-REACT_APP_WEBCAM1  = 'https://observatory.miksoft.pro/api/camera/get'
 REACT_APP_METRIKA  = ''
 ```
 The `REACT_APP_API_HOST` parameter is responsible for determining the URL to the backend server API. If, following the instructions above, you placed the source code in the `api` directory on the server, then the value of this parameter will be: `https://your_domain.com/api/`. For example, you can use my API to test your portal.

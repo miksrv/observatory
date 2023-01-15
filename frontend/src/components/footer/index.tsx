@@ -1,5 +1,6 @@
 import React from 'react'
-import { version, update } from '../../../package.json'
+import {update} from 'update';
+import {version} from 'version';
 
 import './styles.sass'
 

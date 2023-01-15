@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import { Image, Table } from 'semantic-ui-react'
-import { TFIle } from '../../app/types'
+import { TFIle } from 'app/types'
 
 import MoonPhase from '../moonPhase'
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { declOfNum } from '../../functions/helpers'
-import { TObjectFilters } from '../../app/types'
-import translate from '../../functions/translate'
+import { declOfNum } from 'functions/helpers'
+import { TObjectFilters } from 'app/types'
+import translate from 'functions/translate'
 
 import './styles.sass'
 

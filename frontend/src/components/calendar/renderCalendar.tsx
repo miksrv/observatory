@@ -1,7 +1,7 @@
 import React from 'react'
 import moment, { Moment } from 'moment'
 import { Popup, Icon } from 'semantic-ui-react'
-import { TWeatherMonth, TFilesMonth } from '../../app/types'
+import { TWeatherMonth, TFilesMonth } from 'app/types'
 import SunCalc from 'suncalc'
 
 import MoonPhase from '../moonPhase'

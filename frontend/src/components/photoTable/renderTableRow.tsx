@@ -2,8 +2,8 @@ import React from 'react'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { Table, Image } from 'semantic-ui-react'
-import { TPhoto, TFiltersTypes } from '../../app/types'
-import { getTimeFromSec } from '../../functions/helpers'
+import { TPhoto, TFiltersTypes } from 'app/types'
+import { getTimeFromSec } from 'functions/helpers'
 
 type TTableRowProps = {
     photo: TPhoto

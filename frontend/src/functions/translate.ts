@@ -1,4 +1,4 @@
-import ru from '../translations/ru.json'
+import ru from 'translations/ru.json'
 
 const translate = () => {
     return ru

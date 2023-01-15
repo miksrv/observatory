@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import { Table } from 'semantic-ui-react'
-import { IObjectListItem, TPhoto, TCatalog } from '../../app/types'
+import { IObjectListItem, TPhoto, TCatalog } from 'app/types'
 import { TObjectSortable, TSortOrdering } from './types'
 import RenderTableHeader, { HEADER_FIELDS } from './renderTableHeader'
 import RenderTableRow from './renderTableRow'

@@ -1,6 +1,6 @@
 import React from 'react'
-import { useGetSensorStatisticQuery } from '../../app/observatoryApi'
-import { TSensorsPayload } from '../../app/types'
+import { useGetSensorStatisticQuery } from 'app/observatoryApi'
+import { TSensorsPayload } from 'app/types'
 import { TChartLineData } from '../chart/types'
 import Chart from '../chart'
 

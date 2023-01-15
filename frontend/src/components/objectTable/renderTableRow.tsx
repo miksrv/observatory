@@ -2,8 +2,8 @@ import React, { useMemo } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { Icon, Image, Table, Popup } from 'semantic-ui-react'
-import {IObjectListItem, TCatalog, TFiltersTypes, TPhoto} from '../../app/types'
-import { getTimeFromSec } from '../../functions/helpers'
+import { IObjectListItem, TCatalog, TFiltersTypes, TPhoto } from 'app/types'
+import { getTimeFromSec } from 'functions/helpers'
 
 type TTableRowProps = {
     item: IObjectListItem & TCatalog

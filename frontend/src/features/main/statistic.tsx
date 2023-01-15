@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, Icon, Dimmer, Loader, SemanticICONS } from 'semantic-ui-react'
-import { getTimeFromSec } from '../../functions/helpers'
+import { getTimeFromSec } from 'functions/helpers'
 
 import './styles.sass'
 

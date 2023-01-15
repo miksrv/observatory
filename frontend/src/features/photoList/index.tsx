@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Message } from 'semantic-ui-react'
-import { useGetPhotoListQuery, useGetCatalogListQuery } from '../../app/observatoryApi'
-import { TPhoto, TCatalog } from '../../app/types'
+import { useGetPhotoListQuery, useGetCatalogListQuery } from 'app/observatoryApi'
+import { TPhoto, TCatalog } from 'app/types'
 
 import PhotoCategorySwitcher from './PhotoCategorySwitcher'
-import PhotoGrid from '../../components/photoGrid'
+import PhotoGrid from 'components/photoGrid'
 
 const PhotoList: React.FC = () => {
     const [ category, setCategory ] = useState('')

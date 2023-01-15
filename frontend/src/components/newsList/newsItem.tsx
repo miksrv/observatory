@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import { TNews } from '../../app/types'
+import { TNews } from 'app/types'
 import { Image, Icon } from 'semantic-ui-react'
 
 import avatar from './images/avatar.jpg'

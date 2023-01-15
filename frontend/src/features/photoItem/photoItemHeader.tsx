@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { Grid, Image, Dimmer, Loader, Button } from 'semantic-ui-react'
-import { TPhoto, TPhotoAuthor, TCatalog } from '../../app/types'
-import { getTimeFromSec } from '../../functions/helpers'
+import { TPhoto, TPhotoAuthor, TCatalog } from 'app/types'
+import { getTimeFromSec } from 'functions/helpers'
 
 import defaultPhoto from './images/default-photo.png'
 import Lightbox from 'react-image-lightbox'
 
-import FilterList from '../../components/filterList'
-import SkyMap from '../../components/skyMap'
+import FilterList from 'components/filterList'
+import SkyMap from 'components/skyMap'
 
 import 'react-image-lightbox/style.css'
 import './styles.sass'

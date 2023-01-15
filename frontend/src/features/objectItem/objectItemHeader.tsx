@@ -2,11 +2,11 @@ import React from 'react'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { Dimmer, Grid, Loader } from 'semantic-ui-react'
-import { getTimeFromSec } from '../../functions/helpers'
-import { TCatalog, TObject } from '../../app/types'
+import { getTimeFromSec } from 'functions/helpers'
+import { TCatalog, TObject } from 'app/types'
 
-import FilterList from '../../components/filterList'
-import SkyMap from '../../components/skyMap'
+import FilterList from 'components/filterList'
+import SkyMap from 'components/skyMap'
 
 type TObjectHeaderProps = {
     name: string

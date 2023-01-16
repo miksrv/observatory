@@ -1,6 +1,8 @@
 Amateur astronomical observatory portal
 ===============
 [![Build & Test](https://github.com/miksrv/observatory/actions/workflows/build.yml/badge.svg)](https://github.com/miksrv/observatory/actions/workflows/build.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=miksrv_observatory&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=miksrv_observatory)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=miksrv_observatory&metric=coverage)](https://sonarcloud.io/summary/new_code?id=miksrv_observatory)
 
 Portal of a self-made automatic remote astronomical observatory. The repository contains an interface for managing and monitoring the work of the observatory, displaying the received data, processed photographs. Server part - for the operation of the portal and receiving data from the observatory controller and loading FITS frames. Firmware for the Arduino controller, which allows you to manage the power supply of devices, collect information from temperature and humidity sensors and other telemetry parameters.
 

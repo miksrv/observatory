@@ -30,6 +30,12 @@ jobs:
         run: npm ci -f
         working-directory: ./frontend
 
+      - name: 💾 Configure Client
+        run: |
+          echo "REACT_APP_API_HOST = '${{ secrets.CLIENT_API_HOST }}'
+                REACT_APP_METRIKA  = '${{ secrets.CLIENT_METRIKA }}'" > .env
+        working-directory: ./frontend
+
       - name: 👷‍ Build UI
         run: |
           export dateNow=$(date +"%d.%m.%Y")

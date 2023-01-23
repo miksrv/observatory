@@ -5,7 +5,7 @@ import { update } from 'update';
 
 import '@testing-library/jest-dom/extend-expect'
 
-import Footer from 'components/footer'
+import Footer from 'components/footer/Footer'
 
 describe('Test Footer component', () => {
     beforeEach(() => {

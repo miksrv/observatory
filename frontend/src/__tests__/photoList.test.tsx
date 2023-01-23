@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { store } from 'app/store'
 import '@testing-library/jest-dom/extend-expect'
 
-import PhotoList from 'features/photoList'
+import PhotoList from 'pages/photoList/PhotoList'
 
 describe('Test PhotoList feature', () => {
     beforeEach(() => {

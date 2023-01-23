@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { store } from 'app/store'
 import '@testing-library/jest-dom/extend-expect'
 
-import News from 'features/news'
+import News from 'pages/news/News'
 import NewsItem from 'components/newsList/newsItem'
 
 describe('Test News feature', () => {

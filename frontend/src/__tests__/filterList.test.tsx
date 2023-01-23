@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 
-import FilterList from 'components/filterList'
+import FilterList from 'components/filterList/FilterList'
 
 describe('Test FilterList component', () => {
     it('Checked correct render', async () => {

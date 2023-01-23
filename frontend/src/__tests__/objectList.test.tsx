@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { store } from 'app/store'
 import '@testing-library/jest-dom/extend-expect'
 
-import ObjectList from 'features/objectList'
+import ObjectList from 'pages/objectList/ObjectList'
 
 describe('Test ObjectList feature', () => {
     beforeEach(() => {

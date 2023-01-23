@@ -4,7 +4,7 @@ import { useGetPhotoListQuery, useGetCatalogListQuery } from 'app/observatoryApi
 import { TPhoto, TCatalog } from 'app/types'
 
 import PhotoCategorySwitcher from './PhotoCategorySwitcher'
-import PhotoGrid from 'components/photoGrid'
+import PhotoGrid from 'components/photoGrid/PhotoGrid'
 
 const PhotoList: React.FC = () => {
     const [ category, setCategory ] = useState('')

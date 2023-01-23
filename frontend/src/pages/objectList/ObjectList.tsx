@@ -3,7 +3,7 @@ import { Dimmer, Loader, Message } from 'semantic-ui-react'
 import { useGetCatalogListQuery, useGetObjectListQuery, useGetPhotoListQuery } from 'app/observatoryApi'
 import { IObjectListItem, TCatalog } from 'app/types'
 
-import ObjectTable from 'components/objectTable'
+import ObjectTable from 'components/objectTable/ObjectTable'
 import ObjectsTableToolbar from './ObjectsTableToolbar'
 
 import './styles.sass'

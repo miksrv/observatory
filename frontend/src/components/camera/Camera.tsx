@@ -22,11 +22,14 @@ const Camera: React.FC<TCameraProps> = (props) => {
 
     useEffect(() => {
         if (cameraURL) {
+            const crypto = window.crypto;
+            let array = new Uint32Array(1);
+
             const interval = setInterval(() => {
                 if (seconds < timeoutInt) {
                     setSeconds(seconds => seconds + 1)
                 } else {
-                    setCameraSrc(cameraURL + '?r=' + Math.random())
+                    setCameraSrc(cameraURL + '?r=' + crypto.getRandomValues(array))
                     setSeconds(0)
                 }
             }, 1000)

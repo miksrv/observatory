@@ -8,10 +8,10 @@ import { shuffle } from 'functions/helpers'
 import moment, { Moment } from 'moment'
 
 import Statistic from './statistic'
-import PhotoGrid from 'components/photoGrid'
-import Calendar from 'components/calendar'
+import PhotoGrid from 'components/photoGrid/PhotoGrid'
+import Calendar from 'components/calendar/Calendar'
 
-const Index: React.FC = () => {
+const Main: React.FC = () => {
     const [ date, setDate ] = useState<Moment>(moment())
     const [ photos, setPhotos ] = useState<TPhoto[] & TCatalog[] | undefined>(undefined)
     const { data: statisticData, isLoading: statisticLoading } = useGetStatisticQuery()
@@ -70,4 +70,4 @@ const Index: React.FC = () => {
     )
 }
 
-export default Index
+export default Main

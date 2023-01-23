@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { store } from 'app/store'
 import '@testing-library/jest-dom/extend-expect'
 
-import Error from 'features/error'
+import Error from 'pages/error/Error'
 
 describe('Test Error feature', () => {
     beforeEach(() => {

@@ -6,7 +6,7 @@ import { store } from 'app/store'
 import '@testing-library/jest-dom/extend-expect'
 
 import { MENU_ITEMS } from 'app/menu'
-import Sidebar from 'components/sidebar'
+import Sidebar from 'components/sidebar/Sidebar'
 
 describe('Test Sidebar', () => {
     beforeEach(() => {

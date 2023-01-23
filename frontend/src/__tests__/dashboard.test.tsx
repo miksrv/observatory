@@ -4,8 +4,8 @@ import { Provider } from 'react-redux'
 import { store } from 'app/store'
 import '@testing-library/jest-dom/extend-expect'
 
-import Dashboard from 'features/dashboard'
-import Sensors from 'components/sensors'
+import Dashboard from 'pages/dashboard/Dashboard'
+import Sensors from 'components/sensors/Sensors'
 
 // eslint-disable-next-line jest/no-mocks-import
 import { server } from '__mocks__/server'

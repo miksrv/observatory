@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 
 import '@testing-library/jest-dom/extend-expect'
 
-import Camera from 'components/camera'
+import Camera from 'components/camera/Camera'
 
 describe('Test Camera component', () => {
     it('Checked correct render', async () => {

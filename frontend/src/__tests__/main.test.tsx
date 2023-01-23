@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { store } from 'app/store'
 import '@testing-library/jest-dom/extend-expect'
 
-import Main from '../features/main'
+import Main from 'pages/main/Main'
 
 describe('Test Main feature', () => {
     beforeEach(() => {

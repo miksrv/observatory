@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 
-import PhotoCategorySwitcher from 'features/photoList/PhotoCategorySwitcher'
+import PhotoCategorySwitcher from 'pages/photoList/PhotoCategorySwitcher'
 
 describe('Test PhotoCategorySwitcher component', () => {
     beforeEach(() => {

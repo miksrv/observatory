@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
 import '@testing-library/jest-dom/extend-expect'
 
-import PhotoTable from 'components/photoTable'
+import PhotoTable from 'components/photoTable/PhotoTable'
 
 describe('Test PhotoTable component', () => {
     it('Checked correct render', async () => {

@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { store } from 'app/store'
 import '@testing-library/jest-dom/extend-expect'
 
-import Header from 'components/header'
+import Header from 'components/header/Header'
 
 describe('Test Header component', () => {
     beforeEach(() => {

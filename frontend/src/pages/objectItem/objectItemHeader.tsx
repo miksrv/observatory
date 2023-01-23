@@ -5,8 +5,8 @@ import { Dimmer, Grid, Loader } from 'semantic-ui-react'
 import { getTimeFromSec } from 'functions/helpers'
 import { TCatalog, TObject } from 'app/types'
 
-import FilterList from 'components/filterList'
-import SkyMap from 'components/skyMap'
+import FilterList from 'components/filterList/FilterList'
+import SkyMap from 'components/skyMap/SkyMap'
 
 type TObjectHeaderProps = {
     name: string

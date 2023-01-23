@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { Grid } from 'semantic-ui-react'
 
-import RelayList from 'components/relayList'
-import Camera from 'components/camera'
+import RelayList from 'components/relayList/RelayList'
+import Camera from 'components/camera/Camera'
 import WeatherCurrent from './weatherCurrent'
 import AstronomyCalc from './AstronomyCalc'
-import Sensors from 'components/sensors'
+import Sensors from 'components/sensors/Sensors'
 
 import './styles.sass'
 

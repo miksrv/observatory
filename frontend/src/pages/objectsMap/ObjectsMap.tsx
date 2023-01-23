@@ -2,10 +2,10 @@ import React, { useState, useEffect, useMemo } from 'react'
 import { useGetCatalogListQuery } from 'app/observatoryApi'
 import { TCatalog } from 'app/types'
 
-import SkyMap from 'components/skyMap'
+import SkyMap from 'components/skyMap/SkyMap'
 import ObjectCloudMap from 'components/skyMap/objectCloudMap'
 
-const Map: React.FC = () => {
+const ObjectsMap: React.FC = () => {
     const { data, isSuccess } = useGetCatalogListQuery()
     const [ goToObject, setGoToObject ] = useState<[number, number]>([0, 0])
 
@@ -46,4 +46,4 @@ const Map: React.FC = () => {
     )
 }
 
-export default Map
+export default ObjectsMap

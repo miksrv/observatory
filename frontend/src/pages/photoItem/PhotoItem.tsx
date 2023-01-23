@@ -6,8 +6,8 @@ import {
 } from 'app/observatoryApi'
 
 import PhotoItemHeader from './photoItemHeader'
-import PhotoTable from 'components/photoTable'
-import ObjectCloud from 'components/objectCloud'
+import PhotoTable from 'components/photoTable/PhotoTable'
+import ObjectCloud from 'components/objectCloud/ObjectCloud'
 
 const PhotoItem: React.FC = () => {
     const params: { name: string } = useParams()

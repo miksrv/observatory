@@ -8,8 +8,8 @@ import { getTimeFromSec } from 'functions/helpers'
 import defaultPhoto from './images/default-photo.png'
 import Lightbox from 'react-image-lightbox'
 
-import FilterList from 'components/filterList'
-import SkyMap from 'components/skyMap'
+import FilterList from 'components/filterList/FilterList'
+import SkyMap from 'components/skyMap/SkyMap'
 
 import 'react-image-lightbox/style.css'
 import './styles.sass'
@@ -87,7 +87,7 @@ const PhotoItemHeader: React.FC<TPhotoItemHeaderProps> = (props) => {
                         </Grid>
                     </div>
                     <div className='text'>{catalog?.text}</div>
-                    <div>
+                    <div className='object-map'>
                         <SkyMap
                             objects={catalog && photo ? [{
                                 ra: catalog.ra,

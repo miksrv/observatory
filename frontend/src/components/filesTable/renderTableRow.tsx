@@ -3,7 +3,7 @@ import moment from 'moment'
 import { Image, Table } from 'semantic-ui-react'
 import { TFIle } from 'app/types'
 
-import MoonPhase from '../moonPhase'
+import MoonPhase from 'components/moonPhase/MoonPhase'
 
 import './styles.sass'
 

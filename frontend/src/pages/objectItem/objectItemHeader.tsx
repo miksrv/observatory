@@ -8,6 +8,8 @@ import { TCatalog, TObject } from 'app/types'
 import FilterList from 'components/filterList/FilterList'
 import SkyMap from 'components/skyMap/SkyMap'
 
+import './styles.sass'
+
 type TObjectHeaderProps = {
     name: string
     loader: boolean
@@ -48,7 +50,7 @@ const ObjectItemHeader: React.FC<TObjectHeaderProps> = (props) => {
                         </Grid.Column>
                     </Grid>
                 </Grid.Column>
-                <Grid.Column computer={6} tablet={6} mobile={16}>
+                <Grid.Column computer={6} tablet={6} mobile={16} className='skyMap'>
                     {catalog &&
                         <SkyMap
                             objects={

@@ -97,7 +97,7 @@ class News extends BaseController
 
         foreach ($wall['items'] as $item)
         {
-            if (isset($item['is_pinned']) && $item['is_pinned'])
+            if ((isset($item['is_pinned']) && $item['is_pinned']) || empty($item['text']))
             {
                 continue;
             }
@@ -120,12 +120,12 @@ class News extends BaseController
 
     protected function _get_photos($attach): ?array
     {
+        $tmp = [];
+
         if (!is_array($attach) || empty($attach))
         {
-            return null;
+            return $tmp;
         }
-
-        $tmp = [];
 
         foreach ($attach as $item)
         {

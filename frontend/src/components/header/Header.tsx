@@ -9,7 +9,7 @@ import { setCredentials } from 'app/authSlice'
 import { MENU_ITEMS } from 'app/menu'
 import { UserAuth } from './userAuth'
 
-import LoginForm from './loginForm'
+import LoginForm from 'components/login-form/LoginForm'
 
 import './styles.sass'
 

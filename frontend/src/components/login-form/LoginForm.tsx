@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { Modal, Message, Form, Button } from 'semantic-ui-react'
-import { useAppSelector, useAppDispatch } from '../../app/hooks'
-import { useLoginMutation } from '../../app/observatoryApi'
-import { ICredentials } from '../../app/types'
-import { hide } from '../../app/loginFormSlice'
-import { setCredentials } from '../../app/authSlice'
+import { useAppSelector, useAppDispatch } from 'app/hooks'
+import { useLoginMutation } from 'app/observatoryApi'
+import { ICredentials } from 'app/types'
+import { hide } from 'app/loginFormSlice'
+import { setCredentials } from 'app/authSlice'
+
+import './styles.sass'
 
 const LoginForm: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -54,6 +56,7 @@ const LoginForm: React.FC = () => {
                 <Form
                     size='large'
                     onSubmit={handleSubmit}
+                    className='loginForm'
                 >
                     <Form.Input
                         fluid
@@ -61,6 +64,7 @@ const LoginForm: React.FC = () => {
                         icon='user'
                         iconPosition='left'
                         placeholder='Логин'
+                        className='userInput'
                         onChange={handleChange}
                         onKeyDown={handleKeyDown}
                         disabled={isLoading}
@@ -72,6 +76,7 @@ const LoginForm: React.FC = () => {
                         iconPosition='left'
                         placeholder='Пароль'
                         type='password'
+                        className='userInput'
                         onChange={handleChange}
                         onKeyDown={handleKeyDown}
                         disabled={isLoading}

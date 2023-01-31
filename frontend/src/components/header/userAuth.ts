@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react'
-import { useAppSelector, useAppDispatch } from '../../app/hooks'
-import { useLoginCheckMutation } from '../../app/observatoryApi'
-import { setCredentials } from '../../app/authSlice'
+import { useAppSelector, useAppDispatch } from 'app/hooks'
+import { useLoginCheckMutation } from 'app/observatoryApi'
+import { setCredentials } from 'app/authSlice'
 
 const TIMEOUT = 30000
 

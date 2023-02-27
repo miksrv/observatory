@@ -52,9 +52,9 @@ const ObjectTable: React.FC<TObjectTable> = (props) => {
         else setSortOrder((sortOrder === 'ascending' ? 'descending' : 'ascending'))
     }
 
-    const handlerShowEditModal = () => {
-
-    }
+    // const handlerShowEditModal = () => {
+    //
+    // }
 
     return (
         <div className='box table'>

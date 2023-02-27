@@ -1,21 +1,20 @@
 import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
 import { render } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import { store } from 'app/store'
 import '@testing-library/jest-dom/extend-expect'
 
-import PhotoList from 'pages/photoList/PhotoList'
+import News from 'pages/news/News'
 
-describe('Test PhotoList feature', () => {
-    beforeEach(() => {
+describe('Test News Page', () => {
+    it('Checked correct render', () => {
         render(
             <Provider store={store}>
-                <PhotoList/>
+                <BrowserRouter>
+                    <News/>
+                </BrowserRouter>
             </Provider>
         )
     })
-
-    it('Checked correct render', () => {
-
-    })
-});
+})

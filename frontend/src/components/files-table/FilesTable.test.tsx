@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 
-import FilesTable from 'components/filesTable/FilesTable'
+import FilesTable from 'components/files-table/FilesTable'
 
 describe('Test FilesTable component', () => {
     it('Checked correct render', async () => {

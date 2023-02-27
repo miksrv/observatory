@@ -4,7 +4,7 @@ import { TNews } from 'app/types'
 import { Image, Icon } from 'semantic-ui-react'
 
 import avatar from './images/avatar.jpg'
-import NewsPhotos from './newsPhotos'
+import NewsPhotos from './NewsPhotos'
 
 type TNewsItemProps = {
     news: TNews

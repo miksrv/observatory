@@ -4,13 +4,13 @@ import { Provider } from 'react-redux'
 import { store } from 'app/store'
 import '@testing-library/jest-dom/extend-expect'
 
-import ObjectList from 'pages/objectList/ObjectList'
+import PhotoList from 'pages/photo-list/PhotoList'
 
-describe('Test ObjectList feature', () => {
+describe('Test PhotoList feature', () => {
     beforeEach(() => {
         render(
             <Provider store={store}>
-                <ObjectList/>
+                <PhotoList/>
             </Provider>
         )
     })

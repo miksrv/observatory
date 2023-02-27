@@ -3,7 +3,7 @@ import { Message } from 'semantic-ui-react'
 import { useGetPhotoListQuery, useGetCatalogListQuery } from 'app/observatoryApi'
 import { TPhoto, TCatalog } from 'app/types'
 
-import PhotoCategorySwitcher from './PhotoCategorySwitcher'
+import PhotoCategorySwitcher from 'components/photo-category-switcher/PhotoCategorySwitcher'
 import PhotoGrid from 'components/photo-grid/PhotoGrid'
 
 const PhotoList: React.FC = () => {

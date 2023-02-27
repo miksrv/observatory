@@ -6,7 +6,7 @@ import '@testing-library/jest-dom/extend-expect'
 
 import Main from 'pages/main/Main'
 
-describe('Test Main feature', () => {
+describe('Page Main', () => {
     beforeEach(() => {
         render(
             <Provider store={store}>

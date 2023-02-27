@@ -5,7 +5,7 @@ import '@testing-library/jest-dom/extend-expect'
 
 import ObjectCloud from 'components/object-cloud/ObjectCloud'
 
-describe('Test ObjectCloud component', () => {
+describe('Component ObjectCloud', () => {
     it('Checked correct render', () => {
         render(
             <BrowserRouter>

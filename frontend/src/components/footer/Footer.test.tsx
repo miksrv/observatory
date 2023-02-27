@@ -7,7 +7,7 @@ import '@testing-library/jest-dom/extend-expect'
 
 import Footer from 'components/footer/Footer'
 
-describe('Test Footer component', () => {
+describe('Component Footer', () => {
     beforeEach(() => {
         render(
             <Footer />

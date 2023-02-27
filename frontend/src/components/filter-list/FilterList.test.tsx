@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect'
 
 import FilterList from 'components/filter-list/FilterList'
 
-describe('Test FilterList component', () => {
+describe('Component FilterList', () => {
     it('Checked correct render', async () => {
         render(
             <FilterList

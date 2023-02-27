@@ -2,7 +2,7 @@ import React from 'react'
 import { TNews } from 'app/types'
 import { Dimmer, Loader } from 'semantic-ui-react'
 
-import NewsItem from './newsItem'
+import NewsItem from './NewsItem'
 
 import './styles.sass'
 

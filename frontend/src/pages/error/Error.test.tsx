@@ -7,7 +7,7 @@ import '@testing-library/jest-dom/extend-expect'
 
 import Error from 'pages/error/Error'
 
-describe('Test Error feature', () => {
+describe('Page Error', () => {
     beforeEach(() => {
         render(
             <Provider store={store}>

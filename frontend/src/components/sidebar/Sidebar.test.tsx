@@ -8,7 +8,7 @@ import '@testing-library/jest-dom/extend-expect'
 import { MENU_ITEMS } from 'app/menu'
 import Sidebar from 'components/sidebar/Sidebar'
 
-describe('Test Sidebar', () => {
+describe('Component Sidebar', () => {
     beforeEach(() => {
         render(
             <Provider store={store}>
@@ -20,8 +20,8 @@ describe('Test Sidebar', () => {
     })
 
     it('Checked correct render', async () => {
-        MENU_ITEMS.forEach((item) => {
-            expect(screen.queryByText(item.name)).toBeInTheDocument()
+        MENU_ITEMS.forEach(({name}) => {
+            expect(screen.queryByText(name)).toBeInTheDocument()
         })
     })
 })

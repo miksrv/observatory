@@ -5,7 +5,7 @@ import { TObjectSortable, TSortOrdering } from './types'
 type TTableHeader = {
     sort: TObjectSortable
     order: TSortOrdering
-    handlerSortClick: (field: TObjectSortable) => void
+    handlerSortClick?: (field: TObjectSortable) => void
 }
 
 type THeaderFields = {
@@ -35,7 +35,7 @@ const RenderTableHeader: React.FC<TTableHeader> = (props) => {
                 <Table.HeaderCell
                     key={key}
                     sorted={sort === item.key ? order : undefined}
-                    onClick={() => handlerSortClick(item.key)}
+                    onClick={() => handlerSortClick?.(item.key)}
                 >
                     {item.name}
                 </Table.HeaderCell>

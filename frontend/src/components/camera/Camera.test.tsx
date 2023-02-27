@@ -5,7 +5,7 @@ import '@testing-library/jest-dom/extend-expect'
 
 import Camera from 'components/camera/Camera'
 
-describe('Test Camera component', () => {
+describe('Component Camera', () => {
     it('Checked correct render', async () => {
         render(
             <Camera cameraURL='http://localhost/camera' />

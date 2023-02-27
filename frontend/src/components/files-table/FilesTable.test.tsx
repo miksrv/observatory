@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect'
 
 import FilesTable from 'components/files-table/FilesTable'
 
-describe('Test FilesTable component', () => {
+describe('Component FilesTable', () => {
     it('Checked correct render', async () => {
         render(
             <FilesTable

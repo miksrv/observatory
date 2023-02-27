@@ -2,9 +2,9 @@ import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 
-import NewsItem from 'components/news-list/newsItem'
+import NewsItem from 'components/news-list/NewsItem'
 
-describe('Test News feature', () => {
+describe('Component News', () => {
     it('Checked NewsItem component', async () => {
         const photo = {
             height: 768,

@@ -12,7 +12,7 @@ type TRelayListItemProps = {
     status: boolean
     loading: boolean
     auth: boolean
-    handleClick: (data: IRelaySet) => void
+    handleClick?: (data: IRelaySet) => void
 }
 
 const RelayListItem: React.FC<TRelayListItemProps> = (props) => {
@@ -28,7 +28,7 @@ const RelayListItem: React.FC<TRelayListItemProps> = (props) => {
                 loading={loading}
                 className={`switch-${switchClass}`}
                 disabled={(loading || ! auth)}
-                onClick={() => handleClick({index: index, state: (status ? 0 : 1)})}
+                onClick={() => handleClick?.({index: index, state: (status ? 0 : 1)})}
                 size='mini'
             >{switchClass}</Button>
         </div>

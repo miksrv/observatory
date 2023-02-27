@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect'
 
 import PhotoCategorySwitcher from 'components/photo-category-switcher/PhotoCategorySwitcher'
 
-describe('Test PhotoCategorySwitcher component', () => {
+describe('Component PhotoCategorySwitcher', () => {
     beforeEach(() => {
         render(
             <PhotoCategorySwitcher

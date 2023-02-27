@@ -3,11 +3,12 @@ import { BrowserRouter } from 'react-router-dom'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import { store } from 'app/store'
+import { MENU_ITEMS } from 'app/menu';
 import '@testing-library/jest-dom/extend-expect'
 
 import Header from 'components/header/Header'
 
-describe('Test Header component', () => {
+describe('Component Header', () => {
     beforeEach(() => {
         render(
             <Provider store={store}>
@@ -19,10 +20,10 @@ describe('Test Header component', () => {
     })
 
     it('Checked correct show sidebar on page', async () => {
-        // expect(screen.queryByText(/Сводка/i)).not.toBeInTheDocument()
-        // expect(screen.queryByText(/Датчики/i)).not.toBeInTheDocument()
-        // expect(screen.queryByText(/Статистика/i)).not.toBeInTheDocument()
-        //
+        MENU_ITEMS.forEach(({name}) => {
+            expect(screen.queryByText(name)).toBeInTheDocument()
+        })
+
         fireEvent.click(await screen.findByText(/Войти/))
 
         fireEvent.change(await screen.findByPlaceholderText('Логин'), {target: {value: 'login'}})

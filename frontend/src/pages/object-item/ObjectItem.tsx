@@ -7,7 +7,7 @@ import {
 } from 'app/observatoryApi'
 import {Grid, Message} from 'semantic-ui-react'
 import { isOutdated } from 'functions/helpers';
-import ObjectItemHeader from './objectItemHeader'
+import ObjectItemHeader from './ObjectItemHeader'
 import PhotoTable from 'components/photo-table/PhotoTable'
 import FilesTable from 'components/files-table/FilesTable'
 import Chart from 'components/chart/Chart'

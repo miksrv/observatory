@@ -10,7 +10,7 @@ import Sensors from 'components/sensors/Sensors'
 // eslint-disable-next-line jest/no-mocks-import
 import { server } from '__mocks__/server'
 
-describe('Test Dashboard feature', () => {
+describe('Page Dashboard', () => {
 
     beforeAll(() => server.listen())
 

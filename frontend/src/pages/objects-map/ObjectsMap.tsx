@@ -3,7 +3,7 @@ import { useGetCatalogListQuery } from 'app/observatoryApi'
 import { TCatalog } from 'app/types'
 
 import SkyMap from 'components/sky-map/SkyMap'
-import ObjectCloudMap from 'components/sky-map/objectCloudMap'
+import ObjectCloudSkyMap from 'components/sky-map/ObjectCloudSkyMap'
 
 const ObjectsMap: React.FC = () => {
     const { data, isSuccess } = useGetCatalogListQuery()
@@ -37,7 +37,7 @@ const ObjectsMap: React.FC = () => {
                 />
             </div>
             <br />
-            <ObjectCloudMap
+            <ObjectCloudSkyMap
                 loader={isSuccess && !listObjects?.length}
                 objects={listObjects}
                 handleClick={(ra, dec) => setGoToObject([ra, dec])}

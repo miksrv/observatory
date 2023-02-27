@@ -5,7 +5,7 @@ import '@testing-library/jest-dom/extend-expect'
 
 import PhotoTable from 'components/photo-table/PhotoTable'
 
-describe('Test PhotoTable component', () => {
+describe('Component PhotoTable', () => {
     it('Checked correct render', async () => {
         render(
             <BrowserRouter>

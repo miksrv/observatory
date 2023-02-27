@@ -7,7 +7,7 @@ import '@testing-library/jest-dom/extend-expect'
 
 import News from 'pages/news/News'
 
-describe('Test News Page', () => {
+describe('Page News', () => {
     it('Checked correct render', () => {
         render(
             <Provider store={store}>

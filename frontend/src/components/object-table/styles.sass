@@ -1,0 +1,38 @@
+@import 'src/styles/variables'
+
+.object-table
+  .photo
+    height: 18px !important
+    object-fit: cover
+
+  .photo-link
+    position: relative
+    display: block
+
+    .outdated-icon
+      position: absolute
+      color: $orange
+      top: 0
+      right: 0
+
+  .table-row
+    .control-button
+      visibility: hidden
+
+    &:hover
+      .control-button
+        visibility: visible
+
+  .cell-name
+    display: flex
+    justify-content: space-between
+
+  .control-button
+    cursor: pointer
+
+    i
+      color: $text-second
+
+    &:hover
+      i
+        color: $text-main

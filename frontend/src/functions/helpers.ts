@@ -1,10 +1,13 @@
 import translate from './translate'
+import moment from 'moment';
 
 const lang = translate().general
 
 export const declOfNum = (number: number, words: string[]) => {
     return words[(number % 100 > 4 && number % 100 < 20) ? 2 : [2, 0, 1, 1, 1, 2][(number % 10 < 5) ? number % 10 : 5]]
 }
+
+export const isOutdated = (date1: string, date2: string) => moment(date1).diff(moment(date2)) < 0
 
 /**
  * Returns the formatted time elapsed since the beginning of the event

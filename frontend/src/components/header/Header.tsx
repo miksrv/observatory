@@ -3,8 +3,8 @@ import { Menu, Container, Label } from 'semantic-ui-react'
 import { NavLink } from 'react-router-dom'
 import { useAppDispatch } from 'app/hooks'
 import { useGetStatisticQuery, useLogoutMutation } from 'app/observatoryApi'
-import { toggle } from 'app/sidebarSlice'
-import { show } from 'app/loginFormSlice'
+import { toggle } from 'components/sidebar/sidebarSlice'
+import { show } from 'components/login-form/loginFormSlice'
 import { setCredentials } from 'app/authSlice'
 import { MENU_ITEMS } from 'app/menu'
 import { UserAuth } from './userAuth'
@@ -25,7 +25,7 @@ const Header: React.FC = () => {
     const doLogout = async () => {
         try {
             const user = await logout().unwrap()
-            setCredentials(user)
+            dispatch(setCredentials(user))
             setAuth(user.status)
         } catch (error) {
             console.error(error)

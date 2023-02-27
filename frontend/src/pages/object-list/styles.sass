@@ -1,0 +1,24 @@
+@import 'src/styles/variables'
+
+.objects-toolbar
+  margin-bottom: 1em
+  display: flex
+  justify-content: space-between
+
+  .category-dropdown
+    margin-left: 10px
+
+.search
+  input
+    color: $text-main !important
+
+@media only screen and (max-width: 768px)
+  .objects-toolbar
+    display: block
+
+    > div
+      width: 100%
+
+    .category-dropdown
+      margin-top: 10px
+      margin-left: 0px

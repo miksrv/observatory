@@ -3,7 +3,7 @@ import { Button } from 'semantic-ui-react'
 import { TNews } from 'app/types'
 import { useGetNewsListQuery } from 'app/observatoryApi'
 
-import NewsList from 'components/newsList/NewsList'
+import NewsList from 'components/news-list/NewsList'
 
 const News: React.FC = () => {
     const [ offset, setOffset ] = useState<number>(0)

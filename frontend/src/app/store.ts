@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { observatoryApi } from './observatoryApi'
-import sidebarSlice from './sidebarSlice'
-import loginFormSlice from './loginFormSlice'
+import sidebarSlice from 'components/sidebar/sidebarSlice'
+import loginFormSlice from 'components/login-form/loginFormSlice'
 import authSlice from './authSlice'
 
 export const store = configureStore({

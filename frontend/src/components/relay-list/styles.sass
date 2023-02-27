@@ -1,0 +1,64 @@
+@import 'src/styles/variables'
+
+%switch-buttons
+  background: transparent !important
+  color: $text-second
+  border: 1px solid $text-main
+  padding: 5px 10px
+  width: 50px
+  text-transform: uppercase
+
+.relay-list
+  padding: 6px
+
+  &.loader
+    height: 300px
+
+  .item
+    display: flex
+    justify-content: space-between
+    margin: 0
+    padding: 2.3px 2px 3px 6px
+
+    button
+      height: 24.15px !important
+
+    &:hover
+      background-color: #373737
+
+  .name
+    line-height: 9px
+    padding-top: 8px
+    margin-bottom: 0
+
+  span[class^='led']
+    margin-right: 5px
+    display: inline-block
+    background-color: $brown
+    width: 8px
+    height: 8px
+    border-radius: 50%
+
+    &.led-on
+      background-color: $green
+
+    &.led-off
+      background-color: $red
+
+  .switch-off
+    @extend %switch-buttons
+    color: $orange
+    border: 1px solid $orange
+
+    &:hover, &:active, &:focus
+      background: rgba(221, 145, 36, 0.18) !important
+      color: $text-main
+
+  .switch-on
+    @extend %switch-buttons
+    color: $green
+    border: 1px solid $green
+
+    &:hover, &:active, &:focus
+      background: rgba(46, 140, 71, 0.18) !important
+      color: $text-main

@@ -1,4 +1,4 @@
-import { IStatistic, IRestResponse } from '../../app/types'
+import { IStatistic, IRestResponse } from 'app/types'
 
 const payload: IStatistic = {
     photos: 60,

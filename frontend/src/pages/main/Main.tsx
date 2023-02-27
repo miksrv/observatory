@@ -8,7 +8,7 @@ import { shuffle } from 'functions/helpers'
 import moment, { Moment } from 'moment'
 
 import Statistic from './statistic'
-import PhotoGrid from 'components/photoGrid/PhotoGrid'
+import PhotoGrid from 'components/photo-grid/PhotoGrid'
 import Calendar from 'components/calendar/Calendar'
 
 const Main: React.FC = () => {

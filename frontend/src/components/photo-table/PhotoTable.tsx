@@ -2,7 +2,7 @@ import React from 'react'
 import { Table } from 'semantic-ui-react'
 import { TPhoto } from 'app/types'
 
-import RenderTableRow from './renderTableRow'
+import RenderTableRow from './RenderTableRow'
 
 import './styles.sass'
 

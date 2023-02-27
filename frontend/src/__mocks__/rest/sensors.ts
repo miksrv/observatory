@@ -1,4 +1,4 @@
-import { IRestResponse, TSensorsPayload } from '../../app/types'
+import { IRestResponse, TSensorsPayload } from 'app/types'
 
 const payload: TSensorsPayload = {
     time: 1652785847,

@@ -3,8 +3,8 @@ import { Dimmer, Loader, Table, Accordion, Icon } from 'semantic-ui-react'
 import { TFIle } from 'app/types'
 import { TObjectSortable, TSortOrdering } from './types'
 import Lightbox from 'react-image-lightbox'
-import RenderTableHeader from './renderTableHeader'
-import RenderTableRow from './renderTableRow'
+import RenderTableHeader from './RenderTableHeader'
+import RenderTableRow from './RenderTableRow'
 
 type TFilesTableProps = {
     loader: boolean

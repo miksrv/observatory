@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react'
 import { Dimmer, Loader } from 'semantic-ui-react'
 import { TObject } from './types'
 
-import RenderMap from './renderMap'
+import RenderMap from './RenderMap'
 
 import './styles.sass'
 

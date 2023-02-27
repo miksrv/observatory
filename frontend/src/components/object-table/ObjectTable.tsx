@@ -2,8 +2,10 @@ import React, { useState, useMemo } from 'react'
 import { Table } from 'semantic-ui-react'
 import { IObjectListItem, TPhoto, TCatalog } from 'app/types'
 import { TObjectSortable, TSortOrdering } from './types'
+
 import RenderTableHeader, { HEADER_FIELDS } from './renderTableHeader'
 import RenderTableRow from './renderTableRow'
+import ObjectEditModal from '../obect-edit-modal/ObjectEditModal';
 
 import './styles.sass'
 
@@ -26,6 +28,8 @@ const ObjectTable: React.FC<TObjectTable> = (props) => {
     const { objects, photos } = props
     const [ sortField, setSortField ] = useState<TObjectSortable>('name')
     const [ sortOrder, setSortOrder ] = useState<TSortOrdering>('descending')
+    const [ editModalVisible, setEditModalVisible ] = useState<boolean>(false)
+    const [ editModalValue, setEditModalValue ] = useState<TCatalog>()
 
     const listObjectsPhotos = useMemo(() => {
         return objects.map((item) => {
@@ -48,6 +52,10 @@ const ObjectTable: React.FC<TObjectTable> = (props) => {
         else setSortOrder((sortOrder === 'ascending' ? 'descending' : 'ascending'))
     }
 
+    const handlerShowEditModal = () => {
+
+    }
+
     return (
         <div className='box table'>
             <Table sortable celled inverted selectable compact className='object-table'>
@@ -63,12 +71,22 @@ const ObjectTable: React.FC<TObjectTable> = (props) => {
                                 item={item}
                                 photos={photos}
                                 key={item.name}
+                                onShowEdit={() => {
+                                    setEditModalValue(item)
+                                    setEditModalVisible(true)
+                                }}
                             />
                         )
                         : <RowNoData/>
                     }
                 </Table.Body>
             </Table>
+            <ObjectEditModal
+                visible={editModalVisible}
+                skyMapVisible={true}
+                value={editModalValue}
+                onClose={() => setEditModalVisible(false)}
+            />
         </div>
     )
 }

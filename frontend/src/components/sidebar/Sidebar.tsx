@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { Sidebar as SidebarMenu, Menu, Label } from 'semantic-ui-react'
 import { useAppSelector, useAppDispatch } from 'app/hooks'
 import { useGetStatisticQuery } from 'app/observatoryApi'
-import { hide } from 'app/sidebarSlice'
+import { hide } from 'components/sidebar/sidebarSlice'
 import { MENU_ITEMS } from 'app/menu'
 
 import './styles.sass'

@@ -3,7 +3,7 @@ import { Modal, Message, Form, Button } from 'semantic-ui-react'
 import { useAppSelector, useAppDispatch } from 'app/hooks'
 import { useLoginMutation } from 'app/observatoryApi'
 import { ICredentials } from 'app/types'
-import { hide } from 'app/loginFormSlice'
+import { hide } from 'components/login-form/loginFormSlice'
 import { setCredentials } from 'app/authSlice'
 
 import './styles.sass'

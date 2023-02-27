@@ -4,8 +4,8 @@ import { Popup, Icon } from 'semantic-ui-react'
 import { TWeatherMonth, TFilesMonth } from 'app/types'
 import SunCalc from 'suncalc'
 
-import MoonPhase from 'components/moonPhase/MoonPhase'
-import SunIcon from '../moonPhase/images/sun.png'
+import MoonPhase from 'components/moon-phase/MoonPhase'
+import SunIcon from '../moon-phase/images/sun.png'
 
 type TRenderCalendarProps = {
     dateObject: Moment

@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react'
 import { Input, Dropdown } from 'semantic-ui-react'
 
+import './styles.sass'
+
 type TToolbarProps = {
     search: string
     categories: string[]

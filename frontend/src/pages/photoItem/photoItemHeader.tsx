@@ -8,8 +8,8 @@ import { getTimeFromSec } from 'functions/helpers'
 import defaultPhoto from './images/default-photo.png'
 import Lightbox from 'react-image-lightbox'
 
-import FilterList from 'components/filterList/FilterList'
-import SkyMap from 'components/skyMap/SkyMap'
+import FilterList from 'components/filter-list/FilterList'
+import SkyMap from 'components/sky-map/SkyMap'
 
 import 'react-image-lightbox/style.css'
 import './styles.sass'

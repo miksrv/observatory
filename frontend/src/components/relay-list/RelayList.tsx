@@ -29,7 +29,7 @@ const RelayListItem: React.FC<TRelayListItemProps> = (props) => {
                 className={`switch-${switchClass}`}
                 disabled={(loading || ! auth)}
                 onClick={() => handleClick({index: index, state: (status ? 0 : 1)})}
-                size='tiny'
+                size='mini'
             >{switchClass}</Button>
         </div>
     )

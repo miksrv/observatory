@@ -1,21 +1,23 @@
 import React, { useMemo } from 'react'
-import moment from 'moment'
 import { Link } from 'react-router-dom'
+import { useAppSelector } from 'app/hooks';
 import { Icon, Image, Table, Popup } from 'semantic-ui-react'
 import { IObjectListItem, TCatalog, TFiltersTypes, TPhoto } from 'app/types'
-import { getTimeFromSec } from 'functions/helpers'
+import { getTimeFromSec, isOutdated } from 'functions/helpers'
+
+import './styles.sass'
 
 type TTableRowProps = {
     item: IObjectListItem & TCatalog
     photos: TPhoto[] | undefined
+    onShowEdit?: (item: string) => void
 }
 
 const FILTERS: TFiltersTypes[] = ['Luminance', 'Red', 'Green', 'Blue', 'Ha', 'OIII', 'SII']
 
-const isOutdated = (date1: string, date2: string) => moment(date1).diff(moment(date2)) < 0
-
 const RenderTableRow: React.FC<TTableRowProps> = (props) => {
-    const { item, photos } = props
+    const { item, photos, onShowEdit } = props
+    const userLogin = useAppSelector(state => state.auth.status)
     const photoList = photos && photos.filter((photo) => photo.object === item.name)
     const photoItem = photoList && photoList.pop()
     const textMaxLength = 200
@@ -29,8 +31,8 @@ const RenderTableRow: React.FC<TTableRowProps> = (props) => {
     }, [item])
 
     return (
-        <Table.Row>
-            <Table.Cell>
+        <Table.Row className='table-row'>
+            <Table.Cell className='cell-name'>
                 <Popup
                     disabled={!item.title}
                     size='mini'
@@ -43,6 +45,21 @@ const RenderTableRow: React.FC<TTableRowProps> = (props) => {
                         </Link>
                     }
                 />
+                {userLogin && (
+                    <div>
+                        <span
+                            className='control-button'
+                            onClick={() => onShowEdit?.(item.name)}
+                        >
+                            <Icon name='edit outline' />
+                        </span>
+                        <span
+                            className='control-button'
+                        >
+                            <Icon name='remove' />
+                        </span>
+                    </div>
+                )}
             </Table.Cell>
             <Table.Cell width='one'>
                 {photoItem &&

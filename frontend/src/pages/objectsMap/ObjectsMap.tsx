@@ -2,8 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react'
 import { useGetCatalogListQuery } from 'app/observatoryApi'
 import { TCatalog } from 'app/types'
 
-import SkyMap from 'components/skyMap/SkyMap'
-import ObjectCloudMap from 'components/skyMap/objectCloudMap'
+import SkyMap from 'components/sky-map/SkyMap'
+import ObjectCloudMap from 'components/sky-map/objectCloudMap'
 
 const ObjectsMap: React.FC = () => {
     const { data, isSuccess } = useGetCatalogListQuery()

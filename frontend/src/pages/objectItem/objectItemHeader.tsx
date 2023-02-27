@@ -1,12 +1,14 @@
-import React from 'react'
+import React, {useState} from 'react'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
-import { Dimmer, Grid, Loader } from 'semantic-ui-react'
+import { Dimmer, Grid, Loader, Button } from 'semantic-ui-react'
 import { getTimeFromSec } from 'functions/helpers'
+import { useAppSelector } from 'app/hooks';
 import { TCatalog, TObject } from 'app/types'
 
-import FilterList from 'components/filterList/FilterList'
-import SkyMap from 'components/skyMap/SkyMap'
+import ObjectEditModal from 'components/obect-edit-modal/ObjectEditModal';
+import FilterList from 'components/filter-list/FilterList'
+import SkyMap from 'components/sky-map/SkyMap'
 
 import './styles.sass'
 
@@ -21,6 +23,7 @@ type TObjectHeaderProps = {
 
 const ObjectItemHeader: React.FC<TObjectHeaderProps> = (props) => {
     const { name, loader, catalog, object, deviationRa, deviationDec } = props
+    const userLogin = useAppSelector(state => state.auth.status)
     const title = ! loader && (catalog ? (catalog.title ? catalog.title : catalog.name) : name)
     const date = ! loader && object ? moment.utc(object.date).utcOffset('GMT+05:00').format('D.MM.Y, H:mm') : '---'
     const category = ! loader && (catalog ? (catalog.category ? catalog.category : '---') : '---')
@@ -28,12 +31,31 @@ const ObjectItemHeader: React.FC<TObjectHeaderProps> = (props) => {
     const exposure = ! loader && object ? getTimeFromSec(object.exposure, true) : '---'
     const size = ! loader && object ? Math.round((object.filesizes / 1024) * 100) / 100 : '---'
 
+    const [ editModalVisible, setEditModalVisible ] = useState<boolean>(false)
+
     return (
         <div className='box'>
             {loader && <Dimmer active><Loader /></Dimmer>}
             <Grid>
                 <Grid.Column computer={10} tablet={10} mobile={16}>
-                    <h1>Объект: {title}</h1>
+                    <div className='name'>
+                        <h1>Объект: {title}</h1>
+                        {userLogin && (
+                            <div className='control-buttons'>
+                                <Button
+                                    size='mini'
+                                    color='blue'
+                                    icon='edit outline'
+                                    onClick={() => setEditModalVisible(true)}
+                                />
+                                <Button
+                                    size='mini'
+                                    color='red'
+                                    icon='remove'
+                                />
+                            </div>
+                        )}
+                    </div>
                     <Grid>
                         <Grid.Column computer={8} tablet={8} mobile={16}>
                             <div><span className='second-color'>Категория:</span> {category}</div>
@@ -64,6 +86,11 @@ const ObjectItemHeader: React.FC<TObjectHeaderProps> = (props) => {
                     }
                 </Grid.Column>
             </Grid>
+            <ObjectEditModal
+                visible={editModalVisible}
+                value={catalog!}
+                onClose={() => setEditModalVisible(false)}
+            />
         </div>
     )
 }

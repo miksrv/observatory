@@ -5,12 +5,13 @@ import {
     useGetCatalogItemQuery, useGetPhotoListItemQuery,
     useGetObjectNamesQuery
 } from 'app/observatoryApi'
-import { Grid } from 'semantic-ui-react'
+import {Grid, Message} from 'semantic-ui-react'
+import { isOutdated } from 'functions/helpers';
 import ObjectItemHeader from './objectItemHeader'
-import PhotoTable from 'components/photoTable/PhotoTable'
-import FilesTable from 'components/filesTable/FilesTable'
+import PhotoTable from 'components/photo-table/PhotoTable'
+import FilesTable from 'components/files-table/FilesTable'
 import Chart from 'components/chart/Chart'
-import ObjectCloud from 'components/objectCloud/ObjectCloud'
+import ObjectCloud from 'components/object-cloud/ObjectCloud'
 
 import chart_coordinates from 'components/chart/chart_coordinates'
 import chart_coordlines from 'components/chart/chart_coordlines'
@@ -89,9 +90,18 @@ const ObjectItem: React.FC = () => {
                 deviationRa={Math.round(deviationRa * 100) / 100}
                 deviationDec={Math.round(deviationDec * 100) / 100}
             />
+            {isOutdated(dataPhotos?.payload?.[0].date!, dataObject?.payload.date!) ? (
+                <Message
+                    warning
+                    icon='warning sign'
+                    header='Новые данные'
+                    content='Фотографии устарели - есть новые данные с телескопа, с помощью которых можно собрать новое изображение объекта'
+                />
+            ) : (
+                <br />
+            )}
             {(dataPhotos?.payload && !objectLoading) &&
                 <>
-                    <br />
                     <PhotoTable photos={dataPhotos?.payload} />
                 </>
             }

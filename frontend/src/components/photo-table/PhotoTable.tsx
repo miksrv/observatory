@@ -1,9 +1,9 @@
 import React from 'react'
 import { Table } from 'semantic-ui-react'
+
 import { TPhoto } from 'app/types'
 
 import RenderTableRow from './RenderTableRow'
-
 import './styles.sass'
 
 type TPhotoTableProps = {
@@ -34,18 +34,30 @@ const PhotoTable: React.FC<TPhotoTableProps> = (props) => {
 
     return (
         <div className='box table'>
-            <Table sortable celled inverted selectable compact className='photo-table'>
+            <Table
+                sortable
+                celled
+                inverted
+                selectable
+                compact
+                className='photo-table'
+            >
                 <Table.Header>
                     <Table.Row>
-                        {HEADER_FIELDS.map((item, key) =>
+                        {HEADER_FIELDS.map((item, key) => (
                             <Table.HeaderCell key={key}>
                                 {item.name}
                             </Table.HeaderCell>
-                        )}
+                        ))}
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {photos?.map((photo, key) => <RenderTableRow photo={photo} key={key} />)}
+                    {photos?.map((photo, key) => (
+                        <RenderTableRow
+                            photo={photo}
+                            key={key}
+                        />
+                    ))}
                 </Table.Body>
             </Table>
         </div>

@@ -1,8 +1,10 @@
 import React from 'react'
+
 import { useGetSensorStatisticQuery } from 'app/observatoryApi'
 import { TSensorsPayload } from 'app/types'
-import { TChartLineData } from '../chart/types'
+
 import Chart from 'components/chart/Chart'
+import { TChartLineData } from 'components/chart/types'
 
 import chart_sensors from './chart_sensors'
 

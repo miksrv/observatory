@@ -5,9 +5,7 @@ const Error: React.FC = () => {
         document.title = 'Ошибка - Обсерватория'
     })
 
-    return (
-        <div>Error Page</div>
-    )
+    return <div>Error Page</div>
 }
 
 export default Error

@@ -2,54 +2,12 @@ import colors from './colors'
 
 const chart_coordinates = {
     chart: {
-        type: 'scatter',
-        zoomType: 'xy',
-        marginTop: 12,
-        marginLeft: 10,
+        height: 300,
         marginBottom: 10,
-        height: 300
-    },
-    title: {
-        text: ''
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        title: {
-            text: ''
-        },
-        tickColor: 'transparent',
-        tickAmount: 10,
-        gridLineWidth: 1,
-        plotLines: [{
-            color: colors[1],
-            dashStyle: 'ShortDash',
-            width: 2,
-            value: 0,
-            zIndex: 3
-        }],
-        labels: {
-            enabled: false
-        }
-    },
-    yAxis: {
-        title: {
-            text: ''
-        },
-        tickColor: 'transparent',
-        tickAmount: 10,
-        gridLineWidth: 1,
-        plotLines: [{
-            color: colors[1],
-            dashStyle: 'ShortDash',
-            width: 2,
-            value: 0,
-            zIndex: 3
-        }],
-        labels: {
-            enabled: false
-        }
+        marginLeft: 10,
+        marginTop: 12,
+        type: 'scatter',
+        zoomType: 'xy'
     },
     legend: {
         enabled: false
@@ -78,10 +36,58 @@ const chart_coordinates = {
             }
         }
     },
-    series: [{
-        name: 'Координаты объекта',
-        color: colors[3],
-    }]
+    series: [
+        {
+            color: colors[3],
+            name: 'Координаты объекта'
+        }
+    ],
+    subtitle: {
+        text: ''
+    },
+    title: {
+        text: ''
+    },
+    xAxis: {
+        gridLineWidth: 1,
+        labels: {
+            enabled: false
+        },
+        plotLines: [
+            {
+                color: colors[1],
+                dashStyle: 'ShortDash',
+                value: 0,
+                width: 2,
+                zIndex: 3
+            }
+        ],
+        tickAmount: 10,
+        tickColor: 'transparent',
+        title: {
+            text: ''
+        }
+    },
+    yAxis: {
+        gridLineWidth: 1,
+        labels: {
+            enabled: false
+        },
+        plotLines: [
+            {
+                color: colors[1],
+                dashStyle: 'ShortDash',
+                value: 0,
+                width: 2,
+                zIndex: 3
+            }
+        ],
+        tickAmount: 10,
+        tickColor: 'transparent',
+        title: {
+            text: ''
+        }
+    }
 }
 
 export default chart_coordinates

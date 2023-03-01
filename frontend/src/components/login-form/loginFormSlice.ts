@@ -9,18 +9,18 @@ const initialState: ILoginFormState = {
 }
 
 export const loginFormSlice = createSlice({
-    name: 'loginform',
     initialState,
+    name: 'loginform',
     reducers: {
-        show: (state) => {
-            state.visible = true
-        },
         hide: (state) => {
             state.visible = false
         },
+        show: (state) => {
+            state.visible = true
+        },
         toggle: (state) => {
             state.visible = !state.visible
-        },
+        }
     }
 })
 

@@ -246,7 +246,14 @@ export type TNewsPhotosItem = {
     src: string
 }
 
-export type TFiltersTypes = 'Luminance' | 'Red' | 'Green' | 'Blue' | 'Ha' | 'OIII' | 'SII'
+export type TFiltersTypes =
+    | 'Luminance'
+    | 'Red'
+    | 'Green'
+    | 'Blue'
+    | 'Ha'
+    | 'OIII'
+    | 'SII'
 
 export type TFilterItem = {
     exposure: number

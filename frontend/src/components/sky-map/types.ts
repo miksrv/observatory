@@ -15,7 +15,7 @@ export type geoJSON = {
             dim: number
         }
         geometry: {
-            type: string,
+            type: string
             coordinates: [number, number]
         }
     }[]

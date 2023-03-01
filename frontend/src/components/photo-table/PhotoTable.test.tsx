@@ -1,7 +1,7 @@
-import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
-import { BrowserRouter } from 'react-router-dom'
 import '@testing-library/jest-dom/extend-expect'
+import { fireEvent, render, screen } from '@testing-library/react'
+import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
 
 import PhotoTable from 'components/photo-table/PhotoTable'
 
@@ -12,11 +12,11 @@ describe('Component PhotoTable', () => {
                 <PhotoTable
                     photos={[
                         {
-                            object: 'M51',
-                            date: '10.10.2030',
-                            file: 'file',
-                            ext: 'jpg',
                             author: null,
+                            date: '10.10.2030',
+                            ext: 'jpg',
+                            file: 'file',
+                            object: 'M51'
                         }
                     ]}
                 />
@@ -25,7 +25,7 @@ describe('Component PhotoTable', () => {
 
         expect(await screen.findByText('10.10.2030')).toBeInTheDocument()
 
-        fireEvent.click(await screen.getByText('Дата'))
-        fireEvent.click(await screen.getByRole('img'))
+        fireEvent.click(screen.getByText('Дата'))
+        fireEvent.click(screen.getByRole('img'))
     })
 })

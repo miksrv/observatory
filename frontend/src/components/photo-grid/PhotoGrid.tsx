@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Image, Reveal, Dimmer, Loader } from 'semantic-ui-react'
-import { TPhoto, TCatalog } from 'app/types'
+import { Dimmer, Image, Loader, Reveal } from 'semantic-ui-react'
+
+import { TCatalog, TPhoto } from 'app/types'
 
 import './styles.sass'
 
@@ -12,17 +13,21 @@ type TPhotoGridProps = {
     className?: string
 }
 
-const PhotosLoader = (count: number) => (
-    Array(count).fill(1).map((item, key) =>
-        <div key={key} className='item'>
-            <div className='info'>
-                <Dimmer active>
-                    <Loader />
-                </Dimmer>
+const PhotosLoader = (count: number) =>
+    Array(count)
+        .fill(1)
+        .map((item, key) => (
+            <div
+                key={key}
+                className='item'
+            >
+                <div className='info'>
+                    <Dimmer active>
+                        <Loader />
+                    </Dimmer>
+                </div>
             </div>
-        </div>
-    )
-)
+        ))
 
 const PhotoGrid: React.FC<TPhotoGridProps> = (props) => {
     const { loading, photoList, loaderCount, className } = props
@@ -35,39 +40,40 @@ const PhotoGrid: React.FC<TPhotoGridProps> = (props) => {
 
     return (
         <div className={`box photo-gird ${className ? className : ''}`}>
-            {loading || !photoList ?
-                PhotosLoader(loaderCount ? loaderCount : 12)
-                :
-                photoList.map((photo: TPhoto & TCatalog) =>
-                    <Link
-                        key={photo.file}
-                        to={`/photo/${photo.object}?date=${photo.date}`}
-                        className='item'
-                    >
-                        {photo.title ?
-                            <Reveal animated='small fade'>
-                                <Reveal.Content visible>
-                                    <Image
-                                        src={`${process.env.REACT_APP_API_HOST}public/photo/${photo.file}_thumb.${photo.ext}`}
-                                        className='photo'
-                                    />
-                                </Reveal.Content>
-                                <Reveal.Content hidden>
-                                    <div className='info'>
-                                        <h4>{photo.title}</h4>
-                                        <p>{photo.text && sliceText(photo.text)}</p>
-                                    </div>
-                                </Reveal.Content>
-                            </Reveal>
-                            :
-                            <Image
-                                src={`${process.env.REACT_APP_API_HOST}public/photo/${photo.file}_thumb.${photo.ext}`}
-                                className='photo'
-                            />
-                        }
-                    </Link>
-                )
-            }
+            {loading || !photoList
+                ? PhotosLoader(loaderCount ? loaderCount : 12)
+                : photoList.map((photo: TPhoto & TCatalog) => (
+                      <Link
+                          key={photo.file}
+                          to={`/photo/${photo.object}?date=${photo.date}`}
+                          className='item'
+                      >
+                          {photo.title ? (
+                              <Reveal animated='small fade'>
+                                  <Reveal.Content visible>
+                                      <Image
+                                          src={`${process.env.REACT_APP_API_HOST}public/photo/${photo.file}_thumb.${photo.ext}`}
+                                          className='photo'
+                                      />
+                                  </Reveal.Content>
+                                  <Reveal.Content hidden>
+                                      <div className='info'>
+                                          <h4>{photo.title}</h4>
+                                          <p>
+                                              {photo.text &&
+                                                  sliceText(photo.text)}
+                                          </p>
+                                      </div>
+                                  </Reveal.Content>
+                              </Reveal>
+                          ) : (
+                              <Image
+                                  src={`${process.env.REACT_APP_API_HOST}public/photo/${photo.file}_thumb.${photo.ext}`}
+                                  className='photo'
+                              />
+                          )}
+                      </Link>
+                  ))}
         </div>
     )
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Table } from 'semantic-ui-react'
+
 import { TObjectSortable, TSortOrdering } from './types'
 
 type TTableHeader = {
@@ -29,19 +30,21 @@ const HEADER_FIELDS: THeaderFields[] = [
 const RenderTableHeader: React.FC<TTableHeader> = (props) => {
     const { sort, order, handlerSortClick } = props
 
-    return <Table.Header>
-        <Table.Row>
-            {HEADER_FIELDS.map((item, key) =>
-                <Table.HeaderCell
-                    key={key}
-                    sorted={sort === item.key ? order : undefined}
-                    onClick={() => handlerSortClick?.(item.key)}
-                >
-                    {item.name}
-                </Table.HeaderCell>
-            )}
-        </Table.Row>
-    </Table.Header>
+    return (
+        <Table.Header>
+            <Table.Row>
+                {HEADER_FIELDS.map((item, key) => (
+                    <Table.HeaderCell
+                        key={key}
+                        sorted={sort === item.key ? order : undefined}
+                        onClick={() => handlerSortClick?.(item.key)}
+                    >
+                        {item.name}
+                    </Table.HeaderCell>
+                ))}
+            </Table.Row>
+        </Table.Header>
+    )
 }
 
 export default RenderTableHeader

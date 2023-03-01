@@ -2,59 +2,64 @@ import colors from './colors'
 
 const chart_statistic = {
     chart: {
-        marginTop: 15,
+        height: 300,
         marginBottom: 30,
-        height: 300
+        marginTop: 15
+    },
+    legend: {
+        enabled: true
+    },
+    series: [
+        {
+            color: colors[1],
+            name: 'HFR',
+            yAxis: 0
+        },
+        {
+            color: colors[4],
+            name: 'SNR',
+            yAxis: 1
+        }
+    ],
+    subtitle: {
+        text: ''
     },
     title: {
         text: ''
     },
-    subtitle: {
-        text: ''
+    tooltip: {
+        headerFormat: '<b>Статистика съемки</b><br>'
     },
     xAxis: {
         gridLineWidth: 1,
         title: {
             text: ''
-        },
+        }
     },
-    yAxis: [{
-        title: {
-            text: ''
-        },
-        labels: {
-            style: {
-                color: colors[1]
+    yAxis: [
+        {
+            labels: {
+                style: {
+                    color: colors[1]
+                }
+            },
+            opposite: true,
+            title: {
+                text: ''
             }
         },
-        opposite: true,
-    }, {
-        title: {
-            text: ''
-        },
-        labels: {
-            style: {
-                color: colors[4]
+        {
+            labels: {
+                style: {
+                    color: colors[4]
+                }
+            },
+            opposite: false,
+            title: {
+                text: ''
             }
-        },
-        opposite: false,
-    }
-    ],
-    legend: {
-        enabled: true
-    },
-    series: [{
-        yAxis: 0,
-        name: 'HFR',
-        color: colors[1],
-    }, {
-        yAxis: 1,
-        name: 'SNR',
-        color: colors[4],
-    }],
-    tooltip: {
-        headerFormat: '<b>Статистика съемки</b><br>'
-    }
+        }
+    ]
 }
 
 export default chart_statistic

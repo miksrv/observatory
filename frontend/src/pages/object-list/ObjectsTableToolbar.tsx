@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Input, Dropdown } from 'semantic-ui-react'
+import { Dropdown, Input } from 'semantic-ui-react'
 
 import './styles.sass'
 
@@ -13,14 +13,14 @@ type TToolbarProps = {
 const ObjectsTableToolbar: React.FC<TToolbarProps> = (props) => {
     const { search, categories, onChangeSearch, onChangeCategories } = props
 
-    const handleChange = ({ target: { value }}: React.ChangeEvent<HTMLInputElement>) =>
-        onChangeSearch(value)
+    const handleChange = ({
+        target: { value }
+    }: React.ChangeEvent<HTMLInputElement>) => onChangeSearch(value)
 
-    const listCategoriesOptions = useMemo(() =>
-        categories.map((item) => (
-            { value: item, text: item }
-        ))
-        , [categories])
+    const listCategoriesOptions = useMemo(
+        () => categories.map((item) => ({ text: item, value: item })),
+        [categories]
+    )
 
     return (
         <div className='objects-toolbar'>

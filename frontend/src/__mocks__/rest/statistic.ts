@@ -1,16 +1,16 @@
-import { IStatistic, IRestResponse } from 'app/types'
+import { IRestResponse, IStatistic } from 'app/types'
 
 const payload: IStatistic = {
-    photos: 60,
-    objects: 86,
-    frames: 5720,
     exposure: 1766533,
-    filesize: 187535
+    filesize: 187535,
+    frames: 5720,
+    objects: 86,
+    photos: 60
 }
 
 export const response: IRestResponse = {
-    status: true,
-    payload: payload
+    payload: payload,
+    status: true
 }
 
 export default response

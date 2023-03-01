@@ -1,10 +1,11 @@
-import React from 'react'
 import moment from 'moment'
-import { TNews } from 'app/types'
-import { Image, Icon } from 'semantic-ui-react'
+import React from 'react'
+import { Icon, Image } from 'semantic-ui-react'
 
-import avatar from './images/avatar.jpg'
+import { TNews } from 'app/types'
+
 import NewsPhotos from './NewsPhotos'
+import avatar from './images/avatar.jpg'
 
 type TNewsItemProps = {
     news: TNews
@@ -13,7 +14,7 @@ type TNewsItemProps = {
 const NewsItem: React.FC<TNewsItemProps> = (props) => {
     const { news } = props
 
-    const currentMobile: boolean = (window.innerWidth <= 760)
+    const currentMobile: boolean = window.innerWidth <= 760
 
     // #TODO Use this
     // const urlify = (text: string) =>
@@ -22,23 +23,33 @@ const NewsItem: React.FC<TNewsItemProps> = (props) => {
     return (
         <div className='box item'>
             <div className='header'>
-                <Image src={avatar} avatar />
+                <Image
+                    src={avatar}
+                    avatar
+                />
                 <div>
-                    <a href={`//vk.com/${news.link}`} title='Обсерватория' rel='noopener noreferrer' target='_blank'>Обсерватория</a>
+                    <a
+                        href={`//vk.com/${news.link}`}
+                        title='Обсерватория'
+                        rel='noopener noreferrer'
+                        target='_blank'
+                    >
+                        Обсерватория
+                    </a>
                     <div className='info'>
                         {moment.unix(news.date).format('DD MMMM Y в H:mm')}
-                        {!currentMobile &&
+                        {!currentMobile && (
                             <>
                                 <span className='divider'></span>
-                                <Icon name='eye'/> {news.views}
+                                <Icon name='eye' /> {news.views}
                                 <span className='divider'></span>
-                                <Icon name='like'/> {news.likes}
+                                <Icon name='like' /> {news.likes}
                                 <span className='divider'></span>
-                                <Icon name='reply'/> {news.reposts}
+                                <Icon name='reply' /> {news.reposts}
                                 <span className='divider'></span>
-                                <Icon name='comment'/> {news.comments}
+                                <Icon name='comment' /> {news.comments}
                             </>
-                        }
+                        )}
                     </div>
                 </div>
             </div>

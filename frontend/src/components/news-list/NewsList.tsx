@@ -1,9 +1,9 @@
 import React from 'react'
-import { TNews } from 'app/types'
 import { Dimmer, Loader } from 'semantic-ui-react'
 
-import NewsItem from './NewsItem'
+import { TNews } from 'app/types'
 
+import NewsItem from './NewsItem'
 import './styles.sass'
 
 type TNewsListProps = {
@@ -24,15 +24,19 @@ const NewsList: React.FC<TNewsListProps> = (props) => {
 
     return (
         <>
-            {loader
-                ? <NewsLoader />
-                :
+            {loader ? (
+                <NewsLoader />
+            ) : (
                 <div className='news-list'>
-                    {news && news.map((item, key) =>
-                        <NewsItem news={item} key={key} />
-                    )}
+                    {news &&
+                        news.map((item, key) => (
+                            <NewsItem
+                                news={item}
+                                key={key}
+                            />
+                        ))}
                 </div>
-            }
+            )}
         </>
     )
 }

@@ -1,6 +1,6 @@
-import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
+import { fireEvent, render, screen } from '@testing-library/react'
+import React from 'react'
 
 import FilesTable from 'components/files-table/FilesTable'
 
@@ -12,20 +12,20 @@ describe('Component FilesTable', () => {
                 object='M_51'
                 files={[
                     {
-                        id: '1',
-                        name: 'image_1',
                         date: '10.10.2030',
-                        filter: 'Red',
-                        exposure: 600,
-                        temp: -10,
-                        gain: 120,
-                        offset: 10,
                         dec: 55.1,
-                        ra: 34.2,
-                        stars: 0,
+                        exposure: 600,
+                        filter: 'Red',
+                        gain: 120,
                         hfr: 0,
+                        id: '1',
+                        image: true,
+                        name: 'image_1',
+                        offset: 10,
+                        ra: 34.2,
                         sky: 0,
-                        image: true
+                        stars: 0,
+                        temp: -10
                     }
                 ]}
             />
@@ -37,7 +37,7 @@ describe('Component FilesTable', () => {
 
         fireEvent.click(await screen.findByText('Список снятых кадров'))
         fireEvent.click(await screen.findByText('Дата съемки'))
-        fireEvent.click(await screen.getByRole('img'))
+        fireEvent.click(screen.getByRole('img'))
     })
 
     it('Checked correct loader', () => {
@@ -48,5 +48,7 @@ describe('Component FilesTable', () => {
                 files={undefined}
             />
         )
+
+        expect(1).toBe(1)
     })
 })

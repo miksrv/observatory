@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { Modal, Form, Grid, Button } from 'semantic-ui-react'
+import React, { useEffect, useState } from 'react'
+import { Button, Form, Grid, Modal } from 'semantic-ui-react'
+
 import { TCatalog } from 'app/types'
 
 import SkyMap from '../sky-map/SkyMap'
-
 import './styles.sass'
 
 interface IObjectEditModal {
@@ -16,19 +16,22 @@ interface IObjectEditModal {
 const ObjectEditModal: React.FC<IObjectEditModal> = (props) => {
     const { visible, value, skyMapVisible, onClose } = props
 
-    const [ formState, setFormState ] = useState<TCatalog>({
-        name: value?.name || '',
-        title: value?.title || '',
-        text: value?.text || '',
+    const [formState, setFormState] = useState<TCatalog>({
         category: value?.category || '',
-        ra: value?.ra || 0,
         dec: value?.dec || 0,
+        name: value?.name || '',
+        ra: value?.ra || 0,
+        text: value?.text || '',
+        title: value?.title || ''
     })
 
-    const handleChange = ({ target: { name, value }}: React.ChangeEvent<HTMLInputElement>) =>
+    const handleChange = ({
+        target: { name, value }
+    }: React.ChangeEvent<HTMLInputElement>) =>
         setFormState((prev) => ({ ...prev, [name]: value }))
 
-    const handleKeyDown = (e: { key: string }) => (e.key === 'Enter') && handleSubmit()
+    const handleKeyDown = (e: { key: string }) =>
+        e.key === 'Enter' && handleSubmit()
 
     const handleSubmit = async () => {
         // try {
@@ -48,7 +51,7 @@ const ObjectEditModal: React.FC<IObjectEditModal> = (props) => {
 
     useEffect(() => {
         if (value) {
-            setFormState(value);
+            setFormState(value)
         }
     }, [value])
 
@@ -60,9 +63,7 @@ const ObjectEditModal: React.FC<IObjectEditModal> = (props) => {
         >
             <Modal.Header>Редактирование объекта</Modal.Header>
             <Modal.Content>
-                <Form
-                    onSubmit={handleSubmit}
-                >
+                <Form onSubmit={handleSubmit}>
                     <Form.Input
                         fluid
                         name='title'
@@ -80,7 +81,12 @@ const ObjectEditModal: React.FC<IObjectEditModal> = (props) => {
                         defaultValue={value?.category}
                     />
                     <Form.TextArea
-                        onChange={(event, data) => setFormState((prev) => ({ ...prev, text: data.value?.toString()! }))}
+                        onChange={(event, data) =>
+                            setFormState((prev) => ({
+                                ...prev,
+                                text: data.value?.toString()!
+                            }))
+                        }
                         label='Описание'
                         onKeyDown={handleKeyDown}
                         defaultValue={value?.text}
@@ -119,13 +125,13 @@ const ObjectEditModal: React.FC<IObjectEditModal> = (props) => {
                                 className='skyMap'
                             >
                                 <SkyMap
-                                    objects={
-                                        [{
-                                            ra: Number(formState?.ra) || 0,
-                                            dec:  Number(formState?.dec) || 0,
-                                            name: formState?.name || ''
-                                        }]
-                                    }
+                                    objects={[
+                                        {
+                                            dec: Number(formState?.dec) || 0,
+                                            name: formState?.name || '',
+                                            ra: Number(formState?.ra) || 0
+                                        }
+                                    ]}
                                 />
                             </Grid.Column>
                         )}

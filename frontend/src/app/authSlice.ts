@@ -1,14 +1,17 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+
 import { IRestAuth } from './types'
+
 // import { RootState } from './store'
 
 export const authSlice = createSlice({
-    name: 'auth',
     initialState: { status: false, token: '' } as IRestAuth,
+    name: 'auth',
     reducers: {
         setCredentials: (
             state,
-            { payload: { status, token } }: PayloadAction<IRestAuth> ) => {
+            { payload: { status, token } }: PayloadAction<IRestAuth>
+        ) => {
             state.status = status
             state.token = token
         }

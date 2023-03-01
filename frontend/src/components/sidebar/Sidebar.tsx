@@ -1,16 +1,18 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { Sidebar as SidebarMenu, Menu, Label } from 'semantic-ui-react'
-import { useAppSelector, useAppDispatch } from 'app/hooks'
-import { useGetStatisticQuery } from 'app/observatoryApi'
-import { hide } from 'components/sidebar/sidebarSlice'
+import { Label, Menu, Sidebar as SidebarMenu } from 'semantic-ui-react'
+
+import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { MENU_ITEMS } from 'app/menu'
+import { useGetStatisticQuery } from 'app/observatoryApi'
+
+import { hide } from 'components/sidebar/sidebarSlice'
 
 import './styles.sass'
 
 const Sidebar: React.FC = () => {
     const dispatch = useAppDispatch()
-    const visible = useAppSelector(state => state.sidebar.visible)
+    const visible = useAppSelector((state) => state.sidebar.visible)
     const { data, isSuccess } = useGetStatisticQuery()
 
     return (
@@ -24,14 +26,25 @@ const Sidebar: React.FC = () => {
             visible={visible}
             width='thin'
         >
-            {MENU_ITEMS.map((item, key) =>
-                <Menu.Item as={NavLink} onClick={() => dispatch(hide())} exact to={item.link} key={key}>
+            {MENU_ITEMS.map((item, key) => (
+                <Menu.Item
+                    as={NavLink}
+                    onClick={() => dispatch(hide())}
+                    exact
+                    to={item.link}
+                    key={key}
+                >
                     {item.name}
-                    {item.label &&
-                    <Label color='green' size='tiny'>{isSuccess ? data?.payload[item.label] : 0}</Label>
-                    }
+                    {item.label && (
+                        <Label
+                            color='green'
+                            size='tiny'
+                        >
+                            {isSuccess ? data?.payload[item.label] : 0}
+                        </Label>
+                    )}
                 </Menu.Item>
-            )}
+            ))}
         </SidebarMenu>
     )
 }

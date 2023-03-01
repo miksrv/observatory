@@ -1,20 +1,22 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { observatoryApi } from './observatoryApi'
-import sidebarSlice from 'components/sidebar/sidebarSlice'
+
 import loginFormSlice from 'components/login-form/loginFormSlice'
+import sidebarSlice from 'components/sidebar/sidebarSlice'
+
 import authSlice from './authSlice'
+import { observatoryApi } from './observatoryApi'
 
 export const store = configureStore({
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(observatoryApi.middleware),
     reducer: {
-        sidebar: sidebarSlice,
-        loginForm: loginFormSlice,
         auth: authSlice,
+        loginForm: loginFormSlice,
+        sidebar: sidebarSlice,
 
         // Add the generated reducer as a specific top-level slice
         [observatoryApi.reducerPath]: observatoryApi.reducer
-    },
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(observatoryApi.middleware),
+    }
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

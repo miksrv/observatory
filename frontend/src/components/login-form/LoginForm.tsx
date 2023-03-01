@@ -1,27 +1,32 @@
 import React, { useState } from 'react'
-import { Modal, Message, Form, Button } from 'semantic-ui-react'
-import { useAppSelector, useAppDispatch } from 'app/hooks'
+import { Button, Form, Message, Modal } from 'semantic-ui-react'
+
+import { setCredentials } from 'app/authSlice'
+import { useAppDispatch, useAppSelector } from 'app/hooks'
 import { useLoginMutation } from 'app/observatoryApi'
 import { ICredentials } from 'app/types'
+
 import { hide } from 'components/login-form/loginFormSlice'
-import { setCredentials } from 'app/authSlice'
 
 import './styles.sass'
 
 const LoginForm: React.FC = () => {
     const dispatch = useAppDispatch()
-    const { visible } = useAppSelector(state => state.loginForm)
-    const [ login, { isLoading } ] = useLoginMutation()
-    const [ loginError, setLoginError ] = useState<boolean>(false)
-    const [ formState, setFormState ] = useState<ICredentials>({
-        username: '',
-        password: ''
+    const { visible } = useAppSelector((state) => state.loginForm)
+    const [login, { isLoading }] = useLoginMutation()
+    const [loginError, setLoginError] = useState<boolean>(false)
+    const [formState, setFormState] = useState<ICredentials>({
+        password: '',
+        username: ''
     })
 
-    const handleChange = ({ target: { name, value }}: React.ChangeEvent<HTMLInputElement>) =>
+    const handleChange = ({
+        target: { name, value }
+    }: React.ChangeEvent<HTMLInputElement>) =>
         setFormState((prev) => ({ ...prev, [name]: value }))
 
-    const handleKeyDown = (e: { key: string }) => (e.key === 'Enter') && handleSubmit()
+    const handleKeyDown = (e: { key: string }) =>
+        e.key === 'Enter' && handleSubmit()
 
     const handleSubmit = async () => {
         try {
@@ -47,12 +52,12 @@ const LoginForm: React.FC = () => {
         >
             <Modal.Header>Авторизация</Modal.Header>
             <Modal.Content>
-                {loginError &&
+                {loginError && (
                     <Message
                         error
                         content='Ошибка авторизации, неверный логин или пароль'
                     />
-                }
+                )}
                 <Form
                     size='large'
                     onSubmit={handleSubmit}
@@ -88,7 +93,9 @@ const LoginForm: React.FC = () => {
                     size='tiny'
                     onClick={handleSubmit}
                     color='green'
-                    disabled={isLoading || (!formState.username || !formState.password)}
+                    disabled={
+                        isLoading || !formState.username || !formState.password
+                    }
                     loading={isLoading}
                 >
                     Войти

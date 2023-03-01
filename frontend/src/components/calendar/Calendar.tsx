@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
 import moment, { Moment } from 'moment'
+import React, { useState } from 'react'
 import { Button, Dimmer, Loader } from 'semantic-ui-react'
-import { TWeatherMonth, TFilesMonth } from 'app/types'
+
+import { TFilesMonth, TWeatherMonth } from 'app/types'
 
 import RenderCalendar from './RenderCalendar'
-
 import './styles.sass'
 
 type TCalendarProps = {
@@ -16,7 +16,7 @@ type TCalendarProps = {
 
 const Calendar: React.FC<TCalendarProps> = (props) => {
     const { loading, eventsWeather, eventsTelescope, changeDate } = props
-    const [ dateObject, setDateObject ] = useState<Moment>(moment())
+    const [dateObject, setDateObject] = useState<Moment>(moment())
     const weekDayShort = moment.weekdaysShort(true)
 
     const handleChangeDate = (date: Moment) => {
@@ -26,30 +26,42 @@ const Calendar: React.FC<TCalendarProps> = (props) => {
 
     return (
         <div className='box table calendar'>
-            {loading &&
+            {loading && (
                 <Dimmer active>
                     <Loader />
                 </Dimmer>
-            }
+            )}
             <div className='calendar-toolbar'>
                 <Button
                     size='mini'
                     color='green'
                     icon='angle left'
-                    onClick={() => handleChangeDate(moment(dateObject.subtract(1, 'month')))}
+                    onClick={() =>
+                        handleChangeDate(
+                            moment(dateObject.subtract(1, 'month'))
+                        )
+                    }
                 />
-                <span className='current-month'>{dateObject.format('MMMM Y')}</span>
+                <span className='current-month'>
+                    {dateObject.format('MMMM Y')}
+                </span>
                 <Button
                     size='mini'
                     color='green'
                     icon='angle right'
-                    onClick={() => handleChangeDate(moment(dateObject.add(1, 'month')))}
+                    onClick={() =>
+                        handleChangeDate(moment(dateObject.add(1, 'month')))
+                    }
                 />
             </div>
             <div className='grid'>
                 <table className='calendar-day'>
                     <thead>
-                        <tr>{weekDayShort.map((day, key) => (<th key={key}>{day}</th>))}</tr>
+                        <tr>
+                            {weekDayShort.map((day, key) => (
+                                <th key={key}>{day}</th>
+                            ))}
+                        </tr>
                     </thead>
                     <tbody>
                         <RenderCalendar

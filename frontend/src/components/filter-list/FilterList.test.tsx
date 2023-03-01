@@ -1,6 +1,6 @@
-import React from 'react'
-import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
+import { render, screen } from '@testing-library/react'
+import React from 'react'
 
 import FilterList from 'components/filter-list/FilterList'
 
@@ -9,13 +9,13 @@ describe('Component FilterList', () => {
         render(
             <FilterList
                 filters={{
-                    Luminance: { exposure: 2400, frames: 54 },
-                    Red: { exposure: 3100, frames: 61 },
-                    Green: { exposure: 500, frames: 21 },
                     Blue: { exposure: 0, frames: 0 },
+                    Green: { exposure: 500, frames: 21 },
                     Ha: { exposure: 0, frames: 0 },
+                    Luminance: { exposure: 2400, frames: 54 },
                     OIII: { exposure: 0, frames: 0 },
-                    SII: { exposure: 0, frames: 0 },
+                    Red: { exposure: 3100, frames: 61 },
+                    SII: { exposure: 0, frames: 0 }
                 }}
             />
         )

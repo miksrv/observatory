@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react'
-import { TObject, geoJSON } from './types'
 import celestial from 'd3-celestial'
+import React, { useEffect, useRef } from 'react'
+
 import config from './object'
+import { TObject, geoJSON } from './types'
 
 type TRenderMapProps = {
     config: any
@@ -11,16 +12,16 @@ type TRenderMapProps = {
 }
 
 const stylePoint = {
+    fill: 'rgba(252,130,130,0.4)',
     stroke: '#ff0000',
-    width: 1,
-    fill: 'rgba(252,130,130,0.4)'
+    width: 1
 }
 
 const styleText = {
-    fill:'#ff0000',
-    font: '12px sans-serif',
     align: 'left',
-    baseline: 'bottom'
+    baseline: 'bottom',
+    fill: '#ff0000',
+    font: '12px sans-serif'
 }
 
 const usePrevious: any = (value: any) => {
@@ -35,24 +36,24 @@ const usePrevious: any = (value: any) => {
 
 const createObjectsJSON = (objects: TObject[]) => {
     const JSON: any = {
-        type: 'FeatureCollection',
-        features: []
+        features: [],
+        type: 'FeatureCollection'
     }
 
     objects.map((item) => {
         const objectName = item.name.replace(/_/g, ' ')
         const objectJSON = {
-            type: 'Feature',
+            geometry: {
+                coordinates: [item.ra, item.dec],
+                type: 'Point'
+            },
             id: objectName,
             properties: {
-                name: objectName,
+                dim: 30,
                 mag: 10,
-                dim: 30
+                name: objectName
             },
-            geometry: {
-                type: 'Point',
-                coordinates: [item.ra, item.dec]
-            }
+            type: 'Feature'
         }
 
         return JSON.features.push(objectJSON)
@@ -63,7 +64,7 @@ const createObjectsJSON = (objects: TObject[]) => {
 
 const RenderMap: React.FC<TRenderMapProps> = (props) => {
     const { objects, width, config: customConfig, goto } = props
-    const prevJSON = usePrevious({objects})
+    const prevJSON = usePrevious({ objects })
     const SkyMap = celestial.Celestial()
 
     // const box = document.createElement('div')
@@ -75,44 +76,85 @@ const RenderMap: React.FC<TRenderMapProps> = (props) => {
     // document.body.appendChild(box);
 
     useEffect(() => {
-        if (prevJSON === undefined || JSON.stringify(prevJSON.objects) !== JSON.stringify(objects)) {
-
+        if (
+            prevJSON === undefined ||
+            JSON.stringify(prevJSON.objects) !== JSON.stringify(objects)
+        ) {
             const geoJSON: geoJSON = createObjectsJSON(objects)
 
             SkyMap.clear()
-            SkyMap.add({
-                type: 'Point', callback: (error: any) => {
-                    if (error) return console.warn(error)
+            SkyMap.add(
+                {
+                    callback: (error: any) => {
+                        if (error) {
+                            console.warn(error)
 
-                    let skyPoint = SkyMap.getData(geoJSON, config.transform)
-
-                    SkyMap.container.selectAll('.sky-points')
-                        .data(skyPoint.features)
-                        .enter().append('path')
-                        .attr('class', 'sky-points')
-                    SkyMap.redraw()
-                }, redraw: () => {
-                    SkyMap.container.selectAll('.sky-points').each((point: { geometry: { coordinates: any }; properties: { name: any } }) => {
-                        if (SkyMap.clip(point.geometry.coordinates)) {
-                            let pointCoords = SkyMap.mapProjection(point.geometry.coordinates),
-                                pointRadius = 5
-
-                            SkyMap.setStyle(stylePoint)
-                            SkyMap.context.beginPath()
-                            SkyMap.context.arc(pointCoords[0], pointCoords[1], pointRadius, 0, 2 * Math.PI)
-                            SkyMap.context.closePath()
-                            SkyMap.context.stroke()
-                            SkyMap.context.fill()
-                            SkyMap.setTextStyle(styleText)
-                            SkyMap.context.fillText(point.properties.name, pointCoords[0] + pointRadius - 1, pointCoords[1] - pointRadius + 1)
+                            return null
                         }
-                    });
-                }
-            }, [geoJSON])
+
+                        let skyPoint = SkyMap.getData(geoJSON, config.transform)
+
+                        SkyMap.container
+                            .selectAll('.sky-points')
+                            .data(skyPoint.features)
+                            .enter()
+                            .append('path')
+                            .attr('class', 'sky-points')
+                        SkyMap.redraw()
+                    },
+                    redraw: () => {
+                        SkyMap.container
+                            .selectAll('.sky-points')
+                            .each(
+                                (point: {
+                                    geometry: { coordinates: any }
+                                    properties: { name: any }
+                                }) => {
+                                    if (
+                                        SkyMap.clip(point.geometry.coordinates)
+                                    ) {
+                                        let pointCoords = SkyMap.mapProjection(
+                                                point.geometry.coordinates
+                                            ),
+                                            pointRadius = 5
+
+                                        SkyMap.setStyle(stylePoint)
+                                        SkyMap.context.beginPath()
+                                        SkyMap.context.arc(
+                                            pointCoords[0],
+                                            pointCoords[1],
+                                            pointRadius,
+                                            0,
+                                            2 * Math.PI
+                                        )
+                                        SkyMap.context.closePath()
+                                        SkyMap.context.stroke()
+                                        SkyMap.context.fill()
+                                        SkyMap.setTextStyle(styleText)
+                                        SkyMap.context.fillText(
+                                            point.properties.name,
+                                            pointCoords[0] + pointRadius - 1,
+                                            pointCoords[1] - pointRadius + 1
+                                        )
+                                    }
+                                }
+                            )
+                    },
+                    type: 'Point'
+                },
+                [geoJSON]
+            )
 
             if (geoJSON.features.length === 1) {
-                config.follow = [geoJSON.features[0].geometry.coordinates[0], geoJSON.features[0].geometry.coordinates[1]]
-                config.center = [geoJSON.features[0].geometry.coordinates[0], geoJSON.features[0].geometry.coordinates[1], 0]
+                config.follow = [
+                    geoJSON.features[0].geometry.coordinates[0],
+                    geoJSON.features[0].geometry.coordinates[1]
+                ]
+                config.center = [
+                    geoJSON.features[0].geometry.coordinates[0],
+                    geoJSON.features[0].geometry.coordinates[1],
+                    0
+                ]
             }
 
             config.width = width
@@ -163,7 +205,7 @@ const RenderMap: React.FC<TRenderMapProps> = (props) => {
 
     useEffect(() => {
         if (goto !== undefined && goto[0] !== 0 && goto[1] !== 0) {
-            SkyMap.rotate({ center: [ goto[0], goto[1], 1 ]})
+            SkyMap.rotate({ center: [goto[0], goto[1], 1] })
         }
     }, [SkyMap, goto])
 
@@ -188,7 +230,10 @@ const RenderMap: React.FC<TRenderMapProps> = (props) => {
     // })
 
     return (
-        <div id='celestial-map' className='sky-map'></div>
+        <div
+            id='celestial-map'
+            className='sky-map'
+        ></div>
     )
 }
 

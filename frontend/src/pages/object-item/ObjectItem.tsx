@@ -1,21 +1,26 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import {
-    useGetObjectItemQuery, useGetObjectFilesQuery,
-    useGetCatalogItemQuery, useGetPhotoListItemQuery,
-    useGetObjectNamesQuery
-} from 'app/observatoryApi'
-import {Grid, Message} from 'semantic-ui-react'
-import { isOutdated } from 'functions/helpers';
-import ObjectItemHeader from './ObjectItemHeader'
-import PhotoTable from 'components/photo-table/PhotoTable'
-import FilesTable from 'components/files-table/FilesTable'
-import Chart from 'components/chart/Chart'
-import ObjectCloud from 'components/object-cloud/ObjectCloud'
+import { Grid, Message } from 'semantic-ui-react'
 
+import {
+    useGetCatalogItemQuery,
+    useGetObjectFilesQuery,
+    useGetObjectItemQuery,
+    useGetObjectNamesQuery,
+    useGetPhotoListItemQuery
+} from 'app/observatoryApi'
+
+import { isOutdated } from 'functions/helpers'
+
+import Chart from 'components/chart/Chart'
 import chart_coordinates from 'components/chart/chart_coordinates'
 import chart_coordlines from 'components/chart/chart_coordlines'
 import chart_statistic from 'components/chart/chart_statistic'
+import FilesTable from 'components/files-table/FilesTable'
+import ObjectCloud from 'components/object-cloud/ObjectCloud'
+import PhotoTable from 'components/photo-table/PhotoTable'
+
+import ObjectItemHeader from './ObjectItemHeader'
 
 type TParamsURL = {
     name: string
@@ -23,13 +28,24 @@ type TParamsURL = {
 
 const ObjectItem: React.FC = () => {
     const params: TParamsURL = useParams()
-    const { data: dataObject, isFetching: objectLoading, isError } = useGetObjectItemQuery(params.name)
-    const { data: dataCatalog, isFetching: catalogLoading } = useGetCatalogItemQuery(params.name)
+    const {
+        data: dataObject,
+        isFetching: objectLoading,
+        isError
+    } = useGetObjectItemQuery(params.name)
+    const { data: dataCatalog, isFetching: catalogLoading } =
+        useGetCatalogItemQuery(params.name)
     const { data: dataPhotos } = useGetPhotoListItemQuery(params.name)
-    const { data: dataFiles, isFetching: fileLoading } = useGetObjectFilesQuery(params.name)
-    const { data: dataNames, isFetching: namesLoading } = useGetObjectNamesQuery()
+    const { data: dataFiles, isFetching: fileLoading } = useGetObjectFilesQuery(
+        params.name
+    )
+    const { data: dataNames, isFetching: namesLoading } =
+        useGetObjectNamesQuery()
 
-    const title = dataCatalog && dataCatalog?.payload.title ? dataCatalog?.payload.title : params.name
+    const title =
+        dataCatalog && dataCatalog?.payload.title
+            ? dataCatalog?.payload.title
+            : params.name
 
     const chartData: [number, number][] = []
     const chartRa: number[] = []
@@ -37,8 +53,8 @@ const ObjectItem: React.FC = () => {
     const chartHFR: number[] = []
     const chartSNR: number[] = []
 
-    let deviationRa: number = 0;
-    let deviationDec: number = 0;
+    let deviationRa: number = 0
+    let deviationDec: number = 0
 
     document.title = `${title} - Обсерватория`
 
@@ -90,7 +106,10 @@ const ObjectItem: React.FC = () => {
                 deviationRa={Math.round(deviationRa * 100) / 100}
                 deviationDec={Math.round(deviationDec * 100) / 100}
             />
-            {isOutdated(dataPhotos?.payload?.[0].date!, dataObject?.payload.date!) ? (
+            {isOutdated(
+                dataPhotos?.payload?.[0].date!,
+                dataObject?.payload.date!
+            ) ? (
                 <Message
                     warning
                     icon='warning sign'
@@ -100,39 +119,46 @@ const ObjectItem: React.FC = () => {
             ) : (
                 <br />
             )}
-            {(dataPhotos?.payload && !objectLoading) &&
+            {dataPhotos?.payload && !objectLoading && (
                 <>
                     <PhotoTable photos={dataPhotos?.payload} />
                 </>
-            }
+            )}
             <br />
             <Grid>
-                <Grid.Column computer={6} tablet={16} mobile={16}>
+                <Grid.Column
+                    computer={6}
+                    tablet={16}
+                    mobile={16}
+                >
                     <Chart
                         loader={fileLoading}
                         config={chart_coordinates}
                         data={[chartData]}
                     />
                 </Grid.Column>
-                <Grid.Column computer={10} tablet={16} mobile={16}>
+                <Grid.Column
+                    computer={10}
+                    tablet={16}
+                    mobile={16}
+                >
                     <Chart
                         loader={fileLoading}
                         config={chart_coordlines}
                         data={[chartRa, chartDec]}
                     />
                 </Grid.Column>
-                {chartHFR.length && chartSNR.length
-                    ? (
-                        <Grid.Column width={16}>
-                            <Chart
-                                loader={fileLoading}
-                                config={chart_statistic}
-                                data={[chartHFR, chartSNR]}
-                            />
-                        </Grid.Column>
-                    )
-                    : ''
-                }
+                {chartHFR.length && chartSNR.length ? (
+                    <Grid.Column width={16}>
+                        <Chart
+                            loader={fileLoading}
+                            config={chart_statistic}
+                            data={[chartHFR, chartSNR]}
+                        />
+                    </Grid.Column>
+                ) : (
+                    ''
+                )}
             </Grid>
             <br />
             <FilesTable

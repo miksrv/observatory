@@ -12,19 +12,24 @@ type TToolbarProps = {
 const PhotoCategorySwitcher: React.FC<TToolbarProps> = (props) => {
     const { active, categories, onSelectCategory } = props
 
-    const CategoryButton = (category: string) => <Button
-        color={active === category ? 'olive' : 'green'}
-        size='mini'
-        key={category}
-        onClick={() => onSelectCategory(category)}
-    >
-        {category === '' ? 'Все объекты' : category}
-    </Button>
+    const CategoryButton = (category: string) => (
+        <Button
+            color={active === category ? 'olive' : 'green'}
+            size='mini'
+            key={category}
+            onClick={() => onSelectCategory(category)}
+        >
+            {category === '' ? 'Все объекты' : category}
+        </Button>
+    )
 
-    return <div className='category-toolbar'>
-        {CategoryButton('')}
-        {categories && categories.map((item: string) => CategoryButton(item))}
-    </div>
+    return (
+        <div className='category-toolbar'>
+            {CategoryButton('')}
+            {categories &&
+                categories.map((item: string) => CategoryButton(item))}
+        </div>
+    )
 }
 
 export default PhotoCategorySwitcher

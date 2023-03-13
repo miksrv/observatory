@@ -1,4 +1,4 @@
-name: FTP Deploy
+name: Deployment
 
 on:
   push:
@@ -9,48 +9,47 @@ jobs:
   ftp-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: 🛒 Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: ⚙️ Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 18
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
 
-      - name: 📦 Cache node_modules
+      - name: Cache node_modules
         uses: actions/cache@v2
         id: cache
         with:
-          path: '**/frontend/node_modules'
+          path: 'frontend/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
 
-      - name: 💿 Install
+      - name: Install UI
         run: npm ci -f
         working-directory: ./frontend
 
-      - name: 💾 Configure Client
+      - name: Configure Client
         run: |
           echo "REACT_APP_API_HOST = '${{ secrets.CLIENT_API_HOST }}'
           REACT_APP_METRIKA = ' '" > .env
         working-directory: ./frontend
 
-      - name: 👷‍ Build UI
+      - name: Build UI
         run: |
           export dateNow=$(date +"%d.%m.%Y")
           echo "export const update = '$dateNow'" > src/update.ts
           npm run build --if-present
         working-directory: ./frontend
 
-      - name: 📦 Get LFTP
+      - name: Install LFTP
         run: sudo apt install lftp
 
-      - name: 🛠️ Configure LFTP
+      - name: Configure LFTP
         run: mkdir ~/.lftp && echo "set ssl:verify-certificate false;" >> ~/.lftp/rc
 
-      - name: 🔑 Load Secrets
+      - name: Load Secrets
         run: echo "machine ${{ secrets.FTP_HOSTNAME }} login ${{ secrets.FTP_USERNAME }} password ${{ secrets.FTP_PASSWORD }}" > ~/.netrc
 
-      - name: 📁 Upload Folder
+      - name: Upload Folder
         run: lftp -e "mirror --parallel=100 -R frontend/build/ /" ${{ secrets.FTP_HOSTNAME }}
